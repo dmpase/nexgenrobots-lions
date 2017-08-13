@@ -5,7 +5,7 @@ public class Functionz {
 		print_array(x);
 	}
 	public static void print_array(int[] a){
-		for (int i=0; a!= null&& i < a.length; i++){
+		for (int i=0; a != null && i < a.length; i++){
 			System.out.println(a[i]);
 		}
 	}
