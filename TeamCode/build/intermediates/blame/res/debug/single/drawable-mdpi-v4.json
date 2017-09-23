@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/res/merged/debug/drawable-mdpi-v4/ic_launcher.png",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/bundles/default/res/drawable-mdpi-v4/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/ftc_app-master/TeamCode/build/intermediates/res/merged/debug/drawable-mdpi-v4/ic_launcher.png",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/ftc_app-master/FtcRobotController/build/intermediates/bundles/default/res/drawable-mdpi-v4/ic_launcher.png"
+    }
+]

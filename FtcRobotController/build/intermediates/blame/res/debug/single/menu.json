@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/menu/ftc_robot_controller.xml",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/ftc_app-master/FtcRobotController/src/main/res/menu/ftc_robot_controller.xml"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/res/merged/debug/menu/ftc_robot_controller.xml",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/src/main/res/menu/ftc_robot_controller.xml"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/res/merged/debug/menu/menu_server.xml",
+        "source": "/Users/tcs_tech/.android/build-cache/e60a2def486dc640aad7b823ed9013ad0f6cf4d3/output/res/menu/menu_server.xml"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/menu/menu_server.xml",
+        "source": "/Users/tcs_tech/.android/build-cache/0597eaa09af23f073f746d0beadb609007f0670b/output/res/menu/menu_server.xml"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/menu/main_menu.xml",
+        "source": "/Users/tcs_tech/.android/build-cache/bd3948eaf6a782e489289e2f40c0128b7d26dee5/output/res/menu/main_menu.xml"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/res/merged/debug/menu/main_menu.xml",
+        "source": "/Users/tcs_tech/.android/build-cache/e8c44ca90c3e7df5ea449bb204f374522d83deb3/output/res/menu/main_menu.xml"
+    }
+]
