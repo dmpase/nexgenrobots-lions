@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/tcs_tech/.android/build-cache/80237ee7582343669e40110d9e821eff2add7fdf/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="75bdc736b17d8f39d246beac357cb3a0e007fcfa">
+        <dex dex="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/pre-dexed/debug/classes_d9a9e448ce9d6bbe77739a82ca53edbdce5cbb14.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/tcs_tech/.android/build-cache/2955d98ebaf0d6f30505b07347f560ed7beba1b3/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e259d01a014f392930432e85cc1ac9bf807a92df">
+        <dex dex="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/pre-dexed/debug/classes_4828248b81bc32c0172e015c575689549923d4c8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/tcs_tech/.android/build-cache/a8229839a2668625c1fc4892bb081c22df723f14/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9403be210676ed196cdcc64c7391b9ae2361c174">
+        <dex dex="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/pre-dexed/debug/classes_88a48a076551008fcdcf39392b1c232b33f319fb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/tcs_tech/.android/build-cache/68c1764abcc02adaeedf562a9ccf2720eaea04d8/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9da82f9829b6cafb8407989729481220ca06c905">
+        <dex dex="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/pre-dexed/debug/classes_ffeba256d90569cb3cfbd9c3511d4aafba679182.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/tcs_tech/.android/build-cache/990a120c2092cb8411545999573d7968ae7d6a14/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9dafed45e330aec14abcce05bdb7bbdb2a2d7092">
+        <dex dex="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/pre-dexed/debug/classes_0af6d3f0dd08951f171dc5d2488d26217b06cd2d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="63096d280a6d0792ddbe5601216c3bc2bb685e8c">
+        <dex dex="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/pre-dexed/debug/classes_fb49d7cda4b2037a2a8458e8cdbcf5b40fd0e448.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/tcs_tech/.android/build-cache/818df029d770d8b1cb6619e42e07c7f936c9bc09/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="96cbbea552fe9bf3c56540c7e4912eb5cf72301e">
+        <dex dex="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/pre-dexed/debug/classes_ead9dbbc7bf14185c68bed2ed6e7c600b690e69c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/tcs_tech/.android/build-cache/c5586fe13331ce9b652c98331e4c8a771a5fffe6/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c2abba0621a5319232804767218216568263aa37">
+        <dex dex="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/pre-dexed/debug/classes_0406bb4d943a9ba791cb6f215ba03e9cfd2df52a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/tcs_tech/.android/build-cache/2955d98ebaf0d6f30505b07347f560ed7beba1b3/output/jars/libs/javac.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c576121aac49e547b39aedfb1daa29782db4166c">
+        <dex dex="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/pre-dexed/debug/javac_c66fe37867c8a0d95b5ecaf18e7f78c1adafa1a0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/tcs_tech/.android/build-cache/2955d98ebaf0d6f30505b07347f560ed7beba1b3/output/jars/libs/gson-2.8.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e118dd0900e4a18fb928ebb8df2d9fbda78f2b5d">
+        <dex dex="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/pre-dexed/debug/gson-2.8.0_fca054243e1c1e8550af2f12fe71a7e2c7cd804e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/tcs_tech/.android/build-cache/2955d98ebaf0d6f30505b07347f560ed7beba1b3/output/jars/libs/Vuforia.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="91b46366eb9f8203073ee2935087c097c888c0ed">
+        <dex dex="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/pre-dexed/debug/Vuforia_487fb272838fc8edb7cf0cd5dbbe26ac53ce9ec0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/tcs_tech/.android/build-cache/2955d98ebaf0d6f30505b07347f560ed7beba1b3/output/jars/libs/support-annotations-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5a214d3b1b12e72f4fb0d5d5d8d0ec43c96de2b5">
+        <dex dex="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_5cdbd269f7c0613260937f861d9c67ec32a7909c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/tcs_tech/.android/build-cache/2955d98ebaf0d6f30505b07347f560ed7beba1b3/output/jars/libs/gson-extras-0.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b30c2655badcc7ce97f84e49f777b7dd154bad57">
+        <dex dex="/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/TeamCode/build/intermediates/pre-dexed/debug/gson-extras-0.2.1_7c2d505c233494b8926d3cf62697ce234accaee8.jar" />
+    </item>
+
+</items>

@@ -13,11 +13,11 @@
     },
     {
         "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/res/merged/debug/xml/rev_scoot.xml",
-        "source": "/Users/tcs_tech/.android/build-cache/7eaac7278f87ac7926e998e5d36bb81c3164c2e8/output/res/xml/rev_scoot.xml"
+        "source": "/Users/tcs_tech/.android/build-cache/c5586fe13331ce9b652c98331e4c8a771a5fffe6/output/res/xml/rev_scoot.xml"
     },
     {
         "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/res/merged/debug/xml/k9usbbot.xml",
-        "source": "/Users/tcs_tech/.android/build-cache/7eaac7278f87ac7926e998e5d36bb81c3164c2e8/output/res/xml/k9usbbot.xml"
+        "source": "/Users/tcs_tech/.android/build-cache/c5586fe13331ce9b652c98331e4c8a771a5fffe6/output/res/xml/k9usbbot.xml"
     },
     {
         "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/xml/k9usbbot.xml",
@@ -25,19 +25,19 @@
     },
     {
         "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/res/merged/debug/xml/advanced_rc_settings.xml",
-        "source": "/Users/tcs_tech/.android/build-cache/7eaac7278f87ac7926e998e5d36bb81c3164c2e8/output/res/xml/advanced_rc_settings.xml"
+        "source": "/Users/tcs_tech/.android/build-cache/c5586fe13331ce9b652c98331e4c8a771a5fffe6/output/res/xml/advanced_rc_settings.xml"
     },
     {
         "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/res/merged/debug/xml/maxmodules.xml",
-        "source": "/Users/tcs_tech/.android/build-cache/7eaac7278f87ac7926e998e5d36bb81c3164c2e8/output/res/xml/maxmodules.xml"
+        "source": "/Users/tcs_tech/.android/build-cache/c5586fe13331ce9b652c98331e4c8a771a5fffe6/output/res/xml/maxmodules.xml"
     },
     {
         "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/res/merged/debug/xml/k9legacybot.xml",
-        "source": "/Users/tcs_tech/.android/build-cache/7eaac7278f87ac7926e998e5d36bb81c3164c2e8/output/res/xml/k9legacybot.xml"
+        "source": "/Users/tcs_tech/.android/build-cache/c5586fe13331ce9b652c98331e4c8a771a5fffe6/output/res/xml/k9legacybot.xml"
     },
     {
         "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/res/merged/debug/xml/pushbotsens.xml",
-        "source": "/Users/tcs_tech/.android/build-cache/7eaac7278f87ac7926e998e5d36bb81c3164c2e8/output/res/xml/pushbotsens.xml"
+        "source": "/Users/tcs_tech/.android/build-cache/c5586fe13331ce9b652c98331e4c8a771a5fffe6/output/res/xml/pushbotsens.xml"
     },
     {
         "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/res/merged/debug/xml/app_settings.xml",
@@ -57,7 +57,7 @@
     },
     {
         "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/res/merged/debug/xml/pushbot.xml",
-        "source": "/Users/tcs_tech/.android/build-cache/7eaac7278f87ac7926e998e5d36bb81c3164c2e8/output/res/xml/pushbot.xml"
+        "source": "/Users/tcs_tech/.android/build-cache/c5586fe13331ce9b652c98331e4c8a771a5fffe6/output/res/xml/pushbot.xml"
     },
     {
         "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/xml/advanced_rc_settings.xml",
@@ -77,6 +77,6 @@
     },
     {
         "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/res/merged/debug/xml/squarebot.xml",
-        "source": "/Users/tcs_tech/.android/build-cache/7eaac7278f87ac7926e998e5d36bb81c3164c2e8/output/res/xml/squarebot.xml"
+        "source": "/Users/tcs_tech/.android/build-cache/c5586fe13331ce9b652c98331e4c8a771a5fffe6/output/res/xml/squarebot.xml"
     }
 ]
