@@ -154,7 +154,7 @@ public class EchoOpMode_Iterative extends OpMode
         telemetry.addData("1", "L:(%.2f, %.2f, %.2f) R:(%.2f, %.2f, %.2f)", g1_lsx, g1_lsy, g1_ltr, g1_rsx, g1_rsy, g1_rtr);
         telemetry.addData("", gp1_buttons);
         telemetry.addData("2", "L:(%.2f, %.2f, %.2f) R:(%.2f, %.2f, %.2f)", g2_lsx, g2_lsy, g2_ltr, g2_rsx, g2_rsy, g2_rtr);
-        telemetry.addData("", gp1_buttons);
+        telemetry.addData("", gp2_buttons);
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
 
