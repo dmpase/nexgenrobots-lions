@@ -92,8 +92,6 @@ public class EchoOpMode_Iterative extends OpMode
      */
     @Override
     public void loop() {
-        // Setup a variable for each drive wheel to save power level for telemetry
-
         double g1_lsx = gamepad1.left_stick_x;
         double g1_lsy = gamepad1.left_stick_y;
         double g1_ltr = gamepad1.left_trigger;
