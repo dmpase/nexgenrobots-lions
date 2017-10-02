@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/Users/980017255/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-sw720dp-land-v13/values-sw720dp-land-v13.xml",
+        "outputFile": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-sw720dp-land-v13\\values-sw720dp-land-v13.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,31 @@
                     "endOffset": 109
                 },
                 "from": {
-                    "file": "/Users/980017255/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/src/main/res/values-sw720dp-land/dimens.xml",
+                    "file": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\values-sw720dp-land\\dimens.xml",
+                    "position": {
+                        "startLine": 39,
+                        "startColumn": 4,
+                        "startOffset": 1888,
+                        "endColumn": 58,
+                        "endOffset": 1942
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-sw720dp-land-v13\\values-sw720dp-land-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 58,
+                    "endOffset": 109
+                },
+                "from": {
+                    "file": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\values-sw720dp-land\\dimens.xml",
                     "position": {
                         "startLine": 39,
                         "startColumn": 4,
@@ -24,7 +48,7 @@
         ]
     },
     {
-        "outputFile": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-sw720dp-land-v13/values-sw720dp-land-v13.xml",
+        "outputFile": "Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-sw720dp-land-v13\\values-sw720dp-land-v13.xml",
         "map": [
             {
                 "to": {
@@ -35,7 +59,7 @@
                     "endOffset": 109
                 },
                 "from": {
-                    "file": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-code/FtcRobotController/src/main/res/values-sw720dp-land/dimens.xml",
+                    "file": "Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\values-sw720dp-land\\dimens.xml",
                     "position": {
                         "startLine": 39,
                         "startColumn": 4,

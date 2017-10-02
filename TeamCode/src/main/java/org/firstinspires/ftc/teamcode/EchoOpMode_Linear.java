@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="Linear EchoOpMode", group="Linear Opmode")
-// @Disabled
+@Disabled
 public class EchoOpMode_Linear extends LinearOpMode {
 
     // Declare OpMode members.
@@ -60,6 +60,7 @@ public class EchoOpMode_Linear extends LinearOpMode {
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Starting Initialization.");
+        telemetry.addData("Status", "Initialization Completed.");
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)

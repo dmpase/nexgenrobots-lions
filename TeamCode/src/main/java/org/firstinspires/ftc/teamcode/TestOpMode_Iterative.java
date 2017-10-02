@@ -29,12 +29,14 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
+
+import static org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot.MID_SERVO;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -50,12 +52,21 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="EchoOpMode", group="Iterative Opmode")
+@TeleOp(name="TestOpMode", group="Iterative Opmode")
 // @Disabled
-public class EchoOpMode_Iterative extends OpMode
+public class TestOpMode_Iterative extends OpMode
 {
     // Declare OpMode members.
+    private DcMotor motor0 = null;
+    private DcMotor motor1 = null;
+    private Servo   servo1 = null;
+    private Servo   servo2 = null;
+    private CRServo servo5 = null;
+    private CRServo servo6 = null;
     private ElapsedTime runtime = new ElapsedTime();
+
+    private double s5_power = 0;
+    private double s6_power = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -67,6 +78,25 @@ public class EchoOpMode_Iterative extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
+        motor0 = hardwareMap.get(DcMotor.class, "motor0");
+        motor0.setDirection(DcMotor.Direction.FORWARD);
+        motor0.setPower(0);
+
+        motor1 = hardwareMap.get(DcMotor.class, "motor1");
+        motor1.setDirection(DcMotor.Direction.FORWARD);
+        motor1.setPower(0);
+
+        servo1 = hardwareMap.get(Servo.class, "servo1");
+        servo1.setPosition(MID_SERVO);
+
+        servo2 = hardwareMap.get(Servo.class, "servo2");
+        servo2.setPosition(MID_SERVO);
+
+        servo5 = hardwareMap.get(CRServo.class, "servo5");
+        servo5.setPower(0);
+
+        servo6 = hardwareMap.get(CRServo.class, "servo6");
+        servo6.setPower(0);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
@@ -119,7 +149,6 @@ public class EchoOpMode_Iterative extends OpMode
                 ""
                 ;
 
-
         double g2_lsx = gamepad2.left_stick_x;
         double g2_lsy = gamepad2.left_stick_y;
         double g2_ltr = gamepad2.left_trigger;
@@ -147,10 +176,24 @@ public class EchoOpMode_Iterative extends OpMode
                 ""
                 ;
 
+        motor0.setPower(g1_rsy);
+        motor1.setPower(g1_rsx);
+
+        servo1.setPosition(MID_SERVO + (gamepad1.x?-0.25:0) + (gamepad1.b?+0.25:0));
+        servo2.setPosition(MID_SERVO + (gamepad1.dpad_left?-0.25:0) + (gamepad1.dpad_right?+0.25:0));
+
+        double delta = 0.5;
+        s5_power = (gamepad1.y?-delta:0) + (gamepad1.a?+delta:0);
+        servo5.setPower(s5_power);
+        s6_power = (gamepad1.dpad_up?-delta:0) + (gamepad1.dpad_down?+delta:0);
+        servo6.setPower(s6_power);
+
+        s5_power = (-delta*0.5 < s5_power && s5_power < delta*0.5) ? 0 : s5_power;
+        s6_power = (-delta*0.5 < s6_power && s6_power < delta*0.5) ? 0 : s6_power;
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("1", "L:(%.2f, %.2f, %.2f) R:(%.2f, %.2f, %.2f)", g1_lsx, g1_lsy, g1_ltr, g1_rsx, g1_rsy, g1_rtr);
-        telemetry.addData("", gp1_buttons);
+        telemetry.addData("", "%s (%.2f, %.2f)", gp1_buttons, s5_power, s6_power);
         telemetry.addData("2", "L:(%.2f, %.2f, %.2f) R:(%.2f, %.2f, %.2f)", g2_lsx, g2_lsy, g2_ltr, g2_rsx, g2_rsy, g2_rtr);
         telemetry.addData("", gp2_buttons);
         telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -162,5 +205,4 @@ public class EchoOpMode_Iterative extends OpMode
     @Override
     public void stop() {
     }
-
 }
