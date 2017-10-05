@@ -89,84 +89,56 @@ public class HolonomicTestOpMode extends OpMode
      */
     @Override
     public void loop() {
-        double g1_lsx = gamepad1.left_stick_x;
-        double g1_lsy = gamepad1.left_stick_y;
-        double g1_ltr = gamepad1.left_trigger;
-        double g1_rsx = gamepad1.right_stick_x;
-        double g1_rsy = gamepad1.right_stick_y;
-        double g1_rtr = gamepad1.right_trigger;
 
-        String gp1_buttons =
-                gamepad1.id + " " +
-                (gamepad1.a?"A":"") +
-                (gamepad1.b?"B":"") +
-                (gamepad1.x?"X":"") +
-                (gamepad1.y?"Y":"") +
-                (gamepad1.dpad_up?"U":"") +
-                (gamepad1.dpad_down?"D":"") +
-                (gamepad1.dpad_left?"L":"") +
-                (gamepad1.dpad_right?"R":"") +
-                (gamepad1.left_bumper?"{":"") +
-                (gamepad1.right_bumper?"}":"") +
-                (gamepad1.guide?"g":"") +
-                (gamepad1.left_stick_button?"[":"") +
-                (gamepad1.right_stick_button?"]":"") +
-                (gamepad1.back?"<":"") +
-                (gamepad1.start?">":"") +
-                ""
-                ;
-
-
-        double g2_lsx = gamepad2.left_stick_x;
-        double g2_lsy = gamepad2.left_stick_y;
-        double g2_ltr = gamepad2.left_trigger;
-        double g2_rsx = gamepad2.right_stick_x;
-        double g2_rsy = gamepad2.right_stick_y;
-        double g2_rtr = gamepad2.right_trigger;
-
-        String gp2_buttons =
-                gamepad2.id + " " +
-                (gamepad2.a?"A":"") +
-                (gamepad2.b?"B":"") +
-                (gamepad2.x?"X":"") +
-                (gamepad2.y?"Y":"") +
-                (gamepad2.dpad_up?"U":"") +
-                (gamepad2.dpad_down?"D":"") +
-                (gamepad2.dpad_left?"L":"") +
-                (gamepad2.dpad_right?"R":"") +
-                (gamepad2.left_bumper?"{":"") +
-                (gamepad2.right_bumper?"}":"") +
-                (gamepad2.guide?"g":"") +
-                (gamepad2.left_stick_button?"[":"") +
-                (gamepad2.right_stick_button?"]":"") +
-                (gamepad2.back?"<":"") +
-                (gamepad2.start?">":"") +
-                ""
-                ;
-
-        double x = (-0.1 < g1_rsx && g1_rsx < 0.1) ? 0 : g1_rsx;
-        double y = (-0.1 < g1_rsy && g1_rsy < 0.1) ? 0 : g1_rsy;
-        double alpha = (x == 0 && y == 0) ? 0 : Math.atan2(y, x);
-        double bearing = (x == 0 && y == 0) ? 0 : alpha + Math.PI/2.0;
-        double degrees = 180*bearing/Math.PI;
-        double range = Math.sqrt(x*x + y*y);
-        range = (1 < range) ? 1 : range;
-
-        double fl = - range * Math.sin(bearing + Math.PI/4);
-        double fr =   range * Math.cos(bearing + Math.PI/4);
-        double br =   range * Math.sin(bearing + Math.PI/4);
-        double bl = - range * Math.cos(bearing + Math.PI/4);
-
+        double[] motors = compute_motor_settings();
 
         // Show the elapsed game time and wheel power.
-        telemetry.addData("", "x=%.2f y=%.2f b=%.2f d=%.2f r=%.2f", x, y, bearing, degrees, range);
-        telemetry.addData("", "fl = %.2f  fr = %.2f", fl, fr);
-        telemetry.addData("", "bl = %.2f  br = %.2f", bl, br);
-//        telemetry.addData("1", "L:(%.2f, %.2f, %.2f) R:(%.2f, %.2f, %.2f)", g1_lsx, g1_lsy, g1_ltr, g1_rsx, g1_rsy, g1_rtr);
-//        telemetry.addData("", gp1_buttons);
-//        telemetry.addData("2", "L:(%.2f, %.2f, %.2f) R:(%.2f, %.2f, %.2f)", g2_lsx, g2_lsy, g2_ltr, g2_rsx, g2_rsy, g2_rtr);
-//        telemetry.addData("", gp2_buttons);
+        telemetry.addData("", "fl = %.2f  fr = %.2f", motors[FRONT_LEFT], motors[FRONT_RIGHT]);
+        telemetry.addData("", "bl = %.2f  br = %.2f", motors[BACK_LEFT], motors[BACK_RIGHT]);
         telemetry.addData("Status", "Run Time: " + runtime.toString());
+    }
+
+    public static final int MOTOR_COUNT = 4;
+    public static final int FRONT_LEFT  = 0;
+    public static final int FRONT_RIGHT = 1;
+    public static final int BACK_RIGHT  = 2;
+    public static final int BACK_LEFT   = 3;
+
+    public double[] compute_motor_settings()
+    {
+        double stick_dead_zone = 0.1;
+        double precision_speed = 0.5;
+
+        // use game pad 1 right stick to determinie speed and bearing UNLESS the left stick is being used
+        // right stick is for speed, left stick is for precision
+        double x = (-stick_dead_zone < gamepad1.right_stick_x && gamepad1.right_stick_x < stick_dead_zone) ? 0 : gamepad1.right_stick_x;
+        double y = (-stick_dead_zone < gamepad1.right_stick_y && gamepad1.right_stick_y < stick_dead_zone) ? 0 : gamepad1.right_stick_y;
+        if (gamepad1.left_stick_x < -stick_dead_zone || stick_dead_zone < gamepad1.left_stick_x ||
+            gamepad1.left_stick_x < -stick_dead_zone || stick_dead_zone < gamepad1.left_stick_x) {
+
+            x = precision_speed * gamepad1.left_stick_x;
+            y = precision_speed * gamepad1.left_stick_y;
+        }
+
+        // get the angle of the stick to compute the desired bearing
+        double alpha = (x == 0 && y == 0) ? 0 : Math.atan2(y, x);
+        double bearing = (x == 0 && y == 0) ? 0 : alpha + Math.PI/2.0;
+        double throttle = Math.sqrt(x*x + y*y);
+        throttle = (1 < throttle) ? 1 : throttle;
+
+        double[] motors = new double[MOTOR_COUNT];
+
+        motors[FRONT_LEFT ] = - throttle * Math.sin(bearing + Math.PI/4);
+        motors[FRONT_RIGHT] =   throttle * Math.cos(bearing + Math.PI/4);
+        motors[BACK_RIGHT ] =   throttle * Math.sin(bearing + Math.PI/4);
+        motors[BACK_LEFT  ] = - throttle * Math.cos(bearing + Math.PI/4);
+
+        return motors;
+    }
+
+    public static double radians_to_degrees(double radians)
+    {
+        return 180*radians/Math.PI;
     }
 
     /*
