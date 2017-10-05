@@ -88,8 +88,8 @@ public class HolonomicTestOpMode extends OpMode
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
     @Override
-    public void loop() {
-
+    public void loop()
+    {
         double[] motors = compute_motor_settings();
 
         // Show the elapsed game time and wheel power.
@@ -114,7 +114,7 @@ public class HolonomicTestOpMode extends OpMode
         double x = (-stick_dead_zone < gamepad1.right_stick_x && gamepad1.right_stick_x < stick_dead_zone) ? 0 : gamepad1.right_stick_x;
         double y = (-stick_dead_zone < gamepad1.right_stick_y && gamepad1.right_stick_y < stick_dead_zone) ? 0 : gamepad1.right_stick_y;
         if (gamepad1.left_stick_x < -stick_dead_zone || stick_dead_zone < gamepad1.left_stick_x ||
-            gamepad1.left_stick_x < -stick_dead_zone || stick_dead_zone < gamepad1.left_stick_x) {
+            gamepad1.left_stick_y < -stick_dead_zone || stick_dead_zone < gamepad1.left_stick_y) {
 
             x = precision_speed * gamepad1.left_stick_x;
             y = precision_speed * gamepad1.left_stick_y;
