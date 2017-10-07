@@ -1,4 +1,3 @@
-package frc;
 
 /*******************************************************************************
  * Copyright (c) 1999 - 2017 Douglas M. Pase                                   *
@@ -93,6 +92,38 @@ public class Matrix {
 	// STILL TO BE IMPLEMENTED:
 		// extract row, col, submatrix
 		// reshape vectors/matrices
+
+    public static void main( String[] args )
+    {
+    	final int X_AXIS = 0;
+    	final int Y_AXIS = 1;
+    	
+    	double[] position  = { 0, 0 };
+    	print( position );
+
+    	double bearing = 45;
+    	double range   = 5;
+    	double theta = Matrix.degrees_to_radians(bearing);
+    	double[] delta = { 0, 1 };
+    	print( delta );
+    	double[][] rotation = Matrix.rotate_Tp(delta.length, theta, Y_AXIS, X_AXIS);
+    	delta = Matrix.times(rotation, delta);
+    	print( delta );
+    	delta = Matrix.times(delta, range);
+    	print( delta );
+    	position = Matrix.plus(position, delta);
+    	print( position );
+    }
+    
+    public static double degrees_to_radians( double degrees )
+    {
+    	return degrees * Math.PI / 180;
+    }
+    
+    public static double radians_to_degrees( double radians )
+    {
+    	return radians * 180 / Math.PI;
+    }
 
 	/*
 	 * copy: Copy matrix b into matrix a and return a.
@@ -1126,7 +1157,7 @@ public class Matrix {
     	}
 
     	for (int i=0; i < a.length; i++) {
-    		System.out.print(" " + a[i]);
+			System.out.printf("%6.2f ", a[i]);
     	}
     	System.out.println( "" );
     }
@@ -1139,23 +1170,11 @@ public class Matrix {
     	}
 
     	for (int i=0; i < a.length; i++) {
-    		System.out.print( i + " " );
+    		System.out.printf( "%3d: ", i );
     		for (int j=0; j < a[0].length; j++) {
-    			System.out.print(" " + a[i][j]);
+    			System.out.printf("%6.2f ", a[i][j]);
     		}
     		System.out.println( "" );
     	}
-    }
-
-    public static void main( String[] args )
-    {
-    	System.out.println( "vector" );
-    	double[] v = { 0, 0 };
-    	v[0] = v[1] = Math.sqrt( 2.0 ) / 2.0;
-    	print( v );
-    	double theta = Math.PI / 4.0;
-    	System.out.println( "solution" );
-    	v = rotate( v, theta, 0, 1 );
-    	print( v );
     }
 }
