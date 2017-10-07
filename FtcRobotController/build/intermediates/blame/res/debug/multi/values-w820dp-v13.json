@@ -24,30 +24,6 @@
         ]
     },
     {
-        "outputFile": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 57,
-                    "endOffset": 108
-                },
-                "from": {
-                    "file": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\values-w820dp\\dimens.xml",
-                    "position": {
-                        "startLine": 37,
-                        "startColumn": 4,
-                        "startOffset": 1977,
-                        "endColumn": 57,
-                        "endOffset": 2030
-                    }
-                }
-            }
-        ]
-    },
-    {
         "outputFile": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
         "map": [
             {
@@ -72,7 +48,7 @@
         ]
     },
     {
-        "outputFile": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
+        "outputFile": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
         "map": [
             {
                 "to": {
@@ -83,13 +59,13 @@
                     "endOffset": 108
                 },
                 "from": {
-                    "file": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\values-w820dp\\dimens.xml",
+                    "file": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\values-w820dp\\dimens.xml",
                     "position": {
                         "startLine": 37,
                         "startColumn": 4,
-                        "startOffset": 1940,
+                        "startOffset": 1977,
                         "endColumn": 57,
-                        "endOffset": 1993
+                        "endOffset": 2030
                     }
                 }
             }
@@ -108,6 +84,30 @@
                 },
                 "from": {
                     "file": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\values-w820dp\\dimens.xml",
+                    "position": {
+                        "startLine": 37,
+                        "startColumn": 4,
+                        "startOffset": 1940,
+                        "endColumn": 57,
+                        "endOffset": 1993
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 57,
+                    "endOffset": 108
+                },
+                "from": {
+                    "file": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\values-w820dp\\dimens.xml",
                     "position": {
                         "startLine": 37,
                         "startColumn": 4,
