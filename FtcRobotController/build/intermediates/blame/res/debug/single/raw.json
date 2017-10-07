@@ -1,266 +1,310 @@
 [
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\nxtstartupsound.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\raw\\nxtstartupsound.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\nxtstartupsound.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\raw\\nxtstartupsound.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\errormessage.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\raw\\errormessage.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/FtcRobotController/build/intermediates/res/merged/debug/raw/texture_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/.android/build-cache/9b96ec245c9ecbda9494083aac37712caeb7921b/output/res/raw/texture_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\2955d98ebaf0d6f30505b07347f560ed7beba1b3\\output\\res\\raw\\cube_mesh_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\errormessage.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\raw\\errormessage.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\warningmessage.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\raw\\warningmessage.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\2955d98ebaf0d6f30505b07347f560ed7beba1b3\\output\\res\\raw\\cube_mesh_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\5b385a5a4a33d159da7347b33189d952cd9a1771\\output\\res\\raw\\cube_mesh_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\warningmessage.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\raw\\warningmessage.wav"
     },
     {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\simple_vertex_shader.glsl",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\ccedcf2091f9932c72c451aa1666145c204acc69\\output\\res\\raw\\simple_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/FtcRobotController/build/intermediates/res/merged/debug/raw/nxtstartupsound.wav",
+        "source": "/Users/tcs_tech/.android/build-cache/52d7801f65033043bf3be77ffae034c293c0d4e1/output/res/raw/nxtstartupsound.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\simple_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\9b96ec245c9ecbda9494083aac37712caeb7921b\\output\\res\\raw\\simple_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\5b385a5a4a33d159da7347b33189d952cd9a1771\\output\\res\\raw\\cube_mesh_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_vertex_shader.glsl",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\ccedcf2091f9932c72c451aa1666145c204acc69\\output\\res\\raw\\cube_mesh_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\simple_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/C:\\Users\\Doug\\.android\\build-cache\\ccedcf2091f9932c72c451aa1666145c204acc69\\output\\res\\raw\\simple_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\5b385a5a4a33d159da7347b33189d952cd9a1771\\output\\res\\raw\\texture_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\simple_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\.android\\build-cache\\9b96ec245c9ecbda9494083aac37712caeb7921b\\output\\res\\raw\\simple_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\9b96ec245c9ecbda9494083aac37712caeb7921b\\output\\res\\raw\\cube_mesh_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/C:\\Users\\Doug\\.android\\build-cache\\ccedcf2091f9932c72c451aa1666145c204acc69\\output\\res\\raw\\cube_mesh_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\color_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\2955d98ebaf0d6f30505b07347f560ed7beba1b3\\output\\res\\raw\\color_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\.android\\build-cache\\9b96ec245c9ecbda9494083aac37712caeb7921b\\output\\res\\raw\\cube_mesh_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\731b24d91175b4aa4619f852906c15b2b24dee6a\\output\\res\\raw\\cube_mesh_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\5b385a5a4a33d159da7347b33189d952cd9a1771\\output\\res\\raw\\texture_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\errormessage.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\296e104ecff4d4b3d3f3498e884cbf624300e812\\output\\res\\raw\\errormessage.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\731b24d91175b4aa4619f852906c15b2b24dee6a\\output\\res\\raw\\cube_mesh_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\color_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\9b96ec245c9ecbda9494083aac37712caeb7921b\\output\\res\\raw\\color_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\color_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\2955d98ebaf0d6f30505b07347f560ed7beba1b3\\output\\res\\raw\\color_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\color_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\5b385a5a4a33d159da7347b33189d952cd9a1771\\output\\res\\raw\\color_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\errormessage.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\296e104ecff4d4b3d3f3498e884cbf624300e812\\output\\res\\raw\\errormessage.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\nxtstartupsound.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\raw\\nxtstartupsound.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\color_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\.android\\build-cache\\9b96ec245c9ecbda9494083aac37712caeb7921b\\output\\res\\raw\\color_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\nxtstartupsound.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\296e104ecff4d4b3d3f3498e884cbf624300e812\\output\\res\\raw\\nxtstartupsound.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\color_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\5b385a5a4a33d159da7347b33189d952cd9a1771\\output\\res\\raw\\color_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimedisconnect.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\raw\\chimedisconnect.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\nxtstartupsound.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\raw\\nxtstartupsound.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\simple_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\5b385a5a4a33d159da7347b33189d952cd9a1771\\output\\res\\raw\\simple_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\nxtstartupsound.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\296e104ecff4d4b3d3f3498e884cbf624300e812\\output\\res\\raw\\nxtstartupsound.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\2955d98ebaf0d6f30505b07347f560ed7beba1b3\\output\\res\\raw\\cube_mesh_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimedisconnect.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\raw\\chimedisconnect.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimeconnect.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\raw\\chimeconnect.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\simple_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\5b385a5a4a33d159da7347b33189d952cd9a1771\\output\\res\\raw\\simple_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimedisconnect.wav",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\raw\\chimedisconnect.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\2955d98ebaf0d6f30505b07347f560ed7beba1b3\\output\\res\\raw\\cube_mesh_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\nxtstartupsound.wav",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\raw\\nxtstartupsound.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimeconnect.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\raw\\chimeconnect.wav"
     },
     {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimeconnect.wav",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\raw\\chimeconnect.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimedisconnect.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\raw\\chimedisconnect.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\errormessage.wav",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\raw\\errormessage.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\nxtstartupsound.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\raw\\nxtstartupsound.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimeconnect.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\296e104ecff4d4b3d3f3498e884cbf624300e812\\output\\res\\raw\\chimeconnect.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimeconnect.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\raw\\chimeconnect.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\simple_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\b93e1940af5ac478c48ad40262c81b2963827c47\\output\\res\\raw\\simple_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\errormessage.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\raw\\errormessage.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\b93e1940af5ac478c48ad40262c81b2963827c47\\output\\res\\raw\\cube_mesh_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimeconnect.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\296e104ecff4d4b3d3f3498e884cbf624300e812\\output\\res\\raw\\chimeconnect.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\5b385a5a4a33d159da7347b33189d952cd9a1771\\output\\res\\raw\\texture_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\simple_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\b93e1940af5ac478c48ad40262c81b2963827c47\\output\\res\\raw\\simple_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\2955d98ebaf0d6f30505b07347f560ed7beba1b3\\output\\res\\raw\\texture_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\b93e1940af5ac478c48ad40262c81b2963827c47\\output\\res\\raw\\cube_mesh_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimedisconnect.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\raw\\chimedisconnect.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\5b385a5a4a33d159da7347b33189d952cd9a1771\\output\\res\\raw\\texture_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\color_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\b93e1940af5ac478c48ad40262c81b2963827c47\\output\\res\\raw\\color_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\2955d98ebaf0d6f30505b07347f560ed7beba1b3\\output\\res\\raw\\texture_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimedisconnect.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\raw\\chimedisconnect.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimedisconnect.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\raw\\chimedisconnect.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\warningmessage.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\296e104ecff4d4b3d3f3498e884cbf624300e812\\output\\res\\raw\\warningmessage.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/FtcRobotController/build/intermediates/res/merged/debug/raw/color_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/.android/build-cache/9b96ec245c9ecbda9494083aac37712caeb7921b/output/res/raw/color_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\9b96ec245c9ecbda9494083aac37712caeb7921b\\output\\res\\raw\\cube_mesh_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/FtcRobotController/build/intermediates/res/merged/debug/raw/errormessage.wav",
+        "source": "/Users/tcs_tech/.android/build-cache/52d7801f65033043bf3be77ffae034c293c0d4e1/output/res/raw/errormessage.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\nxtstartupsound.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\raw\\nxtstartupsound.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\color_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\b93e1940af5ac478c48ad40262c81b2963827c47\\output\\res\\raw\\color_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimeconnect.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\raw\\chimeconnect.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/FtcRobotController/build/intermediates/res/merged/debug/raw/texture_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/.android/build-cache/9b96ec245c9ecbda9494083aac37712caeb7921b/output/res/raw/texture_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\color_fragment_shader.glsl",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\ccedcf2091f9932c72c451aa1666145c204acc69\\output\\res\\raw\\color_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimedisconnect.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\raw\\chimedisconnect.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\simple_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\2955d98ebaf0d6f30505b07347f560ed7beba1b3\\output\\res\\raw\\simple_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\warningmessage.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\296e104ecff4d4b3d3f3498e884cbf624300e812\\output\\res\\raw\\warningmessage.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\731b24d91175b4aa4619f852906c15b2b24dee6a\\output\\res\\raw\\cube_mesh_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\.android\\build-cache\\9b96ec245c9ecbda9494083aac37712caeb7921b\\output\\res\\raw\\cube_mesh_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\color_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\731b24d91175b4aa4619f852906c15b2b24dee6a\\output\\res\\raw\\color_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\nxtstartupsound.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\raw\\nxtstartupsound.wav"
     },
     {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_fragment_shader.glsl",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\ccedcf2091f9932c72c451aa1666145c204acc69\\output\\res\\raw\\texture_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimeconnect.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\raw\\chimeconnect.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\errormessage.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\raw\\errormessage.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\color_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/C:\\Users\\Doug\\.android\\build-cache\\ccedcf2091f9932c72c451aa1666145c204acc69\\output\\res\\raw\\color_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\warningmessage.wav",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\raw\\warningmessage.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\simple_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\2955d98ebaf0d6f30505b07347f560ed7beba1b3\\output\\res\\raw\\simple_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\errormessage.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\raw\\errormessage.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\731b24d91175b4aa4619f852906c15b2b24dee6a\\output\\res\\raw\\cube_mesh_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\warningmessage.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\raw\\warningmessage.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\color_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\731b24d91175b4aa4619f852906c15b2b24dee6a\\output\\res\\raw\\color_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\warningmessage.wav",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\raw\\warningmessage.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/C:\\Users\\Doug\\.android\\build-cache\\ccedcf2091f9932c72c451aa1666145c204acc69\\output\\res\\raw\\texture_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\errormessage.wav",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\raw\\errormessage.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/FtcRobotController/build/intermediates/res/merged/debug/raw/cube_mesh_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/.android/build-cache/9b96ec245c9ecbda9494083aac37712caeb7921b/output/res/raw/cube_mesh_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_fragment_shader.glsl",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\ccedcf2091f9932c72c451aa1666145c204acc69\\output\\res\\raw\\cube_mesh_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\errormessage.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\raw\\errormessage.wav"
     },
     {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_vertex_shader.glsl",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\ccedcf2091f9932c72c451aa1666145c204acc69\\output\\res\\raw\\texture_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\warningmessage.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\raw\\warningmessage.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\731b24d91175b4aa4619f852906c15b2b24dee6a\\output\\res\\raw\\texture_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\errormessage.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\raw\\errormessage.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\9b96ec245c9ecbda9494083aac37712caeb7921b\\output\\res\\raw\\texture_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\warningmessage.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\raw\\warningmessage.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\b93e1940af5ac478c48ad40262c81b2963827c47\\output\\res\\raw\\texture_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\warningmessage.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\raw\\warningmessage.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\5b385a5a4a33d159da7347b33189d952cd9a1771\\output\\res\\raw\\cube_mesh_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/FtcRobotController/build/intermediates/res/merged/debug/raw/chimedisconnect.wav",
+        "source": "/Users/tcs_tech/.android/build-cache/52d7801f65033043bf3be77ffae034c293c0d4e1/output/res/raw/chimedisconnect.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\simple_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\731b24d91175b4aa4619f852906c15b2b24dee6a\\output\\res\\raw\\simple_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\errormessage.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\raw\\errormessage.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\9b96ec245c9ecbda9494083aac37712caeb7921b\\output\\res\\raw\\texture_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/FtcRobotController/build/intermediates/res/merged/debug/raw/cube_mesh_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/.android/build-cache/9b96ec245c9ecbda9494083aac37712caeb7921b/output/res/raw/cube_mesh_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\b93e1940af5ac478c48ad40262c81b2963827c47\\output\\res\\raw\\cube_mesh_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/C:\\Users\\Doug\\.android\\build-cache\\ccedcf2091f9932c72c451aa1666145c204acc69\\output\\res\\raw\\cube_mesh_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimeconnect.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\raw\\chimeconnect.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/FtcRobotController/build/intermediates/res/merged/debug/raw/warningmessage.wav",
+        "source": "/Users/tcs_tech/.android/build-cache/52d7801f65033043bf3be77ffae034c293c0d4e1/output/res/raw/warningmessage.wav"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_vertex_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\731b24d91175b4aa4619f852906c15b2b24dee6a\\output\\res\\raw\\texture_vertex_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/FtcRobotController/build/intermediates/res/merged/debug/raw/simple_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/.android/build-cache/9b96ec245c9ecbda9494083aac37712caeb7921b/output/res/raw/simple_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\warningmessage.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\raw\\warningmessage.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/C:\\Users\\Doug\\.android\\build-cache\\ccedcf2091f9932c72c451aa1666145c204acc69\\output\\res\\raw\\texture_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\2955d98ebaf0d6f30505b07347f560ed7beba1b3\\output\\res\\raw\\texture_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\731b24d91175b4aa4619f852906c15b2b24dee6a\\output\\res\\raw\\texture_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimedisconnect.wav",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\raw\\chimedisconnect.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\.android\\build-cache\\9b96ec245c9ecbda9494083aac37712caeb7921b\\output\\res\\raw\\texture_fragment_shader.glsl"
     },
     {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\nxtstartupsound.wav",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\raw\\nxtstartupsound.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\b93e1940af5ac478c48ad40262c81b2963827c47\\output\\res\\raw\\texture_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_fragment_shader.glsl",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\b93e1940af5ac478c48ad40262c81b2963827c47\\output\\res\\raw\\texture_fragment_shader.glsl"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\5b385a5a4a33d159da7347b33189d952cd9a1771\\output\\res\\raw\\cube_mesh_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimeconnect.wav",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\raw\\chimeconnect.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\simple_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\731b24d91175b4aa4619f852906c15b2b24dee6a\\output\\res\\raw\\simple_vertex_shader.glsl"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimedisconnect.wav",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\296e104ecff4d4b3d3f3498e884cbf624300e812\\output\\res\\raw\\chimedisconnect.wav"
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\.android\\build-cache\\9b96ec245c9ecbda9494083aac37712caeb7921b\\output\\res\\raw\\texture_vertex_shader.glsl"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\cube_mesh_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\b93e1940af5ac478c48ad40262c81b2963827c47\\output\\res\\raw\\cube_mesh_fragment_shader.glsl"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimeconnect.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\raw\\chimeconnect.wav"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_vertex_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\731b24d91175b4aa4619f852906c15b2b24dee6a\\output\\res\\raw\\texture_vertex_shader.glsl"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\warningmessage.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\raw\\warningmessage.wav"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/FtcRobotController/build/intermediates/res/merged/debug/raw/chimeconnect.wav",
+        "source": "/Users/tcs_tech/.android/build-cache/52d7801f65033043bf3be77ffae034c293c0d4e1/output/res/raw/chimeconnect.wav"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\2955d98ebaf0d6f30505b07347f560ed7beba1b3\\output\\res\\raw\\texture_fragment_shader.glsl"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimedisconnect.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\raw\\chimedisconnect.wav"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\nxtstartupsound.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\raw\\nxtstartupsound.wav"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\texture_fragment_shader.glsl",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\b93e1940af5ac478c48ad40262c81b2963827c47\\output\\res\\raw\\texture_fragment_shader.glsl"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimeconnect.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\raw\\chimeconnect.wav"
+    },
+    {
+        "merged": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\ftc_app-master\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\raw\\chimedisconnect.wav",
+        "source": "/Users/tcs_tech/Desktop/Griffin Robotics/AndroidStudioProjects/nexgenrobots-lions/Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\296e104ecff4d4b3d3f3498e884cbf624300e812\\output\\res\\raw\\chimedisconnect.wav"
     }
 ]

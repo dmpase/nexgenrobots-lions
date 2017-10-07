@@ -92,6 +92,7 @@ public class HolonomicTestOpMode extends OpMode
     {
         double[] motors = compute_motor_settings();
 
+
         // Show the elapsed game time and wheel power.
         telemetry.addData("", "fl = %.2f  fr = %.2f", motors[FRONT_LEFT], motors[FRONT_RIGHT]);
         telemetry.addData("", "bl = %.2f  br = %.2f", motors[BACK_LEFT], motors[BACK_RIGHT]);
@@ -106,8 +107,12 @@ public class HolonomicTestOpMode extends OpMode
 
     public double[] compute_motor_settings()
     {
-        double stick_dead_zone = 0.1;
-        double precision_speed = 0.5;
+        double stick_dead_zone   = 0.05;
+        double precision_speed   = 0.50;
+
+        double trigger_dead_zone = 0.05;
+        double precision_turn    = 0.25;
+        double turn_limit        = 0.50;
 
         // use game pad 1 right stick to determinie speed and bearing UNLESS the left stick is being used
         // right stick is for speed, left stick is for precision
@@ -123,22 +128,59 @@ public class HolonomicTestOpMode extends OpMode
         // get the angle of the stick to compute the desired bearing
         double alpha = (x == 0 && y == 0) ? 0 : Math.atan2(y, x);
         double bearing = (x == 0 && y == 0) ? 0 : alpha + Math.PI/2.0;
+
+        // limit the throttle
         double throttle = Math.sqrt(x*x + y*y);
         throttle = (1 < throttle) ? 1 : throttle;
 
+        // add in rotation, if any
+        double rotation = 0;
+        if (gamepad1.left_bumper && gamepad1.right_bumper) {
+            // conflicting inputs, do nothing
+        } else if (gamepad1.left_bumper) {
+            // bumpers take priority, turn left
+            rotation = precision_turn;
+        } else if (gamepad1.right_bumper) {
+            // bumpers take priority, turn right
+            rotation = -precision_turn;
+        } else if (trigger_dead_zone < gamepad1.left_trigger && trigger_dead_zone < gamepad1.right_trigger) {
+            // conflicting inputs, do nothing
+        } else if (trigger_dead_zone < gamepad1.left_trigger) {
+            // turn left using trigger
+            rotation = turn_limit * gamepad1.left_trigger;
+        } else if (trigger_dead_zone < gamepad1.right_trigger) {
+            // turn right using trigger
+            rotation = -turn_limit * gamepad1.right_trigger;
+        }
+
         double[] motors = new double[MOTOR_COUNT];
 
-        motors[FRONT_LEFT ] = - throttle * Math.sin(bearing + Math.PI/4);
-        motors[FRONT_RIGHT] =   throttle * Math.cos(bearing + Math.PI/4);
-        motors[BACK_RIGHT ] =   throttle * Math.sin(bearing + Math.PI/4);
-        motors[BACK_LEFT  ] = - throttle * Math.cos(bearing + Math.PI/4);
+        motors[FRONT_LEFT ] = - throttle * Math.sin(bearing + Math.PI/4) + rotation;
+        motors[FRONT_RIGHT] =   throttle * Math.cos(bearing + Math.PI/4) + rotation;
+        motors[BACK_RIGHT ] =   throttle * Math.sin(bearing + Math.PI/4) + rotation;
+        motors[BACK_LEFT  ] = - throttle * Math.cos(bearing + Math.PI/4) + rotation;
+
+        // limit the motors to -1.0 <= motor <= 1.0
+        // scale them evenly if adjustments are made
+        if (motors[FRONT_LEFT ] < -1.0 || 1.0 < motors[FRONT_LEFT ] ||
+            motors[FRONT_RIGHT] < -1.0 || 1.0 < motors[FRONT_RIGHT] ||
+            motors[BACK_LEFT  ] < -1.0 || 1.0 < motors[BACK_LEFT  ] ||
+            motors[BACK_RIGHT ] < -1.0 || 1.0 < motors[BACK_RIGHT ]) {
+
+            // find the scale factor
+            double max = 0;
+            for (int i=0; i < motors.length; i++) {
+                double abs = Math.abs(motors[i]);
+                max = (max < abs) ? abs : max;
+            }
+
+            // scale back the motors evenly
+            for (int i=0; i < motors.length; i++) {
+                motors[i] /= max;
+            }
+        }
 
         return motors;
-    }
-
-    public static double radians_to_degrees(double radians)
-    {
-        return 180*radians/Math.PI;
     }
 
     /*

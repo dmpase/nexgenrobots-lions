@@ -10,6 +10,7 @@
  *    Douglas M. Pase - initial API and implementation                         *
  ******************************************************************************/
 
+package org.firstinspires.ftc.teamcode;
 
 /******************************************************************************
  *                                                                            *
@@ -93,6 +94,7 @@ public class Matrix {
 		// extract row, col, submatrix
 		// reshape vectors/matrices
 
+	/*
     public static void main( String[] args )
     {
     	final int X_AXIS = 0;
@@ -114,6 +116,7 @@ public class Matrix {
     	position = Matrix.plus(position, delta);
     	print( position );
     }
+    */
     
     public static double degrees_to_radians( double degrees )
     {
