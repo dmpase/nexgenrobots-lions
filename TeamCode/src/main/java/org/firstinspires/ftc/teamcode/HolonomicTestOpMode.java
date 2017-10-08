@@ -64,7 +64,8 @@ public class HolonomicTestOpMode extends OpMode
      * Code to run ONCE when the driver hits INIT
      */
     @Override
-    public void init() {
+    public void init()
+    {
         telemetry.addData("Status", "Starting Initialization.");
 
         // Initialize the hardware variables. Note that the strings used here as parameters
@@ -115,6 +116,7 @@ public class HolonomicTestOpMode extends OpMode
         set_motor_power(motors);
 
         // Show the elapsed game time and wheel power.
+        telemetry.addData("", "lt = %.2f  rt = %.2f", gamepad1.left_trigger, gamepad1.right_trigger);
         telemetry.addData("", "fl = %.2f  fr = %.2f", motors[FRONT_LEFT], motors[FRONT_RIGHT]);
         telemetry.addData("", "bl = %.2f  br = %.2f", motors[BACK_LEFT], motors[BACK_RIGHT]);
         telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -139,10 +141,10 @@ public class HolonomicTestOpMode extends OpMode
     public double[] compute_motor_settings()
     {
         double stick_dead_zone   = 0.05;
-        double precision_speed   = 0.50;
+        double precision_speed   = 0.33;
 
         double trigger_dead_zone = 0.05;
-        double precision_turn    = 0.25;
+        double precision_turn    = 0.10;
         double turn_limit        = 0.50;
 
         // use game pad 1 right stick to determinie speed and bearing UNLESS the left stick is being used
@@ -206,8 +208,9 @@ public class HolonomicTestOpMode extends OpMode
             }
 
             // scale back the motors evenly
+            double epsilon = 0.01;
             for (int i=0; i < motors.length; i++) {
-                motors[i] /= max;
+                motors[i] /= (max + epsilon);
             }
         }
 
