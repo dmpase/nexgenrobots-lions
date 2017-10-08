@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -52,6 +53,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class HolonomicTestOpMode extends OpMode
 {
     // Declare OpMode members.
+    private DcMotor front_left  = null;
+    private DcMotor front_right = null;
+    private DcMotor back_right  = null;
+    private DcMotor back_left   = null;
+
     private ElapsedTime runtime = new ElapsedTime();
 
     /*
@@ -64,6 +70,21 @@ public class HolonomicTestOpMode extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
+        front_left = hardwareMap.get(DcMotor.class, "front_left");
+        front_left.setDirection(DcMotor.Direction.FORWARD);
+        front_left.setPower(0);
+
+        front_right = hardwareMap.get(DcMotor.class, "front_right");
+        front_right.setDirection(DcMotor.Direction.FORWARD);
+        front_right.setPower(0);
+
+        back_right = hardwareMap.get(DcMotor.class, "back_right");
+        back_right.setDirection(DcMotor.Direction.FORWARD);
+        back_right.setPower(0);
+
+        back_left = hardwareMap.get(DcMotor.class, "back_left");
+        back_left.setDirection(DcMotor.Direction.FORWARD);
+        back_left.setPower(0);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
@@ -91,7 +112,7 @@ public class HolonomicTestOpMode extends OpMode
     public void loop()
     {
         double[] motors = compute_motor_settings();
-
+        set_motor_power(motors);
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("", "fl = %.2f  fr = %.2f", motors[FRONT_LEFT], motors[FRONT_RIGHT]);
@@ -104,6 +125,16 @@ public class HolonomicTestOpMode extends OpMode
     public static final int FRONT_RIGHT = 1;
     public static final int BACK_RIGHT  = 2;
     public static final int BACK_LEFT   = 3;
+
+    public void set_motor_power(double[] power)
+    {
+        if (power != null && power.length == MOTOR_COUNT) {
+            front_left .setPower(power[FRONT_LEFT ]);
+            front_right.setPower(power[FRONT_RIGHT]);
+            back_right .setPower(power[BACK_RIGHT ]);
+            back_left  .setPower(power[BACK_LEFT  ]);
+        }
+    }
 
     public double[] compute_motor_settings()
     {
