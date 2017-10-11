@@ -1,255 +1,59 @@
 [
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\pushbot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\advanced_rc_settings.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\k9legacybot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\pushbotsens.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\squarebot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\squarebot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\maxmodules.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\maxmodules.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\k9usbbot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\pushbot.xml"
-    },
-    {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\k9legacybot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\k9legacybot.xml"
     },
     {
         "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
         "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\k9usbbot.xml"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\squarebot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\squarebot.xml"
-    },
-    {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
-        "source": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\pushbotsens.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\rev_scoot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\rev_scoot.xml"
-    },
-    {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
-        "source": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
-    },
-    {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\advanced_rc_settings.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\advanced_rc_settings.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\pushbotsens.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\pushbot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\k9legacybot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\advanced_rc_settings.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
-    },
-    {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\squarebot.xml",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\squarebot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\pushbot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\pushbotsens.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\k9usbbot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\k9legacybot.xml"
-    },
-    {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\pushbot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\advanced_rc_settings.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\pushbotsens.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\maxmodules.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\maxmodules.xml"
+        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
+        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\k9legacybot.xml"
     },
     {
         "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
         "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\rev_scoot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\rev_scoot.xml"
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\rev_scoot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\rev_scoot.xml"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\rev_scoot.xml",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\rev_scoot.xml"
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\rev_scoot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\rev_scoot.xml"
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\maxmodules.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\maxmodules.xml"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\rev_scoot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\rev_scoot.xml"
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\k9usbbot.xml"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
+        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
+        "source": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
     },
     {
         "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\maxmodules.xml",
         "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\maxmodules.xml"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\advanced_rc_settings.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\maxmodules.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\maxmodules.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\squarebot.xml",
-        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\squarebot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
-    },
-    {
         "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
         "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\k9legacybot.xml"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\squarebot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\squarebot.xml"
+        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
+        "source": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
     },
     {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\pushbotsens.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\maxmodules.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\maxmodules.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\pushbot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\advanced_rc_settings.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\k9usbbot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\pushbot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\k9usbbot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\k9legacybot.xml"
-    },
-    {
-        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
-        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\k9usbbot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\maxmodules.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\maxmodules.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\rev_scoot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\rev_scoot.xml"
-    },
-    {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\pushbotsens.xml"
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\pushbot.xml"
     },
     {
         "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\squarebot.xml",
@@ -260,23 +64,219 @@
         "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\squarebot.xml"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\squarebot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\squarebot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\advanced_rc_settings.xml"
+    },
+    {
+        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
+        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\advanced_rc_settings.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\k9usbbot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\advanced_rc_settings.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\pushbot.xml"
+    },
+    {
+        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\squarebot.xml",
+        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\squarebot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\advanced_rc_settings.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\pushbotsens.xml"
     },
     {
         "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
         "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\k9usbbot.xml"
     },
     {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\maxmodules.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\maxmodules.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
+        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\pushbot.xml"
+    },
+    {
+        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
+        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\pushbot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\k9legacybot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\advanced_rc_settings.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\rev_scoot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\rev_scoot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\k9usbbot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\maxmodules.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\maxmodules.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\pushbot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\k9usbbot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\rev_scoot.xml",
+        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\rev_scoot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\maxmodules.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\maxmodules.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\pushbot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\pushbotsens.xml"
+    },
+    {
+        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
+        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\pushbotsens.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\pushbotsens.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\k9legacybot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\squarebot.xml",
+        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\squarebot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\pushbotsens.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
+        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\k9legacybot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
+    },
+    {
+        "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
+        "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\k9usbbot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
+        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\pushbotsens.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\rev_scoot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\rev_scoot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\advanced_rc_settings.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\rev_scoot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\rev_scoot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\rev_scoot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\rev_scoot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\app_settings.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\src\\main\\res\\xml\\app_settings.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\c5586fe13331ce9b652c98331e4c8a771a5fffe6\\output\\res\\xml\\pushbot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\squarebot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\squarebot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\squarebot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\squarebot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\k9legacybot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\home\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\C:\\Users\\Doug\\.android\\build-cache\\6d8d51ad8957bf596df1657f63b38442d68b7e22\\output\\res\\xml\\pushbotsens.xml"
+    },
+    {
         "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\rev_scoot.xml",
         "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\rev_scoot.xml"
+    },
+    {
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\maxmodules.xml",
+        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\maxmodules.xml"
     },
     {
         "merged": "Y:\\home\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\maxmodules.xml",
         "source": "C:\\Users\\Doug\\.android\\build-cache\\6a2708a89f4427c4a28ff1114dd5669c81607afc\\output\\res\\xml\\maxmodules.xml"
     },
     {
-        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-code\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
-        "source": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\Y:\\Users\\980017255\\.android\\build-cache\\c9db438b8840e87dff96bed852a08d2927a33356\\output\\res\\xml\\k9legacybot.xml"
+        "merged": "Y:\\Users\\tcs_tech\\Desktop\\Griffin Robotics\\AndroidStudioProjects\\nexgenrobots-lions\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\advanced_rc_settings.xml",
+        "source": "Y:\\Users\\tcs_tech\\.android\\build-cache\\52d7801f65033043bf3be77ffae034c293c0d4e1\\output\\res\\xml\\advanced_rc_settings.xml"
     }
 ]
