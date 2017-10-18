@@ -31,8 +31,14 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
+import java.util.Locale;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -53,10 +59,15 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class HolonomicTestOpMode extends OpMode
 {
     // Declare OpMode members.
+    // REV Robotics drive motors
     private DcMotor front_left  = null;
     private DcMotor front_right = null;
     private DcMotor back_right  = null;
     private DcMotor back_left   = null;
+
+    // REV Robotics distance/color sensor
+    private ColorSensor    color_sensor;
+    private DistanceSensor distance_sensor;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -87,6 +98,10 @@ public class HolonomicTestOpMode extends OpMode
         back_left.setDirection(DcMotor.Direction.FORWARD);
         back_left.setPower(0);
 
+        // REV Robotics distance/color sensor
+        color_sensor    = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
+        distance_sensor = hardwareMap.get(DistanceSensor.class, "sensor_color_distance");
+
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
     }
@@ -116,9 +131,13 @@ public class HolonomicTestOpMode extends OpMode
         set_motor_power(motors);
 
         // Show the elapsed game time and wheel power.
-        telemetry.addData("", "lt = %.2f  rt = %.2f", gamepad1.left_trigger, gamepad1.right_trigger);
-        telemetry.addData("", "fl = %.2f  fr = %.2f", motors[FRONT_LEFT], motors[FRONT_RIGHT]);
-        telemetry.addData("", "bl = %.2f  br = %.2f", motors[BACK_LEFT], motors[BACK_RIGHT]);
+        telemetry.addData("", "fl = %.2f  fr = %.2f  bl = %.2f  br = %.2f",
+                motors[FRONT_LEFT], motors[FRONT_RIGHT], motors[BACK_LEFT], motors[BACK_RIGHT]);
+
+        telemetry.addData("", "cm=%.2f a=%d r=%d g=%d b=%d",
+                distance_sensor.getDistance(DistanceUnit.CM), color_sensor.alpha(),
+                color_sensor.red(), color_sensor.green(), color_sensor.blue());
+
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
 
