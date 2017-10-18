@@ -166,6 +166,22 @@ public class HolonomicTestOpMode extends OpMode
         double throttle = Math.sqrt(x*x + y*y);
         throttle = (1 < throttle) ? 1 : throttle;
 
+        // enable the dpad for movement
+        // dpad overrides both sticks
+        if (gamepad1.dpad_up) {
+            throttle = precision_speed;
+            bearing = 0;
+        } else if (gamepad1.dpad_right) {
+            throttle = precision_speed;
+            bearing = Math.PI/2;
+        } else if (gamepad1.dpad_down) {
+            throttle = precision_speed;
+            bearing = Math.PI;
+        } else if (gamepad1.dpad_left) {
+            throttle = precision_speed;
+            bearing = 3 * Math.PI/2;
+        }
+
         // add in rotation, if any
         double rotation = 0;
         if (gamepad1.left_bumper && gamepad1.right_bumper) {
