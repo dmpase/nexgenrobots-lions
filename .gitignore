@@ -1,6 +1,5 @@
 FtcRobotController/build
 TeamCode/build
 build
-*.iml
 .gradle
 .idea
