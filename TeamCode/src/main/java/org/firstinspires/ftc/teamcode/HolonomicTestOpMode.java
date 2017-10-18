@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -52,18 +53,39 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class HolonomicTestOpMode extends OpMode
 {
     // Declare OpMode members.
+    private DcMotor front_left  = null;
+    private DcMotor front_right = null;
+    private DcMotor back_right  = null;
+    private DcMotor back_left   = null;
+
     private ElapsedTime runtime = new ElapsedTime();
 
     /*
      * Code to run ONCE when the driver hits INIT
      */
     @Override
-    public void init() {
+    public void init()
+    {
         telemetry.addData("Status", "Starting Initialization.");
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
+        front_left = hardwareMap.get(DcMotor.class, "front_left");
+        front_left.setDirection(DcMotor.Direction.FORWARD);
+        front_left.setPower(0);
+
+        front_right = hardwareMap.get(DcMotor.class, "front_right");
+        front_right.setDirection(DcMotor.Direction.FORWARD);
+        front_right.setPower(0);
+
+        back_right = hardwareMap.get(DcMotor.class, "back_right");
+        back_right.setDirection(DcMotor.Direction.FORWARD);
+        back_right.setPower(0);
+
+        back_left = hardwareMap.get(DcMotor.class, "back_left");
+        back_left.setDirection(DcMotor.Direction.FORWARD);
+        back_left.setPower(0);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
@@ -91,8 +113,10 @@ public class HolonomicTestOpMode extends OpMode
     public void loop()
     {
         double[] motors = compute_motor_settings();
+        set_motor_power(motors);
 
         // Show the elapsed game time and wheel power.
+        telemetry.addData("", "lt = %.2f  rt = %.2f", gamepad1.left_trigger, gamepad1.right_trigger);
         telemetry.addData("", "fl = %.2f  fr = %.2f", motors[FRONT_LEFT], motors[FRONT_RIGHT]);
         telemetry.addData("", "bl = %.2f  br = %.2f", motors[BACK_LEFT], motors[BACK_RIGHT]);
         telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -104,10 +128,24 @@ public class HolonomicTestOpMode extends OpMode
     public static final int BACK_RIGHT  = 2;
     public static final int BACK_LEFT   = 3;
 
+    public void set_motor_power(double[] power)
+    {
+        if (power != null && power.length == MOTOR_COUNT) {
+            front_left .setPower(power[FRONT_LEFT ]);
+            front_right.setPower(power[FRONT_RIGHT]);
+            back_right .setPower(power[BACK_RIGHT ]);
+            back_left  .setPower(power[BACK_LEFT  ]);
+        }
+    }
+
     public double[] compute_motor_settings()
     {
-        double stick_dead_zone = 0.1;
-        double precision_speed = 0.5;
+        double stick_dead_zone   = 0.05;
+        double precision_speed   = 0.33;
+
+        double trigger_dead_zone = 0.05;
+        double precision_turn    = 0.10;
+        double turn_limit        = 0.50;
 
         // use game pad 1 right stick to determinie speed and bearing UNLESS the left stick is being used
         // right stick is for speed, left stick is for precision
@@ -123,22 +161,76 @@ public class HolonomicTestOpMode extends OpMode
         // get the angle of the stick to compute the desired bearing
         double alpha = (x == 0 && y == 0) ? 0 : Math.atan2(y, x);
         double bearing = (x == 0 && y == 0) ? 0 : alpha + Math.PI/2.0;
+
+        // limit the throttle
         double throttle = Math.sqrt(x*x + y*y);
         throttle = (1 < throttle) ? 1 : throttle;
 
+        // enable the dpad for movement
+        // dpad overrides both sticks
+        if (gamepad1.dpad_up) {
+            throttle = precision_speed;
+            bearing = 0;
+        } else if (gamepad1.dpad_right) {
+            throttle = precision_speed;
+            bearing = Math.PI/2;
+        } else if (gamepad1.dpad_down) {
+            throttle = precision_speed;
+            bearing = Math.PI;
+        } else if (gamepad1.dpad_left) {
+            throttle = precision_speed;
+            bearing = 3 * Math.PI/2;
+        }
+
+        // add in rotation, if any
+        double rotation = 0;
+        if (gamepad1.left_bumper && gamepad1.right_bumper) {
+            // conflicting inputs, do nothing
+        } else if (gamepad1.left_bumper) {
+            // bumpers take priority, turn left
+            rotation = precision_turn;
+        } else if (gamepad1.right_bumper) {
+            // bumpers take priority, turn right
+            rotation = -precision_turn;
+        } else if (trigger_dead_zone < gamepad1.left_trigger && trigger_dead_zone < gamepad1.right_trigger) {
+            // conflicting inputs, do nothing
+        } else if (trigger_dead_zone < gamepad1.left_trigger) {
+            // turn left using trigger
+            rotation = turn_limit * gamepad1.left_trigger;
+        } else if (trigger_dead_zone < gamepad1.right_trigger) {
+            // turn right using trigger
+            rotation = -turn_limit * gamepad1.right_trigger;
+        }
+
         double[] motors = new double[MOTOR_COUNT];
 
-        motors[FRONT_LEFT ] = - throttle * Math.sin(bearing + Math.PI/4);
-        motors[FRONT_RIGHT] =   throttle * Math.cos(bearing + Math.PI/4);
-        motors[BACK_RIGHT ] =   throttle * Math.sin(bearing + Math.PI/4);
-        motors[BACK_LEFT  ] = - throttle * Math.cos(bearing + Math.PI/4);
+        motors[FRONT_LEFT ] = - throttle * Math.sin(bearing + Math.PI/4) + rotation;
+        motors[FRONT_RIGHT] =   throttle * Math.cos(bearing + Math.PI/4) + rotation;
+        motors[BACK_RIGHT ] =   throttle * Math.sin(bearing + Math.PI/4) + rotation;
+        motors[BACK_LEFT  ] = - throttle * Math.cos(bearing + Math.PI/4) + rotation;
+
+        // limit the motors to -1.0 <= motor <= 1.0
+        // scale them evenly if adjustments are made
+        if (motors[FRONT_LEFT ] < -1.0 || 1.0 < motors[FRONT_LEFT ] ||
+            motors[FRONT_RIGHT] < -1.0 || 1.0 < motors[FRONT_RIGHT] ||
+            motors[BACK_LEFT  ] < -1.0 || 1.0 < motors[BACK_LEFT  ] ||
+            motors[BACK_RIGHT ] < -1.0 || 1.0 < motors[BACK_RIGHT ]) {
+
+            // find the scale factor
+            double max = 0;
+            for (int i=0; i < motors.length; i++) {
+                double abs = Math.abs(motors[i]);
+                max = (max < abs) ? abs : max;
+            }
+
+            // scale back the motors evenly
+            double epsilon = 0.01;
+            for (int i=0; i < motors.length; i++) {
+                motors[i] /= (max + epsilon);
+            }
+        }
 
         return motors;
-    }
-
-    public static double radians_to_degrees(double radians)
-    {
-        return 180*radians/Math.PI;
     }
 
     /*
