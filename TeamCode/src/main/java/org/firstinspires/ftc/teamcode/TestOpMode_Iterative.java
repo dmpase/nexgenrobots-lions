@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -53,7 +54,7 @@ import static org.firstinspires.ftc.robotcontroller.external.samples.HardwarePus
  */
 
 @TeleOp(name="TestOpMode", group="Iterative Opmode")
-// @Disabled
+@Disabled
 public class TestOpMode_Iterative extends OpMode
 {
     // Declare OpMode members.
