@@ -34,11 +34,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-import java.util.Locale;
+import static org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot.MID_SERVO;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -54,9 +55,9 @@ import java.util.Locale;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="HolonomicTestOpMode", group="Iterative Opmode")
+@TeleOp(name="RevHolonomicTestOpMode", group="Iterative Opmode")
 // @Disabled
-public class HolonomicTestOpMode extends OpMode
+public class RevHolonomicTestOpMode extends OpMode
 {
     // Declare OpMode members.
     // REV Robotics drive motors
@@ -65,9 +66,11 @@ public class HolonomicTestOpMode extends OpMode
     private DcMotor back_right  = null;
     private DcMotor back_left   = null;
 
+    private Servo servo0 = null;
+
     // REV Robotics distance/color sensor
-    private ColorSensor    color_sensor;
-    private DistanceSensor distance_sensor;
+//    private ColorSensor    color_sensor;
+//    private DistanceSensor distance_sensor;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -82,6 +85,7 @@ public class HolonomicTestOpMode extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
+        telemetry.addData("Status", "Initializing Motors.");
         front_left = hardwareMap.get(DcMotor.class, "front_left");
         front_left.setDirection(DcMotor.Direction.FORWARD);
         front_left.setPower(0);
@@ -98,9 +102,17 @@ public class HolonomicTestOpMode extends OpMode
         back_left.setDirection(DcMotor.Direction.FORWARD);
         back_left.setPower(0);
 
+
+        telemetry.addData("Status", "Initializing Servos.");
+        servo0 = hardwareMap.get(Servo.class, "servo0");
+        servo0.setPosition(Servo.MIN_POSITION);
+
+
+        /*
         // REV Robotics distance/color sensor
         color_sensor    = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         distance_sensor = hardwareMap.get(DistanceSensor.class, "sensor_color_distance");
+        */
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
@@ -130,15 +142,49 @@ public class HolonomicTestOpMode extends OpMode
         double[] motors = compute_motor_settings();
         set_motor_power(motors);
 
+        double[] servos = compute_servo_settings();
+        set_servo_power(servos);
+
         // Show the elapsed game time and wheel power.
         telemetry.addData("", "fl = %.2f  fr = %.2f  bl = %.2f  br = %.2f",
-                motors[FRONT_LEFT], motors[FRONT_RIGHT], motors[BACK_LEFT], motors[BACK_RIGHT]);
+                motors[FRONT_LEFT], motors[FRONT_RIGHT],
+                motors[BACK_LEFT], motors[BACK_RIGHT]);
 
+        /*
         telemetry.addData("", "cm=%.2f a=%d r=%d g=%d b=%d",
                 distance_sensor.getDistance(DistanceUnit.CM), color_sensor.alpha(),
                 color_sensor.red(), color_sensor.green(), color_sensor.blue());
+        */
 
         telemetry.addData("Status", "Run Time: " + runtime.toString());
+    }
+
+    public static final int SERVO_COUNT = 4;
+    public static final int TAIL        = 0;
+    public static final int ELEVATOR    = 1;
+    public static final int LEFT_CLAW   = 2;
+    public static final int RIGHT_CLAW  = 3;
+
+    public void set_servo_power(double[] position)
+    {
+        if (position != null && position.length == SERVO_COUNT) {
+            servo0.setPosition(position[TAIL]);
+        }
+    }
+
+    public double[] compute_servo_settings()
+    {
+        double[] servos = new double[SERVO_COUNT];
+
+        if (gamepad1.x) {
+            servos[TAIL] = Servo.MAX_POSITION;
+        } else if (gamepad1.b) {
+            servos[TAIL] = Servo.MIN_POSITION;
+        } else {
+            servos[TAIL] = servo0.getPosition();
+        }
+
+        return servos;
     }
 
     public static final int MOTOR_COUNT = 4;
@@ -178,7 +224,7 @@ public class HolonomicTestOpMode extends OpMode
         }
 
         // get the angle of the stick to compute the desired bearing
-        double alpha = (x == 0 && y == 0) ? 0 : Math.atan2(y, x);
+        double alpha   = (x == 0 && y == 0) ? 0 : Math.atan2(y, x);
         double bearing = (x == 0 && y == 0) ? 0 : alpha + Math.PI/2.0;
 
         // limit the throttle
@@ -187,18 +233,30 @@ public class HolonomicTestOpMode extends OpMode
 
         // enable the dpad for movement
         // dpad overrides both sticks
-        if (gamepad1.dpad_up) {
+        if (gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
             throttle = precision_speed;
             bearing = 0;
-        } else if (gamepad1.dpad_right) {
+        } else if (gamepad1.dpad_up && gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
+            throttle = precision_speed;
+            bearing = Math.PI/4;
+        } else if (! gamepad1.dpad_up && gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
             throttle = precision_speed;
             bearing = Math.PI/2;
-        } else if (gamepad1.dpad_down) {
+        } else if (! gamepad1.dpad_up && gamepad1.dpad_right && gamepad1.dpad_down && ! gamepad1.dpad_left) {
+            throttle = precision_speed;
+            bearing = 3 * Math.PI/4;
+        } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && gamepad1.dpad_down && ! gamepad1.dpad_left) {
             throttle = precision_speed;
             bearing = Math.PI;
-        } else if (gamepad1.dpad_left) {
+        } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && gamepad1.dpad_down && gamepad1.dpad_left) {
+            throttle = precision_speed;
+            bearing = 5 * Math.PI/4;
+        } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && gamepad1.dpad_left) {
             throttle = precision_speed;
             bearing = 3 * Math.PI/2;
+        } else if (gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && gamepad1.dpad_left) {
+            throttle = precision_speed;
+            bearing = 7 * Math.PI/4;
         }
 
         // add in rotation, if any
