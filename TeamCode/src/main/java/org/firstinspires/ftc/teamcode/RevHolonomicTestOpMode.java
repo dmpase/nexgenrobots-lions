@@ -31,15 +31,12 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
-import static org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot.MID_SERVO;
+import org.firstinspires.ftc.robotcore.internal.opmode.TelemetryImpl;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -66,7 +63,22 @@ public class RevHolonomicTestOpMode extends OpMode
     private DcMotor back_right  = null;
     private DcMotor back_left   = null;
 
-    private Servo servo0 = null;
+    private Servo left_claw  = null;
+    private double left_claw_min = 0;
+    private double left_claw_max = 0;
+    private double left_claw_del = 0;
+    private double left_claw_pos = 0;
+
+    private Servo right_claw = null;
+    private double right_claw_min = 0;
+    private double right_claw_max = 0;
+    private double right_claw_del = 0;
+    private double right_claw_pos = 0;
+
+    private double claw_incr = 20;
+
+    //    private CRServo lift = null;
+    private CRServo tail = null;
 
     // REV Robotics distance/color sensor
 //    private ColorSensor    color_sensor;
@@ -104,9 +116,36 @@ public class RevHolonomicTestOpMode extends OpMode
 
 
         telemetry.addData("Status", "Initializing Servos.");
-        servo0 = hardwareMap.get(Servo.class, "servo0");
-        servo0.setPosition(Servo.MIN_POSITION);
+        left_claw = hardwareMap.get(Servo.class, "left_claw");
+        left_claw.setDirection(Servo.Direction.FORWARD);
+        left_claw.setPosition(Servo.MIN_POSITION);
+        left_claw_min = left_claw.getPosition();
+        left_claw.setPosition(Servo.MAX_POSITION);
+        left_claw_max = left_claw.getPosition();
+        left_claw_del = (left_claw_max - left_claw_min) / claw_incr;
+        left_claw_pos = left_claw_min + left_claw_del;
+        left_claw.setPosition(right_claw_pos);
 
+        right_claw = hardwareMap.get(Servo.class, "right_claw");
+        left_claw.setDirection(Servo.Direction.FORWARD);
+        right_claw.setPosition(Servo.MIN_POSITION);
+        right_claw_min = right_claw.getPosition();
+        right_claw.setPosition(Servo.MAX_POSITION);
+        right_claw_max = right_claw.getPosition();
+        right_claw_del = (right_claw_max - right_claw_min) / claw_incr;
+        right_claw_pos = right_claw_max - right_claw_del;
+        right_claw.setPosition(right_claw_pos);
+
+        /*
+        telemetry.addData("Status", "Initializing CR Servos.");
+        lift = hardwareMap.get(CRServo.class, "lift");
+        lift.setDirection(DcMotor.Direction.FORWARD);
+        lift.setPower(0);
+        */
+
+        tail = hardwareMap.get(CRServo.class, "tail");
+        tail.setDirection(DcMotor.Direction.FORWARD);
+        tail.setPower(0);
 
         /*
         // REV Robotics distance/color sensor
@@ -150,6 +189,9 @@ public class RevHolonomicTestOpMode extends OpMode
                 motors[FRONT_LEFT], motors[FRONT_RIGHT],
                 motors[BACK_LEFT], motors[BACK_RIGHT]);
 
+        telemetry.addData("", "min = %.2f lc = %.2f  rc = %.2f max = %.2f",
+                Servo.MIN_POSITION, servos[LEFT_CLAW], servos[RIGHT_CLAW], Servo.MAX_POSITION);
+
         /*
         telemetry.addData("", "cm=%.2f a=%d r=%d g=%d b=%d",
                 distance_sensor.getDistance(DistanceUnit.CM), color_sensor.alpha(),
@@ -161,14 +203,25 @@ public class RevHolonomicTestOpMode extends OpMode
 
     public static final int SERVO_COUNT = 4;
     public static final int TAIL        = 0;
-    public static final int ELEVATOR    = 1;
+    public static final int LIFT        = 1;
     public static final int LEFT_CLAW   = 2;
     public static final int RIGHT_CLAW  = 3;
 
     public void set_servo_power(double[] position)
     {
         if (position != null && position.length == SERVO_COUNT) {
-            servo0.setPosition(position[TAIL]);
+            if (position[LEFT_CLAW] != left_claw_pos) {
+                left_claw .setPosition(position[LEFT_CLAW]);
+                left_claw_pos = position[LEFT_CLAW];
+            }
+
+            if (position[RIGHT_CLAW] != right_claw_pos) {
+                right_claw.setPosition(position[RIGHT_CLAW]);
+                right_claw_pos = position[RIGHT_CLAW];
+            }
+
+            tail.setPower(position[TAIL]);
+//            lift.setPower(position[LIFT]);
         }
     }
 
@@ -176,12 +229,45 @@ public class RevHolonomicTestOpMode extends OpMode
     {
         double[] servos = new double[SERVO_COUNT];
 
-        if (gamepad1.x) {
-            servos[TAIL] = Servo.MAX_POSITION;
+        // open or close the claw
+        if (gamepad1.x && gamepad1.b) {
+            // conflicting inputs, do nothing
+            servos[LEFT_CLAW]  = left_claw_pos;
+            servos[RIGHT_CLAW] = right_claw_pos;
+        } else if (gamepad1.x) {
+            // close the claw
+            servos[LEFT_CLAW]  = left_claw_pos  + left_claw_del;
+            servos[RIGHT_CLAW] = right_claw_pos + right_claw_del;
         } else if (gamepad1.b) {
-            servos[TAIL] = Servo.MIN_POSITION;
+            // close the claw
+            servos[LEFT_CLAW]  = left_claw_pos  - left_claw_del;
+            servos[RIGHT_CLAW] = right_claw_pos - right_claw_del;
         } else {
-            servos[TAIL] = servo0.getPosition();
+            // maintain position, do nothing
+            servos[LEFT_CLAW]  = left_claw_pos;
+            servos[RIGHT_CLAW] = right_claw_pos;
+        }
+        servos[LEFT_CLAW]  = (servos[LEFT_CLAW] < left_claw_min) ? left_claw_min : left_claw_pos;
+        servos[LEFT_CLAW]  = (left_claw_max < servos[LEFT_CLAW]) ? left_claw_max : left_claw_pos;
+        servos[RIGHT_CLAW]  = (servos[RIGHT_CLAW] < right_claw_min) ? right_claw_min : right_claw_pos;
+        servos[RIGHT_CLAW]  = (right_claw_max < servos[RIGHT_CLAW]) ? right_claw_max : right_claw_pos;
+
+        /*
+        if (gamepad1.y) {
+            servos[LIFT] = 0.10;
+        } else if (gamepad1.a) {
+            servos[LIFT] = -0.10;
+        } else {
+            servos[LIFT] = 0;
+        }
+        */
+
+        if (gamepad1.back) {
+            servos[TAIL] = 0.10;
+        } else if (gamepad1.start) {
+            servos[TAIL] = -0.10;
+        } else {
+            servos[TAIL] = 0;
         }
 
         return servos;
@@ -192,6 +278,8 @@ public class RevHolonomicTestOpMode extends OpMode
     public static final int FRONT_RIGHT = 1;
     public static final int BACK_RIGHT  = 2;
     public static final int BACK_LEFT   = 3;
+
+    public static final double POWER_LIMIT = 0.95;
 
     public void set_motor_power(double[] power)
     {
@@ -205,12 +293,12 @@ public class RevHolonomicTestOpMode extends OpMode
 
     public double[] compute_motor_settings()
     {
-        double stick_dead_zone   = 0.05;
-        double precision_speed   = 0.33;
+        final double stick_dead_zone   = 0.05;
+        final double precision_speed   = 0.50;
 
-        double trigger_dead_zone = 0.05;
-        double precision_turn    = 0.10;
-        double turn_limit        = 0.50;
+        final double trigger_dead_zone = 0.05;
+        final double precision_turn    = 0.20;
+        final double turn_limit        = 0.75;
 
         // use game pad 1 right stick to determinie speed and bearing UNLESS the left stick is being used
         // right stick is for speed, left stick is for precision
@@ -229,31 +317,31 @@ public class RevHolonomicTestOpMode extends OpMode
 
         // limit the throttle
         double throttle = Math.sqrt(x*x + y*y);
-        throttle = (1 < throttle) ? 1 : throttle;
+        throttle = (POWER_LIMIT < throttle) ? POWER_LIMIT : throttle;
 
         // enable the dpad for movement
         // dpad overrides both sticks
         if (gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
             throttle = precision_speed;
-            bearing = 0;
+            bearing = 0 * Math.PI/4;
         } else if (gamepad1.dpad_up && gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
             throttle = precision_speed;
-            bearing = Math.PI/4;
+            bearing = 1 * Math.PI/4;
         } else if (! gamepad1.dpad_up && gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
             throttle = precision_speed;
-            bearing = Math.PI/2;
+            bearing = 2 * Math.PI/4;
         } else if (! gamepad1.dpad_up && gamepad1.dpad_right && gamepad1.dpad_down && ! gamepad1.dpad_left) {
             throttle = precision_speed;
             bearing = 3 * Math.PI/4;
         } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && gamepad1.dpad_down && ! gamepad1.dpad_left) {
             throttle = precision_speed;
-            bearing = Math.PI;
+            bearing = 4 * Math.PI/4;
         } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && gamepad1.dpad_down && gamepad1.dpad_left) {
             throttle = precision_speed;
             bearing = 5 * Math.PI/4;
         } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && gamepad1.dpad_left) {
             throttle = precision_speed;
-            bearing = 3 * Math.PI/2;
+            bearing = 6 * Math.PI/4;
         } else if (gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && gamepad1.dpad_left) {
             throttle = precision_speed;
             bearing = 7 * Math.PI/4;
@@ -288,10 +376,10 @@ public class RevHolonomicTestOpMode extends OpMode
 
         // limit the motors to -1.0 <= motor <= 1.0
         // scale them evenly if adjustments are made
-        if (motors[FRONT_LEFT ] < -1.0 || 1.0 < motors[FRONT_LEFT ] ||
-            motors[FRONT_RIGHT] < -1.0 || 1.0 < motors[FRONT_RIGHT] ||
-            motors[BACK_LEFT  ] < -1.0 || 1.0 < motors[BACK_LEFT  ] ||
-            motors[BACK_RIGHT ] < -1.0 || 1.0 < motors[BACK_RIGHT ]) {
+        if (motors[FRONT_LEFT ] < -POWER_LIMIT || POWER_LIMIT < motors[FRONT_LEFT ] ||
+            motors[FRONT_RIGHT] < -POWER_LIMIT || POWER_LIMIT < motors[FRONT_RIGHT] ||
+            motors[BACK_LEFT  ] < -POWER_LIMIT || POWER_LIMIT < motors[BACK_LEFT  ] ||
+            motors[BACK_RIGHT ] < -POWER_LIMIT || POWER_LIMIT < motors[BACK_RIGHT ]) {
 
             // find the scale factor
             double max = 0;
@@ -301,9 +389,8 @@ public class RevHolonomicTestOpMode extends OpMode
             }
 
             // scale back the motors evenly
-            double epsilon = 0.01;
             for (int i=0; i < motors.length; i++) {
-                motors[i] /= (max + epsilon);
+                motors[i] = POWER_LIMIT * motors[i] / max;
             }
         }
 
