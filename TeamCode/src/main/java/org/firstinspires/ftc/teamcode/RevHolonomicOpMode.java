@@ -54,7 +54,7 @@ import org.firstinspires.ftc.robotcore.internal.opmode.TelemetryImpl;
 
 @TeleOp(name="RevHolonomicOpMode", group="Iterative Opmode")
 // @Disabled
-public class RevHolonomicTestOpMode extends OpMode
+public class RevHolonomicOpMode extends OpMode
 {
     // Declare OpMode members.
     // REV Robotics drive motors
