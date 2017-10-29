@@ -38,6 +38,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.internal.opmode.TelemetryImpl;
 
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -98,6 +101,7 @@ public class RevHolonomicOpMode extends OpMode
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
         telemetry.addData("Status", "Initializing Motors.");
+
         front_left = hardwareMap.get(DcMotor.class, "front_left");
         front_left.setDirection(DcMotor.Direction.FORWARD);
         front_left.setPower(0);
@@ -115,6 +119,7 @@ public class RevHolonomicOpMode extends OpMode
         back_left.setPower(0);
 
 
+        /*
         telemetry.addData("Status", "Initializing Servos.");
         left_claw = hardwareMap.get(Servo.class, "left_claw");
         left_claw.setDirection(Servo.Direction.FORWARD);
@@ -135,9 +140,11 @@ public class RevHolonomicOpMode extends OpMode
         right_claw_del = (right_claw_max - right_claw_min) / claw_incr;
         right_claw_pos = right_claw_max - right_claw_del;
         right_claw.setPosition(right_claw_pos);
+        */
+
+        telemetry.addData("Status", "Initializing CR Servos.");
 
         /*
-        telemetry.addData("Status", "Initializing CR Servos.");
         lift = hardwareMap.get(CRServo.class, "lift");
         lift.setDirection(DcMotor.Direction.FORWARD);
         lift.setPower(0);
