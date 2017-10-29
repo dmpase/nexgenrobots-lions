@@ -52,7 +52,7 @@ import org.firstinspires.ftc.robotcore.internal.opmode.TelemetryImpl;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="RevHolonomicTestOpMode", group="Iterative Opmode")
+@TeleOp(name="RevHolonomicOpMode", group="Iterative Opmode")
 // @Disabled
 public class RevHolonomicTestOpMode extends OpMode
 {
