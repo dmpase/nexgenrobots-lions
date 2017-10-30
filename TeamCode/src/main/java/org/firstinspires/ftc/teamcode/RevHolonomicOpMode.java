@@ -215,12 +215,17 @@ public class RevHolonomicOpMode extends OpMode
         double[] servos = compute_servo_settings();
         set_servo_power(servos);
 
-        // Show the elapsed game time and wheel power.
-        telemetry.addData("", "fl = %.2f  fr = %.2f  bl = %.2f  br = %.2f",
+        // Show the elapsed game time and other data.
+
+        telemetry.addData("Motor Pos.", "%4d %4d %4d %4d",
+                front_left.getCurrentPosition(), front_right.getCurrentPosition(),
+                back_left .getCurrentPosition(), back_right .getCurrentPosition());
+
+        telemetry.addData("Motor Power", "fl = %.2f  fr = %.2f  bl = %.2f  br = %.2f",
                 motors[FRONT_LEFT], motors[FRONT_RIGHT],
                 motors[BACK_LEFT], motors[BACK_RIGHT]);
 
-        telemetry.addData("", "min = %.2f lc = %.2f  rc = %.2f max = %.2f",
+        telemetry.addData("Claw Position", "min = %.2f lc = %.2f  rc = %.2f max = %.2f",
                 Servo.MIN_POSITION, servos[LEFT_CLAW], servos[RIGHT_CLAW], Servo.MAX_POSITION);
 
         /*
