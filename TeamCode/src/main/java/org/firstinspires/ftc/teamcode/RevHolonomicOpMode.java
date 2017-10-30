@@ -29,10 +29,15 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.CompassSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -84,8 +89,11 @@ public class RevHolonomicOpMode extends OpMode
     private CRServo tail = null;
 
     // REV Robotics distance/color sensor
-//    private ColorSensor    color_sensor;
-//    private DistanceSensor distance_sensor;
+    private ColorSensor color_sensor = null;
+    private DistanceSensor distance_sensor = null;
+
+    BNO055IMU imu0 = null;
+    BNO055IMU imu1 = null;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -159,6 +167,22 @@ public class RevHolonomicOpMode extends OpMode
         color_sensor    = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
         distance_sensor = hardwareMap.get(DistanceSensor.class, "sensor_color_distance");
         */
+
+        telemetry.addData("Status", "Initializing IMU.");
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        imu0 = hardwareMap.get(BNO055IMU.class, "imu 0");
+        imu0.initialize(parameters);
+
+        imu1 = hardwareMap.get(BNO055IMU.class, "imu 1");
+        imu1.initialize(parameters);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
