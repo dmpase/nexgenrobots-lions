@@ -127,28 +127,33 @@ public class RevHolonomicOpMode extends OpMode
         back_left.setPower(0);
 
 
-        /*
+//        /*
         telemetry.addData("Status", "Initializing Servos.");
+
         left_claw = hardwareMap.get(Servo.class, "left_claw");
         left_claw.setDirection(Servo.Direction.FORWARD);
         left_claw.setPosition(Servo.MIN_POSITION);
+        sleep(0.5);
         left_claw_min = left_claw.getPosition();
         left_claw.setPosition(Servo.MAX_POSITION);
+        sleep(0.5);
         left_claw_max = left_claw.getPosition();
         left_claw_del = (left_claw_max - left_claw_min) / claw_incr;
         left_claw_pos = left_claw_min + left_claw_del;
-        left_claw.setPosition(right_claw_pos);
+        left_claw.setPosition(0.5);
 
         right_claw = hardwareMap.get(Servo.class, "right_claw");
         left_claw.setDirection(Servo.Direction.FORWARD);
         right_claw.setPosition(Servo.MIN_POSITION);
+        sleep(0.5);
         right_claw_min = right_claw.getPosition();
         right_claw.setPosition(Servo.MAX_POSITION);
+        sleep(0.5);
         right_claw_max = right_claw.getPosition();
         right_claw_del = (right_claw_max - right_claw_min) / claw_incr;
         right_claw_pos = right_claw_max - right_claw_del;
-        right_claw.setPosition(right_claw_pos);
-        */
+        right_claw.setPosition(0.5);
+//        */
 
         telemetry.addData("Status", "Initializing CR Servos.");
 
@@ -431,6 +436,16 @@ public class RevHolonomicOpMode extends OpMode
         }
 
         return motors;
+    }
+
+    public void sleep(double sec)
+    {
+        long ms = (long)(sec * 1000);
+        try {
+            Thread.sleep(ms);
+        } catch (Exception e) {
+            ;
+        }
     }
 
     /*
