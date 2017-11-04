@@ -35,16 +35,10 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.CompassSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcore.internal.opmode.TelemetryImpl;
-
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -72,14 +66,16 @@ public class RevHolonomicOpMode extends OpMode
     private DcMotor back_left   = null;
 
     private Servo left_claw  = null;
-    private double left_claw_min = 0;
-    private double left_claw_max = 0;
+    private double left_claw_open  = Servo.MIN_POSITION + 0.25 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
+    private double left_claw_close = Servo.MIN_POSITION + 1.00 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
+    private Servo.Direction left_claw_dir = Servo.Direction.FORWARD;
     private double left_claw_del = 0;
     private double left_claw_pos = 0;
 
     private Servo right_claw = null;
-    private double right_claw_min = 0;
-    private double right_claw_max = 0;
+    private double right_claw_open  = Servo.MIN_POSITION + 0.75 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
+    private double right_claw_close = Servo.MIN_POSITION + 0.00 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
+    private Servo.Direction right_claw_dir = Servo.Direction.FORWARD;
     private double right_claw_del = 0;
     private double right_claw_pos = 0;
 
@@ -131,27 +127,57 @@ public class RevHolonomicOpMode extends OpMode
         telemetry.addData("Status", "Initializing Servos.");
 
         left_claw = hardwareMap.get(Servo.class, "left_claw");
-        left_claw.setDirection(Servo.Direction.FORWARD);
-        left_claw.setPosition(Servo.MIN_POSITION);
-        sleep(0.5);
-        left_claw_min = left_claw.getPosition();
-        left_claw.setPosition(Servo.MAX_POSITION);
-        sleep(0.5);
-        left_claw_max = left_claw.getPosition();
-        left_claw_del = (left_claw_max - left_claw_min) / claw_incr;
-        left_claw_pos = left_claw_min + left_claw_del;
+        left_claw.setDirection(left_claw_dir);
+        /*
+        left_claw.setPosition(left_claw_open);
+        sleep(1.5);
+        left_claw_open = left_claw.getPosition();
+        left_claw.setPosition(left_claw_close);
+        sleep(1.5);
+        left_claw_close = left_claw.getPosition();
+        left_claw_del = (left_claw_close - left_claw_open) / claw_incr;
+        left_claw_pos = left_claw_open + left_claw_del;
+        */
+
+//        /*
+        // wave
+        left_claw.setPosition(0.25);
+        sleep(0.25);
+        left_claw.setPosition(0.75);
+        sleep(0.25);
+        left_claw.setPosition(0.25);
+        sleep(0.25);
+        left_claw.setPosition(0.75);
+        sleep(0.25);
+//1        */
+
         left_claw.setPosition(0.5);
 
         right_claw = hardwareMap.get(Servo.class, "right_claw");
-        left_claw.setDirection(Servo.Direction.FORWARD);
-        right_claw.setPosition(Servo.MIN_POSITION);
+        right_claw.setDirection(right_claw_dir);
+        /*
+        right_claw.setPosition(right_claw_open);
         sleep(0.5);
-        right_claw_min = right_claw.getPosition();
-        right_claw.setPosition(Servo.MAX_POSITION);
+        right_claw_open = right_claw.getPosition();
+        right_claw.setPosition(right_claw_close);
         sleep(0.5);
-        right_claw_max = right_claw.getPosition();
-        right_claw_del = (right_claw_max - right_claw_min) / claw_incr;
-        right_claw_pos = right_claw_max - right_claw_del;
+        right_claw_close = right_claw.getPosition();
+        right_claw_del = (right_claw_close - right_claw_open) / claw_incr;
+        right_claw_pos = right_claw_close - right_claw_del;
+        */
+
+        /*
+        // wave
+        right_claw.setPosition(0.25);
+        sleep(1.5);
+        right_claw.setPosition(0.75);
+        sleep(1.5);
+        right_claw.setPosition(0.25);
+        sleep(1.5);
+        right_claw.setPosition(0.75);
+        sleep(1.5);
+        */
+
         right_claw.setPosition(0.5);
 //        */
 
@@ -230,8 +256,7 @@ public class RevHolonomicOpMode extends OpMode
                 motors[FRONT_LEFT], motors[FRONT_RIGHT],
                 motors[BACK_LEFT], motors[BACK_RIGHT]);
 
-        telemetry.addData("Claw Position", "min = %.2f lc = %.2f  rc = %.2f max = %.2f",
-                Servo.MIN_POSITION, servos[LEFT_CLAW], servos[RIGHT_CLAW], Servo.MAX_POSITION);
+        telemetry.addData("Claw Position", "lc = %.2f  rc = %.2f", servos[LEFT_CLAW], servos[RIGHT_CLAW]);
 
         /*
         telemetry.addData("", "cm=%.2f a=%d r=%d g=%d b=%d",
@@ -252,7 +277,7 @@ public class RevHolonomicOpMode extends OpMode
     {
         if (position != null && position.length == SERVO_COUNT) {
             if (position[LEFT_CLAW] != left_claw_pos) {
-                left_claw .setPosition(position[LEFT_CLAW]);
+                left_claw.setPosition(position[LEFT_CLAW]);
                 left_claw_pos = position[LEFT_CLAW];
             }
 
@@ -275,23 +300,23 @@ public class RevHolonomicOpMode extends OpMode
             // conflicting inputs, do nothing
             servos[LEFT_CLAW]  = left_claw_pos;
             servos[RIGHT_CLAW] = right_claw_pos;
+        } else if (gamepad1.b) {
+            // open the claw
+            servos[LEFT_CLAW]  = left_claw_open; // left_claw_pos  - left_claw_del;
+            servos[RIGHT_CLAW] = right_claw_open; // right_claw_pos - right_claw_del;
         } else if (gamepad1.x) {
             // close the claw
-            servos[LEFT_CLAW]  = left_claw_pos  + left_claw_del;
-            servos[RIGHT_CLAW] = right_claw_pos + right_claw_del;
-        } else if (gamepad1.b) {
-            // close the claw
-            servos[LEFT_CLAW]  = left_claw_pos  - left_claw_del;
-            servos[RIGHT_CLAW] = right_claw_pos - right_claw_del;
+            servos[LEFT_CLAW]  = left_claw_close; // left_claw_pos  + left_claw_del;
+            servos[RIGHT_CLAW] = right_claw_close; // right_claw_pos + right_claw_del;
         } else {
             // maintain position, do nothing
             servos[LEFT_CLAW]  = left_claw_pos;
             servos[RIGHT_CLAW] = right_claw_pos;
         }
-        servos[LEFT_CLAW]  = (servos[LEFT_CLAW] < left_claw_min) ? left_claw_min : left_claw_pos;
-        servos[LEFT_CLAW]  = (left_claw_max < servos[LEFT_CLAW]) ? left_claw_max : left_claw_pos;
-        servos[RIGHT_CLAW]  = (servos[RIGHT_CLAW] < right_claw_min) ? right_claw_min : right_claw_pos;
-        servos[RIGHT_CLAW]  = (right_claw_max < servos[RIGHT_CLAW]) ? right_claw_max : right_claw_pos;
+//        servos[LEFT_CLAW]  = (servos[LEFT_CLAW] < left_claw_open) ? left_claw_open : servos[LEFT_CLAW];
+//        servos[LEFT_CLAW]  = (left_claw_close < servos[LEFT_CLAW]) ? left_claw_close : servos[LEFT_CLAW];
+//        servos[RIGHT_CLAW] = (servos[RIGHT_CLAW] < right_claw_open) ? right_claw_open : servos[RIGHT_CLAW];
+//        servos[RIGHT_CLAW] = (right_claw_close < servos[RIGHT_CLAW]) ? right_claw_close : servos[RIGHT_CLAW];
 
         /*
         if (gamepad1.y) {
