@@ -29,18 +29,12 @@
 
 package org.firstinspires.ftc.teamcode;
 
-<<<<<<< Updated upstream
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
-=======
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
->>>>>>> Stashed changes
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -56,21 +50,14 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-<<<<<<< Updated upstream
 @TeleOp(name="DougOpMode", group="Iterative Opmode")
-=======
-@TeleOp(name="EchoOpMode", group="Iterative Opmode")
->>>>>>> Stashed changes
 // @Disabled
 public class DougOpMode extends OpMode
 {
     // Declare OpMode members.
-<<<<<<< Updated upstream
-=======
     private DcMotor motor1  = null;
     private DcMotor motor2  = null;
 
->>>>>>> Stashed changes
     private ElapsedTime runtime = new ElapsedTime();
 
     /*
@@ -83,12 +70,10 @@ public class DougOpMode extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-<<<<<<< Updated upstream
-=======
+
         motor1 = hardwareMap.get(DcMotor.class, "motor1");
         motor1.setDirection(DcMotor.Direction.FORWARD);
         motor1.setPower(0);
->>>>>>> Stashed changes
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
@@ -114,13 +99,10 @@ public class DougOpMode extends OpMode
      */
     @Override
     public void loop() {
-<<<<<<< Updated upstream
-=======
         motor1.setPower(gamepad1.left_stick_x);
         motor2.setPower(gamepad1.left_stick_y);
 
         // Show the elapsed game time and wheel power.
->>>>>>> Stashed changes
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
 
