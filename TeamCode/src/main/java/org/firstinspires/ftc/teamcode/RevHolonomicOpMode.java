@@ -67,6 +67,7 @@ public class RevHolonomicOpMode extends OpMode
 
     private Servo left_claw  = null;
     private double left_claw_open  = Servo.MIN_POSITION + 0.25 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
+    private double left_claw_mid   = Servo.MIN_POSITION + 0.50 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
     private double left_claw_close = Servo.MIN_POSITION + 1.00 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
     private Servo.Direction left_claw_dir = Servo.Direction.FORWARD;
     private double left_claw_del = 0;
@@ -74,6 +75,7 @@ public class RevHolonomicOpMode extends OpMode
 
     private Servo right_claw = null;
     private double right_claw_open  = Servo.MIN_POSITION + 0.75 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
+    private double right_claw_mid   = Servo.MIN_POSITION + 0.50 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
     private double right_claw_close = Servo.MIN_POSITION + 0.00 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
     private Servo.Direction right_claw_dir = Servo.Direction.FORWARD;
     private double right_claw_del = 0;
@@ -111,18 +113,22 @@ public class RevHolonomicOpMode extends OpMode
         front_left = hardwareMap.get(DcMotor.class, "front_left");
         front_left.setDirection(DcMotor.Direction.FORWARD);
         front_left.setPower(0);
+        front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         front_right = hardwareMap.get(DcMotor.class, "front_right");
         front_right.setDirection(DcMotor.Direction.FORWARD);
         front_right.setPower(0);
+        front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         back_right = hardwareMap.get(DcMotor.class, "back_right");
         back_right.setDirection(DcMotor.Direction.FORWARD);
         back_right.setPower(0);
+        back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         back_left = hardwareMap.get(DcMotor.class, "back_left");
         back_left.setDirection(DcMotor.Direction.FORWARD);
         back_left.setPower(0);
+        back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
 //        /*
@@ -136,31 +142,30 @@ public class RevHolonomicOpMode extends OpMode
 
 //        /*
         // wave
-        left_claw.setPosition(0.25);
-        right_claw.setPosition(0.75);
+        left_claw.setPosition(left_claw_open);
+        right_claw.setPosition(right_claw_open);
         sleep(0.25);
-        left_claw.setPosition(0.75);
-        right_claw.setPosition(0.25);
+        left_claw.setPosition(left_claw_close);
+        right_claw.setPosition(right_claw_close);
         sleep(0.25);
-        left_claw.setPosition(0.25);
-        right_claw.setPosition(0.75);
+        left_claw.setPosition(left_claw_open);
+        right_claw.setPosition(right_claw_open);
         sleep(0.25);
-        left_claw.setPosition(0.75);
-        right_claw.setPosition(0.25);
+        left_claw.setPosition(left_claw_close);
+        right_claw.setPosition(right_claw_close);
         sleep(0.25);
 
-        left_claw.setPosition(0.5);
-        right_claw.setPosition(0.5);
+        left_claw.setPosition(left_claw_mid);
+        right_claw.setPosition(right_claw_mid);
 //        */
 
-        telemetry.addData("Status", "Initializing CR Servos.");
+        telemetry.addData("Status", "Initializing Lift & Tail.");
 
 //        /*
         lift = hardwareMap.get(DcMotor.class, "lift");
         lift.setDirection(DcMotor.Direction.FORWARD);
-        lift.setPower(0.1);
-        sleep(0.25);
         lift.setPower(0);
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        */
 
         tail = hardwareMap.get(CRServo.class, "tail");
@@ -222,15 +227,16 @@ public class RevHolonomicOpMode extends OpMode
 
         // Show the elapsed game time and other data.
 
-        telemetry.addData("Motor Pos.", "%4d %4d %4d %4d",
+        telemetry.addData("Motor Pos.", "%05d %05d %05d %05d",
                 front_left.getCurrentPosition(), front_right.getCurrentPosition(),
                 back_left .getCurrentPosition(), back_right .getCurrentPosition());
 
-        telemetry.addData("Motor Power", "fl = %.2f  fr = %.2f  bl = %.2f  br = %.2f",
+        telemetry.addData("Motor Power", "%5.2f %5.2f %5.2f %5.2f",
                 motors[FRONT_LEFT], motors[FRONT_RIGHT],
                 motors[BACK_LEFT], motors[BACK_RIGHT]);
 
-        telemetry.addData("Claw Position", "lc = %.2f  rc = %.2f", servos[LEFT_CLAW], servos[RIGHT_CLAW]);
+        telemetry.addData("Claw Position", "%5.2f %5.2f %05d",
+                servos[LEFT_CLAW], servos[RIGHT_CLAW], lift.getCurrentPosition());
 
         /*
         telemetry.addData("", "cm=%.2f a=%d r=%d g=%d b=%d",
