@@ -81,6 +81,8 @@ public class RevHolonomicOpMode extends OpMode
 
     private double claw_incr = 20;
 
+    private DcMotor lift   = null;
+
     //    private CRServo lift = null;
     private CRServo tail = null;
 
@@ -128,76 +130,48 @@ public class RevHolonomicOpMode extends OpMode
 
         left_claw = hardwareMap.get(Servo.class, "left_claw");
         left_claw.setDirection(left_claw_dir);
-        /*
-        left_claw.setPosition(left_claw_open);
-        sleep(1.5);
-        left_claw_open = left_claw.getPosition();
-        left_claw.setPosition(left_claw_close);
-        sleep(1.5);
-        left_claw_close = left_claw.getPosition();
-        left_claw_del = (left_claw_close - left_claw_open) / claw_incr;
-        left_claw_pos = left_claw_open + left_claw_del;
-        */
+
+        right_claw = hardwareMap.get(Servo.class, "right_claw");
+        right_claw.setDirection(right_claw_dir);
 
 //        /*
         // wave
         left_claw.setPosition(0.25);
+        right_claw.setPosition(0.75);
         sleep(0.25);
         left_claw.setPosition(0.75);
+        right_claw.setPosition(0.25);
         sleep(0.25);
         left_claw.setPosition(0.25);
+        right_claw.setPosition(0.75);
         sleep(0.25);
         left_claw.setPosition(0.75);
+        right_claw.setPosition(0.25);
         sleep(0.25);
-//1        */
 
         left_claw.setPosition(0.5);
-
-        right_claw = hardwareMap.get(Servo.class, "right_claw");
-        right_claw.setDirection(right_claw_dir);
-        /*
-        right_claw.setPosition(right_claw_open);
-        sleep(0.5);
-        right_claw_open = right_claw.getPosition();
-        right_claw.setPosition(right_claw_close);
-        sleep(0.5);
-        right_claw_close = right_claw.getPosition();
-        right_claw_del = (right_claw_close - right_claw_open) / claw_incr;
-        right_claw_pos = right_claw_close - right_claw_del;
-        */
-
-        /*
-        // wave
-        right_claw.setPosition(0.25);
-        sleep(1.5);
-        right_claw.setPosition(0.75);
-        sleep(1.5);
-        right_claw.setPosition(0.25);
-        sleep(1.5);
-        right_claw.setPosition(0.75);
-        sleep(1.5);
-        */
-
         right_claw.setPosition(0.5);
 //        */
 
         telemetry.addData("Status", "Initializing CR Servos.");
 
-        /*
-        lift = hardwareMap.get(CRServo.class, "lift");
+//        /*
+        lift = hardwareMap.get(DcMotor.class, "lift");
         lift.setDirection(DcMotor.Direction.FORWARD);
+        lift.setPower(0.1);
+        sleep(0.25);
         lift.setPower(0);
-        */
+//        */
 
         tail = hardwareMap.get(CRServo.class, "tail");
         tail.setDirection(DcMotor.Direction.FORWARD);
         tail.setPower(0);
 
-        /*
+//        /*
         // REV Robotics distance/color sensor
-        color_sensor    = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
-        distance_sensor = hardwareMap.get(DistanceSensor.class, "sensor_color_distance");
-        */
+        color_sensor    = hardwareMap.get(ColorSensor.class, "color range 2.1");
+        distance_sensor = hardwareMap.get(DistanceSensor.class, "color range 2.1");
+//        */
 
         telemetry.addData("Status", "Initializing IMU.");
 
@@ -287,7 +261,7 @@ public class RevHolonomicOpMode extends OpMode
             }
 
             tail.setPower(position[TAIL]);
-//            lift.setPower(position[LIFT]);
+            lift.setPower(position[LIFT]);
         }
     }
 
@@ -318,7 +292,6 @@ public class RevHolonomicOpMode extends OpMode
 //        servos[RIGHT_CLAW] = (servos[RIGHT_CLAW] < right_claw_open) ? right_claw_open : servos[RIGHT_CLAW];
 //        servos[RIGHT_CLAW] = (right_claw_close < servos[RIGHT_CLAW]) ? right_claw_close : servos[RIGHT_CLAW];
 
-        /*
         if (gamepad1.y) {
             servos[LIFT] = 0.10;
         } else if (gamepad1.a) {
@@ -326,7 +299,6 @@ public class RevHolonomicOpMode extends OpMode
         } else {
             servos[LIFT] = 0;
         }
-        */
 
         if (gamepad1.back) {
             servos[TAIL] = 0.10;
@@ -360,10 +332,10 @@ public class RevHolonomicOpMode extends OpMode
     public double[] compute_motor_settings()
     {
         final double stick_dead_zone   = 0.05;
-        final double precision_speed   = 0.50;
+        final double precision_speed   = 0.25;
 
         final double trigger_dead_zone = 0.05;
-        final double precision_turn    = 0.20;
+        final double precision_turn    = 0.10;
         final double turn_limit        = 0.75;
 
         // use game pad 1 right stick to determinie speed and bearing UNLESS the left stick is being used
