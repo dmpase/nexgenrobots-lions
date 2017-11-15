@@ -40,6 +40,8 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -114,21 +116,25 @@ public class RevHolonomicOpMode extends OpMode
         front_left.setDirection(DcMotor.Direction.FORWARD);
         front_left.setPower(0);
         front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        front_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         front_right = hardwareMap.get(DcMotor.class, "front_right");
         front_right.setDirection(DcMotor.Direction.FORWARD);
         front_right.setPower(0);
         front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        front_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         back_right = hardwareMap.get(DcMotor.class, "back_right");
         back_right.setDirection(DcMotor.Direction.FORWARD);
         back_right.setPower(0);
         back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        back_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         back_left = hardwareMap.get(DcMotor.class, "back_left");
         back_left.setDirection(DcMotor.Direction.FORWARD);
         back_left.setPower(0);
         back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        back_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
 //        /*
@@ -140,7 +146,7 @@ public class RevHolonomicOpMode extends OpMode
         right_claw = hardwareMap.get(Servo.class, "right_claw");
         right_claw.setDirection(right_claw_dir);
 
-//        /*
+        /*
         // wave
         left_claw.setPosition(left_claw_open);
         right_claw.setPosition(right_claw_open);
@@ -157,7 +163,7 @@ public class RevHolonomicOpMode extends OpMode
 
         left_claw.setPosition(left_claw_mid);
         right_claw.setPosition(right_claw_mid);
-//        */
+        */
 
         telemetry.addData("Status", "Initializing Lift & Tail.");
 
@@ -166,6 +172,7 @@ public class RevHolonomicOpMode extends OpMode
         lift.setDirection(DcMotor.Direction.FORWARD);
         lift.setPower(0);
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        */
 
         tail = hardwareMap.get(CRServo.class, "tail");
@@ -238,11 +245,11 @@ public class RevHolonomicOpMode extends OpMode
         telemetry.addData("Claw Position", "%5.2f %5.2f %05d",
                 servos[LEFT_CLAW], servos[RIGHT_CLAW], lift.getCurrentPosition());
 
-        /*
+//        /*
         telemetry.addData("", "cm=%.2f a=%d r=%d g=%d b=%d",
                 distance_sensor.getDistance(DistanceUnit.CM), color_sensor.alpha(),
                 color_sensor.red(), color_sensor.green(), color_sensor.blue());
-        */
+//        */
 
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
@@ -299,9 +306,9 @@ public class RevHolonomicOpMode extends OpMode
 //        servos[RIGHT_CLAW] = (right_claw_close < servos[RIGHT_CLAW]) ? right_claw_close : servos[RIGHT_CLAW];
 
         if (gamepad1.y) {
-            servos[LIFT] = 0.10;
+            servos[LIFT] = 0.15;
         } else if (gamepad1.a) {
-            servos[LIFT] = -0.10;
+            servos[LIFT] = -0.15;
         } else {
             servos[LIFT] = 0;
         }
@@ -325,6 +332,18 @@ public class RevHolonomicOpMode extends OpMode
 
     public static final double POWER_LIMIT = 0.95;
 
+    public static final double stick_dead_zone   = 0.05;
+    public static final double full_speed        = 0.95;
+    public static final double half_speed        = 0.50;
+    public static final double slow_speed        = 0.25;
+
+    public static final double trigger_dead_zone = 0.05;
+    public static final double full_turn         = 0.45;
+    public static final double half_turn         = 0.30;
+    public static final double slow_turn         = 0.15;
+    public static final double turn_limit        = 0.75;
+
+
     public void set_motor_power(double[] power)
     {
         if (power != null && power.length == MOTOR_COUNT) {
@@ -337,22 +356,15 @@ public class RevHolonomicOpMode extends OpMode
 
     public double[] compute_motor_settings()
     {
-        final double stick_dead_zone   = 0.05;
-        final double precision_speed   = 0.25;
-
-        final double trigger_dead_zone = 0.05;
-        final double precision_turn    = 0.10;
-        final double turn_limit        = 0.75;
-
         // use game pad 1 right stick to determinie speed and bearing UNLESS the left stick is being used
         // right stick is for speed, left stick is for precision
-        double x = (-stick_dead_zone < gamepad1.right_stick_x && gamepad1.right_stick_x < stick_dead_zone) ? 0 : gamepad1.right_stick_x;
-        double y = (-stick_dead_zone < gamepad1.right_stick_y && gamepad1.right_stick_y < stick_dead_zone) ? 0 : gamepad1.right_stick_y;
+        double x = (-stick_dead_zone < gamepad1.right_stick_x && gamepad1.right_stick_x < stick_dead_zone) ? 0 : full_speed * gamepad1.right_stick_x;
+        double y = (-stick_dead_zone < gamepad1.right_stick_y && gamepad1.right_stick_y < stick_dead_zone) ? 0 : full_speed * gamepad1.right_stick_y;
         if (gamepad1.left_stick_x < -stick_dead_zone || stick_dead_zone < gamepad1.left_stick_x ||
             gamepad1.left_stick_y < -stick_dead_zone || stick_dead_zone < gamepad1.left_stick_y) {
 
-            x = precision_speed * gamepad1.left_stick_x;
-            y = precision_speed * gamepad1.left_stick_y;
+            x = half_speed * gamepad1.left_stick_x;
+            y = half_speed * gamepad1.left_stick_y;
         }
 
         // get the angle of the stick to compute the desired bearing
@@ -366,28 +378,28 @@ public class RevHolonomicOpMode extends OpMode
         // enable the dpad for movement
         // dpad overrides both sticks
         if (gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 0 * Math.PI/4;
         } else if (gamepad1.dpad_up && gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 1 * Math.PI/4;
         } else if (! gamepad1.dpad_up && gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 2 * Math.PI/4;
         } else if (! gamepad1.dpad_up && gamepad1.dpad_right && gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 3 * Math.PI/4;
         } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 4 * Math.PI/4;
         } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && gamepad1.dpad_down && gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 5 * Math.PI/4;
         } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 6 * Math.PI/4;
         } else if (gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 7 * Math.PI/4;
         }
 
@@ -397,18 +409,18 @@ public class RevHolonomicOpMode extends OpMode
             // conflicting inputs, do nothing
         } else if (gamepad1.left_bumper) {
             // bumpers take priority, turn left
-            rotation = precision_turn;
+            rotation = slow_turn;
         } else if (gamepad1.right_bumper) {
             // bumpers take priority, turn right
-            rotation = -precision_turn;
+            rotation = -slow_turn;
         } else if (trigger_dead_zone < gamepad1.left_trigger && trigger_dead_zone < gamepad1.right_trigger) {
             // conflicting inputs, do nothing
         } else if (trigger_dead_zone < gamepad1.left_trigger) {
             // turn left using trigger
-            rotation = turn_limit * gamepad1.left_trigger;
+            rotation = half_turn * gamepad1.left_trigger;
         } else if (trigger_dead_zone < gamepad1.right_trigger) {
             // turn right using trigger
-            rotation = -turn_limit * gamepad1.right_trigger;
+            rotation = -half_turn * gamepad1.right_trigger;
         }
 
         double[] motors = new double[MOTOR_COUNT];
@@ -457,5 +469,4 @@ public class RevHolonomicOpMode extends OpMode
     @Override
     public void stop() {
     }
-
 }
