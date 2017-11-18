@@ -33,6 +33,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -97,6 +98,8 @@ public class RevHolonomicOpMode extends OpMode
     BNO055IMU imu0 = null;
     BNO055IMU imu1 = null;
 
+    AnalogInput rs0 = null;
+
     private ElapsedTime runtime = new ElapsedTime();
 
     /*
@@ -146,25 +149,6 @@ public class RevHolonomicOpMode extends OpMode
         right_claw = hardwareMap.get(Servo.class, "right_claw");
         right_claw.setDirection(right_claw_dir);
 
-        /*
-        // wave
-        left_claw.setPosition(left_claw_open);
-        right_claw.setPosition(right_claw_open);
-        sleep(0.25);
-        left_claw.setPosition(left_claw_close);
-        right_claw.setPosition(right_claw_close);
-        sleep(0.25);
-        left_claw.setPosition(left_claw_open);
-        right_claw.setPosition(right_claw_open);
-        sleep(0.25);
-        left_claw.setPosition(left_claw_close);
-        right_claw.setPosition(right_claw_close);
-        sleep(0.25);
-
-        left_claw.setPosition(left_claw_mid);
-        right_claw.setPosition(right_claw_mid);
-        */
-
         telemetry.addData("Status", "Initializing Lift & Tail.");
 
 //        /*
@@ -201,6 +185,8 @@ public class RevHolonomicOpMode extends OpMode
         imu1 = hardwareMap.get(BNO055IMU.class, "imu 1");
         imu1.initialize(parameters);
 
+        rs0 = hardwareMap.get(AnalogInput.class, "range sensor 0");
+
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
     }
@@ -234,6 +220,8 @@ public class RevHolonomicOpMode extends OpMode
 
         // Show the elapsed game time and other data.
 
+        telemetry.addData("Range", "%5.2f %7.4f", rs0.getMaxVoltage(), rs0.getVoltage());
+
         telemetry.addData("Motor Pos.", "%05d %05d %05d %05d",
                 front_left.getCurrentPosition(), front_right.getCurrentPosition(),
                 back_left .getCurrentPosition(), back_right .getCurrentPosition());
@@ -245,11 +233,9 @@ public class RevHolonomicOpMode extends OpMode
         telemetry.addData("Claw Position", "%5.2f %5.2f %05d",
                 servos[LEFT_CLAW], servos[RIGHT_CLAW], lift.getCurrentPosition());
 
-//        /*
-        telemetry.addData("", "cm=%.2f a=%d r=%d g=%d b=%d",
+        telemetry.addData("Color/Dist", "cm=%6.2f a=%03d r=%03d g=%03d b=%03d",
                 distance_sensor.getDistance(DistanceUnit.CM), color_sensor.alpha(),
                 color_sensor.red(), color_sensor.green(), color_sensor.blue());
-//        */
 
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
@@ -338,9 +324,9 @@ public class RevHolonomicOpMode extends OpMode
     public static final double slow_speed        = 0.25;
 
     public static final double trigger_dead_zone = 0.05;
-    public static final double full_turn         = 0.45;
-    public static final double half_turn         = 0.30;
-    public static final double slow_turn         = 0.15;
+    public static final double full_turn         = 0.40;
+    public static final double half_turn         = 0.20;
+    public static final double slow_turn         = 0.10;
     public static final double turn_limit        = 0.75;
 
 
