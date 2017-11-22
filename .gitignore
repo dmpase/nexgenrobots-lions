@@ -4,5 +4,6 @@ build
 *.iml
 .gradle
 .idea
+doc/.DS_Store
 .DS_Store
 local.properties
