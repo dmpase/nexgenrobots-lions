@@ -156,7 +156,9 @@ public class RevHolonomicOpMode extends OpMode
         lift.setDirection(DcMotor.Direction.FORWARD);
         lift.setPower(0);
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        lift.setTargetPosition(1000);
 //        */
 
         tail = hardwareMap.get(CRServo.class, "tail");
@@ -246,6 +248,13 @@ public class RevHolonomicOpMode extends OpMode
     public static final int LEFT_CLAW   = 2;
     public static final int RIGHT_CLAW  = 3;
 
+    public static final int lift_max_pos =  1300;
+    public static final int lift_mid_pos =   650;
+    public static final int lift_min_pos =     0;
+    public static final double lift_max_pwr =  0.15;
+    public static final double lift_mid_pwr =  0.00;
+    public static final double lift_min_pwr = -0.15;
+
     public void set_servo_power(double[] position)
     {
         if (position != null && position.length == SERVO_COUNT) {
@@ -259,8 +268,9 @@ public class RevHolonomicOpMode extends OpMode
                 right_claw_pos = position[RIGHT_CLAW];
             }
 
-            tail.setPower(position[TAIL]);
-            lift.setPower(position[LIFT]);
+//            tail.setPower(position[TAIL]);
+//            lift.setPower(position[LIFT]);
+//            lift.setTargetPosition((int) position[LIFT]);
         }
     }
 
@@ -286,17 +296,28 @@ public class RevHolonomicOpMode extends OpMode
             servos[LEFT_CLAW]  = left_claw_pos;
             servos[RIGHT_CLAW] = right_claw_pos;
         }
-//        servos[LEFT_CLAW]  = (servos[LEFT_CLAW] < left_claw_open) ? left_claw_open : servos[LEFT_CLAW];
-//        servos[LEFT_CLAW]  = (left_claw_close < servos[LEFT_CLAW]) ? left_claw_close : servos[LEFT_CLAW];
-//        servos[RIGHT_CLAW] = (servos[RIGHT_CLAW] < right_claw_open) ? right_claw_open : servos[RIGHT_CLAW];
-//        servos[RIGHT_CLAW] = (right_claw_close < servos[RIGHT_CLAW]) ? right_claw_close : servos[RIGHT_CLAW];
 
-        if (gamepad1.y) {
-            servos[LIFT] = 0.15;
+        servos[LEFT_CLAW]  = (servos[LEFT_CLAW]  < left_claw_open    ) ? left_claw_open   : servos[LEFT_CLAW];
+        servos[LEFT_CLAW]  = (left_claw_close    < servos[LEFT_CLAW] ) ? left_claw_close  : servos[LEFT_CLAW];
+        servos[RIGHT_CLAW] = (servos[RIGHT_CLAW] < right_claw_open   ) ? right_claw_open  : servos[RIGHT_CLAW];
+        servos[RIGHT_CLAW] = (right_claw_close   < servos[RIGHT_CLAW]) ? right_claw_close : servos[RIGHT_CLAW];
+
+        if (gamepad1.y && gamepad1.a) {
+//          servos[LIFT] = lift_mid;
+//            lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            lift.setTargetPosition(lift_mid_pos);
+        } else if (gamepad1.y) {
+//           servos[LIFT] = lift_max;
+//            lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            lift.setTargetPosition(lift_max_pos);
         } else if (gamepad1.a) {
-            servos[LIFT] = -0.15;
+//            servos[LIFT] = lift_min;
+//            lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            lift.setTargetPosition(lift_min_pos);
         } else {
-            servos[LIFT] = 0;
+//            servos[LIFT] = 0;
+//            lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            lift.setTargetPosition(lift_min_pos);
         }
 
         if (gamepad1.back) {
