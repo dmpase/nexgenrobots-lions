@@ -8,23 +8,34 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class DcMotorEnc {
     public DcMotor motor   = null;
+    public int     count   = 0;
     public int     target  = 0;
     public double  max_pwr = 1.0;
     public double  scale   = 100;
+    public double  power   = 0;
 
-    public DcMotorEnc(DcMotor m, int t, double p, double s)
+    public DcMotorEnc(DcMotor motor, int target, double power, double scale)
     {
-        motor   = m;
-        target  = t;
-        max_pwr = p;
-        scale   = s;
+        this.motor   = motor;
+        this.target  = target;
+        this.max_pwr = power;
+        this.scale   = scale;
+    }
+
+    public void setTargetPosition(int position)
+    {
+        target = position;
     }
 
     public void update()
     {
         int c = motor.getCurrentPosition();
-        double p = (target - c)/scale;
-        p = (p < -max_pwr) ? -max_pwr : (max_pwr < p) ? max_pwr : p;
-        motor.setPower(p);
+        power = (target - c)/scale;
+        power = (power < -max_pwr) ? -max_pwr : (max_pwr < power) ? max_pwr : power;
+        DcMotor.RunMode mode = motor.getMode();
+        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motor.setPower(power);
+        motor.setMode(mode);
+        count += 1;
     }
 }
