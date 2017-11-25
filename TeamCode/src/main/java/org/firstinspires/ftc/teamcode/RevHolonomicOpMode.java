@@ -96,10 +96,13 @@ public class RevHolonomicOpMode extends OpMode
     private ColorSensor color_sensor = null;
     private DistanceSensor distance_sensor = null;
 
+    private DistanceSensor mr_range = null;
+
     BNO055IMU imu0 = null;
     BNO055IMU imu1 = null;
 
-    AnalogInput rs0 = null;
+    AnalogInput rs0  = null;
+    Distance    rs0d = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -158,7 +161,7 @@ public class RevHolonomicOpMode extends OpMode
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        lift_ctl = new DcMotorEnc(lift, 0, 0.10, 500);
+        lift_ctl = new DcMotorEnc(lift,0,0.10,0.01,500);
 
         tail = hardwareMap.get(CRServo.class, "tail");
         tail.setDirection(DcMotor.Direction.FORWARD);
@@ -169,6 +172,8 @@ public class RevHolonomicOpMode extends OpMode
         color_sensor    = hardwareMap.get(ColorSensor.class, "color range 2.1");
         distance_sensor = hardwareMap.get(DistanceSensor.class, "color range 2.1");
 //        */
+
+        mr_range = hardwareMap.get(DistanceSensor.class, "MR range 2.0");
 
         telemetry.addData("Status", "Initializing IMU.");
 
@@ -221,7 +226,11 @@ public class RevHolonomicOpMode extends OpMode
 
         // Show the elapsed game time and other data.
 
-        telemetry.addData("Range", "%5.2f %7.4f", rs0.getMaxVoltage(), rs0.getVoltage());
+        telemetry.addData("Range", "%5.2fv %7.4fv %7.2f\"", rs0.getMaxVoltage(), rs0.getVoltage(),
+                rs0d.distance(rs0.getVoltage()));
+
+        telemetry.addData("MR Range", "in=%6.2f",
+                mr_range.getDistance(DistanceUnit.INCH));
 
         telemetry.addData("Motor Pos.", "%05d %05d %05d %05d",
                 front_left.getCurrentPosition(), front_right.getCurrentPosition(),
@@ -231,13 +240,13 @@ public class RevHolonomicOpMode extends OpMode
         telemetry.addData("Motor Power", "%5.2f %5.2f %5.2f %5.2f",
                 motors[FRONT_LEFT], motors[FRONT_RIGHT],
                 motors[BACK_LEFT], motors[BACK_RIGHT]);
-         */
 
         telemetry.addData("Claw Position", "%5.2f %5.2f %05d",
                 servos[LEFT_CLAW], servos[RIGHT_CLAW], lift.getCurrentPosition());
+         */
 
-        telemetry.addData("Lift Ctl", "%5.2f %7d %5.2f %04d %7d",
-                lift.getPower(), lift_ctl.target, lift_ctl.power, lift.getCurrentPosition(), lift_ctl.count);
+        telemetry.addData("Lift Ctl", "%5.2f %5.2f %04d %04d %7d",
+                lift_ctl.power, lift.getPower(), lift_ctl.target, lift.getCurrentPosition(), lift_ctl.count);
 
         telemetry.addData("Color/Dist", "cm=%6.2f a=%03d r=%03d g=%03d b=%03d",
                 distance_sensor.getDistance(DistanceUnit.CM), color_sensor.alpha(),
