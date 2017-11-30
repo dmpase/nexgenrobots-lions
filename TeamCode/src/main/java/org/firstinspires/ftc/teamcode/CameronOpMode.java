@@ -50,9 +50,9 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="DougOpMode", group="Iterative Opmode")
+@TeleOp(name="CameronOpMode", group="Iterative Opmode")
 // @Disabled
-public class DougOpMode extends OpMode
+public class CameronOpMode extends OpMode
 {
     // Declare OpMode members.
     private DcMotor motor1  = null;
@@ -74,7 +74,9 @@ public class DougOpMode extends OpMode
         motor1 = hardwareMap.get(DcMotor.class, "motor1");
         motor1.setDirection(DcMotor.Direction.FORWARD);
         motor1.setPower(0);
-
+        motor2 = hardwareMap.get(DcMotor.class, "motor1");
+        motor2.setDirection(DcMotor.Direction.FORWARD);
+        motor2.setPower(0);
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
     }
@@ -99,11 +101,17 @@ public class DougOpMode extends OpMode
      */
     @Override
     public void loop() {
-        motor1.setPower(gamepad1.left_stick_x);
-        motor2.setPower(gamepad1.left_stick_y);
+       motor1.setPower(gamepad1.left_stick_x);
+       motor2.setPower(gamepad1.left_stick_y);
+       double alpha = Math.atan2(gamepad1.left_stick_y,gamepad1.left_stick_x);
+       double degrees = alpha * 180/Math.PI;
+       double bearing = degrees + 90;
+
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.addData("Status", "Atan2 " + degrees);
+        telemetry.addData("Status", "Bearing " + bearing);
     }
 
     /*
