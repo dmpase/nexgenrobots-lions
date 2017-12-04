@@ -36,18 +36,18 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="Rev Holonomic Autonomous", group="Autonomous")
+@Autonomous(name="Test Holonomic Autonomous Iterative", group="Autonomous")
 // @Disabled
-public class RevHolonomicAuto extends OpMode {
+public class TestHoloAuto_Iterative extends OpMode {
     private DcMotor front_left  = null;
     private DcMotor front_right = null;
     private DcMotor back_right  = null;
     private DcMotor back_left   = null;
 
-    AnalogInput rs0  = null;
-    Distance    rs0d = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
-    AnalogInput rs1  = null;
-    Distance    rs1d = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
+    private AnalogInput rs0  = null;
+    private Distance    rs0d = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
+    private AnalogInput rs1  = null;
+    private Distance    rs1d = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -105,21 +105,21 @@ public class RevHolonomicAuto extends OpMode {
         runtime.reset();
     }
 
-    public static final int start       = 0;
-    public static final int initial_leg = 1;
-    public static final int pause       = 2;
-    public static final int return_leg  = 3;
-    public static final int done        = 4;
+    private static final int start       = 0;
+    private static final int initial_leg = 1;
+    private static final int pause       = 2;
+    private static final int return_leg  = 3;
+    private static final int done        = 4;
 
-    public static final int fl_stop_0  = -3500;
-    public static final int fr_stop_0  =  3500;
-    public static final int br_stop_0  =  3500;
-    public static final int bl_stop_0  = -3500;
+    private static final int fl_stop_0  = -3500;
+    private static final int fr_stop_0  =  3500;
+    private static final int br_stop_0  =  3500;
+    private static final int bl_stop_0  = -3500;
 
-    int state = start;
+    private int state = start;
 
-    public static final double pause_time = 5;
-    double timer_start = 0;
+    private static final double pause_time = 5;
+    private double timer_start = 0;
 
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
@@ -145,7 +145,6 @@ public class RevHolonomicAuto extends OpMode {
             back_right.setPower(0.1);
 
             state = initial_leg;
-//            state = start;
         }
 
         if (state == initial_leg &&
@@ -190,25 +189,6 @@ public class RevHolonomicAuto extends OpMode {
             state = done;
         }
 
-            /*/
-        if (10 < Math.abs(front_left .getCurrentPosition()-front_left .getTargetPosition()) ||
-            10 < Math.abs(front_right.getCurrentPosition()-front_right.getTargetPosition()) ||
-            10 < Math.abs(back_left  .getCurrentPosition()-back_left  .getTargetPosition()) ||
-            10 < Math.abs(back_right .getCurrentPosition()-back_right .getTargetPosition())) {
-
-            front_left .setPower(0);
-            front_right.setPower(0);
-            back_left  .setPower(0);
-            back_right .setPower(0);
-
-            front_left .setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            front_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            back_left  .setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            back_right .setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        }
-            /*/
-
         telemetry.addData("State", "%d", state);
 
             /*/
@@ -230,10 +210,6 @@ public class RevHolonomicAuto extends OpMode {
         telemetry.addData("Motor Pwr.", "%5.2f %5.2f %5.2f %5.2f",
                 front_left.getPower(), front_right.getPower(),
                 back_left .getPower(), back_right .getPower());
-
-        telemetry.addData("Motor Mode",
-                front_left.getMode() + " " + front_right.getMode() + "  " +
-                back_left .getMode() + " " + back_right .getMode());
 
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }

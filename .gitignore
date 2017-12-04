@@ -15,13 +15,11 @@ gradlew.bat
 libs/
 local.properties
 settings.gradle
-TeamCode/
-# TeamCode/TeamCode.iml
-# TeamCode/build
-# TeamCode/build.gradle
-# TeamCode/build.release.gradle
-# TeamCode/src/main/AndroidManifest.xml
-# TeamCode/src/main/res
-# TeamCode/src/main/java/org/firstinspires
-# ! TeamCode/src/main/java/org/firstinspires/ftc/teamcode/
+# TeamCode/
+TeamCode/TeamCode.iml
+TeamCode/build
+TeamCode/build.gradle
+TeamCode/build.release.gradle
+TeamCode/src/main/AndroidManifest.xml
+TeamCode/src/main/res
 !TeamCode/src/main/java/org/firstinspires/ftc/teamcode/
