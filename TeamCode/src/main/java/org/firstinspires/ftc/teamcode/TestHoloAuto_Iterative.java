@@ -36,7 +36,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="Test Holonomic Autonomous Iterative", group="Autonomous")
+@Autonomous(name="Test Holonomic Iterative", group="Autonomous")
 // @Disabled
 public class TestHoloAuto_Iterative extends OpMode {
     private DcMotor front_left  = null;
