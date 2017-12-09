@@ -29,12 +29,10 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -69,7 +67,6 @@ public class CameronOpMode extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-
         motor1 = hardwareMap.get(DcMotor.class, "motor1");
         motor1.setDirection(DcMotor.Direction.FORWARD);
         motor1.setPower(0);
@@ -100,17 +97,13 @@ public class CameronOpMode extends OpMode
      */
     @Override
     public void loop() {
-       motor1.setPower(gamepad1.left_stick_x);
-       motor2.setPower(gamepad1.left_stick_y);
-       double alpha = Math.atan2(gamepad1.left_stick_y,gamepad1.left_stick_x);
-       double degrees = alpha * 180/Math.PI;
-       double bearing = degrees + 90;
 
+            motor1.setPower(gamepad1.left_stick_x);
+            motor2.setPower(gamepad1.left_stick_y);
 
-        // Show the elapsed game time and wheel power.
+        telemetry.addData("String", "dpad_up="+gamepad1.dpad_up);
+        telemetry.addData("String", "dpad_down"+gamepad2.dpad_down);
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Status", "Atan2 " + degrees);
-        telemetry.addData("Status", "Bearing " + bearing);
     }
 
     /*

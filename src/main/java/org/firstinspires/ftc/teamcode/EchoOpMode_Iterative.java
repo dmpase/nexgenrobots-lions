@@ -50,13 +50,11 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="CameronOpMode", group="Iterative Opmode")
+@TeleOp(name="EchoOpMode", group="Iterative Opmode")
 // @Disabled
-public class CameronOpMode extends OpMode
+public class EchoOpMode_Iterative extends OpMode
 {
     // Declare OpMode members.
-    private DcMotor motor1 = null;
-    private DcMotor motor2 = null;
     private ElapsedTime runtime = new ElapsedTime();
 
     /*
@@ -70,12 +68,6 @@ public class CameronOpMode extends OpMode
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
 
-        motor1 = hardwareMap.get(DcMotor.class, "motor1");
-        motor1.setDirection(DcMotor.Direction.FORWARD);
-        motor1.setPower(0);
-        motor2 = hardwareMap.get(DcMotor.class, "motor1");
-        motor2.setDirection(DcMotor.Direction.FORWARD);
-        motor2.setPower(0);
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
     }
@@ -100,17 +92,68 @@ public class CameronOpMode extends OpMode
      */
     @Override
     public void loop() {
-       motor1.setPower(gamepad1.left_stick_x);
-       motor2.setPower(gamepad1.left_stick_y);
-       double alpha = Math.atan2(gamepad1.left_stick_y,gamepad1.left_stick_x);
-       double degrees = alpha * 180/Math.PI;
-       double bearing = degrees + 90;
+        double g1_lsx = gamepad1.left_stick_x;
+        double g1_lsy = gamepad1.left_stick_y;
+        double g1_ltr = gamepad1.left_trigger;
+        double g1_rsx = gamepad1.right_stick_x;
+        double g1_rsy = gamepad1.right_stick_y;
+        double g1_rtr = gamepad1.right_trigger;
+
+        String gp1_buttons =
+                gamepad1.id + " " +
+                (gamepad1.a?"A":"") +
+                (gamepad1.b?"B":"") +
+                (gamepad1.x?"X":"") +
+                (gamepad1.y?"Y":"") +
+                (gamepad1.dpad_up?"U":"") +
+                (gamepad1.dpad_down?"D":"") +
+                (gamepad1.dpad_left?"L":"") +
+                (gamepad1.dpad_right?"R":"") +
+                (gamepad1.left_bumper?"{":"") +
+                (gamepad1.right_bumper?"}":"") +
+                (gamepad1.guide?"g":"") +
+                (gamepad1.left_stick_button?"[":"") +
+                (gamepad1.right_stick_button?"]":"") +
+                (gamepad1.back?"<":"") +
+                (gamepad1.start?">":"") +
+                ""
+                ;
+
+
+        double g2_lsx = gamepad2.left_stick_x;
+        double g2_lsy = gamepad2.left_stick_y;
+        double g2_ltr = gamepad2.left_trigger;
+        double g2_rsx = gamepad2.right_stick_x;
+        double g2_rsy = gamepad2.right_stick_y;
+        double g2_rtr = gamepad2.right_trigger;
+
+        String gp2_buttons =
+                gamepad2.id + " " +
+                (gamepad2.a?"A":"") +
+                (gamepad2.b?"B":"") +
+                (gamepad2.x?"X":"") +
+                (gamepad2.y?"Y":"") +
+                (gamepad2.dpad_up?"U":"") +
+                (gamepad2.dpad_down?"D":"") +
+                (gamepad2.dpad_left?"L":"") +
+                (gamepad2.dpad_right?"R":"") +
+                (gamepad2.left_bumper?"{":"") +
+                (gamepad2.right_bumper?"}":"") +
+                (gamepad2.guide?"g":"") +
+                (gamepad2.left_stick_button?"[":"") +
+                (gamepad2.right_stick_button?"]":"") +
+                (gamepad2.back?"<":"") +
+                (gamepad2.start?">":"") +
+                ""
+                ;
 
 
         // Show the elapsed game time and wheel power.
+        telemetry.addData("1", "L:(%.2f, %.2f, %.2f) R:(%.2f, %.2f, %.2f)", g1_lsx, g1_lsy, g1_ltr, g1_rsx, g1_rsy, g1_rtr);
+        telemetry.addData("", gp1_buttons);
+        telemetry.addData("2", "L:(%.2f, %.2f, %.2f) R:(%.2f, %.2f, %.2f)", g2_lsx, g2_lsy, g2_ltr, g2_rsx, g2_rsy, g2_rtr);
+        telemetry.addData("", gp2_buttons);
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Status", "Atan2 " + degrees);
-        telemetry.addData("Status", "Bearing " + bearing);
     }
 
     /*
