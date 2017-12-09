@@ -33,12 +33,29 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+
+import static com.sun.tools.javac.util.Constants.format;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -54,7 +71,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="RevHolonomicOpMode", group="Iterative Opmode")
+@TeleOp(name="Rev Holonomic OpMode", group="Iterative Opmode")
 // @Disabled
 public class RevHolonomicOpMode extends OpMode
 {
@@ -67,6 +84,7 @@ public class RevHolonomicOpMode extends OpMode
 
     private Servo left_claw  = null;
     private double left_claw_open  = Servo.MIN_POSITION + 0.25 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
+    private double left_claw_mid   = Servo.MIN_POSITION + 0.50 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
     private double left_claw_close = Servo.MIN_POSITION + 1.00 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
     private Servo.Direction left_claw_dir = Servo.Direction.FORWARD;
     private double left_claw_del = 0;
@@ -74,12 +92,16 @@ public class RevHolonomicOpMode extends OpMode
 
     private Servo right_claw = null;
     private double right_claw_open  = Servo.MIN_POSITION + 0.75 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
+    private double right_claw_mid   = Servo.MIN_POSITION + 0.50 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
     private double right_claw_close = Servo.MIN_POSITION + 0.00 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
     private Servo.Direction right_claw_dir = Servo.Direction.FORWARD;
     private double right_claw_del = 0;
     private double right_claw_pos = 0;
 
     private double claw_incr = 20;
+
+    private DcMotor    lift     = null;
+    private DcMotorEnc lift_ctl = null;
 
     //    private CRServo lift = null;
     private CRServo tail = null;
@@ -88,8 +110,22 @@ public class RevHolonomicOpMode extends OpMode
     private ColorSensor color_sensor = null;
     private DistanceSensor distance_sensor = null;
 
+    private DistanceSensor mr_range = null;
+
     BNO055IMU imu0 = null;
     BNO055IMU imu1 = null;
+
+    AnalogInput rs0  = null;
+    Distance    rs0d = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
+    AnalogInput rs1  = null;
+    Distance    rs1d = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
+
+    int cameraMonitorViewId = -1;
+    VuforiaLocalizer vuforia = null;
+    VuforiaLocalizer.Parameters vuforia_parameters = null;
+    public static final String vuforia_license_key = "AWVXYZn/////AAAAGcG6g8XSSUMJsDaizcApOtsaA0fWzUQwImrdEn1MqH4JNqCzUwlyvEX0YALy7XyUeSpiANJkBg9kplUtcniUZKw8bF0dSpEfXZKXxn1yhbIohmpVmIK+Ngv1imYrkY6ePmvTfO2IpyQi5yO5ZmfSC8OzlH+XEMD0vRIXHMhxFpin7vTIHaoz8MEifSjRTznh1ZUSRnJfQ01KvMHEefES0kwhehlEKoqgpNMOYg0B5pV0bDDi9/Qh4eMR7sEk1GSx3QPxl/lYuZVcWSh8DutXv8oo9LhnbAaHTecCAR6gnNODow0WUAH2N9vxdLOjk2UfWVEJgqmHembIDHRzJN4fjcOECTFfLHIVmZ66GwgjPWxV";
+    VuforiaTrackables relicTrackables = null;
+    VuforiaTrackable relicTemplate = null;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -99,8 +135,6 @@ public class RevHolonomicOpMode extends OpMode
     @Override
     public void init()
     {
-        telemetry.addData("Status", "Starting Initialization.");
-
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
@@ -109,111 +143,76 @@ public class RevHolonomicOpMode extends OpMode
         front_left = hardwareMap.get(DcMotor.class, "front_left");
         front_left.setDirection(DcMotor.Direction.FORWARD);
         front_left.setPower(0);
+        front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        front_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         front_right = hardwareMap.get(DcMotor.class, "front_right");
         front_right.setDirection(DcMotor.Direction.FORWARD);
         front_right.setPower(0);
+        front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        front_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         back_right = hardwareMap.get(DcMotor.class, "back_right");
         back_right.setDirection(DcMotor.Direction.FORWARD);
         back_right.setPower(0);
+        back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        back_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         back_left = hardwareMap.get(DcMotor.class, "back_left");
         back_left.setDirection(DcMotor.Direction.FORWARD);
         back_left.setPower(0);
+        back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        back_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
 //        /*
         telemetry.addData("Status", "Initializing Servos.");
 
-        left_claw = hardwareMap.get(Servo.class, "left_claw");
+        left_claw  = hardwareMap.get(Servo.class, "left_claw");
         left_claw.setDirection(left_claw_dir);
-        /*
-        left_claw.setPosition(left_claw_open);
-        sleep(1.5);
-        left_claw_open = left_claw.getPosition();
-        left_claw.setPosition(left_claw_close);
-        sleep(1.5);
-        left_claw_close = left_claw.getPosition();
-        left_claw_del = (left_claw_close - left_claw_open) / claw_incr;
-        left_claw_pos = left_claw_open + left_claw_del;
-        */
-
-//        /*
-        // wave
-        left_claw.setPosition(0.25);
-        sleep(0.25);
-        left_claw.setPosition(0.75);
-        sleep(0.25);
-        left_claw.setPosition(0.25);
-        sleep(0.25);
-        left_claw.setPosition(0.75);
-        sleep(0.25);
-//1        */
-
-        left_claw.setPosition(0.5);
 
         right_claw = hardwareMap.get(Servo.class, "right_claw");
         right_claw.setDirection(right_claw_dir);
-        /*
-        right_claw.setPosition(right_claw_open);
-        sleep(0.5);
-        right_claw_open = right_claw.getPosition();
-        right_claw.setPosition(right_claw_close);
-        sleep(0.5);
-        right_claw_close = right_claw.getPosition();
-        right_claw_del = (right_claw_close - right_claw_open) / claw_incr;
-        right_claw_pos = right_claw_close - right_claw_del;
-        */
 
-        /*
-        // wave
-        right_claw.setPosition(0.25);
-        sleep(1.5);
-        right_claw.setPosition(0.75);
-        sleep(1.5);
-        right_claw.setPosition(0.25);
-        sleep(1.5);
-        right_claw.setPosition(0.75);
-        sleep(1.5);
-        */
+        telemetry.addData("Status", "Initializing Lift & Tail.");
 
-        right_claw.setPosition(0.5);
-//        */
-
-        telemetry.addData("Status", "Initializing CR Servos.");
-
-        /*
-        lift = hardwareMap.get(CRServo.class, "lift");
+        lift = hardwareMap.get(DcMotor.class, "lift");
         lift.setDirection(DcMotor.Direction.FORWARD);
         lift.setPower(0);
-        */
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift_ctl = new DcMotorEnc(lift,0,0.10,0.01,500);
 
         tail = hardwareMap.get(CRServo.class, "tail");
         tail.setDirection(DcMotor.Direction.FORWARD);
         tail.setPower(0);
 
-        /*
+//        /*
         // REV Robotics distance/color sensor
-        color_sensor    = hardwareMap.get(ColorSensor.class, "sensor_color_distance");
-        distance_sensor = hardwareMap.get(DistanceSensor.class, "sensor_color_distance");
-        */
+        color_sensor    = hardwareMap.get(ColorSensor.class, "color range 2.1");
+        distance_sensor = hardwareMap.get(DistanceSensor.class, "color range 2.1");
+//        */
+
+        mr_range = hardwareMap.get(DistanceSensor.class, "MR range 2.0");
 
         telemetry.addData("Status", "Initializing IMU.");
 
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parameters.loggingEnabled      = true;
-        parameters.loggingTag          = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+        BNO055IMU.Parameters imu_parameters = new BNO055IMU.Parameters();
+        imu_parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        imu_parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        imu_parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        imu_parameters.loggingEnabled      = true;
+        imu_parameters.loggingTag          = "IMU";
+        imu_parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
         imu0 = hardwareMap.get(BNO055IMU.class, "imu 0");
-        imu0.initialize(parameters);
+        imu0.initialize(imu_parameters);
 
         imu1 = hardwareMap.get(BNO055IMU.class, "imu 1");
-        imu1.initialize(parameters);
+        imu1.initialize(imu_parameters);
+
+        rs0 = hardwareMap.get(AnalogInput.class, "range sensor 0");
+        rs1 = hardwareMap.get(AnalogInput.class, "range sensor 1");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
@@ -232,6 +231,21 @@ public class RevHolonomicOpMode extends OpMode
     @Override
     public void start() {
         runtime.reset();
+
+         /*/
+        telemetry.addData("Status", "Initializing VuForia.");
+
+        cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        vuforia_parameters.vuforiaLicenseKey = vuforia_license_key;
+        vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
+        relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate");
+
+        relicTrackables.activate();
+         /*/
     }
 
     /*
@@ -248,21 +262,60 @@ public class RevHolonomicOpMode extends OpMode
 
         // Show the elapsed game time and other data.
 
-        telemetry.addData("Motor Pos.", "%4d %4d %4d %4d",
+         /*/
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+
+//        telemetry.addData("VuMark",  " " + vuMark);
+        OpenGLMatrix pose = ((VuforiaTrackableDefaultListener)relicTemplate.getListener()).getPose();
+        if (pose != null) {
+            // Extract the X, Y, and Z components of the offset of the target relative to the robot
+            VectorF trans = pose.getTranslation();
+
+            double tX = trans.get(0);
+            double tY = trans.get(1);
+            double tZ = trans.get(2);
+
+//            telemetry.addData("tXYZ", "%5.2fx %5.2fy %5.2fz", tX, tY, tZ);
+
+            // Extract the rotational components of the target relative to the robot
+            Orientation rot = Orientation.getOrientation(pose, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
+
+            double rX = rot.firstAngle;
+            double rY = rot.secondAngle;
+            double rZ = rot.thirdAngle;
+
+//            telemetry.addData("rXYZ", "%5.2fx %5.2fy %5.2fz", rX, rY, rZ);
+        }
+         /*/
+
+        telemetry.addData("Range", "%5.2fv %7.4fv %7.2f\"", rs0.getMaxVoltage(), rs0.getVoltage(),
+                rs0d.distance(rs0.getVoltage()));
+
+        telemetry.addData("Range", "%5.2fv %7.4fv %7.2f\"", rs1.getMaxVoltage(), rs1.getVoltage(),
+                rs1d.distance(rs1.getVoltage()));
+
+        telemetry.addData("MR Range", "in=%6.2f",
+                mr_range.getDistance(DistanceUnit.INCH));
+
+        telemetry.addData("Motor Pos.", "%05d %05d %05d %05d",
                 front_left.getCurrentPosition(), front_right.getCurrentPosition(),
                 back_left .getCurrentPosition(), back_right .getCurrentPosition());
 
-        telemetry.addData("Motor Power", "fl = %.2f  fr = %.2f  bl = %.2f  br = %.2f",
+        telemetry.addData("Motor Power", "%5.2f %5.2f %5.2f %5.2f",
                 motors[FRONT_LEFT], motors[FRONT_RIGHT],
                 motors[BACK_LEFT], motors[BACK_RIGHT]);
 
-        telemetry.addData("Claw Position", "lc = %.2f  rc = %.2f", servos[LEFT_CLAW], servos[RIGHT_CLAW]);
+         /*/
+        telemetry.addData("Claw Position", "%5.2f %5.2f %05d",
+                servos[LEFT_CLAW], servos[RIGHT_CLAW], lift.getCurrentPosition());
 
-        /*
-        telemetry.addData("", "cm=%.2f a=%d r=%d g=%d b=%d",
+        telemetry.addData("Lift Ctl", "%5.2f %5.2f %04d %04d %7d",
+                lift_ctl.power, lift.getPower(), lift_ctl.target, lift.getCurrentPosition(), lift_ctl.count);
+
+        telemetry.addData("Color/Dist", "cm=%6.2f a=%03d r=%03d g=%03d b=%03d",
                 distance_sensor.getDistance(DistanceUnit.CM), color_sensor.alpha(),
                 color_sensor.red(), color_sensor.green(), color_sensor.blue());
-        */
+         /*/
 
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
@@ -272,6 +325,13 @@ public class RevHolonomicOpMode extends OpMode
     public static final int LIFT        = 1;
     public static final int LEFT_CLAW   = 2;
     public static final int RIGHT_CLAW  = 3;
+
+    public static final int lift_max_pos =  5500;
+    public static final int lift_mid_pos =     0;
+    public static final int lift_min_pos =  -100;
+    public static final double lift_max_pwr =  0.15;
+    public static final double lift_mid_pwr =  0.00;
+    public static final double lift_min_pwr = -0.15;
 
     public void set_servo_power(double[] position)
     {
@@ -287,7 +347,7 @@ public class RevHolonomicOpMode extends OpMode
             }
 
             tail.setPower(position[TAIL]);
-//            lift.setPower(position[LIFT]);
+            lift_ctl.update();
         }
     }
 
@@ -313,20 +373,21 @@ public class RevHolonomicOpMode extends OpMode
             servos[LEFT_CLAW]  = left_claw_pos;
             servos[RIGHT_CLAW] = right_claw_pos;
         }
-//        servos[LEFT_CLAW]  = (servos[LEFT_CLAW] < left_claw_open) ? left_claw_open : servos[LEFT_CLAW];
-//        servos[LEFT_CLAW]  = (left_claw_close < servos[LEFT_CLAW]) ? left_claw_close : servos[LEFT_CLAW];
-//        servos[RIGHT_CLAW] = (servos[RIGHT_CLAW] < right_claw_open) ? right_claw_open : servos[RIGHT_CLAW];
-//        servos[RIGHT_CLAW] = (right_claw_close < servos[RIGHT_CLAW]) ? right_claw_close : servos[RIGHT_CLAW];
 
-        /*
-        if (gamepad1.y) {
-            servos[LIFT] = 0.10;
+        servos[LEFT_CLAW]  = (servos[LEFT_CLAW]  < left_claw_open    ) ? left_claw_open   : servos[LEFT_CLAW];
+        servos[LEFT_CLAW]  = (left_claw_close    < servos[LEFT_CLAW] ) ? left_claw_close  : servos[LEFT_CLAW];
+        servos[RIGHT_CLAW] = (servos[RIGHT_CLAW] < right_claw_open   ) ? right_claw_open  : servos[RIGHT_CLAW];
+        servos[RIGHT_CLAW] = (right_claw_close   < servos[RIGHT_CLAW]) ? right_claw_close : servos[RIGHT_CLAW];
+
+        if (gamepad1.y && gamepad1.a) {
+            lift_ctl.setTargetPosition(lift_mid_pos);
+        } else if (gamepad1.y) {
+            lift_ctl.setTargetPosition(lift_max_pos);
         } else if (gamepad1.a) {
-            servos[LIFT] = -0.10;
+            lift_ctl.setTargetPosition(lift_min_pos);
         } else {
-            servos[LIFT] = 0;
+            ;
         }
-        */
 
         if (gamepad1.back) {
             servos[TAIL] = 0.10;
@@ -347,6 +408,18 @@ public class RevHolonomicOpMode extends OpMode
 
     public static final double POWER_LIMIT = 0.95;
 
+    public static final double stick_dead_zone   = 0.05;
+    public static final double full_speed        = 0.95;
+    public static final double half_speed        = 0.50;
+    public static final double slow_speed        = 0.25;
+
+    public static final double trigger_dead_zone = 0.05;
+    public static final double full_turn         = 0.40;
+    public static final double half_turn         = 0.20;
+    public static final double slow_turn         = 0.10;
+    public static final double turn_limit        = 0.75;
+
+
     public void set_motor_power(double[] power)
     {
         if (power != null && power.length == MOTOR_COUNT) {
@@ -359,22 +432,15 @@ public class RevHolonomicOpMode extends OpMode
 
     public double[] compute_motor_settings()
     {
-        final double stick_dead_zone   = 0.05;
-        final double precision_speed   = 0.50;
-
-        final double trigger_dead_zone = 0.05;
-        final double precision_turn    = 0.20;
-        final double turn_limit        = 0.75;
-
         // use game pad 1 right stick to determinie speed and bearing UNLESS the left stick is being used
         // right stick is for speed, left stick is for precision
-        double x = (-stick_dead_zone < gamepad1.right_stick_x && gamepad1.right_stick_x < stick_dead_zone) ? 0 : gamepad1.right_stick_x;
-        double y = (-stick_dead_zone < gamepad1.right_stick_y && gamepad1.right_stick_y < stick_dead_zone) ? 0 : gamepad1.right_stick_y;
+        double x = (-stick_dead_zone < gamepad1.right_stick_x && gamepad1.right_stick_x < stick_dead_zone) ? 0 : full_speed * gamepad1.right_stick_x;
+        double y = (-stick_dead_zone < gamepad1.right_stick_y && gamepad1.right_stick_y < stick_dead_zone) ? 0 : full_speed * gamepad1.right_stick_y;
         if (gamepad1.left_stick_x < -stick_dead_zone || stick_dead_zone < gamepad1.left_stick_x ||
             gamepad1.left_stick_y < -stick_dead_zone || stick_dead_zone < gamepad1.left_stick_y) {
 
-            x = precision_speed * gamepad1.left_stick_x;
-            y = precision_speed * gamepad1.left_stick_y;
+            x = half_speed * gamepad1.left_stick_x;
+            y = half_speed * gamepad1.left_stick_y;
         }
 
         // get the angle of the stick to compute the desired bearing
@@ -388,28 +454,28 @@ public class RevHolonomicOpMode extends OpMode
         // enable the dpad for movement
         // dpad overrides both sticks
         if (gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 0 * Math.PI/4;
         } else if (gamepad1.dpad_up && gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 1 * Math.PI/4;
         } else if (! gamepad1.dpad_up && gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 2 * Math.PI/4;
         } else if (! gamepad1.dpad_up && gamepad1.dpad_right && gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 3 * Math.PI/4;
         } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 4 * Math.PI/4;
         } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && gamepad1.dpad_down && gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 5 * Math.PI/4;
         } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 6 * Math.PI/4;
         } else if (gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && gamepad1.dpad_left) {
-            throttle = precision_speed;
+            throttle = slow_speed;
             bearing = 7 * Math.PI/4;
         }
 
@@ -419,18 +485,18 @@ public class RevHolonomicOpMode extends OpMode
             // conflicting inputs, do nothing
         } else if (gamepad1.left_bumper) {
             // bumpers take priority, turn left
-            rotation = precision_turn;
+            rotation = slow_turn;
         } else if (gamepad1.right_bumper) {
             // bumpers take priority, turn right
-            rotation = -precision_turn;
+            rotation = -slow_turn;
         } else if (trigger_dead_zone < gamepad1.left_trigger && trigger_dead_zone < gamepad1.right_trigger) {
             // conflicting inputs, do nothing
         } else if (trigger_dead_zone < gamepad1.left_trigger) {
             // turn left using trigger
-            rotation = turn_limit * gamepad1.left_trigger;
+            rotation = half_turn * gamepad1.left_trigger;
         } else if (trigger_dead_zone < gamepad1.right_trigger) {
             // turn right using trigger
-            rotation = -turn_limit * gamepad1.right_trigger;
+            rotation = -half_turn * gamepad1.right_trigger;
         }
 
         double[] motors = new double[MOTOR_COUNT];
@@ -479,5 +545,4 @@ public class RevHolonomicOpMode extends OpMode
     @Override
     public void stop() {
     }
-
 }
