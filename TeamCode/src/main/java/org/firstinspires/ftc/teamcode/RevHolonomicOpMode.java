@@ -233,6 +233,7 @@ public class RevHolonomicOpMode extends OpMode
         runtime.reset();
 
          /*/
+         /*/
         telemetry.addData("Status", "Initializing VuForia.");
 
         cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -245,6 +246,7 @@ public class RevHolonomicOpMode extends OpMode
         relicTemplate.setName("relicVuMarkTemplate");
 
         relicTrackables.activate();
+         /*/
          /*/
     }
 

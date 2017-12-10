@@ -35,6 +35,12 @@ import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  *
@@ -71,6 +77,13 @@ public class TestHoloAuto_Linear extends LinearOpMode {
 
     private static final int pos_min = 10;
 
+    private int cameraMonitorViewId = -1;
+    private VuforiaLocalizer vuforia = null;
+    private VuforiaLocalizer.Parameters vuforia_parameters = null;
+    private static final String vuforia_license_key = "AWVXYZn/////AAAAGcG6g8XSSUMJsDaizcApOtsaA0fWzUQwImrdEn1MqH4JNqCzUwlyvEX0YALy7XyUeSpiANJkBg9kplUtcniUZKw8bF0dSpEfXZKXxn1yhbIohmpVmIK+Ngv1imYrkY6ePmvTfO2IpyQi5yO5ZmfSC8OzlH+XEMD0vRIXHMhxFpin7vTIHaoz8MEifSjRTznh1ZUSRnJfQ01KvMHEefES0kwhehlEKoqgpNMOYg0B5pV0bDDi9/Qh4eMR7sEk1GSx3QPxl/lYuZVcWSh8DutXv8oo9LhnbAaHTecCAR6gnNODow0WUAH2N9vxdLOjk2UfWVEJgqmHembIDHRzJN4fjcOECTFfLHIVmZ66GwgjPWxV";
+    private VuforiaTrackables relicTrackables = null;
+    private VuforiaTrackable relicTemplate = null;
+
     @Override
     public void runOpMode() {
         /*
@@ -106,6 +119,17 @@ public class TestHoloAuto_Linear extends LinearOpMode {
         rs0 = hardwareMap.get(AnalogInput.class, "range sensor 0");
         rs1 = hardwareMap.get(AnalogInput.class, "range sensor 1");
 
+        telemetry.addData("Status", "Initializing VuForia.");
+
+        cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        vuforia_parameters.vuforiaLicenseKey = vuforia_license_key;
+        vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
+        relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate");
+
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Status", "Initialization Complete.");
         telemetry.update();
@@ -113,11 +137,65 @@ public class TestHoloAuto_Linear extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        //
+        // ***** START THE AUTONOMOUS RUN *****
+        //
+
         runtime.reset();
 
-        // Step through each leg of the path,
-//        while (opModeIsActive()) {
-//        }
+        // read the port and starboard range sensors
+        double port = rs0d.distance(rs0.getVoltage());
+        double starboard = rs0d.distance(rs1.getVoltage());
+
+        // figure out our quadrant and color
+        final int SHORT = 0;
+        final int MEDIUM = 1;
+        final int LONG = 2;
+        final int RED = 0;
+        final int BLUE = 1;
+        int plen = (port < 30) ? SHORT : (port < 60) ? MEDIUM : LONG;
+        int slen = (port < 30) ? SHORT : (port < 60) ? MEDIUM : LONG;
+        int quadrant = 0;
+        int color = 0;
+        if (slen == MEDIUM && plen == LONG) {
+            quadrant = 1;
+            color = RED;
+            telemetry.addData("Quadrant",  "I");
+        } else if (slen == LONG && plen == MEDIUM) {
+            quadrant = 2;
+            color = BLUE;
+            telemetry.addData("Quadrant",  "II");
+        } else if (slen == SHORT && plen == LONG) {
+            quadrant = 3;
+            color = BLUE;
+            telemetry.addData("Quadrant",  "III");
+        } else if (slen == LONG && plen == SHORT) {
+            quadrant = 4;
+            color = RED;
+            telemetry.addData("Quadrant",  "IV");
+        }
+
+        // read the VuMark
+        relicTrackables.activate();
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+        if (vuMark == RelicRecoveryVuMark.LEFT) {
+            telemetry.addData("VuMark",  "Left");
+        } else if (vuMark == RelicRecoveryVuMark.CENTER) {
+            telemetry.addData("VuMark",  "Center");
+        } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+            telemetry.addData("VuMark",  "Right");
+        }
+        sleep(5000);
+
+        // lower the tail
+
+        // read the color sensor
+
+        // bump the jewell off its stand
+
+        // raise the tail
+
+        //
 
         // go to first point
         telemetry.addData("Status", "Moving to point 0");
