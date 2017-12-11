@@ -5,6 +5,7 @@ FtcRobotController
 .idea/
 README.md
 build.common.gradle
+<<<<<<< HEAD
 build.gradle
 build/
 doc/
@@ -15,6 +16,17 @@ gradlew.bat
 libs/
 local.properties
 build.gradle
+=======
+build.gradle
+build/
+doc/
+ftc_app-master.iml
+gradle/
+gradlew
+gradlew.bat
+libs/
+local.properties
+>>>>>>> c5887699161afb6af7463cefc9d523e36b49b42d
 settings.gradle
 nexgenrobots-lions.iml
 # TeamCode/
