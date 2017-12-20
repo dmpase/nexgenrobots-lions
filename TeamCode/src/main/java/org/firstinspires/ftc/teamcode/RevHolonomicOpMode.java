@@ -115,10 +115,11 @@ public class RevHolonomicOpMode extends OpMode
     BNO055IMU imu0 = null;
     BNO055IMU imu1 = null;
 
-    AnalogInput rs0  = null;
+    AnalogInput prs_lo = null;
+    AnalogInput srs_lo = null;
+    AnalogInput prs_hi = null;
+    AnalogInput srs_hi = null;
     Distance    rs0d = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
-    AnalogInput rs1  = null;
-    Distance    rs1d = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
 
     int cameraMonitorViewId = -1;
     VuforiaLocalizer vuforia = null;
@@ -211,8 +212,10 @@ public class RevHolonomicOpMode extends OpMode
         imu1 = hardwareMap.get(BNO055IMU.class, "imu 1");
         imu1.initialize(imu_parameters);
 
-        rs0 = hardwareMap.get(AnalogInput.class, "range sensor 0");
-        rs1 = hardwareMap.get(AnalogInput.class, "range sensor 1");
+        prs_lo = hardwareMap.get(AnalogInput.class, "port_rs_low");
+        srs_lo = hardwareMap.get(AnalogInput.class, "starboard_rs_low");
+        prs_hi = hardwareMap.get(AnalogInput.class, "port_rs_high");
+        srs_hi = hardwareMap.get(AnalogInput.class, "starboard_rs_high");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
@@ -235,7 +238,7 @@ public class RevHolonomicOpMode extends OpMode
          /*/
          /*/
         telemetry.addData("Status", "Initializing VuForia.");
-
+/*/
         cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
         vuforia_parameters.vuforiaLicenseKey = vuforia_license_key;
@@ -246,7 +249,6 @@ public class RevHolonomicOpMode extends OpMode
         relicTemplate.setName("relicVuMarkTemplate");
 
         relicTrackables.activate();
-         /*/
          /*/
     }
 
@@ -262,10 +264,10 @@ public class RevHolonomicOpMode extends OpMode
         double[] servos = compute_servo_settings();
         set_servo_power(servos);
 
-        // Show the elapsed game time and other data.
+
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
          /*/
-        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
 //        telemetry.addData("VuMark",  " " + vuMark);
         OpenGLMatrix pose = ((VuforiaTrackableDefaultListener)relicTemplate.getListener()).getPose();
@@ -290,12 +292,19 @@ public class RevHolonomicOpMode extends OpMode
         }
          /*/
 
-        telemetry.addData("Range", "%5.2fv %7.4fv %7.2f\"", rs0.getMaxVoltage(), rs0.getVoltage(),
-                rs0d.distance(rs0.getVoltage()));
+        telemetry.addData("Range", "%5.2fv %7.4fv %7.2f\"", prs_lo.getMaxVoltage(), prs_lo.getVoltage(),
+                rs0d.distance(prs_lo.getVoltage()));
 
-        telemetry.addData("Range", "%5.2fv %7.4fv %7.2f\"", rs1.getMaxVoltage(), rs1.getVoltage(),
-                rs1d.distance(rs1.getVoltage()));
+        telemetry.addData("Range", "%5.2fv %7.4fv %7.2f\"", srs_lo.getMaxVoltage(), srs_lo.getVoltage(),
+                rs0d.distance(srs_lo.getVoltage()));
 
+        telemetry.addData("Range", "%5.2fv %7.4fv %7.2f\"", prs_hi.getMaxVoltage(), prs_hi.getVoltage(),
+                rs0d.distance(prs_hi.getVoltage()));
+
+        telemetry.addData("Range", "%5.2fv %7.4fv %7.2f\"", srs_hi.getMaxVoltage(), srs_hi.getVoltage(),
+                rs0d.distance(srs_hi.getVoltage()));
+
+         /*/
         telemetry.addData("MR Range", "in=%6.2f",
                 mr_range.getDistance(DistanceUnit.INCH));
 
@@ -306,6 +315,7 @@ public class RevHolonomicOpMode extends OpMode
         telemetry.addData("Motor Power", "%5.2f %5.2f %5.2f %5.2f",
                 motors[FRONT_LEFT], motors[FRONT_RIGHT],
                 motors[BACK_LEFT], motors[BACK_RIGHT]);
+         /*/
 
          /*/
         telemetry.addData("Claw Position", "%5.2f %5.2f %05d",
@@ -319,6 +329,7 @@ public class RevHolonomicOpMode extends OpMode
                 color_sensor.red(), color_sensor.green(), color_sensor.blue());
          /*/
 
+        // Show the elapsed game time and other data.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
 
