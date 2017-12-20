@@ -68,6 +68,8 @@ public class CameronAutonomous extends LinearOpMode {
 
         motor_init();
 
+        servo_init();
+
         sensor_init();
 
         vuforia_init();
@@ -141,10 +143,10 @@ public class CameronAutonomous extends LinearOpMode {
         telemetry.update();
     }
 
-    final double AUTO_PWR = 0.1;
-    final int    AUTO_TOL = 10;
+    private static final double AUTO_PWR = 0.1;
+    private static final int    AUTO_TOL = 10;
 
-    private final Object[][] blue_left_cmd = {
+    private static final Object[][] blue_left_cmd = {
             {Command.ROTATE,           90.0, AUTO_PWR, AUTO_TOL},
             {Command.FORWARD,          36.0, AUTO_PWR, AUTO_TOL},
             {Command.ROTATE,           90.0, AUTO_PWR, AUTO_TOL},
@@ -155,7 +157,7 @@ public class CameronAutonomous extends LinearOpMode {
             {Command.CLOSE_CLAW,                               },
     };
 
-    private final Object[][] blue_right_cmd = {
+    private static final Object[][] blue_right_cmd = {
             {Command.ROTATE,           90.0, AUTO_PWR, AUTO_TOL},
             {Command.FORWARD,          36.0, AUTO_PWR, AUTO_TOL},
             {Command.RIGHT,            12.0, AUTO_PWR, AUTO_TOL},
@@ -166,7 +168,7 @@ public class CameronAutonomous extends LinearOpMode {
             {Command.CLOSE_CLAW,                               },
     };
 
-    private final Object[][] red_left_cmd = {
+    private static final Object[][] red_left_cmd = {
             {Command.ROTATE,          -90.0, AUTO_PWR, AUTO_TOL},
             {Command.FORWARD,          36.0, AUTO_PWR, AUTO_TOL},
             {Command.ROTATE,          -90.0, AUTO_PWR, AUTO_TOL},
@@ -177,7 +179,7 @@ public class CameronAutonomous extends LinearOpMode {
             {Command.CLOSE_CLAW,                               },
     };
 
-    private final Object[][] red_right_cmd = {
+    private static final Object[][] red_right_cmd = {
             {Command.ROTATE,          -90.0, AUTO_PWR, AUTO_TOL},
             {Command.FORWARD,          36.0, AUTO_PWR, AUTO_TOL},
             {Command.LEFT,             12.0, AUTO_PWR, AUTO_TOL},
@@ -252,6 +254,13 @@ public class CameronAutonomous extends LinearOpMode {
         back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
+
+
+    public void servo_init()
+    {
+
+    }
+
 
     AnalogInput prs_lo = null;
     AnalogInput srs_lo = null;

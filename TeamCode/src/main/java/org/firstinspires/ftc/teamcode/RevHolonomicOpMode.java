@@ -342,9 +342,9 @@ public class RevHolonomicOpMode extends OpMode
     public static final int lift_max_pos =  5500;
     public static final int lift_mid_pos =     0;
     public static final int lift_min_pos =  -100;
-    public static final double lift_max_pwr =  0.15;
+    public static final double lift_max_pwr =  0.40;
     public static final double lift_mid_pwr =  0.00;
-    public static final double lift_min_pwr = -0.15;
+    public static final double lift_min_pwr = -lift_max_pwr;
 
     public void set_servo_power(double[] position)
     {
