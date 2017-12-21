@@ -121,7 +121,8 @@ public class CameronAutonomous extends LinearOpMode {
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
         telemetry.addData("VuMark", "%s", vuMark.toString());
-
+        //Vuforia reading: left, center, or right; left = -1, center = 0, right = 1;
+        vuforiaresult = VUFORIA_CENTER;
 
         // lower tail
         // read color
@@ -192,8 +193,14 @@ public class CameronAutonomous extends LinearOpMode {
 
     final int OPCODE    = 0;
     final int ANGLE     = 1;
+    final int INCHES    = 1;
     final int POWER     = 2;
     final int TOLERANCE = 3;
+
+    private static final int VUFORIA_LEFT = -1;
+    private static final int VUFORIA_CENTER = 0;
+    private static final int VUFORIA_RIGHT = 1;
+    private int vuforiaresult = 0;
 
     private void execute(Object[] cmd)
     {
@@ -206,20 +213,40 @@ public class CameronAutonomous extends LinearOpMode {
             int clicks = (int) (10 * angle);
             run_to_position(clicks, clicks, clicks, clicks, power, tolerance);
         } else if (op_code == Command.FORWARD) {
-            double distance  = (double) cmd[ANGLE];
+            double distance  = (double) cmd[INCHES];
             double power     = (double) cmd[POWER];
             int    tolerance = (int)    cmd[TOLERANCE];
             // 15 inches == 750 clicks, or clicks = 50 * distance in inches
             int clicks = (int) (50 * distance);
             run_to_position(-clicks, clicks, clicks, -clicks, power, tolerance);
         } else if (op_code == Command.BACKWARD) {
+            double distance  = (double) cmd[INCHES];
+            double power     = (double) cmd[POWER];
+            int    tolerance = (int)    cmd[TOLERANCE];
             // 15 inches == 750 clicks, or clicks = 50 * distance in inches
+            int clicks = (int) (50 * distance);
+            run_to_position(clicks, -clicks, -clicks, clicks, power, tolerance);
         } else if (op_code == Command.LEFT) {
+            double distance  = (double) cmd[INCHES];
+            double power     = (double) cmd[POWER];
+            int    tolerance = (int)    cmd[TOLERANCE];
             // 15 inches == 750 clicks, or clicks = 50 * distance in inches
+            int clicks = (int) (50 * distance);
+            run_to_position(clicks, clicks, -clicks, -clicks, power, tolerance);
         } else if (op_code == Command.RIGHT) {
+            double distance  = (double) cmd[INCHES];
+            double power     = (double) cmd[POWER];
+            int    tolerance = (int)    cmd[TOLERANCE];
             // 15 inches == 750 clicks, or clicks = 50 * distance in inches
+            int clicks = (int) (50 * distance);
+            run_to_position(-clicks, -clicks, clicks, clicks, power, tolerance);
         } else if (op_code == Command.ADJUST) {
+            double distance  = vuforiaresult * (double) cmd[INCHES];
+            double power     = (double) cmd[POWER];
+            int    tolerance = (int)    cmd[TOLERANCE];
             // 15 inches == 750 clicks, or clicks = 50 * distance in inches
+            int clicks = (int) (50 * distance);
+            run_to_position(-clicks, clicks, clicks, -clicks, power, tolerance);
         } else if (op_code == Command.OPEN_CLAW) {
         } else if (op_code == Command.CLOSE_CLAW) {
         }
@@ -354,32 +381,4 @@ public class CameronAutonomous extends LinearOpMode {
         back_right.setPower(0);
         back_left.setPower(0);
     }
-
-    int[][] blue_left = {
-            {  900,  900,  900,   900},       // turn counterclockwise 90 degrees
-            {-2000, 2000, 2000, -2000},       // move foreward 36 inches
-            {  900,  900,  900,   900},       // turn counterclockwise 90 degrees
-            { -750,  750,  750,  -750},       // move foreward 18 inches
-    };
-
-    int[][] blue_right = {
-            {  900,  900,  900,   900},       // turn counterclockwise 90 degrees
-            {-2000, 2000, 2000, -2000},       // move foreward 36 inches
-            {  900,  900,  900,   900},       // turn counterclockwise 90 degrees
-            { -750,  750,  750,  -750},       // move foreward 18 inches
-    };
-
-    int[][] red_right = {
-            {  900,  900,  900,   900},       // turn counterclockwise 90 degrees
-            {-2000, 2000, 2000, -2000},       // move foreward 36 inches
-            {  900,  900,  900,   900},       // turn counterclockwise 90 degrees
-            { -750,  750,  750,  -750},       // move foreward 18 inches
-    };
-
-    int[][] red_left = {
-            {  900,  900,  900,   900},       // turn counterclockwise 90 degrees
-            {-2000, 2000, 2000, -2000},       // move foreward 36 inches
-            {  900,  900,  900,   900},       // turn counterclockwise 90 degrees
-            { -750,  750,  750,  -750},       // move foreward 18 inches
-    };
 }
