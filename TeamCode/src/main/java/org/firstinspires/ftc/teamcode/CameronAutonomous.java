@@ -261,10 +261,10 @@ public class CameronAutonomous extends LinearOpMode {
     {
         telemetry.addData("Status", "Initializing Motors.");
 
-        front_left  = hardwareMap.get(DcMotor.class, "front_left");
-        front_right = hardwareMap.get(DcMotor.class, "front_right");
-        back_right  = hardwareMap.get(DcMotor.class, "back_right");
-        back_left   = hardwareMap.get(DcMotor.class, "back_left");
+        front_left  = hardwareMap.get(DcMotor.class, Config.FRONT_LEFT);
+        front_right = hardwareMap.get(DcMotor.class, Config.FRONT_RIGHT);
+        back_right  = hardwareMap.get(DcMotor.class, Config.BACK_RIGHT);
+        back_left   = hardwareMap.get(DcMotor.class, Config.BACK_LEFT);
 
         front_left.setPower(0);
         front_right.setPower(0);
@@ -300,15 +300,14 @@ public class CameronAutonomous extends LinearOpMode {
         telemetry.addData("Status", "Initializing Sensors.");
 
         // white wire is high, blue wire is low, ports 0,1 to starboard, ports 2,3 to port
-        prs_lo = hardwareMap.get(AnalogInput.class, "port_rs_low");
-        srs_lo = hardwareMap.get(AnalogInput.class, "starboard_rs_low");
-        prs_hi = hardwareMap.get(AnalogInput.class, "port_rs_high");
-        srs_hi = hardwareMap.get(AnalogInput.class, "starboard_rs_high");
+        prs_lo = hardwareMap.get(AnalogInput.class, Config.PORT_IR_LO);
+        srs_lo = hardwareMap.get(AnalogInput.class, Config.STBD_IR_LO);
+        prs_hi = hardwareMap.get(AnalogInput.class, Config.PORT_IR_HI);
+        srs_hi = hardwareMap.get(AnalogInput.class, Config.STBD_IR_HI);
     }
 
 
     int cameraMonitorViewId = -1;
-    final String vuforia_license_key = "AWVXYZn/////AAAAGcG6g8XSSUMJsDaizcApOtsaA0fWzUQwImrdEn1MqH4JNqCzUwlyvEX0YALy7XyUeSpiANJkBg9kplUtcniUZKw8bF0dSpEfXZKXxn1yhbIohmpVmIK+Ngv1imYrkY6ePmvTfO2IpyQi5yO5ZmfSC8OzlH+XEMD0vRIXHMhxFpin7vTIHaoz8MEifSjRTznh1ZUSRnJfQ01KvMHEefES0kwhehlEKoqgpNMOYg0B5pV0bDDi9/Qh4eMR7sEk1GSx3QPxl/lYuZVcWSh8DutXv8oo9LhnbAaHTecCAR6gnNODow0WUAH2N9vxdLOjk2UfWVEJgqmHembIDHRzJN4fjcOECTFfLHIVmZ66GwgjPWxV";
 
     VuforiaLocalizer.Parameters vuforia_parameters = null;
     VuforiaLocalizer vuforia = null;
@@ -322,7 +321,7 @@ public class CameronAutonomous extends LinearOpMode {
         cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 
         vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        vuforia_parameters.vuforiaLicenseKey = vuforia_license_key;
+        vuforia_parameters.vuforiaLicenseKey = Config.vuforia_license_key;
         vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
         vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
         relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
@@ -332,10 +331,28 @@ public class CameronAutonomous extends LinearOpMode {
         relicTrackables.activate();
     }
 
-    final int    FL = 0;
-    final int    FR = 1;
-    final int    BL = 2;
-    final int    BR = 3;
+
+    private void run_to_position(DcMotor motor, int tgt, double power, int tolerance)
+    {
+        motor.setPower(0);
+
+        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        motor.setTargetPosition(tgt);
+
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        motor.setPower(power);
+
+        while ( tolerance < Math.abs(motor.getTargetPosition()  - motor.getCurrentPosition()) ) {
+            telemetry.addData("Status", "Motor %4d %4d %4d",
+                    motor.getTargetPosition(), motor.getTargetPosition(),
+                    (int) Math.abs(motor.getTargetPosition() - motor.getCurrentPosition()));
+            telemetry.update();
+        }
+
+        motor.setPower(0);
+    }
 
     private void run_to_position(int fl_tgt, int fr_tgt, int br_tgt, int bl_tgt, double power, int tolerance)
     {

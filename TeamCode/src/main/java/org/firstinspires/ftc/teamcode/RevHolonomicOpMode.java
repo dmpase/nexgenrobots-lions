@@ -124,7 +124,7 @@ public class RevHolonomicOpMode extends OpMode
     int cameraMonitorViewId = -1;
     VuforiaLocalizer vuforia = null;
     VuforiaLocalizer.Parameters vuforia_parameters = null;
-    public static final String vuforia_license_key = "AWVXYZn/////AAAAGcG6g8XSSUMJsDaizcApOtsaA0fWzUQwImrdEn1MqH4JNqCzUwlyvEX0YALy7XyUeSpiANJkBg9kplUtcniUZKw8bF0dSpEfXZKXxn1yhbIohmpVmIK+Ngv1imYrkY6ePmvTfO2IpyQi5yO5ZmfSC8OzlH+XEMD0vRIXHMhxFpin7vTIHaoz8MEifSjRTznh1ZUSRnJfQ01KvMHEefES0kwhehlEKoqgpNMOYg0B5pV0bDDi9/Qh4eMR7sEk1GSx3QPxl/lYuZVcWSh8DutXv8oo9LhnbAaHTecCAR6gnNODow0WUAH2N9vxdLOjk2UfWVEJgqmHembIDHRzJN4fjcOECTFfLHIVmZ66GwgjPWxV";
+//    public static final String vuforia_license_key = "AWVXYZn/////AAAAGcG6g8XSSUMJsDaizcApOtsaA0fWzUQwImrdEn1MqH4JNqCzUwlyvEX0YALy7XyUeSpiANJkBg9kplUtcniUZKw8bF0dSpEfXZKXxn1yhbIohmpVmIK+Ngv1imYrkY6ePmvTfO2IpyQi5yO5ZmfSC8OzlH+XEMD0vRIXHMhxFpin7vTIHaoz8MEifSjRTznh1ZUSRnJfQ01KvMHEefES0kwhehlEKoqgpNMOYg0B5pV0bDDi9/Qh4eMR7sEk1GSx3QPxl/lYuZVcWSh8DutXv8oo9LhnbAaHTecCAR6gnNODow0WUAH2N9vxdLOjk2UfWVEJgqmHembIDHRzJN4fjcOECTFfLHIVmZ66GwgjPWxV";
     VuforiaTrackables relicTrackables = null;
     VuforiaTrackable relicTemplate = null;
 
@@ -141,25 +141,25 @@ public class RevHolonomicOpMode extends OpMode
         // step (using the FTC Robot Controller app on the phone).
         telemetry.addData("Status", "Initializing Motors.");
 
-        front_left = hardwareMap.get(DcMotor.class, "front_left");
+        front_left = hardwareMap.get(DcMotor.class, Config.FRONT_LEFT);
         front_left.setDirection(DcMotor.Direction.FORWARD);
         front_left.setPower(0);
         front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         front_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        front_right = hardwareMap.get(DcMotor.class, "front_right");
+        front_right = hardwareMap.get(DcMotor.class, Config.FRONT_RIGHT);
         front_right.setDirection(DcMotor.Direction.FORWARD);
         front_right.setPower(0);
         front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         front_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        back_right = hardwareMap.get(DcMotor.class, "back_right");
+        back_right = hardwareMap.get(DcMotor.class, Config.BACK_RIGHT);
         back_right.setDirection(DcMotor.Direction.FORWARD);
         back_right.setPower(0);
         back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         back_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        back_left = hardwareMap.get(DcMotor.class, "back_left");
+        back_left = hardwareMap.get(DcMotor.class, Config.BACK_LEFT);
         back_left.setDirection(DcMotor.Direction.FORWARD);
         back_left.setPower(0);
         back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -169,32 +169,32 @@ public class RevHolonomicOpMode extends OpMode
 //        /*
         telemetry.addData("Status", "Initializing Servos.");
 
-        left_claw  = hardwareMap.get(Servo.class, "left_claw");
+        left_claw  = hardwareMap.get(Servo.class, Config.LEFT_CLAW);
         left_claw.setDirection(left_claw_dir);
 
-        right_claw = hardwareMap.get(Servo.class, "right_claw");
+        right_claw = hardwareMap.get(Servo.class, Config.RIGHT_CLAW);
         right_claw.setDirection(right_claw_dir);
 
         telemetry.addData("Status", "Initializing Lift & Tail.");
 
-        lift = hardwareMap.get(DcMotor.class, "lift");
+        lift = hardwareMap.get(DcMotor.class, Config.LIFT);
         lift.setDirection(DcMotor.Direction.FORWARD);
         lift.setPower(0);
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lift_ctl = new DcMotorEnc(lift,0,0.10,0.01,500);
 
-        tail = hardwareMap.get(CRServo.class, "tail");
+        tail = hardwareMap.get(CRServo.class, Config.TAIL);
         tail.setDirection(DcMotor.Direction.FORWARD);
         tail.setPower(0);
 
 //        /*
         // REV Robotics distance/color sensor
-        color_sensor    = hardwareMap.get(ColorSensor.class, "color range 2.1");
-        distance_sensor = hardwareMap.get(DistanceSensor.class, "color range 2.1");
+        color_sensor    = hardwareMap.get(ColorSensor.class, Config.REV_COLOR_RANGE);
+        distance_sensor = hardwareMap.get(DistanceSensor.class, Config.REV_COLOR_RANGE);
 //        */
 
-        mr_range = hardwareMap.get(DistanceSensor.class, "MR range 2.0");
+        mr_range = hardwareMap.get(DistanceSensor.class, Config.STBD_MR_RANGE);
 
         telemetry.addData("Status", "Initializing IMU.");
 
@@ -206,16 +206,16 @@ public class RevHolonomicOpMode extends OpMode
         imu_parameters.loggingTag          = "IMU";
         imu_parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
-        imu0 = hardwareMap.get(BNO055IMU.class, "imu 0");
+        imu0 = hardwareMap.get(BNO055IMU.class, Config.IMU0);
         imu0.initialize(imu_parameters);
 
-        imu1 = hardwareMap.get(BNO055IMU.class, "imu 1");
+        imu1 = hardwareMap.get(BNO055IMU.class, Config.IMU1);
         imu1.initialize(imu_parameters);
 
-        prs_lo = hardwareMap.get(AnalogInput.class, "port_rs_low");
-        srs_lo = hardwareMap.get(AnalogInput.class, "starboard_rs_low");
-        prs_hi = hardwareMap.get(AnalogInput.class, "port_rs_high");
-        srs_hi = hardwareMap.get(AnalogInput.class, "starboard_rs_high");
+        prs_lo = hardwareMap.get(AnalogInput.class, Config.PORT_IR_LO);
+        srs_lo = hardwareMap.get(AnalogInput.class, Config.STBD_IR_LO);
+        prs_hi = hardwareMap.get(AnalogInput.class, Config.PORT_IR_HI);
+        srs_hi = hardwareMap.get(AnalogInput.class, Config.STBD_IR_HI);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
@@ -241,7 +241,7 @@ public class RevHolonomicOpMode extends OpMode
 /*/
         cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        vuforia_parameters.vuforiaLicenseKey = vuforia_license_key;
+        vuforia_parameters.vuforiaLicenseKey = Config.VUFORIA_LICENSE_KEY;
         vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
         vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
         relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
