@@ -321,7 +321,7 @@ public class CameronAutonomous extends LinearOpMode {
         cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 
         vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        vuforia_parameters.vuforiaLicenseKey = Config.vuforia_license_key;
+        vuforia_parameters.vuforiaLicenseKey = Config.VUFORIA_LICENSE_KEY;
         vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
         vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
         relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");

@@ -31,11 +31,19 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -51,17 +59,43 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 @TeleOp(name="Diagnostic", group="Iterative Opmode")
 // @Disabled
 public class Diagnostic extends OpMode {
-    // Declare OpMode members.
+    // locomotion motors
     private DcMotor front_left  = null;
     private DcMotor front_right = null;
     private DcMotor back_right  = null;
     private DcMotor back_left   = null;
 
+    // claw and tail servos
+    private Servo   left_claw   = null;
+    private Servo   right_claw  = null;
+    private Servo   tail        = null;
+
+    // claw lift and beam motors
     private DcMotor lift        = null;
     private DcMotor beam        = null;
 
+    // Modern Robotics ultrasonic range sensors
     private DistanceSensor port_mr_range = null;
     private DistanceSensor stbd_mr_range = null;
+
+    // REV Robotics distance/color sensor
+    private ColorSensor color_sensor = null;
+    private DistanceSensor distance_sensor = null;
+
+    // Pololu IR range sensors
+    AnalogInput port_ir_lo = null;
+    AnalogInput stbd_ir_lo = null;
+    AnalogInput port_ir_hi = null;
+    AnalogInput stbd_ir_hi = null;
+    Distance    ir_v2in = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
+
+    // VuForia objects
+    int cameraMonitorViewId = -1;
+    VuforiaLocalizer vuforia = null;
+    VuforiaLocalizer.Parameters vuforia_parameters = null;
+    VuforiaTrackables relicTrackables = null;
+    VuforiaTrackable relicTemplate = null;
+    RelicRecoveryVuMark vuMark = null;
 
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -97,7 +131,8 @@ public class Diagnostic extends OpMode {
     private static double TRANSITION_DELAY = 1;
 
     private static final int START      = 0;
-    private static final int ROTATE     = START         + 1;
+    private static final int GAMEPAD    = START         + 1;
+    private static final int ROTATE     = GAMEPAD       + 1;
     private static final int MOTION     = ROTATE        + 1;
     private static final int CLAW       = MOTION        + 1;
     private static final int TAIL       = CLAW          + 1;
@@ -112,15 +147,16 @@ public class Diagnostic extends OpMode {
 
     private static final String[] state_names = {
             "START",
-            "ROTATE", "MOTION", "CLAW", "TAIL", "BEAM", "ULTRASONIC", "COLOR", "IR", "VUFORIA", "IMU",
+            "GAMEPAD", "ROTATE", "MOTION", "CLAW", "TAIL", "BEAM", "ULTRASONIC", "COLOR", "IR", "VUFORIA", "IMU",
             "DONE"
     };
 
     private static final int BACK = 0;
     private static final int NEXT = 1;
     int[][] transition = {
-            {DONE,          ROTATE},        // START
-            {START,         MOTION},        // ROTATE
+            {DONE,          GAMEPAD},       // START
+            {START,         ROTATE},        // GAMEPAD
+            {GAMEPAD,       MOTION},        // ROTATE
             {ROTATE,        CLAW},          // MOTION
             {MOTION,        TAIL},          // CLAW
             {CLAW,          BEAM},          // TAIL
@@ -148,15 +184,89 @@ public class Diagnostic extends OpMode {
 
         if (state == START) {
             ;
+        } else if (state == GAMEPAD) {
+            if (gamepad1.a) {
+                telemetry.addData("Gamepad 1", "A");
+            } else if (gamepad1.b) {
+                telemetry.addData("Gamepad 1", "B");
+            } else if (gamepad1.x) {
+                telemetry.addData("Gamepad 1", "X");
+            } else if (gamepad1.y) {
+                telemetry.addData("Gamepad 1", "Y");
+            } else if (gamepad1.dpad_down) {
+                telemetry.addData("Gamepad 1", "DPAD Down");
+            } else if (gamepad1.dpad_left) {
+                telemetry.addData("Gamepad 1", "DPAD Left");
+            } else if (gamepad1.dpad_right) {
+                telemetry.addData("Gamepad 1", "DPAD Right");
+            } else if (gamepad1.dpad_up) {
+                telemetry.addData("Gamepad 1", "DPAD Up");
+            } else if (gamepad1.dpad_down) {
+                telemetry.addData("Gamepad 1", "DPAD Down");
+            } else if (gamepad1.left_bumper) {
+                telemetry.addData("Gamepad 1", "Left Bumper");
+            } else if (gamepad1.right_bumper) {
+                telemetry.addData("Gamepad 1", "Right Bumper");
+            } else if (gamepad1.left_stick_button) {
+                telemetry.addData("Gamepad 1", "Left Stick Button");
+            } else if (gamepad1.right_stick_button) {
+                telemetry.addData("Gamepad 1", "Right Stick Button");
+            } else if (gamepad1.guide) {
+                telemetry.addData("Gamepad 1", "Guide");
+            } else {
+                telemetry.addData("Gamepad 1", "(none)");
+            }
+
+            telemetry.addData("Gamepad 1", "[%5.2f %5.2f] [%5.2f %5.2f] [%5.2f %5.2f]",
+                    gamepad1.left_stick_x, gamepad1.left_stick_y,
+                    gamepad1.right_stick_x, gamepad1.right_stick_y,
+                    gamepad1.left_trigger, gamepad1.right_trigger);
+
+            if (gamepad2.a) {
+                telemetry.addData("Gamepad 2", "A");
+            } else if (gamepad2.b) {
+                telemetry.addData("Gamepad 2", "B");
+            } else if (gamepad2.x) {
+                telemetry.addData("Gamepad 2", "X");
+            } else if (gamepad2.y) {
+                telemetry.addData("Gamepad 2", "Y");
+            } else if (gamepad2.dpad_down) {
+                telemetry.addData("Gamepad 2", "DPAD Down");
+            } else if (gamepad2.dpad_left) {
+                telemetry.addData("Gamepad 2", "DPAD Left");
+            } else if (gamepad2.dpad_right) {
+                telemetry.addData("Gamepad 2", "DPAD Right");
+            } else if (gamepad2.dpad_up) {
+                telemetry.addData("Gamepad 2", "DPAD Up");
+            } else if (gamepad2.dpad_down) {
+                telemetry.addData("Gamepad 2", "DPAD Down");
+            } else if (gamepad2.left_bumper) {
+                telemetry.addData("Gamepad 2", "Left Bumper");
+            } else if (gamepad2.right_bumper) {
+                telemetry.addData("Gamepad 2", "Right Bumper");
+            } else if (gamepad2.left_stick_button) {
+                telemetry.addData("Gamepad 2", "Left Stick Button");
+            } else if (gamepad2.right_stick_button) {
+                telemetry.addData("Gamepad 2", "Right Stick Button");
+            } else if (gamepad2.guide) {
+                telemetry.addData("Gamepad 2", "Guide");
+            } else {
+                telemetry.addData("Gamepad 2", "(none)");
+            }
+
+            telemetry.addData("Gamepad 2", "[%5.2f %5.2f] [%5.2f %5.2f] [%5.2f %5.2f]",
+                    gamepad2.left_stick_x,  gamepad2.left_stick_y,
+                    gamepad2.right_stick_x, gamepad2.right_stick_y,
+                    gamepad2.left_trigger,  gamepad2.right_trigger);
         } else if (state == ROTATE) {
-            if (gamepad1.x && !gamepad1.b) {
+            if ((gamepad1.x || gamepad1.left_bumper) && !(gamepad1.b || gamepad1.right_bumper)) {
                 init_motors();
 
                 front_left.setPower(0.1);
                 front_right.setPower(0.1);
                 back_right.setPower(0.1);
                 back_left.setPower(0.1);
-            } else if (!gamepad1.x && gamepad1.b) {
+            } else if (!(gamepad1.x || gamepad1.left_bumper) && (gamepad1.b || gamepad1.right_bumper)) {
                 init_motors();
 
                 front_left.setPower(-0.1);
@@ -232,7 +342,31 @@ public class Diagnostic extends OpMode {
             }
         } else if (state == CLAW) {
             if (gamepad1.x && ! gamepad1.b) {           // open the claw
+                if (left_claw == null) {
+                    left_claw  = hardwareMap.get(Servo.class, Config.LEFT_CLAW);
+                    left_claw.setDirection(Servo.Direction.FORWARD);
+                }
+
+                if (right_claw == null) {
+                    right_claw = hardwareMap.get(Servo.class, Config.RIGHT_CLAW);
+                    right_claw.setDirection(Servo.Direction.FORWARD);
+                }
+
+                left_claw.setPosition(0.25);
+                right_claw.setPosition(0.75);
             } else if (! gamepad1.x && gamepad1.b) {    // close the claw
+                if (left_claw == null) {
+                    left_claw  = hardwareMap.get(Servo.class, Config.LEFT_CLAW);
+                    left_claw.setDirection(Servo.Direction.FORWARD);
+                }
+
+                if (right_claw == null) {
+                    right_claw = hardwareMap.get(Servo.class, Config.RIGHT_CLAW);
+                    right_claw.setDirection(Servo.Direction.FORWARD);
+                }
+
+                left_claw.setPosition(0.75);
+                right_claw.setPosition(0.25);
             }
 
             if (gamepad1.y && ! gamepad1.a) {           // raise the claw
@@ -243,6 +377,16 @@ public class Diagnostic extends OpMode {
                     lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 }
+
+                lift.setPower(0);
+                lift.setTargetPosition(100);
+                lift.setPower(0.1);
+
+                while ( 10 < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                    ;
+                }
+
+                lift.setPower(0);
             } else if (! gamepad1.y && gamepad1.a) {    // lower the claw
                 if (lift == null) {
                     lift = hardwareMap.get(DcMotor.class, Config.LIFT);
@@ -251,37 +395,160 @@ public class Diagnostic extends OpMode {
                     lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 }
+
+                lift.setPower(0);
+                lift.setTargetPosition(0);
+                lift.setPower(0.1);
+
+                while ( 10 < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                    ;
+                }
+
+                lift.setPower(0);
             }
         } else if (state == TAIL) {
+            if (gamepad1.y && ! gamepad1.a) {           // raise the tail
+                if (tail == null) {
+                    tail  = hardwareMap.get(Servo.class, Config.TAIL);
+                    tail.setDirection(Servo.Direction.FORWARD);
+                }
+
+                tail.setPosition(1.0);
+            } else if (! gamepad1.y && gamepad1.a) {    // lower the tail
+                if (tail == null) {
+                    tail  = hardwareMap.get(Servo.class, Config.TAIL);
+                    tail.setDirection(Servo.Direction.FORWARD);
+                }
+
+                tail.setPosition(0.0);
+            }
         } else if (state == BEAM) {
+            if (gamepad1.x && ! gamepad1.b) {           // extend the beam
+                if (beam == null) {
+                    beam = hardwareMap.get(DcMotor.class, Config.BEAM);
+                    beam.setDirection(DcMotor.Direction.FORWARD);
+                    beam.setPower(0);
+                    beam.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    beam.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                }
+
+                beam.setPower(0);
+                beam.setTargetPosition(100);
+                beam.setPower(0.1);
+
+                while ( 10 < Math.abs(beam.getTargetPosition() - beam.getCurrentPosition()) ) {
+                    ;
+                }
+
+                beam.setPower(0);
+            } else if (! gamepad1.x && gamepad1.b) {    // retract the beam
+                if (beam == null) {
+                    beam = hardwareMap.get(DcMotor.class, Config.BEAM);
+                    beam.setDirection(DcMotor.Direction.FORWARD);
+                    beam.setPower(0);
+                    beam.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    beam.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                }
+
+                beam.setPower(0);
+                beam.setTargetPosition(0);
+                beam.setPower(0.1);
+
+                while ( 10 < Math.abs(beam.getTargetPosition() - beam.getCurrentPosition()) ) {
+                    ;
+                }
+
+                beam.setPower(0);
+            }
         } else if (state == ULTRASONIC) {
-            if (gamepad1.x && port_mr_range == null) {
-                port_mr_range = hardwareMap.get(DistanceSensor.class, Config.PORT_MR_RANGE);
-            }
+            if (gamepad1.a || gamepad1.b || gamepad1.x || gamepad1.y) {
+                if (port_mr_range == null) {
+                    port_mr_range = hardwareMap.get(DistanceSensor.class, Config.PORT_MR_RANGE);
+                }
 
-            if (gamepad1.b && stbd_mr_range == null) {
-                stbd_mr_range = hardwareMap.get(DistanceSensor.class, Config.STBD_MR_RANGE);
-            }
+                if (stbd_mr_range == null) {
+                    stbd_mr_range = hardwareMap.get(DistanceSensor.class, Config.STBD_MR_RANGE);
+                }
 
-            if (gamepad1.x) {
-                telemetry.addData("Port      MR Range", "in=%6.2f",
-                        port_mr_range.getDistance(DistanceUnit.INCH));
-            }
-
-            if (gamepad1.b) {
-                telemetry.addData("Starboard MR Range", "in=%6.2f",
+                telemetry.addData("MR Range", "[%6.2f\", %6.2f\"]",
+                        port_mr_range.getDistance(DistanceUnit.INCH),
                         stbd_mr_range.getDistance(DistanceUnit.INCH));
             }
         } else if (state == COLOR) {
+            if (gamepad1.a || gamepad1.b || gamepad1.x || gamepad1.y) {
+                if (color_sensor == null) {
+                    color_sensor = hardwareMap.get(ColorSensor.class, Config.REV_COLOR_RANGE);
+                    distance_sensor = hardwareMap.get(DistanceSensor.class, Config.REV_COLOR_RANGE);
+                }
+
+                telemetry.addData("Color/Dist", "cm=%6.2f a=%03d r=%03d g=%03d b=%03d %s",
+                        distance_sensor.getDistance(DistanceUnit.CM), color_sensor.alpha(),
+                        color_sensor.red(), color_sensor.green(), color_sensor.blue(),
+                        (color_sensor.red() < color_sensor.blue())?"BLUE":"RED");
+            }
         } else if (state == IR) {
+            if (gamepad1.a || gamepad1.b || gamepad1.x || gamepad1.y) {
+                if (port_ir_lo == null) {
+                    port_ir_lo = hardwareMap.get(AnalogInput.class, Config.PORT_IR_LO);
+                }
+
+                if (stbd_ir_lo == null) {
+                    stbd_ir_lo = hardwareMap.get(AnalogInput.class, Config.STBD_IR_LO);
+                }
+
+                if (port_ir_hi == null) {
+                    port_ir_hi = hardwareMap.get(AnalogInput.class, Config.PORT_IR_HI);
+                }
+
+                if (stbd_ir_hi == null) {
+                    stbd_ir_hi = hardwareMap.get(AnalogInput.class, Config.STBD_IR_HI);
+                }
+
+                telemetry.addData("Pololu IR Range Sensors",
+                        "[%6.4f:%6.2f, %6.4f:%6.2f, %6.4f:%6.2f, %6.4f:%6.2f]",
+                        port_ir_lo.getVoltage(), ir_v2in.distance(port_ir_lo.getVoltage()),
+                        port_ir_hi.getVoltage(), ir_v2in.distance(port_ir_hi.getVoltage()),
+                        stbd_ir_lo.getVoltage(), ir_v2in.distance(stbd_ir_lo.getVoltage()),
+                        stbd_ir_hi.getVoltage(), ir_v2in.distance(stbd_ir_hi.getVoltage()));
+            }
         } else if (state == VUFORIA) {
+            if (gamepad1.a || gamepad1.b) {
+                if (cameraMonitorViewId < 0) {
+                    cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                            "cameraMonitorViewId",
+                            "id", hardwareMap.appContext.getPackageName());
+                } else if (vuforia_parameters == null) {
+                    vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+                    vuforia_parameters.vuforiaLicenseKey = Config.VUFORIA_LICENSE_KEY;
+                    vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
+                    vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+                } else if (vuforia == null) {
+                    vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
+                } else if (relicTrackables == null) {
+                    relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
+                } else if (relicTemplate == null) {
+                    relicTemplate = relicTrackables.get(0);
+                    relicTemplate.setName("relicVuMarkTemplate");
+                }
+            }
+
+            if (gamepad1.a && relicTrackables != null) {
+                relicTrackables.activate();
+            } else if (gamepad1.b && relicTrackables != null) {
+                relicTrackables.deactivate();
+            }
+
+            if (relicTrackables != null) {
+                vuMark = RelicRecoveryVuMark.from(relicTemplate);
+                telemetry.addData("VuForia", "vuMark='%s'", vuMark.name());
+            }
         } else if (state == IMU) {
         } else if (state == DONE) {
+            ;
         }
 
         // Show the elapsed game time.
-        telemetry.addData("State", state_names[state]);
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.addData("State", "%10s %8.0f", state_names[state], runtime.seconds());
     }
 
     private void init_motors() {
