@@ -66,8 +66,8 @@ public class Diagnostic extends OpMode {
     private DcMotor back_left   = null;
 
     // claw and tail servos
-    private Servo   left_claw   = null;
-    private Servo   right_claw  = null;
+    private Servo port_claw = null;
+    private Servo stbd_claw = null;
     private Servo   tail        = null;
 
     // claw lift and beam motors
@@ -128,7 +128,7 @@ public class Diagnostic extends OpMode {
 
 
     private double transition_start = 0;
-    private static double TRANSITION_DELAY = 1;
+    private static double TRANSITION_DELAY = 0.75;
 
     private static final int START      = 0;
     private static final int GAMEPAD    = START         + 1;
@@ -312,15 +312,15 @@ public class Diagnostic extends OpMode {
                 init_motors();
 
                 front_left.setPower(0.1);
-                front_right.setPower(0.1);
+                front_right.setPower(-0.1);
                 back_right.setPower(-0.1);
-                back_left.setPower(-0.1);
+                back_left.setPower(0.1);
             } else if (!gamepad1.a && !gamepad1.b && gamepad1.x && !gamepad1.y) {
                 // LEFT
                 init_motors();
 
-                front_left.setPower(-0.1);
-                front_right.setPower(-0.1);
+                front_left.setPower(0.1);
+                front_right.setPower(0.1);
                 back_right.setPower(-0.1);
                 back_left.setPower(-0.1);
             } else {
@@ -342,31 +342,31 @@ public class Diagnostic extends OpMode {
             }
         } else if (state == CLAW) {
             if (gamepad1.x && ! gamepad1.b) {           // open the claw
-                if (left_claw == null) {
-                    left_claw  = hardwareMap.get(Servo.class, Config.LEFT_CLAW);
-                    left_claw.setDirection(Servo.Direction.FORWARD);
+                if (port_claw == null) {
+                    port_claw = hardwareMap.get(Servo.class, Config.PORT_CLAW);
+                    port_claw.setDirection(Servo.Direction.FORWARD);
                 }
 
-                if (right_claw == null) {
-                    right_claw = hardwareMap.get(Servo.class, Config.RIGHT_CLAW);
-                    right_claw.setDirection(Servo.Direction.FORWARD);
+                if (stbd_claw == null) {
+                    stbd_claw = hardwareMap.get(Servo.class, Config.STBD_CLAW);
+                    stbd_claw.setDirection(Servo.Direction.FORWARD);
                 }
 
-                left_claw.setPosition(0.25);
-                right_claw.setPosition(0.75);
+                port_claw.setPosition(Config.PORT_CLAW_OPENED);
+                stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
             } else if (! gamepad1.x && gamepad1.b) {    // close the claw
-                if (left_claw == null) {
-                    left_claw  = hardwareMap.get(Servo.class, Config.LEFT_CLAW);
-                    left_claw.setDirection(Servo.Direction.FORWARD);
+                if (port_claw == null) {
+                    port_claw = hardwareMap.get(Servo.class, Config.PORT_CLAW);
+                    port_claw.setDirection(Servo.Direction.FORWARD);
                 }
 
-                if (right_claw == null) {
-                    right_claw = hardwareMap.get(Servo.class, Config.RIGHT_CLAW);
-                    right_claw.setDirection(Servo.Direction.FORWARD);
+                if (stbd_claw == null) {
+                    stbd_claw = hardwareMap.get(Servo.class, Config.STBD_CLAW);
+                    stbd_claw.setDirection(Servo.Direction.FORWARD);
                 }
 
-                left_claw.setPosition(0.75);
-                right_claw.setPosition(0.25);
+                port_claw.setPosition(Config.PORT_CLAW_CLOSED);
+                stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
             }
 
             if (gamepad1.y && ! gamepad1.a) {           // raise the claw
@@ -379,10 +379,10 @@ public class Diagnostic extends OpMode {
                 }
 
                 lift.setPower(0);
-                lift.setTargetPosition(100);
-                lift.setPower(0.1);
+                lift.setTargetPosition(Config.LIFT_TARGET_HI);
+                lift.setPower(Config.LIFT_POWER);
 
-                while ( 10 < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
                     ;
                 }
 
@@ -397,14 +397,18 @@ public class Diagnostic extends OpMode {
                 }
 
                 lift.setPower(0);
-                lift.setTargetPosition(0);
-                lift.setPower(0.1);
+                lift.setTargetPosition(Config.LIFT_TARGET_LO);
+                lift.setPower(Config.LIFT_POWER);
 
-                while ( 10 < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
                     ;
                 }
 
                 lift.setPower(0);
+            }
+
+            if (gamepad1.a || gamepad1.y|| gamepad1.right_bumper || gamepad1.left_bumper) {
+                telemetry.addData("Lift", "%4d", lift.getCurrentPosition());
             }
         } else if (state == TAIL) {
             if (gamepad1.y && ! gamepad1.a) {           // raise the tail
@@ -413,14 +417,14 @@ public class Diagnostic extends OpMode {
                     tail.setDirection(Servo.Direction.FORWARD);
                 }
 
-                tail.setPosition(1.0);
+                tail.setPosition(Config.TAIL_POS_UP);
             } else if (! gamepad1.y && gamepad1.a) {    // lower the tail
                 if (tail == null) {
                     tail  = hardwareMap.get(Servo.class, Config.TAIL);
                     tail.setDirection(Servo.Direction.FORWARD);
                 }
 
-                tail.setPosition(0.0);
+                tail.setPosition(Config.TAIL_POS_DN);
             }
         } else if (state == BEAM) {
             if (gamepad1.x && ! gamepad1.b) {           // extend the beam
@@ -433,10 +437,10 @@ public class Diagnostic extends OpMode {
                 }
 
                 beam.setPower(0);
-                beam.setTargetPosition(100);
-                beam.setPower(0.1);
+                beam.setTargetPosition(Config.BEAM_TARGET_OUT);
+                beam.setPower(Config.BEAM_POWER);
 
-                while ( 10 < Math.abs(beam.getTargetPosition() - beam.getCurrentPosition()) ) {
+                while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(beam.getTargetPosition() - beam.getCurrentPosition()) ) {
                     ;
                 }
 
@@ -451,10 +455,10 @@ public class Diagnostic extends OpMode {
                 }
 
                 beam.setPower(0);
-                beam.setTargetPosition(0);
-                beam.setPower(0.1);
+                beam.setTargetPosition(Config.BEAM_TARGET_IN);
+                beam.setPower(Config.BEAM_POWER);
 
-                while ( 10 < Math.abs(beam.getTargetPosition() - beam.getCurrentPosition()) ) {
+                while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(beam.getTargetPosition() - beam.getCurrentPosition()) ) {
                     ;
                 }
 
@@ -481,8 +485,11 @@ public class Diagnostic extends OpMode {
                     distance_sensor = hardwareMap.get(DistanceSensor.class, Config.REV_COLOR_RANGE);
                 }
 
-                telemetry.addData("Color/Dist", "cm=%6.2f a=%03d r=%03d g=%03d b=%03d %s",
-                        distance_sensor.getDistance(DistanceUnit.CM), color_sensor.alpha(),
+                telemetry.addData("Distance", "cm=%6.2f",
+                        distance_sensor.getDistance(DistanceUnit.CM));
+
+                telemetry.addData("Color", "a=%03d r=%03d g=%03d b=%03d %s",
+                        color_sensor.alpha(),
                         color_sensor.red(), color_sensor.green(), color_sensor.blue(),
                         (color_sensor.red() < color_sensor.blue())?"BLUE":"RED");
             }
@@ -504,10 +511,14 @@ public class Diagnostic extends OpMode {
                     stbd_ir_hi = hardwareMap.get(AnalogInput.class, Config.STBD_IR_HI);
                 }
 
-                telemetry.addData("Pololu IR Range Sensors",
-                        "[%6.4f:%6.2f, %6.4f:%6.2f, %6.4f:%6.2f, %6.4f:%6.2f]",
+                telemetry.addData("Port",
+                        "[%6.4f:%6.2f, %6.4f:%6.2f]",
                         port_ir_lo.getVoltage(), ir_v2in.distance(port_ir_lo.getVoltage()),
                         port_ir_hi.getVoltage(), ir_v2in.distance(port_ir_hi.getVoltage()),
+                        stbd_ir_lo.getVoltage(), ir_v2in.distance(stbd_ir_lo.getVoltage()));
+
+                telemetry.addData("Starboard",
+                        "[%6.4f:%6.2f, %6.4f:%6.2f]",
                         stbd_ir_lo.getVoltage(), ir_v2in.distance(stbd_ir_lo.getVoltage()),
                         stbd_ir_hi.getVoltage(), ir_v2in.distance(stbd_ir_hi.getVoltage()));
             }
@@ -520,8 +531,8 @@ public class Diagnostic extends OpMode {
                 } else if (vuforia_parameters == null) {
                     vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
                     vuforia_parameters.vuforiaLicenseKey = Config.VUFORIA_LICENSE_KEY;
-                    vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
                     vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+                    vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
                 } else if (vuforia == null) {
                     vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
                 } else if (relicTrackables == null) {
@@ -553,7 +564,7 @@ public class Diagnostic extends OpMode {
 
     private void init_motors() {
         if (front_left == null) {
-            front_left = hardwareMap.get(DcMotor.class, Config.FRONT_LEFT);
+            front_left = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
             front_left.setDirection(DcMotor.Direction.FORWARD);
             front_left.setPower(0);
             front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -561,7 +572,7 @@ public class Diagnostic extends OpMode {
         }
 
         if (front_right == null) {
-            front_right = hardwareMap.get(DcMotor.class, Config.FRONT_RIGHT);
+            front_right = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
             front_right.setDirection(DcMotor.Direction.FORWARD);
             front_right.setPower(0);
             front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -569,7 +580,7 @@ public class Diagnostic extends OpMode {
         }
 
         if (back_right == null) {
-            back_right = hardwareMap.get(DcMotor.class, Config.BACK_RIGHT);
+            back_right = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
             back_right.setDirection(DcMotor.Direction.FORWARD);
             back_right.setPower(0);
             back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -577,7 +588,7 @@ public class Diagnostic extends OpMode {
         }
 
         if (back_left == null) {
-            back_left = hardwareMap.get(DcMotor.class, Config.BACK_LEFT);
+            back_left = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
             back_left.setDirection(DcMotor.Direction.FORWARD);
             back_left.setPower(0);
             back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

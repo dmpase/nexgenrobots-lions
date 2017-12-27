@@ -41,18 +41,9 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 import static com.sun.tools.javac.util.Constants.format;
@@ -141,25 +132,25 @@ public class RevHolonomicOpMode extends OpMode
         // step (using the FTC Robot Controller app on the phone).
         telemetry.addData("Status", "Initializing Motors.");
 
-        front_left = hardwareMap.get(DcMotor.class, Config.FRONT_LEFT);
+        front_left = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
         front_left.setDirection(DcMotor.Direction.FORWARD);
         front_left.setPower(0);
         front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         front_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        front_right = hardwareMap.get(DcMotor.class, Config.FRONT_RIGHT);
+        front_right = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
         front_right.setDirection(DcMotor.Direction.FORWARD);
         front_right.setPower(0);
         front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         front_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        back_right = hardwareMap.get(DcMotor.class, Config.BACK_RIGHT);
+        back_right = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
         back_right.setDirection(DcMotor.Direction.FORWARD);
         back_right.setPower(0);
         back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         back_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        back_left = hardwareMap.get(DcMotor.class, Config.BACK_LEFT);
+        back_left = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
         back_left.setDirection(DcMotor.Direction.FORWARD);
         back_left.setPower(0);
         back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -169,10 +160,10 @@ public class RevHolonomicOpMode extends OpMode
 //        /*
         telemetry.addData("Status", "Initializing Servos.");
 
-        left_claw  = hardwareMap.get(Servo.class, Config.LEFT_CLAW);
+        left_claw  = hardwareMap.get(Servo.class, Config.PORT_CLAW);
         left_claw.setDirection(left_claw_dir);
 
-        right_claw = hardwareMap.get(Servo.class, Config.RIGHT_CLAW);
+        right_claw = hardwareMap.get(Servo.class, Config.STBD_CLAW);
         right_claw.setDirection(right_claw_dir);
 
         telemetry.addData("Status", "Initializing Lift & Tail.");
@@ -313,13 +304,13 @@ public class RevHolonomicOpMode extends OpMode
                 back_left .getCurrentPosition(), back_right .getCurrentPosition());
 
         telemetry.addData("Motor Power", "%5.2f %5.2f %5.2f %5.2f",
-                motors[FRONT_LEFT], motors[FRONT_RIGHT],
-                motors[BACK_LEFT], motors[BACK_RIGHT]);
+                motors[PORT_BOW], motors[STBD_BOW],
+                motors[PORT_AFT], motors[STBD_AFT]);
          /*/
 
          /*/
         telemetry.addData("Claw Position", "%5.2f %5.2f %05d",
-                servos[LEFT_CLAW], servos[RIGHT_CLAW], lift.getCurrentPosition());
+                servos[PORT_CLAW], servos[STBD_CLAW], lift.getCurrentPosition());
 
         telemetry.addData("Lift Ctl", "%5.2f %5.2f %04d %04d %7d",
                 lift_ctl.power, lift.getPower(), lift_ctl.target, lift.getCurrentPosition(), lift_ctl.count);

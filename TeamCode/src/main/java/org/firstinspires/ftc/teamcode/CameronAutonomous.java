@@ -261,10 +261,10 @@ public class CameronAutonomous extends LinearOpMode {
     {
         telemetry.addData("Status", "Initializing Motors.");
 
-        front_left  = hardwareMap.get(DcMotor.class, Config.FRONT_LEFT);
-        front_right = hardwareMap.get(DcMotor.class, Config.FRONT_RIGHT);
-        back_right  = hardwareMap.get(DcMotor.class, Config.BACK_RIGHT);
-        back_left   = hardwareMap.get(DcMotor.class, Config.BACK_LEFT);
+        front_left  = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
+        front_right = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
+        back_right  = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
+        back_left   = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
 
         front_left.setPower(0);
         front_right.setPower(0);
