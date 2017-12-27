@@ -83,10 +83,10 @@ public class Diagnostic extends OpMode {
     private DistanceSensor distance_sensor = null;
 
     // Pololu IR range sensors
-    AnalogInput port_ir_lo = null;
-    AnalogInput stbd_ir_lo = null;
-    AnalogInput port_ir_hi = null;
-    AnalogInput stbd_ir_hi = null;
+    AnalogInput port_ir_aft = null;
+    AnalogInput stbd_ir_aft = null;
+    AnalogInput port_ir_bow = null;
+    AnalogInput stbd_ir_bow = null;
     Distance    ir_v2in = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
 
     // VuForia objects
@@ -372,7 +372,7 @@ public class Diagnostic extends OpMode {
             if (gamepad1.y && ! gamepad1.a) {           // raise the claw
                 if (lift == null) {
                     lift = hardwareMap.get(DcMotor.class, Config.LIFT);
-                    lift.setDirection(DcMotor.Direction.FORWARD);
+                    lift.setDirection(Config.LIFT_DIRECTION);
                     lift.setPower(0);
                     lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -390,7 +390,7 @@ public class Diagnostic extends OpMode {
             } else if (! gamepad1.y && gamepad1.a) {    // lower the claw
                 if (lift == null) {
                     lift = hardwareMap.get(DcMotor.class, Config.LIFT);
-                    lift.setDirection(DcMotor.Direction.FORWARD);
+                    lift.setDirection(Config.LIFT_DIRECTION);
                     lift.setPower(0);
                     lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -448,7 +448,7 @@ public class Diagnostic extends OpMode {
             } else if (! gamepad1.x && gamepad1.b) {    // retract the beam
                 if (beam == null) {
                     beam = hardwareMap.get(DcMotor.class, Config.BEAM);
-                    beam.setDirection(DcMotor.Direction.FORWARD);
+                    beam.setDirection(Config.BEAM_DIRECTION);
                     beam.setPower(0);
                     beam.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     beam.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -495,32 +495,31 @@ public class Diagnostic extends OpMode {
             }
         } else if (state == IR) {
             if (gamepad1.a || gamepad1.b || gamepad1.x || gamepad1.y) {
-                if (port_ir_lo == null) {
-                    port_ir_lo = hardwareMap.get(AnalogInput.class, Config.PORT_IR_LO);
+                if (port_ir_aft == null) {
+                    port_ir_aft = hardwareMap.get(AnalogInput.class, Config.PORT_IR_AFT);
                 }
 
-                if (stbd_ir_lo == null) {
-                    stbd_ir_lo = hardwareMap.get(AnalogInput.class, Config.STBD_IR_LO);
+                if (stbd_ir_aft == null) {
+                    stbd_ir_aft = hardwareMap.get(AnalogInput.class, Config.STBD_IR_AFT);
                 }
 
-                if (port_ir_hi == null) {
-                    port_ir_hi = hardwareMap.get(AnalogInput.class, Config.PORT_IR_HI);
+                if (port_ir_bow == null) {
+                    port_ir_bow = hardwareMap.get(AnalogInput.class, Config.PORT_IR_BOW);
                 }
 
-                if (stbd_ir_hi == null) {
-                    stbd_ir_hi = hardwareMap.get(AnalogInput.class, Config.STBD_IR_HI);
+                if (stbd_ir_bow == null) {
+                    stbd_ir_bow = hardwareMap.get(AnalogInput.class, Config.STBD_IR_BOW);
                 }
 
                 telemetry.addData("Port",
                         "[%6.4f:%6.2f, %6.4f:%6.2f]",
-                        port_ir_lo.getVoltage(), ir_v2in.distance(port_ir_lo.getVoltage()),
-                        port_ir_hi.getVoltage(), ir_v2in.distance(port_ir_hi.getVoltage()),
-                        stbd_ir_lo.getVoltage(), ir_v2in.distance(stbd_ir_lo.getVoltage()));
+                        port_ir_aft.getVoltage(), ir_v2in.distance(port_ir_aft.getVoltage()),
+                        port_ir_bow.getVoltage(), ir_v2in.distance(port_ir_bow.getVoltage()));
 
                 telemetry.addData("Starboard",
                         "[%6.4f:%6.2f, %6.4f:%6.2f]",
-                        stbd_ir_lo.getVoltage(), ir_v2in.distance(stbd_ir_lo.getVoltage()),
-                        stbd_ir_hi.getVoltage(), ir_v2in.distance(stbd_ir_hi.getVoltage()));
+                        stbd_ir_aft.getVoltage(), ir_v2in.distance(stbd_ir_aft.getVoltage()),
+                        stbd_ir_bow.getVoltage(), ir_v2in.distance(stbd_ir_bow.getVoltage()));
             }
         } else if (state == VUFORIA) {
             if (gamepad1.a || gamepad1.b) {

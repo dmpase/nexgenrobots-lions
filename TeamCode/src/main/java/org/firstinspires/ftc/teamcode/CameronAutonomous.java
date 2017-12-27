@@ -300,10 +300,10 @@ public class CameronAutonomous extends LinearOpMode {
         telemetry.addData("Status", "Initializing Sensors.");
 
         // white wire is high, blue wire is low, ports 0,1 to starboard, ports 2,3 to port
-        prs_lo = hardwareMap.get(AnalogInput.class, Config.PORT_IR_LO);
-        srs_lo = hardwareMap.get(AnalogInput.class, Config.STBD_IR_LO);
-        prs_hi = hardwareMap.get(AnalogInput.class, Config.PORT_IR_HI);
-        srs_hi = hardwareMap.get(AnalogInput.class, Config.STBD_IR_HI);
+        prs_lo = hardwareMap.get(AnalogInput.class, Config.PORT_IR_AFT);
+        srs_lo = hardwareMap.get(AnalogInput.class, Config.STBD_IR_AFT);
+        prs_hi = hardwareMap.get(AnalogInput.class, Config.PORT_IR_BOW);
+        srs_hi = hardwareMap.get(AnalogInput.class, Config.STBD_IR_BOW);
     }
 
 

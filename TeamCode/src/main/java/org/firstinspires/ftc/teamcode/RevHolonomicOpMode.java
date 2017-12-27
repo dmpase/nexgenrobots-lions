@@ -203,10 +203,10 @@ public class RevHolonomicOpMode extends OpMode
         imu1 = hardwareMap.get(BNO055IMU.class, Config.IMU1);
         imu1.initialize(imu_parameters);
 
-        prs_lo = hardwareMap.get(AnalogInput.class, Config.PORT_IR_LO);
-        srs_lo = hardwareMap.get(AnalogInput.class, Config.STBD_IR_LO);
-        prs_hi = hardwareMap.get(AnalogInput.class, Config.PORT_IR_HI);
-        srs_hi = hardwareMap.get(AnalogInput.class, Config.STBD_IR_HI);
+        prs_lo = hardwareMap.get(AnalogInput.class, Config.PORT_IR_AFT);
+        srs_lo = hardwareMap.get(AnalogInput.class, Config.STBD_IR_AFT);
+        prs_hi = hardwareMap.get(AnalogInput.class, Config.PORT_IR_BOW);
+        srs_hi = hardwareMap.get(AnalogInput.class, Config.STBD_IR_BOW);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");

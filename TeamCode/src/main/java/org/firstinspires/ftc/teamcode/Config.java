@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
 /**
  * Created by Doug on 12/24/2017.
  */
@@ -17,10 +20,10 @@ public class Config {
     public static final String TAIL             = "tail";                   // Hub 2.Servos[0].Servo
 
     //         Analog Input Devices
-    public static final String STBD_IR_HI       = "starboard ir range hi";  // Hub 2.Analog Input Devices[0].Analog Input
-    public static final String STBD_IR_LO       = "starboard ir range lo";  // Hub 2.Analog Input Devices[1].Analog Input
-    public static final String PORT_IR_HI       = "port ir range hi";       // Hub 2.Analog Input Devices[2].Analog Input
-    public static final String PORT_IR_LO       = "port ir range lo";       // Hub 2.Analog Input Devices[3].Analog Input
+    public static final String STBD_IR_BOW = "starboard ir range hi";  // Hub 2.Analog Input Devices[0].Analog Input
+    public static final String STBD_IR_AFT = "starboard ir range lo";  // Hub 2.Analog Input Devices[1].Analog Input
+    public static final String PORT_IR_BOW = "port ir range hi";       // Hub 2.Analog Input Devices[2].Analog Input
+    public static final String PORT_IR_AFT = "port ir range lo";       // Hub 2.Analog Input Devices[3].Analog Input
 
     //         I2C Bus 0
     public static final String IMU0             = "imu 0";                  // Hub 2.I2C Bus 0[0].Rev Expansion Hub IMU
@@ -53,9 +56,10 @@ public class Config {
 
 
     // Lift parameters
-    public static final double LIFT_POWER       = 0.40;
+    public static final double LIFT_POWER       = 0.50;
     public static final int    LIFT_TARGET_HI   = 4800;
     public static final int    LIFT_TARGET_LO   =    0;
+    public static final DcMotor.Direction LIFT_DIRECTION = DcMotor.Direction.FORWARD;
 
 
     // Claw parameters
@@ -71,11 +75,12 @@ public class Config {
 
 
     // Beam parameters
-    public static final double BEAM_POWER       = 0.40;
+    public static final double BEAM_POWER       = 0.70;
     public static final int    BEAM_TARGET_IN   =    0;
-    public static final int    BEAM_TARGET_OUT  = 1000;
+    public static final int    BEAM_TARGET_OUT  = -9500;
+    public static final DcMotor.Direction BEAM_DIRECTION = DcMotor.Direction.FORWARD;
 
 
     // Motor target tolerance
-    public static final int MOTOR_TARGET_TOLERANCE  = 10;
+    public static final int MOTOR_TARGET_TOLERANCE  = 5;
 }
