@@ -32,10 +32,14 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
@@ -54,6 +58,7 @@ public class CameronAutonomous extends LinearOpMode {
     // Declare OpMode members.
 
     public static enum Command {ROTATE, FORWARD, BACKWARD, LEFT, RIGHT, ADJUST, OPEN_CLAW, CLOSE_CLAW}
+    public static enum Team {BLUE, RED, UNKNOWN}
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -85,55 +90,67 @@ public class CameronAutonomous extends LinearOpMode {
 
         // read port and starboard sensor to find quadrant (3rd quadrant; blue)
 
-        double port_dist = rs2d.distance(prs_lo.getVoltage());
-        double starboard_dist = rs2d.distance(srs_lo.getVoltage());
+        // double port_dist = ir_v2in.distance(port_ir_aft.getVoltage());
+        // double stbd_dist = ir_v2in.distance(stbd_ir_aft.getVoltage());
+        double port_dist = port_mr_range.getDistance(DistanceUnit.INCH);
+        double stbd_dist = stbd_mr_range.getDistance(DistanceUnit.INCH);
 
-        final int UNKNOWN    = 0;
-        final int BLUE_LEFT  = 1;
-        final int BLUE_RIGHT = 2;
-        final int RED_LEFT   = 3;
-        final int RED_RIGHT  = 4;
-        final String[] QUADRANT_NAME = {"UNKNOWN", "BLUE LEFT", "BLUE RIGHT", "RED LEFT", "RED RIGHT"};
+        Team team = Team.UNKNOWN;
         int quadrant = UNKNOWN;
 
-        final double SHORT  = 36;
-        final double MEDIUM = 48;
-        final double LONG   = 60;
-
-        if (starboard_dist < SHORT) {
+        if (stbd_dist < SHORT) {
             quadrant = BLUE_RIGHT;
-        } else if (starboard_dist < MEDIUM) {
+            team = Team.BLUE;
+        } else if (stbd_dist < MEDIUM) {
             quadrant = RED_RIGHT;
+            team = Team.RED;
         } else if (port_dist < SHORT) {
             quadrant = RED_LEFT;
+            team = Team.RED;
         } else if (port_dist < MEDIUM) {
             quadrant = BLUE_LEFT;
+            team = Team.BLUE;
         }
 
-        telemetry.addData("Quadrant", "%s(%d) %6.2f %6.2f %6.2f %6.2f",
-                QUADRANT_NAME[quadrant], quadrant, port_dist, starboard_dist,
-                rs2d.distance(prs_hi.getVoltage()), rs2d.distance(srs_hi.getVoltage()));
+        telemetry.addData("Quadrant", "%s(%d) %s %6.2f %6.2f",
+                QUADRANT_NAME[quadrant], quadrant, team.toString(), port_dist, stbd_dist);
         telemetry.update();
 
 
         // vuforia
 
-        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-
-        telemetry.addData("VuMark", "%s", vuMark.toString());
         //Vuforia reading: left, center, or right; left = -1, center = 0, right = 1;
-        vuforiaresult = VUFORIA_CENTER;
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+        String vumark_position = vuMark.name();
+        if (vumark_position.equalsIgnoreCase("LEFT")) {
+            vuforiaresult = VUFORIA_LEFT;
+        } else if (vumark_position.equalsIgnoreCase("CENTER")) {
+            vuforiaresult = VUFORIA_CENTER;
+        } else if (vumark_position.equalsIgnoreCase("RIGHT")) {
+            vuforiaresult = VUFORIA_RIGHT;
+        }
 
+        telemetry.addData("VuMark", "%s", vuMark.name());
+
+
+        // dislodge the jewell (or not...)
         // lower tail
-        // read color
-        // if blue, clockwise then counter clockwise, opposite for red
+        // read ball color
+        Team ball_color = (color_sensor.red() < color_sensor.blue()) ? Team.BLUE : Team.RED;
+
+        // if ball color == team color, clockwise then counter clockwise, else opposite
+        if (team == ball_color) {
+        } else {
+        }
+
         // raise tail
+
 
         // deliver the block to the crypto box
 
-        Object[][] program = blue_right_cmd;
+        Object[][] program = cmd[quadrant];
 
-        for (int i=0; i < program.length; i++) {
+        for (int i=0; program != null && i < program.length; i++) {
             execute(program[i]);
         }
 
@@ -143,6 +160,17 @@ public class CameronAutonomous extends LinearOpMode {
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();
     }
+
+    private static final double SHORT  = 36;
+    private static final double MEDIUM = 48;
+    private static final double LONG   = 60;
+
+    private static final int UNKNOWN    = 0;
+    private static final int BLUE_LEFT  = 1;
+    private static final int BLUE_RIGHT = 2;
+    private static final int RED_LEFT   = 3;
+    private static final int RED_RIGHT  = 4;
+    private static final String[] QUADRANT_NAME = {"UNKNOWN", "BLUE LEFT", "BLUE RIGHT", "RED LEFT", "RED RIGHT"};
 
     private static final double AUTO_PWR = 0.1;
     private static final int    AUTO_TOL = 10;
@@ -191,16 +219,24 @@ public class CameronAutonomous extends LinearOpMode {
             {Command.CLOSE_CLAW,                               },
     };
 
-    final int OPCODE    = 0;
-    final int ANGLE     = 1;
-    final int INCHES    = 1;
-    final int POWER     = 2;
-    final int TOLERANCE = 3;
+    private static final Object[][][] cmd = {
+            null,
+            blue_left_cmd,
+            blue_right_cmd,
+            red_left_cmd,
+            red_right_cmd,
+    };
 
-    private static final int VUFORIA_LEFT = -1;
+    private static final int OPCODE    = 0;
+    private static final int ANGLE     = 1;
+    private static final int INCHES    = 1;
+    private static final int POWER     = 2;
+    private static final int TOLERANCE = 3;
+
+    private static final int VUFORIA_LEFT   = -1;
     private static final int VUFORIA_CENTER = 0;
-    private static final int VUFORIA_RIGHT = 1;
-    private int vuforiaresult = 0;
+    private static final int VUFORIA_RIGHT  = 1;
+    private int vuforiaresult = VUFORIA_CENTER;
 
     private void execute(Object[] cmd)
     {
@@ -283,27 +319,66 @@ public class CameronAutonomous extends LinearOpMode {
     }
 
 
+    // claw and tail servos
+    private Servo port_claw = null;
+    private Servo stbd_claw = null;
+    private Servo tail      = null;
+
+    // claw lift motor
+    private DcMotor lift    = null;
+
     public void servo_init()
     {
+        port_claw = hardwareMap.get(Servo.class, Config.PORT_CLAW);
+        port_claw.setDirection(Servo.Direction.FORWARD);
 
+        stbd_claw = hardwareMap.get(Servo.class, Config.STBD_CLAW);
+        stbd_claw.setDirection(Servo.Direction.FORWARD);
+
+        tail  = hardwareMap.get(Servo.class, Config.TAIL);
+        tail.setDirection(Servo.Direction.FORWARD);
+
+        lift = hardwareMap.get(DcMotor.class, Config.LIFT);
+        lift.setDirection(Config.LIFT_DIRECTION);
+        lift.setPower(0);
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
 
-    AnalogInput prs_lo = null;
-    AnalogInput srs_lo = null;
-    AnalogInput prs_hi = null;
-    AnalogInput srs_hi = null;
-    Distance    rs2d   = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
+
+    // Modern Robotics ultrasonic range sensors
+    private DistanceSensor port_mr_range = null;
+    private DistanceSensor stbd_mr_range = null;
+
+    // REV Robotics distance/color sensor
+    private ColorSensor color_sensor = null;
+    private DistanceSensor distance_sensor = null;
+
+    // Pololu IR range sensors
+    AnalogInput port_ir_aft = null;
+    AnalogInput stbd_ir_aft = null;
+    AnalogInput port_ir_bow = null;
+    AnalogInput stbd_ir_bow = null;
+    Distance    ir_v2in = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
 
     public void sensor_init()
     {
         telemetry.addData("Status", "Initializing Sensors.");
 
-        // white wire is high, blue wire is low, ports 0,1 to starboard, ports 2,3 to port
-        prs_lo = hardwareMap.get(AnalogInput.class, Config.PORT_IR_AFT);
-        srs_lo = hardwareMap.get(AnalogInput.class, Config.STBD_IR_AFT);
-        prs_hi = hardwareMap.get(AnalogInput.class, Config.PORT_IR_BOW);
-        srs_hi = hardwareMap.get(AnalogInput.class, Config.STBD_IR_BOW);
+        // port and starboard ultrasonic sensors
+        port_mr_range = hardwareMap.get(DistanceSensor.class, Config.PORT_MR_RANGE);
+        stbd_mr_range = hardwareMap.get(DistanceSensor.class, Config.STBD_MR_RANGE);
+
+        // tail Rev color/distance sensor
+        color_sensor = hardwareMap.get(ColorSensor.class, Config.REV_COLOR_RANGE);
+        distance_sensor = hardwareMap.get(DistanceSensor.class, Config.REV_COLOR_RANGE);
+
+        // various IR range sensors
+        port_ir_bow = hardwareMap.get(AnalogInput.class, Config.PORT_IR_BOW);
+        stbd_ir_bow = hardwareMap.get(AnalogInput.class, Config.STBD_IR_BOW);
+        port_ir_aft = hardwareMap.get(AnalogInput.class, Config.PORT_IR_AFT);
+        stbd_ir_aft = hardwareMap.get(AnalogInput.class, Config.STBD_IR_AFT);
     }
 
 
@@ -322,7 +397,7 @@ public class CameronAutonomous extends LinearOpMode {
 
         vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
         vuforia_parameters.vuforiaLicenseKey = Config.VUFORIA_LICENSE_KEY;
-        vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        vuforia_parameters.cameraDirection = Config.CAMERA_DIRECTION;
         vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
         relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
         relicTemplate = relicTrackables.get(0);

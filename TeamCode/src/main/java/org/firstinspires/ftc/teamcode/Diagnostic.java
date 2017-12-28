@@ -68,7 +68,7 @@ public class Diagnostic extends OpMode {
     // claw and tail servos
     private Servo port_claw = null;
     private Servo stbd_claw = null;
-    private Servo   tail        = null;
+    private Servo tail      = null;
 
     // claw lift and beam motors
     private DcMotor lift        = null;
@@ -530,8 +530,7 @@ public class Diagnostic extends OpMode {
                 } else if (vuforia_parameters == null) {
                     vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
                     vuforia_parameters.vuforiaLicenseKey = Config.VUFORIA_LICENSE_KEY;
-                    vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-                    vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
+                    vuforia_parameters.cameraDirection = Config.CAMERA_DIRECTION;
                 } else if (vuforia == null) {
                     vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
                 } else if (relicTrackables == null) {
