@@ -58,7 +58,7 @@ public class CameronAutonomous extends LinearOpMode {
     // Declare OpMode members.
 
     public static enum Command {ROTATE, FORWARD, BACKWARD, LEFT, RIGHT, ADJUST, OPEN_CLAW, CLOSE_CLAW}
-    public static enum Team {BLUE, RED, UNKNOWN}
+    public static enum Color {BLUE, RED, UNKNOWN}
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -83,43 +83,56 @@ public class CameronAutonomous extends LinearOpMode {
         telemetry.addData("Status", "Initialization Complete.");
         telemetry.update();
 
+        telemetry.addData("", "'A' to open, 'X' to close, 'guide' to wait for start.");
+        telemetry.update();
+        Object[] open_claw  = {Command.OPEN_CLAW,  };
+        Object[] close_claw = {Command.CLOSE_CLAW, };
+        while (! gamepad1.guide) {
+            if (gamepad1.a) {
+                execute(open_claw);
+            } else if (gamepad1.x) {
+                execute(close_claw);
+            }
+        }
+
+        telemetry.addData("Status", "Ready to play, waiting for start.");
+        telemetry.update();
+
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         runtime.reset();
 
-        // read port and starboard sensor to find quadrant (3rd quadrant; blue)
-
-        // double port_dist = ir_v2in.distance(port_ir_aft.getVoltage());
-        // double stbd_dist = ir_v2in.distance(stbd_ir_aft.getVoltage());
+        // ^^^ read port and starboard sensor to find quadrant (3rd quadrant; blue)
         double port_dist = port_mr_range.getDistance(DistanceUnit.INCH);
         double stbd_dist = stbd_mr_range.getDistance(DistanceUnit.INCH);
 
-        Team team = Team.UNKNOWN;
+        Color team_color = Color.UNKNOWN;
         int quadrant = UNKNOWN;
 
         if (stbd_dist < SHORT) {
             quadrant = BLUE_RIGHT;
-            team = Team.BLUE;
+            team_color = Color.BLUE;
         } else if (stbd_dist < MEDIUM) {
             quadrant = RED_RIGHT;
-            team = Team.RED;
+            team_color = Color.RED;
         } else if (port_dist < SHORT) {
             quadrant = RED_LEFT;
-            team = Team.RED;
+            team_color = Color.RED;
         } else if (port_dist < MEDIUM) {
             quadrant = BLUE_LEFT;
-            team = Team.BLUE;
+            team_color = Color.BLUE;
         }
 
         telemetry.addData("Quadrant", "%s(%d) %s %6.2f %6.2f",
-                QUADRANT_NAME[quadrant], quadrant, team.toString(), port_dist, stbd_dist);
+                QUADRANT_NAME[quadrant], quadrant, team_color.toString(), port_dist, stbd_dist);
         telemetry.update();
 
 
-        // vuforia
+        // ^^^ vuforia
 
-        //Vuforia reading: left, center, or right; left = -1, center = 0, right = 1;
+        // Vuforia reading: left, center, or right; left = -1, center = 0, right = 1;
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
         String vumark_position = vuMark.name();
         if (vumark_position.equalsIgnoreCase("LEFT")) {
@@ -133,33 +146,53 @@ public class CameronAutonomous extends LinearOpMode {
         telemetry.addData("VuMark", "%s", vuMark.name());
 
 
-        // dislodge the jewell (or not...)
+        // ^^^ dislodge the jewell_color (or not...)
         // lower tail
-        // read ball color
-        Team ball_color = (color_sensor.red() < color_sensor.blue()) ? Team.BLUE : Team.RED;
+        tail.setPosition(Config.TAIL_POS_DN);
 
-        // if ball color == team color, clockwise then counter clockwise, else opposite
-        if (team == ball_color) {
+        // read the jewell color
+        Color jewell_color = Color.UNKNOWN;
+        if (color_sensor.red() < color_sensor.blue()) {
+            jewell_color = Color.BLUE;
+        } else if (color_sensor.blue() < color_sensor.red()) {
+            jewell_color = Color.RED;
+        }
+
+        // if jewell color == team color, clockwise then counter clockwise, else opposite
+        if (team_color == Color.UNKNOWN || jewell_color == Color.UNKNOWN) {
+            ;
+        } else if (team_color == jewell_color) {
+            Object[][] cmd = {
+                    {Command.ROTATE, +15.0, AUTO_PWR, AUTO_TOL},
+                    {Command.ROTATE, -15.0, AUTO_PWR, AUTO_TOL},
+            };
+
+            execute(cmd);
         } else {
+            Object[][] cmd = {
+                    {Command.ROTATE, -15.0, AUTO_PWR, AUTO_TOL},
+                    {Command.ROTATE, +15.0, AUTO_PWR, AUTO_TOL},
+            };
+
+            execute(cmd);
         }
 
         // raise tail
+        tail.setPosition(Config.TAIL_POS_UP);
 
 
-        // deliver the block to the crypto box
+        // ^^^ deliver the block to the crypto box
+        execute(quad_cmds[quadrant]);
 
-        Object[][] program = cmd[quadrant];
-
-        for (int i=0; program != null && i < program.length; i++) {
-            execute(program[i]);
-        }
-
-        // open claw
+        // ^^^ open claw
+        port_claw.setPosition(Config.PORT_CLAW_OPENED);
+        stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
 
         telemetry.addData("Path", "Complete");
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();
     }
+
 
     private static final double SHORT  = 36;
     private static final double MEDIUM = 48;
@@ -219,7 +252,7 @@ public class CameronAutonomous extends LinearOpMode {
             {Command.CLOSE_CLAW,                               },
     };
 
-    private static final Object[][][] cmd = {
+    private static final Object[][][] quad_cmds = {
             null,
             blue_left_cmd,
             blue_right_cmd,
@@ -237,6 +270,13 @@ public class CameronAutonomous extends LinearOpMode {
     private static final int VUFORIA_CENTER = 0;
     private static final int VUFORIA_RIGHT  = 1;
     private int vuforiaresult = VUFORIA_CENTER;
+
+    private void execute(Object[][] cmd)
+    {
+        for (int i=0; cmd != null && i < cmd.length; i++) {
+            execute(cmd[i]);
+        }
+    }
 
     private void execute(Object[] cmd)
     {
@@ -284,14 +324,18 @@ public class CameronAutonomous extends LinearOpMode {
             int clicks = (int) (50 * distance);
             run_to_position(-clicks, clicks, clicks, -clicks, power, tolerance);
         } else if (op_code == Command.OPEN_CLAW) {
+            port_claw.setPosition(Config.PORT_CLAW_OPENED);
+            stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
         } else if (op_code == Command.CLOSE_CLAW) {
+            port_claw.setPosition(Config.PORT_CLAW_CLOSED);
+            stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
         }
     }
 
-    DcMotor front_left  = null;
-    DcMotor front_right = null;
-    DcMotor back_right  = null;
-    DcMotor back_left   = null;
+    private DcMotor front_left  = null;
+    private DcMotor front_right = null;
+    private DcMotor back_right  = null;
+    private DcMotor back_left   = null;
 
     public void motor_init()
     {
@@ -356,11 +400,11 @@ public class CameronAutonomous extends LinearOpMode {
     private DistanceSensor distance_sensor = null;
 
     // Pololu IR range sensors
-    AnalogInput port_ir_aft = null;
-    AnalogInput stbd_ir_aft = null;
-    AnalogInput port_ir_bow = null;
-    AnalogInput stbd_ir_bow = null;
-    Distance    ir_v2in = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
+    private AnalogInput port_ir_aft = null;
+    private AnalogInput stbd_ir_aft = null;
+    private AnalogInput port_ir_bow = null;
+    private AnalogInput stbd_ir_bow = null;
+    private Distance    ir_v2in = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
 
     public void sensor_init()
     {
@@ -382,12 +426,12 @@ public class CameronAutonomous extends LinearOpMode {
     }
 
 
-    int cameraMonitorViewId = -1;
+    private int cameraMonitorViewId = -1;
 
-    VuforiaLocalizer.Parameters vuforia_parameters = null;
-    VuforiaLocalizer vuforia = null;
-    VuforiaTrackables relicTrackables = null;
-    VuforiaTrackable relicTemplate = null;
+    private VuforiaLocalizer.Parameters vuforia_parameters = null;
+    private VuforiaLocalizer vuforia = null;
+    private VuforiaTrackables relicTrackables = null;
+    private VuforiaTrackable relicTemplate = null;
 
     public void vuforia_init()
     {
