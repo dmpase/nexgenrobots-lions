@@ -29,22 +29,11 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.AnalogInput;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 import static com.sun.tools.javac.util.Constants.format;
 
@@ -59,24 +48,24 @@ import static com.sun.tools.javac.util.Constants.format;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Lion Holonomic OpMode", group="Iterative OpMode")
+@TeleOp(name="Lion Driver OpMode", group="Iterative OpMode")
 // @Disabled
-public class LionHolonomic extends OpMode
+public class LionDriver extends OpMode
 {
     // Declare OpMode members.
     // REV Robotics drive motors
-    private DcMotor front_left  = null;
-    private DcMotor front_right = null;
-    private DcMotor back_right  = null;
-    private DcMotor back_left   = null;
+    private DcMotor port_bow_motor = null;
+    private DcMotor stbd_bow_motor = null;
+    private DcMotor stbd_aft_motor = null;
+    private DcMotor port_aft_motor = null;
 
     // claw and tail servos
     private Servo port_claw = null;
     private Servo stbd_claw = null;
 
     // claw lift and beam motors
-    private DcMotor lift        = null;
-    private DcMotor beam        = null;
+    private DcMotor lift = null;
+    private DcMotor beam = null;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -145,6 +134,8 @@ public class LionHolonomic extends OpMode
                 ;
             }
 
+            sleep(Config.MOTOR_LAG);
+
             beam.setPower(0);
         } else if (! gamepad1.dpad_left && gamepad1.dpad_right) {    // retract the beam
             beam.setPower(0);
@@ -155,20 +146,22 @@ public class LionHolonomic extends OpMode
                 ;
             }
 
+            sleep(Config.MOTOR_LAG);
+
             beam.setPower(0);
         }
     }
 
 
-    public static final int SERVO_COUNT = 4;
     public static final int TAIL        = 0;
     public static final int LIFT        = 1;
-    public static final int LEFT_CLAW   = 2;
-    public static final int RIGHT_CLAW  = 3;
+    public static final int PORT_CLAW   = 2;
+    public static final int STBD_CLAW   = 3;
+    public static final int SERVO_COUNT = 4;
 
-    public static final int lift_max_pos =  5500;
-    public static final int lift_mid_pos =     0;
-    public static final int lift_min_pos =  -100;
+    public static final int    lift_max_pos =  5500;
+    public static final int    lift_mid_pos =     0;
+    public static final int    lift_min_pos =  -100;
     public static final double lift_max_pwr =  0.40;
     public static final double lift_mid_pwr =  0.00;
     public static final double lift_min_pwr = -lift_max_pwr;
@@ -192,6 +185,8 @@ public class LionHolonomic extends OpMode
                 ;
             }
 
+            sleep(Config.MOTOR_LAG);
+
             lift.setPower(0);
         } else if (! gamepad1.y && gamepad1.a) {    // lower the claw
             lift.setPower(0);
@@ -201,6 +196,8 @@ public class LionHolonomic extends OpMode
             while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
                 ;
             }
+
+            sleep(Config.MOTOR_LAG);
 
             lift.setPower(0);
         }
@@ -217,11 +214,11 @@ public class LionHolonomic extends OpMode
     public static final double half_turn         = 0.20;
     public static final double slow_turn         = 0.10;
 
-    public static final int FRONT_LEFT          = 0;
-    public static final int FRONT_RIGHT         = 1;
-    public static final int BACK_RIGHT          = 2;
-    public static final int BACK_LEFT           = 3;
-    public static final int MOTOR_COUNT         = 4;
+    public static final int PORT_BOW             = 0;
+    public static final int STBD_BOW             = 1;
+    public static final int STBD_AFT             = 2;
+    public static final int PORT_AFT             = 3;
+    public static final int MOTOR_COUNT          = 4;
 
     public void get_motor_settings()
     {
@@ -266,17 +263,17 @@ public class LionHolonomic extends OpMode
 
         double[] motors = new double[MOTOR_COUNT];
 
-        motors[FRONT_LEFT ] = - throttle * Math.sin(bearing + Math.PI/4) + rotation;
-        motors[FRONT_RIGHT] =   throttle * Math.cos(bearing + Math.PI/4) + rotation;
-        motors[BACK_RIGHT ] =   throttle * Math.sin(bearing + Math.PI/4) + rotation;
-        motors[BACK_LEFT  ] = - throttle * Math.cos(bearing + Math.PI/4) + rotation;
+        motors[PORT_BOW] = - throttle * Math.sin(bearing + Math.PI/4) + rotation;
+        motors[STBD_BOW] =   throttle * Math.cos(bearing + Math.PI/4) + rotation;
+        motors[STBD_AFT] =   throttle * Math.sin(bearing + Math.PI/4) + rotation;
+        motors[PORT_AFT] = - throttle * Math.cos(bearing + Math.PI/4) + rotation;
 
         // limit the motors to -1.0 <= motor <= 1.0
         // scale them evenly if adjustments are made
-        if (motors[FRONT_LEFT ] < -POWER_LIMIT || POWER_LIMIT < motors[FRONT_LEFT ] ||
-            motors[FRONT_RIGHT] < -POWER_LIMIT || POWER_LIMIT < motors[FRONT_RIGHT] ||
-            motors[BACK_LEFT  ] < -POWER_LIMIT || POWER_LIMIT < motors[BACK_LEFT  ] ||
-            motors[BACK_RIGHT ] < -POWER_LIMIT || POWER_LIMIT < motors[BACK_RIGHT ]) {
+        if (motors[PORT_BOW] < -POWER_LIMIT || POWER_LIMIT < motors[PORT_BOW] ||
+            motors[STBD_BOW] < -POWER_LIMIT || POWER_LIMIT < motors[STBD_BOW] ||
+            motors[PORT_AFT] < -POWER_LIMIT || POWER_LIMIT < motors[PORT_AFT] ||
+            motors[STBD_AFT] < -POWER_LIMIT || POWER_LIMIT < motors[STBD_AFT]) {
 
             // find the scale factor
             double max = 0;
@@ -291,43 +288,43 @@ public class LionHolonomic extends OpMode
             }
         }
 
-        front_left .setPower(motors[FRONT_LEFT ]);
-        front_right.setPower(motors[FRONT_RIGHT]);
-        back_right .setPower(motors[BACK_RIGHT ]);
-        back_left  .setPower(motors[BACK_LEFT  ]);
+        port_bow_motor.setPower(motors[PORT_BOW]);
+        stbd_bow_motor.setPower(motors[STBD_BOW]);
+        stbd_aft_motor.setPower(motors[STBD_AFT]);
+        port_aft_motor.setPower(motors[PORT_AFT]);
     }
 
     private void init_motors() {
-        if (front_left == null) {
-            front_left = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
-            front_left.setDirection(DcMotor.Direction.FORWARD);
-            front_left.setPower(0);
-            front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            front_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (port_bow_motor == null) {
+            port_bow_motor = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
+            port_bow_motor.setDirection(DcMotor.Direction.FORWARD);
+            port_bow_motor.setPower(0);
+            port_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            port_bow_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        if (front_right == null) {
-            front_right = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
-            front_right.setDirection(DcMotor.Direction.FORWARD);
-            front_right.setPower(0);
-            front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            front_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (stbd_bow_motor == null) {
+            stbd_bow_motor = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
+            stbd_bow_motor.setDirection(DcMotor.Direction.FORWARD);
+            stbd_bow_motor.setPower(0);
+            stbd_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            stbd_bow_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        if (back_right == null) {
-            back_right = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
-            back_right.setDirection(DcMotor.Direction.FORWARD);
-            back_right.setPower(0);
-            back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            back_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (stbd_aft_motor == null) {
+            stbd_aft_motor = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
+            stbd_aft_motor.setDirection(DcMotor.Direction.FORWARD);
+            stbd_aft_motor.setPower(0);
+            stbd_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            stbd_aft_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        if (back_left == null) {
-            back_left = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
-            back_left.setDirection(DcMotor.Direction.FORWARD);
-            back_left.setPower(0);
-            back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            back_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (port_aft_motor == null) {
+            port_aft_motor = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
+            port_aft_motor.setDirection(DcMotor.Direction.FORWARD);
+            port_aft_motor.setPower(0);
+            port_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            port_aft_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 

@@ -60,10 +60,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 // @Disabled
 public class Diagnostics extends OpMode {
     // locomotion motors
-    private DcMotor front_left  = null;
-    private DcMotor front_right = null;
-    private DcMotor back_right  = null;
-    private DcMotor back_left   = null;
+    private DcMotor port_bow_motor = null;
+    private DcMotor stbd_bow_motor = null;
+    private DcMotor stbd_aft_motor = null;
+    private DcMotor port_aft_motor = null;
 
     // claw and tail servos
     private Servo port_claw = null;
@@ -262,32 +262,32 @@ public class Diagnostics extends OpMode {
             if ((gamepad1.x || gamepad1.left_bumper) && !(gamepad1.b || gamepad1.right_bumper)) {
                 init_motors();
 
-                front_left.setPower(0.1);
-                front_right.setPower(0.1);
-                back_right.setPower(0.1);
-                back_left.setPower(0.1);
+                port_bow_motor.setPower(0.1);
+                stbd_bow_motor.setPower(0.1);
+                stbd_aft_motor.setPower(0.1);
+                port_aft_motor.setPower(0.1);
             } else if (!(gamepad1.x || gamepad1.left_bumper) && (gamepad1.b || gamepad1.right_bumper)) {
                 init_motors();
 
-                front_left.setPower(-0.1);
-                front_right.setPower(-0.1);
-                back_right.setPower(-0.1);
-                back_left.setPower(-0.1);
+                port_bow_motor.setPower(-0.1);
+                stbd_bow_motor.setPower(-0.1);
+                stbd_aft_motor.setPower(-0.1);
+                port_aft_motor.setPower(-0.1);
             } else {
-                if (front_left != null) {
-                    front_left.setPower(0);
+                if (port_bow_motor != null) {
+                    port_bow_motor.setPower(0);
                 }
 
-                if (front_right != null) {
-                    front_right.setPower(0);
+                if (stbd_bow_motor != null) {
+                    stbd_bow_motor.setPower(0);
                 }
 
-                if (back_right != null) {
-                    back_right.setPower(0);
+                if (stbd_aft_motor != null) {
+                    stbd_aft_motor.setPower(0);
                 }
 
-                if (back_left != null) {
-                    back_left.setPower(0);
+                if (port_aft_motor != null) {
+                    port_aft_motor.setPower(0);
                 }
             }
         } else if (state == MOTION) {
@@ -295,49 +295,49 @@ public class Diagnostics extends OpMode {
                 // FORWARD
                 init_motors();
 
-                front_left.setPower(-0.1);
-                front_right.setPower(0.1);
-                back_right.setPower(0.1);
-                back_left.setPower(-0.1);
+                port_bow_motor.setPower(-0.1);
+                stbd_bow_motor.setPower(0.1);
+                stbd_aft_motor.setPower(0.1);
+                port_aft_motor.setPower(-0.1);
             } else if (!gamepad1.a && gamepad1.b && !gamepad1.x && !gamepad1.y) {
                 // RIGHT
                 init_motors();
 
-                front_left.setPower(-0.1);
-                front_right.setPower(-0.1);
-                back_right.setPower(0.1);
-                back_left.setPower(0.1);
+                port_bow_motor.setPower(-0.1);
+                stbd_bow_motor.setPower(-0.1);
+                stbd_aft_motor.setPower(0.1);
+                port_aft_motor.setPower(0.1);
             } else if (gamepad1.a && !gamepad1.b && !gamepad1.x && !gamepad1.y) {
                 // BACKWARD
                 init_motors();
 
-                front_left.setPower(0.1);
-                front_right.setPower(-0.1);
-                back_right.setPower(-0.1);
-                back_left.setPower(0.1);
+                port_bow_motor.setPower(0.1);
+                stbd_bow_motor.setPower(-0.1);
+                stbd_aft_motor.setPower(-0.1);
+                port_aft_motor.setPower(0.1);
             } else if (!gamepad1.a && !gamepad1.b && gamepad1.x && !gamepad1.y) {
                 // LEFT
                 init_motors();
 
-                front_left.setPower(0.1);
-                front_right.setPower(0.1);
-                back_right.setPower(-0.1);
-                back_left.setPower(-0.1);
+                port_bow_motor.setPower(0.1);
+                stbd_bow_motor.setPower(0.1);
+                stbd_aft_motor.setPower(-0.1);
+                port_aft_motor.setPower(-0.1);
             } else {
-                if (front_left != null) {
-                    front_left.setPower(0);
+                if (port_bow_motor != null) {
+                    port_bow_motor.setPower(0);
                 }
 
-                if (front_right != null) {
-                    front_right.setPower(0);
+                if (stbd_bow_motor != null) {
+                    stbd_bow_motor.setPower(0);
                 }
 
-                if (back_right != null) {
-                    back_right.setPower(0);
+                if (stbd_aft_motor != null) {
+                    stbd_aft_motor.setPower(0);
                 }
 
-                if (back_left != null) {
-                    back_left.setPower(0);
+                if (port_aft_motor != null) {
+                    port_aft_motor.setPower(0);
                 }
             }
         } else if (state == CLAW) {
@@ -496,19 +496,19 @@ public class Diagnostics extends OpMode {
         } else if (state == IR) {
             if (gamepad1.a || gamepad1.b || gamepad1.x || gamepad1.y) {
                 if (port_ir_aft == null) {
-                    port_ir_aft = hardwareMap.get(AnalogInput.class, Config.PORT_IR_AFT);
+                    port_ir_aft = hardwareMap.get(AnalogInput.class, Config.PORT_AFT_IR);
                 }
 
                 if (stbd_ir_aft == null) {
-                    stbd_ir_aft = hardwareMap.get(AnalogInput.class, Config.STBD_IR_AFT);
+                    stbd_ir_aft = hardwareMap.get(AnalogInput.class, Config.STBD_AFT_IR);
                 }
 
                 if (port_ir_bow == null) {
-                    port_ir_bow = hardwareMap.get(AnalogInput.class, Config.PORT_IR_BOW);
+                    port_ir_bow = hardwareMap.get(AnalogInput.class, Config.PORT_BOW_IR);
                 }
 
                 if (stbd_ir_bow == null) {
-                    stbd_ir_bow = hardwareMap.get(AnalogInput.class, Config.STBD_IR_BOW);
+                    stbd_ir_bow = hardwareMap.get(AnalogInput.class, Config.STBD_BOW_IR);
                 }
 
                 telemetry.addData("Port",
@@ -561,36 +561,36 @@ public class Diagnostics extends OpMode {
     }
 
     private void init_motors() {
-        if (front_left == null) {
-            front_left = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
-            front_left.setDirection(DcMotor.Direction.FORWARD);
-            front_left.setPower(0);
-            front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            front_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (port_bow_motor == null) {
+            port_bow_motor = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
+            port_bow_motor.setDirection(DcMotor.Direction.FORWARD);
+            port_bow_motor.setPower(0);
+            port_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            port_bow_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        if (front_right == null) {
-            front_right = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
-            front_right.setDirection(DcMotor.Direction.FORWARD);
-            front_right.setPower(0);
-            front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            front_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (stbd_bow_motor == null) {
+            stbd_bow_motor = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
+            stbd_bow_motor.setDirection(DcMotor.Direction.FORWARD);
+            stbd_bow_motor.setPower(0);
+            stbd_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            stbd_bow_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        if (back_right == null) {
-            back_right = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
-            back_right.setDirection(DcMotor.Direction.FORWARD);
-            back_right.setPower(0);
-            back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            back_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (stbd_aft_motor == null) {
+            stbd_aft_motor = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
+            stbd_aft_motor.setDirection(DcMotor.Direction.FORWARD);
+            stbd_aft_motor.setPower(0);
+            stbd_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            stbd_aft_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        if (back_left == null) {
-            back_left = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
-            back_left.setDirection(DcMotor.Direction.FORWARD);
-            back_left.setPower(0);
-            back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            back_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (port_aft_motor == null) {
+            port_aft_motor = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
+            port_aft_motor.setDirection(DcMotor.Direction.FORWARD);
+            port_aft_motor.setPower(0);
+            port_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            port_aft_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 

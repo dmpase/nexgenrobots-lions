@@ -29,7 +29,6 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -52,9 +51,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Lion Autonomous", group="Autonomous")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Lion Auto Sensor", group="Autonomous")
 // @Disabled
-public class LionAutonomous extends LinearOpMode {
+public class LionAutoSensor extends LinearOpMode {
     // Declare OpMode members.
 
     public static enum Command {ROTATE, FORWARD, BACKWARD, LEFT, RIGHT, ADJUST, OPEN_CLAW, CLOSE_CLAW, LIFT}
@@ -85,7 +84,7 @@ public class LionAutonomous extends LinearOpMode {
 
         telemetry.addData("Claw", "'X' to open, 'B' to close.");
         telemetry.addData("Lift", "'Y' to raise, 'A' to lower.");
-        telemetry.addData("Tail", "DPAD 'Up' to raise, 'Dn' to lower.");
+        telemetry.addData("Tail", "DPAD 'Up' to raise, 'Down' to lower.");
         telemetry.addData("Start", "'Guide' to wait for start.");
         telemetry.update();
         Object[] open_claw  = {Command.OPEN_CLAW,                           };
@@ -108,6 +107,35 @@ public class LionAutonomous extends LinearOpMode {
             }
         }
 
+
+        Color team_color = Color.UNKNOWN;
+        int quadrant = UNKNOWN;
+
+        while (! gamepad1.start) {
+            // ^^^ read port and starboard sensor to find quadrant (e.g., 3rd quadrant; blue)
+            double port_dist = port_mr_range.getDistance(DistanceUnit.INCH);
+            double stbd_dist = stbd_mr_range.getDistance(DistanceUnit.INCH);
+
+            if (stbd_dist < SHORT) {
+                quadrant = BLUE_RIGHT;
+                team_color = Color.BLUE;
+            } else if (stbd_dist < MEDIUM) {
+                quadrant = RED_RIGHT;
+                team_color = Color.RED;
+            } else if (port_dist < SHORT) {
+                quadrant = RED_LEFT;
+                team_color = Color.RED;
+            } else if (port_dist < MEDIUM) {
+                quadrant = BLUE_LEFT;
+                team_color = Color.BLUE;
+            }
+            telemetry.addData("Quadrant", "%s(%d) %s %6.2f %6.2f",
+                    QUADRANT_NAME[quadrant], quadrant, team_color.toString(), port_dist, stbd_dist);
+            telemetry.update();
+        }
+
+        telemetry.addData("Quadrant", "%s(%d) %s",
+                QUADRANT_NAME[quadrant], quadrant, team_color.toString());
         telemetry.addData("Status", "Ready to play, waiting for start.");
         telemetry.update();
 
@@ -116,34 +144,6 @@ public class LionAutonomous extends LinearOpMode {
         waitForStart();
 
         runtime.reset();
-
-        // ^^^ read port and starboard sensor to find quadrant (3rd quadrant; blue)
-        double port_dist = port_mr_range.getDistance(DistanceUnit.INCH);
-        double stbd_dist = stbd_mr_range.getDistance(DistanceUnit.INCH);
-
-        Color team_color = Color.UNKNOWN;
-        int quadrant = UNKNOWN;
-
-        if (stbd_dist < SHORT) {
-            quadrant = BLUE_RIGHT;
-            team_color = Color.BLUE;
-        } else if (stbd_dist < MEDIUM) {
-            quadrant = RED_RIGHT;
-            team_color = Color.RED;
-        } else if (port_dist < SHORT) {
-            quadrant = RED_LEFT;
-            team_color = Color.RED;
-        } else if (port_dist < MEDIUM) {
-            quadrant = BLUE_LEFT;
-            team_color = Color.BLUE;
-        } else {
-            quadrant = BLUE_RIGHT;
-            team_color = Color.BLUE;
-        }
-
-        telemetry.addData("Quadrant", "%s(%d) %s %6.2f %6.2f",
-                QUADRANT_NAME[quadrant], quadrant, team_color.toString(), port_dist, stbd_dist);
-        telemetry.update();
 
 
         // ^^^ vuforia
@@ -196,6 +196,7 @@ public class LionAutonomous extends LinearOpMode {
 
         // raise tail
         tail.setPosition(Config.TAIL_POS_UP);
+        sleep(1000);
 
 
         // ^^^ deliver the block to the crypto box
@@ -345,11 +346,11 @@ public class LionAutonomous extends LinearOpMode {
         } else if (op_code == Command.OPEN_CLAW) {
             port_claw.setPosition(Config.PORT_CLAW_OPENED);
             stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
-            sleep(250);
+            sleep(Config.MOTOR_LAG);
         } else if (op_code == Command.CLOSE_CLAW) {
             port_claw.setPosition(Config.PORT_CLAW_CLOSED);
             stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
-            sleep(250);
+            sleep(Config.MOTOR_LAG);
         } else if (op_code == Command.LIFT) {
             int target = (int) cmd[TARGET];
 
@@ -361,38 +362,40 @@ public class LionAutonomous extends LinearOpMode {
                 ;
             }
 
+            sleep(Config.MOTOR_LAG);
+
             lift.setPower(0);
         }
     }
 
-    private DcMotor front_left  = null;
-    private DcMotor front_right = null;
-    private DcMotor back_right  = null;
-    private DcMotor back_left   = null;
+    private DcMotor port_bow_motor = null;
+    private DcMotor stbd_bow_motor = null;
+    private DcMotor stbd_aft_motor = null;
+    private DcMotor port_aft_motor = null;
 
     public void motor_init()
     {
         telemetry.addData("Status", "Initializing Motors.");
 
-        front_left  = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
-        front_right = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
-        back_right  = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
-        back_left   = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
+        port_bow_motor = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
+        stbd_bow_motor = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
+        stbd_aft_motor = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
+        port_aft_motor = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
 
-        front_left.setPower(0);
-        front_right.setPower(0);
-        back_right.setPower(0);
-        back_left.setPower(0);
+        port_bow_motor.setPower(0);
+        stbd_bow_motor.setPower(0);
+        stbd_aft_motor.setPower(0);
+        port_aft_motor.setPower(0);
 
-        front_left.setDirection(DcMotor.Direction.FORWARD);
-        front_right.setDirection(DcMotor.Direction.FORWARD);
-        back_right.setDirection(DcMotor.Direction.FORWARD);
-        back_left.setDirection(DcMotor.Direction.FORWARD);
+        port_bow_motor.setDirection(DcMotor.Direction.FORWARD);
+        stbd_bow_motor.setDirection(DcMotor.Direction.FORWARD);
+        stbd_aft_motor.setDirection(DcMotor.Direction.FORWARD);
+        port_aft_motor.setDirection(DcMotor.Direction.FORWARD);
 
-        front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        port_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        stbd_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        stbd_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        port_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
 
@@ -433,10 +436,10 @@ public class LionAutonomous extends LinearOpMode {
     private DistanceSensor distance_sensor = null;
 
     // Pololu IR range sensors
-    private AnalogInput port_ir_aft = null;
-    private AnalogInput stbd_ir_aft = null;
-    private AnalogInput port_ir_bow = null;
-    private AnalogInput stbd_ir_bow = null;
+    private AnalogInput port_aft_ir = null;
+    private AnalogInput stbd_aft_ir = null;
+    private AnalogInput port_bow_ir = null;
+    private AnalogInput stbd_bow_ir = null;
     private Distance    ir_v2in = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
 
     public void sensor_init()
@@ -452,10 +455,10 @@ public class LionAutonomous extends LinearOpMode {
         distance_sensor = hardwareMap.get(DistanceSensor.class, Config.REV_COLOR_RANGE);
 
         // various IR range sensors
-        port_ir_bow = hardwareMap.get(AnalogInput.class, Config.PORT_IR_BOW);
-        stbd_ir_bow = hardwareMap.get(AnalogInput.class, Config.STBD_IR_BOW);
-        port_ir_aft = hardwareMap.get(AnalogInput.class, Config.PORT_IR_AFT);
-        stbd_ir_aft = hardwareMap.get(AnalogInput.class, Config.STBD_IR_AFT);
+        port_bow_ir = hardwareMap.get(AnalogInput.class, Config.PORT_BOW_IR);
+        stbd_bow_ir = hardwareMap.get(AnalogInput.class, Config.STBD_BOW_IR);
+        port_aft_ir = hardwareMap.get(AnalogInput.class, Config.PORT_AFT_IR);
+        stbd_aft_ir = hardwareMap.get(AnalogInput.class, Config.STBD_AFT_IR);
     }
 
 
@@ -497,57 +500,53 @@ public class LionAutonomous extends LinearOpMode {
         motor.setPower(power);
 
         while ( tolerance < Math.abs(motor.getTargetPosition()  - motor.getCurrentPosition()) ) {
-            telemetry.addData("Status", "Motor %4d %4d %4d",
-                    motor.getTargetPosition(), motor.getTargetPosition(),
-                    (int) Math.abs(motor.getTargetPosition() - motor.getCurrentPosition()));
-            telemetry.update();
+            ;
         }
+
+        sleep(Config.MOTOR_LAG);
 
         motor.setPower(0);
     }
 
     private void run_to_position(int fl_tgt, int fr_tgt, int br_tgt, int bl_tgt, double power, int tolerance)
     {
-        front_left.setPower(0);
-        front_right.setPower(0);
-        back_right.setPower(0);
-        back_left.setPower(0);
+        port_bow_motor.setPower(0);
+        stbd_bow_motor.setPower(0);
+        stbd_aft_motor.setPower(0);
+        port_aft_motor.setPower(0);
 
-        front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        port_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        stbd_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        port_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        stbd_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        front_left.setTargetPosition(fl_tgt);
-        front_right.setTargetPosition(fr_tgt);
-        back_left.setTargetPosition(bl_tgt);
-        back_right.setTargetPosition(br_tgt);
+        port_bow_motor.setTargetPosition(fl_tgt);
+        stbd_bow_motor.setTargetPosition(fr_tgt);
+        port_aft_motor.setTargetPosition(bl_tgt);
+        stbd_aft_motor.setTargetPosition(br_tgt);
 
-        front_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        front_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        back_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        back_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        port_bow_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        stbd_bow_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        port_aft_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        stbd_aft_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        front_left.setPower(power);
-        front_right.setPower(power);
-        back_right.setPower(power);
-        back_left.setPower(power);
+        port_bow_motor.setPower(power);
+        stbd_bow_motor.setPower(power);
+        stbd_aft_motor.setPower(power);
+        port_aft_motor.setPower(power);
 
-        while ( tolerance < Math.abs(front_left.getTargetPosition()  - front_left.getCurrentPosition())  ||
-                tolerance < Math.abs(front_right.getTargetPosition() - front_right.getCurrentPosition()) ||
-                tolerance < Math.abs(back_right.getTargetPosition()  - back_right.getCurrentPosition())  ||
-                tolerance < Math.abs(back_left.getTargetPosition()   - back_left.getCurrentPosition())
-                ) {
-            telemetry.addData("Status", "FL %4d %4d %4d", front_left.getTargetPosition(), front_left.getTargetPosition(), (int) Math.abs(front_left.getTargetPosition()  - front_left.getCurrentPosition()));
-            telemetry.addData("Status", "FR %4d %4d %4d", front_right.getTargetPosition(), front_right.getTargetPosition(), (int) Math.abs(front_right.getTargetPosition()  - front_right.getCurrentPosition()));
-            telemetry.addData("Status", "BL %4d %4d %4d", back_left.getTargetPosition(), back_left.getTargetPosition(), (int) Math.abs(back_left.getTargetPosition()  - back_left.getCurrentPosition()));
-            telemetry.addData("Status", "BR %4d %4d %4d", back_right.getTargetPosition(), back_right.getTargetPosition(), (int) Math.abs(back_right.getTargetPosition()  - back_right.getCurrentPosition()));
-            telemetry.update();
+        while ( tolerance < Math.abs(port_bow_motor.getTargetPosition()  - port_bow_motor.getCurrentPosition())  ||
+                tolerance < Math.abs(stbd_bow_motor.getTargetPosition() - stbd_bow_motor.getCurrentPosition()) ||
+                tolerance < Math.abs(stbd_aft_motor.getTargetPosition()  - stbd_aft_motor.getCurrentPosition())  ||
+                tolerance < Math.abs(port_aft_motor.getTargetPosition()   - port_aft_motor.getCurrentPosition())) {
+            ;
         }
 
-        front_left.setPower(0);
-        front_right.setPower(0);
-        back_right.setPower(0);
-        back_left.setPower(0);
+        sleep(Config.MOTOR_LAG);
+
+        port_bow_motor.setPower(0);
+        stbd_bow_motor.setPower(0);
+        stbd_aft_motor.setPower(0);
+        port_aft_motor.setPower(0);
     }
 }

@@ -22,10 +22,10 @@ public class Config {
     public static final String TAIL             = "tail";                   // Hub 2.Servos[0].Servo
 
     //         Analog Input Devices
-    public static final String STBD_IR_BOW = "starboard ir range hi";  // Hub 2.Analog Input Devices[0].Analog Input
-    public static final String STBD_IR_AFT = "starboard ir range lo";  // Hub 2.Analog Input Devices[1].Analog Input
-    public static final String PORT_IR_BOW = "port ir range hi";       // Hub 2.Analog Input Devices[2].Analog Input
-    public static final String PORT_IR_AFT = "port ir range lo";       // Hub 2.Analog Input Devices[3].Analog Input
+    public static final String STBD_BOW_IR = "starboard ir range hi";  // Hub 2.Analog Input Devices[0].Analog Input
+    public static final String STBD_AFT_IR = "starboard ir range lo";  // Hub 2.Analog Input Devices[1].Analog Input
+    public static final String PORT_BOW_IR = "port ir range hi";       // Hub 2.Analog Input Devices[2].Analog Input
+    public static final String PORT_AFT_IR = "port ir range lo";       // Hub 2.Analog Input Devices[3].Analog Input
 
     //         I2C Bus 0
     public static final String IMU0             = "imu 0";                  // Hub 2.I2C Bus 0[0].Rev Expansion Hub IMU
@@ -85,6 +85,7 @@ public class Config {
     public static final DcMotor.Direction BEAM_DIRECTION = DcMotor.Direction.FORWARD;
 
 
-    // Motor target tolerance
-    public static final int MOTOR_TARGET_TOLERANCE  = 5;
+    // Misc. motor parameters
+    public static final int  MOTOR_TARGET_TOLERANCE =   5;
+    public static final long MOTOR_LAG              = 250;
 }
