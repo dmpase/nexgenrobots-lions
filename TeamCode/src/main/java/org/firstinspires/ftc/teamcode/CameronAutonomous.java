@@ -57,7 +57,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 public class CameronAutonomous extends LinearOpMode {
     // Declare OpMode members.
 
-    public static enum Command {ROTATE, FORWARD, BACKWARD, LEFT, RIGHT, ADJUST, OPEN_CLAW, CLOSE_CLAW}
+    public static enum Command {ROTATE, FORWARD, BACKWARD, LEFT, RIGHT, ADJUST, OPEN_CLAW, CLOSE_CLAW, LIFT}
     public static enum Color {BLUE, RED, UNKNOWN}
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -85,13 +85,23 @@ public class CameronAutonomous extends LinearOpMode {
 
         telemetry.addData("", "'A' to open, 'X' to close, 'guide' to wait for start.");
         telemetry.update();
-        Object[] open_claw  = {Command.OPEN_CLAW,  };
-        Object[] close_claw = {Command.CLOSE_CLAW, };
+        Object[] open_claw  = {Command.OPEN_CLAW,                           };
+        Object[] close_claw = {Command.CLOSE_CLAW,                          };
+        Object[] raise_claw = {Command.LIFT,        Config.LIFT_TARGET_INCH };
+        Object[] lower_claw = {Command.LIFT,        Config.LIFT_TARGET_LO   };
         while (! gamepad1.guide) {
-            if (gamepad1.a) {
+            if (gamepad1.x) {
                 execute(open_claw);
-            } else if (gamepad1.x) {
+            } else if (gamepad1.b) {
                 execute(close_claw);
+            } else if (gamepad1.y) {
+                execute(raise_claw);
+            } else if (gamepad1.a) {
+                execute(lower_claw);
+            } else if (gamepad1.dpad_up) {
+                tail.setPosition(Config.TAIL_POS_UP);
+            } else if (gamepad1.dpad_down) {
+                tail.setPosition(Config.TAIL_POS_DN);
             }
         }
 
@@ -123,6 +133,9 @@ public class CameronAutonomous extends LinearOpMode {
         } else if (port_dist < MEDIUM) {
             quadrant = BLUE_LEFT;
             team_color = Color.BLUE;
+        } else {
+            quadrant = BLUE_RIGHT;
+            team_color = Color.BLUE;
         }
 
         telemetry.addData("Quadrant", "%s(%d) %s %6.2f %6.2f",
@@ -149,6 +162,7 @@ public class CameronAutonomous extends LinearOpMode {
         // ^^^ dislodge the jewell_color (or not...)
         // lower tail
         tail.setPosition(Config.TAIL_POS_DN);
+        sleep(2000);
 
         // read the jewell color
         Color jewell_color = Color.UNKNOWN;
@@ -163,15 +177,15 @@ public class CameronAutonomous extends LinearOpMode {
             ;
         } else if (team_color == jewell_color) {
             Object[][] cmd = {
-                    {Command.ROTATE, +15.0, AUTO_PWR, AUTO_TOL},
-                    {Command.ROTATE, -15.0, AUTO_PWR, AUTO_TOL},
+                    {Command.ROTATE, +30.0, AUTO_PWR, AUTO_TOL},
+                    {Command.ROTATE, -30.0, AUTO_PWR, AUTO_TOL},
             };
 
             execute(cmd);
         } else {
             Object[][] cmd = {
-                    {Command.ROTATE, -15.0, AUTO_PWR, AUTO_TOL},
-                    {Command.ROTATE, +15.0, AUTO_PWR, AUTO_TOL},
+                    {Command.ROTATE, -30.0, AUTO_PWR, AUTO_TOL},
+                    {Command.ROTATE, +30.0, AUTO_PWR, AUTO_TOL},
             };
 
             execute(cmd);
@@ -183,10 +197,6 @@ public class CameronAutonomous extends LinearOpMode {
 
         // ^^^ deliver the block to the crypto box
         execute(quad_cmds[quadrant]);
-
-        // ^^^ open claw
-        port_claw.setPosition(Config.PORT_CLAW_OPENED);
-        stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
 
         telemetry.addData("Path", "Complete");
         telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -209,47 +219,52 @@ public class CameronAutonomous extends LinearOpMode {
     private static final int    AUTO_TOL = 10;
 
     private static final Object[][] blue_left_cmd = {
-            {Command.ROTATE,           90.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,          36.0, AUTO_PWR, AUTO_TOL},
-            {Command.ROTATE,           90.0, AUTO_PWR, AUTO_TOL},
-            {Command.ADJUST,              8, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,          18.0, AUTO_PWR, AUTO_TOL},
-            {Command.OPEN_CLAW,                                },
-            {Command.BACKWARD,          4.0, AUTO_PWR, AUTO_TOL},
-            {Command.CLOSE_CLAW,                               },
+            {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   36.0, AUTO_PWR, AUTO_TOL},
+            {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL},
+            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL},
+            {Command.OPEN_CLAW,                         },
+            {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
+            {Command.CLOSE_CLAW,                        },
+            {Command.LIFT,        Config.LIFT_TARGET_LO },
     };
 
     private static final Object[][] blue_right_cmd = {
-            {Command.ROTATE,           90.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,          36.0, AUTO_PWR, AUTO_TOL},
-            {Command.RIGHT,            12.0, AUTO_PWR, AUTO_TOL},
-            {Command.ADJUST,              8, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,          12.0, AUTO_PWR, AUTO_TOL},
-            {Command.OPEN_CLAW,                                },
-            {Command.BACKWARD,          4.0, AUTO_PWR, AUTO_TOL},
-            {Command.CLOSE_CLAW,                               },
+            {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   36.0, AUTO_PWR, AUTO_TOL},
+            {Command.RIGHT,     12.0, AUTO_PWR, AUTO_TOL},
+            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   12.0, AUTO_PWR, AUTO_TOL},
+            {Command.OPEN_CLAW,                         },
+            {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
+            {Command.CLOSE_CLAW,                        },
+            {Command.LIFT,        Config.LIFT_TARGET_LO },
     };
 
     private static final Object[][] red_left_cmd = {
-            {Command.ROTATE,          -90.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,          36.0, AUTO_PWR, AUTO_TOL},
-            {Command.ROTATE,          -90.0, AUTO_PWR, AUTO_TOL},
-            {Command.ADJUST,              8, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,          18.0, AUTO_PWR, AUTO_TOL},
-            {Command.OPEN_CLAW,                                },
-            {Command.BACKWARD,          4.0, AUTO_PWR, AUTO_TOL},
-            {Command.CLOSE_CLAW,                               },
+            {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   36.0, AUTO_PWR, AUTO_TOL},
+            {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL},
+            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL},
+            {Command.OPEN_CLAW,                         },
+            {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
+            {Command.CLOSE_CLAW,                        },
+            {Command.LIFT,        Config.LIFT_TARGET_LO },
     };
 
     private static final Object[][] red_right_cmd = {
-            {Command.ROTATE,          -90.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,          36.0, AUTO_PWR, AUTO_TOL},
-            {Command.LEFT,             12.0, AUTO_PWR, AUTO_TOL},
-            {Command.ADJUST,              8, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,          12.0, AUTO_PWR, AUTO_TOL},
-            {Command.OPEN_CLAW,                                },
-            {Command.BACKWARD,          4.0, AUTO_PWR, AUTO_TOL},
-            {Command.CLOSE_CLAW,                               },
+            {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   36.0, AUTO_PWR, AUTO_TOL},
+            {Command.LEFT,      12.0, AUTO_PWR, AUTO_TOL},
+            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
+            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   12.0, AUTO_PWR, AUTO_TOL},
+            {Command.OPEN_CLAW,                         },
+            {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
+            {Command.CLOSE_CLAW,                        },
+            {Command.LIFT,        Config.LIFT_TARGET_LO },
     };
 
     private static final Object[][][] quad_cmds = {
@@ -260,11 +275,12 @@ public class CameronAutonomous extends LinearOpMode {
             red_right_cmd,
     };
 
-    private static final int OPCODE    = 0;
-    private static final int ANGLE     = 1;
-    private static final int INCHES    = 1;
-    private static final int POWER     = 2;
-    private static final int TOLERANCE = 3;
+    private static final int OPCODE     = 0;
+    private static final int ANGLE      = 1;
+    private static final int INCHES     = 1;
+    private static final int TARGET     = 1;
+    private static final int POWER      = 2;
+    private static final int TOLERANCE  = 3;
 
     private static final int VUFORIA_LEFT   = -1;
     private static final int VUFORIA_CENTER = 0;
@@ -326,9 +342,23 @@ public class CameronAutonomous extends LinearOpMode {
         } else if (op_code == Command.OPEN_CLAW) {
             port_claw.setPosition(Config.PORT_CLAW_OPENED);
             stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
+            sleep(250);
         } else if (op_code == Command.CLOSE_CLAW) {
             port_claw.setPosition(Config.PORT_CLAW_CLOSED);
             stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
+            sleep(250);
+        } else if (op_code == Command.LIFT) {
+            int target = (int) cmd[TARGET];
+
+            lift.setPower(0);
+            lift.setTargetPosition(target);
+            lift.setPower(Config.LIFT_POWER);
+
+            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                ;
+            }
+
+            lift.setPower(0);
         }
     }
 

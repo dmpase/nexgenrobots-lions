@@ -55,9 +55,6 @@ import static com.sun.tools.javac.util.Constants.format;
  * When an selection is made from the menu, the corresponding OpMode
  * class is instantiated on the Robot Controller and executed.
  *
- * This particular OpMode just echoes input from the controllers.
- * It includes all the skeletal structure that all iterative OpModes contain.
- *
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
@@ -73,51 +70,13 @@ public class RevHolonomicOpMode extends OpMode
     private DcMotor back_right  = null;
     private DcMotor back_left   = null;
 
-    private Servo left_claw  = null;
-    private double left_claw_open  = Servo.MIN_POSITION + 0.25 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
-    private double left_claw_mid   = Servo.MIN_POSITION + 0.50 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
-    private double left_claw_close = Servo.MIN_POSITION + 1.00 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
-    private Servo.Direction left_claw_dir = Servo.Direction.FORWARD;
-    private double left_claw_del = 0;
-    private double left_claw_pos = 0;
+    // claw and tail servos
+    private Servo port_claw = null;
+    private Servo stbd_claw = null;
 
-    private Servo right_claw = null;
-    private double right_claw_open  = Servo.MIN_POSITION + 0.75 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
-    private double right_claw_mid   = Servo.MIN_POSITION + 0.50 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
-    private double right_claw_close = Servo.MIN_POSITION + 0.00 * (Servo.MAX_POSITION - Servo.MIN_POSITION);
-    private Servo.Direction right_claw_dir = Servo.Direction.FORWARD;
-    private double right_claw_del = 0;
-    private double right_claw_pos = 0;
-
-    private double claw_incr = 20;
-
-    private DcMotor    lift     = null;
-    private DcMotorEnc lift_ctl = null;
-
-    //    private CRServo lift = null;
-    private CRServo tail = null;
-
-    // REV Robotics distance/color sensor
-    private ColorSensor color_sensor = null;
-    private DistanceSensor distance_sensor = null;
-
-    private DistanceSensor mr_range = null;
-
-    BNO055IMU imu0 = null;
-    BNO055IMU imu1 = null;
-
-    AnalogInput prs_lo = null;
-    AnalogInput srs_lo = null;
-    AnalogInput prs_hi = null;
-    AnalogInput srs_hi = null;
-    Distance    rs0d = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
-
-    int cameraMonitorViewId = -1;
-    VuforiaLocalizer vuforia = null;
-    VuforiaLocalizer.Parameters vuforia_parameters = null;
-//    public static final String vuforia_license_key = "AWVXYZn/////AAAAGcG6g8XSSUMJsDaizcApOtsaA0fWzUQwImrdEn1MqH4JNqCzUwlyvEX0YALy7XyUeSpiANJkBg9kplUtcniUZKw8bF0dSpEfXZKXxn1yhbIohmpVmIK+Ngv1imYrkY6ePmvTfO2IpyQi5yO5ZmfSC8OzlH+XEMD0vRIXHMhxFpin7vTIHaoz8MEifSjRTznh1ZUSRnJfQ01KvMHEefES0kwhehlEKoqgpNMOYg0B5pV0bDDi9/Qh4eMR7sEk1GSx3QPxl/lYuZVcWSh8DutXv8oo9LhnbAaHTecCAR6gnNODow0WUAH2N9vxdLOjk2UfWVEJgqmHembIDHRzJN4fjcOECTFfLHIVmZ66GwgjPWxV";
-    VuforiaTrackables relicTrackables = null;
-    VuforiaTrackable relicTemplate = null;
+    // claw lift and beam motors
+    private DcMotor lift        = null;
+    private DcMotor beam        = null;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -131,82 +90,13 @@ public class RevHolonomicOpMode extends OpMode
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
         telemetry.addData("Status", "Initializing Motors.");
+        init_motors();
 
-        front_left = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
-        front_left.setDirection(DcMotor.Direction.FORWARD);
-        front_left.setPower(0);
-        front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        front_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        front_right = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
-        front_right.setDirection(DcMotor.Direction.FORWARD);
-        front_right.setPower(0);
-        front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        front_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        back_right = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
-        back_right.setDirection(DcMotor.Direction.FORWARD);
-        back_right.setPower(0);
-        back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        back_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        back_left = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
-        back_left.setDirection(DcMotor.Direction.FORWARD);
-        back_left.setPower(0);
-        back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        back_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-//        /*
         telemetry.addData("Status", "Initializing Servos.");
+        init_claw();
 
-        left_claw  = hardwareMap.get(Servo.class, Config.PORT_CLAW);
-        left_claw.setDirection(left_claw_dir);
-
-        right_claw = hardwareMap.get(Servo.class, Config.STBD_CLAW);
-        right_claw.setDirection(right_claw_dir);
-
-        telemetry.addData("Status", "Initializing Lift & Tail.");
-
-        lift = hardwareMap.get(DcMotor.class, Config.LIFT);
-        lift.setDirection(DcMotor.Direction.FORWARD);
-        lift.setPower(0);
-        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        lift_ctl = new DcMotorEnc(lift,0,0.10,0.01,500);
-
-        tail = hardwareMap.get(CRServo.class, Config.TAIL);
-        tail.setDirection(DcMotor.Direction.FORWARD);
-        tail.setPower(0);
-
-//        /*
-        // REV Robotics distance/color sensor
-        color_sensor    = hardwareMap.get(ColorSensor.class, Config.REV_COLOR_RANGE);
-        distance_sensor = hardwareMap.get(DistanceSensor.class, Config.REV_COLOR_RANGE);
-//        */
-
-        mr_range = hardwareMap.get(DistanceSensor.class, Config.STBD_MR_RANGE);
-
-        telemetry.addData("Status", "Initializing IMU.");
-
-        BNO055IMU.Parameters imu_parameters = new BNO055IMU.Parameters();
-        imu_parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        imu_parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        imu_parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        imu_parameters.loggingEnabled      = true;
-        imu_parameters.loggingTag          = "IMU";
-        imu_parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-
-        imu0 = hardwareMap.get(BNO055IMU.class, Config.IMU0);
-        imu0.initialize(imu_parameters);
-
-        imu1 = hardwareMap.get(BNO055IMU.class, Config.IMU1);
-        imu1.initialize(imu_parameters);
-
-        prs_lo = hardwareMap.get(AnalogInput.class, Config.PORT_IR_AFT);
-        srs_lo = hardwareMap.get(AnalogInput.class, Config.STBD_IR_AFT);
-        prs_hi = hardwareMap.get(AnalogInput.class, Config.PORT_IR_BOW);
-        srs_hi = hardwareMap.get(AnalogInput.class, Config.STBD_IR_BOW);
+        telemetry.addData("Status", "Initializing Beam.");
+        init_beam();
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
@@ -225,22 +115,6 @@ public class RevHolonomicOpMode extends OpMode
     @Override
     public void start() {
         runtime.reset();
-
-         /*/
-         /*/
-        telemetry.addData("Status", "Initializing VuForia.");
-/*/
-        cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        vuforia_parameters.vuforiaLicenseKey = Config.VUFORIA_LICENSE_KEY;
-        vuforia_parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-        vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
-        relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-        relicTemplate = relicTrackables.get(0);
-        relicTemplate.setName("relicVuMarkTemplate");
-
-        relicTrackables.activate();
-         /*/
     }
 
     /*
@@ -249,80 +123,42 @@ public class RevHolonomicOpMode extends OpMode
     @Override
     public void loop()
     {
-        double[] motors = compute_motor_settings();
-        set_motor_power(motors);
+        get_motor_settings();
 
-        double[] servos = compute_servo_settings();
-        set_servo_power(servos);
+        get_claw_settings();
 
-
-        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-
-         /*/
-
-//        telemetry.addData("VuMark",  " " + vuMark);
-        OpenGLMatrix pose = ((VuforiaTrackableDefaultListener)relicTemplate.getListener()).getPose();
-        if (pose != null) {
-            // Extract the X, Y, and Z components of the offset of the target relative to the robot
-            VectorF trans = pose.getTranslation();
-
-            double tX = trans.get(0);
-            double tY = trans.get(1);
-            double tZ = trans.get(2);
-
-//            telemetry.addData("tXYZ", "%5.2fx %5.2fy %5.2fz", tX, tY, tZ);
-
-            // Extract the rotational components of the target relative to the robot
-            Orientation rot = Orientation.getOrientation(pose, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-
-            double rX = rot.firstAngle;
-            double rY = rot.secondAngle;
-            double rZ = rot.thirdAngle;
-
-//            telemetry.addData("rXYZ", "%5.2fx %5.2fy %5.2fz", rX, rY, rZ);
-        }
-         /*/
-
-        telemetry.addData("Range", "%5.2fv %7.4fv %7.2f\"", prs_lo.getMaxVoltage(), prs_lo.getVoltage(),
-                rs0d.distance(prs_lo.getVoltage()));
-
-        telemetry.addData("Range", "%5.2fv %7.4fv %7.2f\"", srs_lo.getMaxVoltage(), srs_lo.getVoltage(),
-                rs0d.distance(srs_lo.getVoltage()));
-
-        telemetry.addData("Range", "%5.2fv %7.4fv %7.2f\"", prs_hi.getMaxVoltage(), prs_hi.getVoltage(),
-                rs0d.distance(prs_hi.getVoltage()));
-
-        telemetry.addData("Range", "%5.2fv %7.4fv %7.2f\"", srs_hi.getMaxVoltage(), srs_hi.getVoltage(),
-                rs0d.distance(srs_hi.getVoltage()));
-
-         /*/
-        telemetry.addData("MR Range", "in=%6.2f",
-                mr_range.getDistance(DistanceUnit.INCH));
-
-        telemetry.addData("Motor Pos.", "%05d %05d %05d %05d",
-                front_left.getCurrentPosition(), front_right.getCurrentPosition(),
-                back_left .getCurrentPosition(), back_right .getCurrentPosition());
-
-        telemetry.addData("Motor Power", "%5.2f %5.2f %5.2f %5.2f",
-                motors[PORT_BOW], motors[STBD_BOW],
-                motors[PORT_AFT], motors[STBD_AFT]);
-         /*/
-
-         /*/
-        telemetry.addData("Claw Position", "%5.2f %5.2f %05d",
-                servos[PORT_CLAW], servos[STBD_CLAW], lift.getCurrentPosition());
-
-        telemetry.addData("Lift Ctl", "%5.2f %5.2f %04d %04d %7d",
-                lift_ctl.power, lift.getPower(), lift_ctl.target, lift.getCurrentPosition(), lift_ctl.count);
-
-        telemetry.addData("Color/Dist", "cm=%6.2f a=%03d r=%03d g=%03d b=%03d",
-                distance_sensor.getDistance(DistanceUnit.CM), color_sensor.alpha(),
-                color_sensor.red(), color_sensor.green(), color_sensor.blue());
-         /*/
+        get_beam_settings();
 
         // Show the elapsed game time and other data.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
+
+
+    public void get_beam_settings()
+    {
+        if (gamepad1.dpad_left && ! gamepad1.dpad_right) {           // extend the beam
+            beam.setPower(0);
+            beam.setTargetPosition(Config.BEAM_TARGET_OUT);
+            beam.setPower(Config.BEAM_POWER);
+
+            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(beam.getTargetPosition() - beam.getCurrentPosition()) ) {
+                ;
+            }
+
+            beam.setPower(0);
+        } else if (! gamepad1.dpad_left && gamepad1.dpad_right) {    // retract the beam
+            beam.setPower(0);
+            beam.setTargetPosition(Config.BEAM_TARGET_IN);
+            beam.setPower(Config.BEAM_POWER);
+
+            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(beam.getTargetPosition() - beam.getCurrentPosition()) ) {
+                ;
+            }
+
+            beam.setPower(0);
+        }
+    }
+
 
     public static final int SERVO_COUNT = 4;
     public static final int TAIL        = 0;
@@ -337,114 +173,67 @@ public class RevHolonomicOpMode extends OpMode
     public static final double lift_mid_pwr =  0.00;
     public static final double lift_min_pwr = -lift_max_pwr;
 
-    public void set_servo_power(double[] position)
+    public void get_claw_settings()
     {
-        if (position != null && position.length == SERVO_COUNT) {
-            if (position[LEFT_CLAW] != left_claw_pos) {
-                left_claw.setPosition(position[LEFT_CLAW]);
-                left_claw_pos = position[LEFT_CLAW];
+        if (gamepad1.x && ! gamepad1.b) {           // open the claw
+            port_claw.setPosition(Config.PORT_CLAW_OPENED);
+            stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
+        } else if (! gamepad1.x && gamepad1.b) {    // close the claw
+            port_claw.setPosition(Config.PORT_CLAW_CLOSED);
+            stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
+        }
+
+        if (gamepad1.y && ! gamepad1.a) {           // raise the claw
+            lift.setPower(0);
+            lift.setTargetPosition(Config.LIFT_TARGET_HI);
+            lift.setPower(Config.LIFT_POWER);
+
+            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                ;
             }
 
-            if (position[RIGHT_CLAW] != right_claw_pos) {
-                right_claw.setPosition(position[RIGHT_CLAW]);
-                right_claw_pos = position[RIGHT_CLAW];
+            lift.setPower(0);
+        } else if (! gamepad1.y && gamepad1.a) {    // lower the claw
+            lift.setPower(0);
+            lift.setTargetPosition(Config.LIFT_TARGET_LO);
+            lift.setPower(Config.LIFT_POWER);
+
+            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                ;
             }
 
-            tail.setPower(position[TAIL]);
-            lift_ctl.update();
+            lift.setPower(0);
         }
     }
 
-    public double[] compute_servo_settings()
-    {
-        double[] servos = new double[SERVO_COUNT];
-
-        // open or close the claw
-        if (gamepad1.x && gamepad1.b) {
-            // conflicting inputs, do nothing
-            servos[LEFT_CLAW]  = left_claw_pos;
-            servos[RIGHT_CLAW] = right_claw_pos;
-        } else if (gamepad1.b) {
-            // open the claw
-            servos[LEFT_CLAW]  = left_claw_open; // left_claw_pos  - left_claw_del;
-            servos[RIGHT_CLAW] = right_claw_open; // right_claw_pos - right_claw_del;
-        } else if (gamepad1.x) {
-            // close the claw
-            servos[LEFT_CLAW]  = left_claw_close; // left_claw_pos  + left_claw_del;
-            servos[RIGHT_CLAW] = right_claw_close; // right_claw_pos + right_claw_del;
-        } else {
-            // maintain position, do nothing
-            servos[LEFT_CLAW]  = left_claw_pos;
-            servos[RIGHT_CLAW] = right_claw_pos;
-        }
-
-        servos[LEFT_CLAW]  = (servos[LEFT_CLAW]  < left_claw_open    ) ? left_claw_open   : servos[LEFT_CLAW];
-        servos[LEFT_CLAW]  = (left_claw_close    < servos[LEFT_CLAW] ) ? left_claw_close  : servos[LEFT_CLAW];
-        servos[RIGHT_CLAW] = (servos[RIGHT_CLAW] < right_claw_open   ) ? right_claw_open  : servos[RIGHT_CLAW];
-        servos[RIGHT_CLAW] = (right_claw_close   < servos[RIGHT_CLAW]) ? right_claw_close : servos[RIGHT_CLAW];
-
-        if (gamepad1.y && gamepad1.a) {
-            lift_ctl.setTargetPosition(lift_mid_pos);
-        } else if (gamepad1.y) {
-            lift_ctl.setTargetPosition(lift_max_pos);
-        } else if (gamepad1.a) {
-            lift_ctl.setTargetPosition(lift_min_pos);
-        } else {
-            ;
-        }
-
-        if (gamepad1.back) {
-            servos[TAIL] = 0.10;
-        } else if (gamepad1.start) {
-            servos[TAIL] = -0.10;
-        } else {
-            servos[TAIL] = 0;
-        }
-
-        return servos;
-    }
-
-    public static final int MOTOR_COUNT = 4;
-    public static final int FRONT_LEFT  = 0;
-    public static final int FRONT_RIGHT = 1;
-    public static final int BACK_RIGHT  = 2;
-    public static final int BACK_LEFT   = 3;
 
     public static final double POWER_LIMIT = 0.95;
 
     public static final double stick_dead_zone   = 0.05;
-    public static final double full_speed        = 0.95;
-    public static final double half_speed        = 0.50;
-    public static final double slow_speed        = 0.25;
+    public static final double full_speed        = 0.40;
+    public static final double half_speed        = 0.20;
 
     public static final double trigger_dead_zone = 0.05;
-    public static final double full_turn         = 0.40;
     public static final double half_turn         = 0.20;
     public static final double slow_turn         = 0.10;
-    public static final double turn_limit        = 0.75;
 
+    public static final int FRONT_LEFT          = 0;
+    public static final int FRONT_RIGHT         = 1;
+    public static final int BACK_RIGHT          = 2;
+    public static final int BACK_LEFT           = 3;
+    public static final int MOTOR_COUNT         = 4;
 
-    public void set_motor_power(double[] power)
-    {
-        if (power != null && power.length == MOTOR_COUNT) {
-            front_left .setPower(power[FRONT_LEFT ]);
-            front_right.setPower(power[FRONT_RIGHT]);
-            back_right .setPower(power[BACK_RIGHT ]);
-            back_left  .setPower(power[BACK_LEFT  ]);
-        }
-    }
-
-    public double[] compute_motor_settings()
+    public void get_motor_settings()
     {
         // use game pad 1 right stick to determinie speed and bearing UNLESS the left stick is being used
         // right stick is for speed, left stick is for precision
-        double x = (-stick_dead_zone < gamepad1.right_stick_x && gamepad1.right_stick_x < stick_dead_zone) ? 0 : full_speed * gamepad1.right_stick_x;
-        double y = (-stick_dead_zone < gamepad1.right_stick_y && gamepad1.right_stick_y < stick_dead_zone) ? 0 : full_speed * gamepad1.right_stick_y;
-        if (gamepad1.left_stick_x < -stick_dead_zone || stick_dead_zone < gamepad1.left_stick_x ||
-            gamepad1.left_stick_y < -stick_dead_zone || stick_dead_zone < gamepad1.left_stick_y) {
+        double x = (-stick_dead_zone < gamepad1.left_stick_x && gamepad1.left_stick_x < stick_dead_zone) ? 0 : full_speed * gamepad1.left_stick_x;
+        double y = (-stick_dead_zone < gamepad1.left_stick_y && gamepad1.left_stick_y < stick_dead_zone) ? 0 : full_speed * gamepad1.left_stick_y;
+        if (gamepad1.right_stick_x < -stick_dead_zone || stick_dead_zone < gamepad1.right_stick_x ||
+            gamepad1.right_stick_y < -stick_dead_zone || stick_dead_zone < gamepad1.right_stick_y) {
 
-            x = half_speed * gamepad1.left_stick_x;
-            y = half_speed * gamepad1.left_stick_y;
+            x = half_speed * gamepad1.right_stick_x;
+            y = half_speed * gamepad1.right_stick_y;
         }
 
         // get the angle of the stick to compute the desired bearing
@@ -454,34 +243,6 @@ public class RevHolonomicOpMode extends OpMode
         // limit the throttle
         double throttle = Math.sqrt(x*x + y*y);
         throttle = (POWER_LIMIT < throttle) ? POWER_LIMIT : throttle;
-
-        // enable the dpad for movement
-        // dpad overrides both sticks
-        if (gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = slow_speed;
-            bearing = 0 * Math.PI/4;
-        } else if (gamepad1.dpad_up && gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = slow_speed;
-            bearing = 1 * Math.PI/4;
-        } else if (! gamepad1.dpad_up && gamepad1.dpad_right && ! gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = slow_speed;
-            bearing = 2 * Math.PI/4;
-        } else if (! gamepad1.dpad_up && gamepad1.dpad_right && gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = slow_speed;
-            bearing = 3 * Math.PI/4;
-        } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && gamepad1.dpad_down && ! gamepad1.dpad_left) {
-            throttle = slow_speed;
-            bearing = 4 * Math.PI/4;
-        } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && gamepad1.dpad_down && gamepad1.dpad_left) {
-            throttle = slow_speed;
-            bearing = 5 * Math.PI/4;
-        } else if (! gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && gamepad1.dpad_left) {
-            throttle = slow_speed;
-            bearing = 6 * Math.PI/4;
-        } else if (gamepad1.dpad_up && ! gamepad1.dpad_right && ! gamepad1.dpad_down && gamepad1.dpad_left) {
-            throttle = slow_speed;
-            bearing = 7 * Math.PI/4;
-        }
 
         // add in rotation, if any
         double rotation = 0;
@@ -530,7 +291,76 @@ public class RevHolonomicOpMode extends OpMode
             }
         }
 
-        return motors;
+        front_left .setPower(motors[FRONT_LEFT ]);
+        front_right.setPower(motors[FRONT_RIGHT]);
+        back_right .setPower(motors[BACK_RIGHT ]);
+        back_left  .setPower(motors[BACK_LEFT  ]);
+    }
+
+    private void init_motors() {
+        if (front_left == null) {
+            front_left = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
+            front_left.setDirection(DcMotor.Direction.FORWARD);
+            front_left.setPower(0);
+            front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            front_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+        if (front_right == null) {
+            front_right = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
+            front_right.setDirection(DcMotor.Direction.FORWARD);
+            front_right.setPower(0);
+            front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            front_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+        if (back_right == null) {
+            back_right = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
+            back_right.setDirection(DcMotor.Direction.FORWARD);
+            back_right.setPower(0);
+            back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            back_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+        if (back_left == null) {
+            back_left = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
+            back_left.setDirection(DcMotor.Direction.FORWARD);
+            back_left.setPower(0);
+            back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            back_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+    }
+
+    public void init_claw()
+    {
+        if (port_claw == null) {
+            port_claw = hardwareMap.get(Servo.class, Config.PORT_CLAW);
+            port_claw.setDirection(Servo.Direction.FORWARD);
+        }
+
+        if (stbd_claw == null) {
+            stbd_claw = hardwareMap.get(Servo.class, Config.STBD_CLAW);
+            stbd_claw.setDirection(Servo.Direction.FORWARD);
+        }
+
+        if (lift == null) {
+            lift = hardwareMap.get(DcMotor.class, Config.LIFT);
+            lift.setDirection(Config.LIFT_DIRECTION);
+            lift.setPower(0);
+            lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+    }
+
+    public void init_beam()
+    {
+        if (beam == null) {
+            beam = hardwareMap.get(DcMotor.class, Config.BEAM);
+            beam.setDirection(DcMotor.Direction.FORWARD);
+            beam.setPower(0);
+            beam.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            beam.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
     }
 
     public void sleep(double sec)
