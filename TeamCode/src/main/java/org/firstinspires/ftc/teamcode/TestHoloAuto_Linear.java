@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -49,7 +50,7 @@ import org.firstinspires.ftc.robotcore.external.ClassFactory;
  */
 
 @Autonomous(name="Test Holonomic Linear", group="Autonomous")
-// @Disabled
+@Disabled
 public class TestHoloAuto_Linear extends LinearOpMode {
     // Declare OpMode members.
     private DcMotor front_left  = null;

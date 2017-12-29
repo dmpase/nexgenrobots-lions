@@ -50,7 +50,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
 @Autonomous(name="Autonomous Template Iterative", group="Autonomous")
-// @Disabled
+@Disabled
 public class Autonomous_Iterative extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();

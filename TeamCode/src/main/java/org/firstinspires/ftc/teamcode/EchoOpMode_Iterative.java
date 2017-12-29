@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="EchoOpMode", group="Iterative Opmode")
-// @Disabled
+@Disabled
 public class EchoOpMode_Iterative extends OpMode
 {
     // Declare OpMode members.

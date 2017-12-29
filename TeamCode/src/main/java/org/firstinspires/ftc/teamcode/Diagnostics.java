@@ -56,9 +56,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Diagnostic", group="Iterative Opmode")
+@TeleOp(name="Diagnostics", group="Iterative Opmode")
 // @Disabled
-public class Diagnostic extends OpMode {
+public class Diagnostics extends OpMode {
     // locomotion motors
     private DcMotor front_left  = null;
     private DcMotor front_right = null;

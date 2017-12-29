@@ -59,9 +59,9 @@ import static com.sun.tools.javac.util.Constants.format;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Rev Holonomic OpMode", group="Iterative Opmode")
+@TeleOp(name="Lion Holonomic OpMode", group="Iterative OpMode")
 // @Disabled
-public class RevHolonomicOpMode extends OpMode
+public class LionHolonomic extends OpMode
 {
     // Declare OpMode members.
     // REV Robotics drive motors

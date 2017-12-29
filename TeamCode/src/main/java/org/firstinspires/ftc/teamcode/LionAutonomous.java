@@ -52,9 +52,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Cameron Autonomous", group="Autonomous")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Lion Autonomous", group="Autonomous")
 // @Disabled
-public class CameronAutonomous extends LinearOpMode {
+public class LionAutonomous extends LinearOpMode {
     // Declare OpMode members.
 
     public static enum Command {ROTATE, FORWARD, BACKWARD, LEFT, RIGHT, ADJUST, OPEN_CLAW, CLOSE_CLAW, LIFT}
