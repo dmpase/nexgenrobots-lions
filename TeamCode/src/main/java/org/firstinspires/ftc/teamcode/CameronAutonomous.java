@@ -83,7 +83,10 @@ public class CameronAutonomous extends LinearOpMode {
         telemetry.addData("Status", "Initialization Complete.");
         telemetry.update();
 
-        telemetry.addData("", "'A' to open, 'X' to close, 'guide' to wait for start.");
+        telemetry.addData("Claw", "'X' to open, 'B' to close.");
+        telemetry.addData("Lift", "'Y' to raise, 'A' to lower.");
+        telemetry.addData("Tail", "DPAD 'Up' to raise, 'Dn' to lower.");
+        telemetry.addData("Start", "'Guide' to wait for start.");
         telemetry.update();
         Object[] open_claw  = {Command.OPEN_CLAW,                           };
         Object[] close_claw = {Command.CLOSE_CLAW,                          };
