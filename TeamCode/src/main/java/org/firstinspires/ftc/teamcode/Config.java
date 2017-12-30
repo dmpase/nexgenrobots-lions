@@ -63,6 +63,7 @@ public class Config {
     public static final int    LIFT_TARGET_HI   = 4800;
     public static final int    LIFT_TARGET_INCH =  400;
     public static final int    LIFT_TARGET_LO   =    0;
+    public static final int    LIFT_TARGET_SET  = -400;
     public static final DcMotor.Direction LIFT_DIRECTION = DcMotor.Direction.FORWARD;
 
 
@@ -88,4 +89,9 @@ public class Config {
     // Misc. motor parameters
     public static final int  MOTOR_TARGET_TOLERANCE =   5;
     public static final long MOTOR_LAG              = 250;
+
+
+    // Misc. playing field parameters
+    public static final double SHORT  = 36;
+    public static final double MEDIUM = 48;
 }

@@ -51,7 +51,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Lion Auto Sensor", group="Autonomous")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Lion Auto Input", group="Autonomous")
 // @Disabled
 public class LionAutoSensor extends LinearOpMode {
     // Declare OpMode members.
@@ -82,20 +82,25 @@ public class LionAutoSensor extends LinearOpMode {
         telemetry.addData("Status", "Initialization Complete.");
         telemetry.update();
 
-        telemetry.addData("Claw", "'X' to open, 'B' to close.");
-        telemetry.addData("Lift", "'Y' to raise, 'A' to lower.");
-        telemetry.addData("Tail", "DPAD 'Up' to raise, 'Down' to lower.");
-        telemetry.addData("Start", "'Guide' to wait for start.");
+        telemetry.addData("Start", "Press 'Guide' to select quadrant.");
         telemetry.update();
         Object[] open_claw  = {Command.OPEN_CLAW,                           };
         Object[] close_claw = {Command.CLOSE_CLAW,                          };
         Object[] raise_claw = {Command.LIFT,        Config.LIFT_TARGET_INCH };
         Object[] lower_claw = {Command.LIFT,        Config.LIFT_TARGET_LO   };
+        Object[] reset_claw = {Command.LIFT,        Config.LIFT_TARGET_SET  };
+        final double motor_power = 0.05;
         while (! gamepad1.guide) {
+            get_motor_settings();
+
             if (gamepad1.x) {
                 execute(open_claw);
             } else if (gamepad1.b) {
                 execute(close_claw);
+            } else if (gamepad1.a && gamepad1.y) {
+                execute(reset_claw);
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             } else if (gamepad1.y) {
                 execute(raise_claw);
             } else if (gamepad1.a) {
@@ -111,31 +116,37 @@ public class LionAutoSensor extends LinearOpMode {
         Color team_color = Color.UNKNOWN;
         int quadrant = UNKNOWN;
 
+        // Modern Robotics ultrasonic range sensors
+        DistanceSensor port_mr_range = hardwareMap.get(DistanceSensor.class, Config.PORT_MR_RANGE);
+        DistanceSensor stbd_mr_range = hardwareMap.get(DistanceSensor.class, Config.STBD_MR_RANGE);
         while (! gamepad1.start) {
             // ^^^ read port and starboard sensor to find quadrant (e.g., 3rd quadrant; blue)
             double port_dist = port_mr_range.getDistance(DistanceUnit.INCH);
             double stbd_dist = stbd_mr_range.getDistance(DistanceUnit.INCH);
 
-            if (stbd_dist < SHORT) {
+            if (stbd_dist < Config.SHORT) {
                 quadrant = BLUE_RIGHT;
                 team_color = Color.BLUE;
-            } else if (stbd_dist < MEDIUM) {
+            } else if (stbd_dist < Config.MEDIUM) {
                 quadrant = RED_RIGHT;
                 team_color = Color.RED;
-            } else if (port_dist < SHORT) {
+            } else if (port_dist < Config.SHORT) {
                 quadrant = RED_LEFT;
                 team_color = Color.RED;
-            } else if (port_dist < MEDIUM) {
+            } else if (port_dist < Config.MEDIUM) {
                 quadrant = BLUE_LEFT;
                 team_color = Color.BLUE;
             }
-            telemetry.addData("Quadrant", "%s(%d) %s %6.2f %6.2f",
-                    QUADRANT_NAME[quadrant], quadrant, team_color.toString(), port_dist, stbd_dist);
+            telemetry.addData("Data", "Port:%6.2f, Stbd:%6.2f", port_dist, stbd_dist);
+            telemetry.addData("Selection", "Quadrant:%s, Team:%s",
+                    QUADRANT_NAME[quadrant], team_color.toString());
+            telemetry.addData("Start", "Press 'Start' to wait for start.");
             telemetry.update();
         }
 
-        telemetry.addData("Quadrant", "%s(%d) %s",
-                QUADRANT_NAME[quadrant], quadrant, team_color.toString());
+
+        telemetry.addData("Selection", "Quadrant:%s, Team:%s",
+                QUADRANT_NAME[quadrant], team_color.toString());
         telemetry.addData("Status", "Ready to play, waiting for start.");
         telemetry.update();
 
@@ -160,6 +171,7 @@ public class LionAutoSensor extends LinearOpMode {
         }
 
         telemetry.addData("VuMark", "%s", vuMark.name());
+        telemetry.update();
 
 
         // ^^^ dislodge the jewell_color (or not...)
@@ -175,28 +187,24 @@ public class LionAutoSensor extends LinearOpMode {
             jewell_color = Color.RED;
         }
 
+        telemetry.addData("Jewell", "Team: %s, Jewell:%s", team_color.name(), jewell_color.name());
+        telemetry.update();
+
         // if jewell color == team color, clockwise then counter clockwise, else opposite
+        Object[] clockwise = {Command.ROTATE, -30.0, AUTO_PWR, AUTO_TOL};
+        Object[] counterclockwise = {Command.ROTATE, +30.0, AUTO_PWR, AUTO_TOL};
         if (team_color == Color.UNKNOWN || jewell_color == Color.UNKNOWN) {
             ;
         } else if (team_color == jewell_color) {
-            Object[][] cmd = {
-                    {Command.ROTATE, +30.0, AUTO_PWR, AUTO_TOL},
-                    {Command.ROTATE, -30.0, AUTO_PWR, AUTO_TOL},
-            };
-
-            execute(cmd);
+            execute(counterclockwise);
+            tail.setPosition(Config.TAIL_POS_UP);
+            execute(clockwise);
         } else {
-            Object[][] cmd = {
-                    {Command.ROTATE, -30.0, AUTO_PWR, AUTO_TOL},
-                    {Command.ROTATE, +30.0, AUTO_PWR, AUTO_TOL},
-            };
-
-            execute(cmd);
+            execute(clockwise);
+            tail.setPosition(Config.TAIL_POS_UP);
+            execute(counterclockwise);
         }
-
-        // raise tail
-        tail.setPosition(Config.TAIL_POS_UP);
-        sleep(1000);
+        sleep(500);
 
 
         // ^^^ deliver the block to the crypto box
@@ -208,26 +216,15 @@ public class LionAutoSensor extends LinearOpMode {
     }
 
 
-    private static final double SHORT  = 36;
-    private static final double MEDIUM = 48;
-    private static final double LONG   = 60;
-
-    private static final int UNKNOWN    = 0;
-    private static final int BLUE_LEFT  = 1;
-    private static final int BLUE_RIGHT = 2;
-    private static final int RED_LEFT   = 3;
-    private static final int RED_RIGHT  = 4;
-    private static final String[] QUADRANT_NAME = {"UNKNOWN", "BLUE LEFT", "BLUE RIGHT", "RED LEFT", "RED RIGHT"};
-
     private static final double AUTO_PWR = 0.1;
     private static final int    AUTO_TOL = 10;
 
     private static final Object[][] blue_left_cmd = {
             {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL},
             {Command.FORWARD,   36.0, AUTO_PWR, AUTO_TOL},
-            {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL},
+            {Command.RIGHT,     12.0, AUTO_PWR, AUTO_TOL},
             {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   12.0, AUTO_PWR, AUTO_TOL},
             {Command.OPEN_CLAW,                         },
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
@@ -237,9 +234,9 @@ public class LionAutoSensor extends LinearOpMode {
     private static final Object[][] blue_right_cmd = {
             {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL},
             {Command.FORWARD,   36.0, AUTO_PWR, AUTO_TOL},
-            {Command.RIGHT,     12.0, AUTO_PWR, AUTO_TOL},
+            {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL},
             {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   12.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL},
             {Command.OPEN_CLAW,                         },
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
@@ -263,13 +260,19 @@ public class LionAutoSensor extends LinearOpMode {
             {Command.FORWARD,   36.0, AUTO_PWR, AUTO_TOL},
             {Command.LEFT,      12.0, AUTO_PWR, AUTO_TOL},
             {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
-            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
             {Command.FORWARD,   12.0, AUTO_PWR, AUTO_TOL},
             {Command.OPEN_CLAW,                         },
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
             {Command.LIFT,        Config.LIFT_TARGET_LO },
     };
+
+    private static final int UNKNOWN    = 0;
+    private static final int BLUE_LEFT  = 1;
+    private static final int BLUE_RIGHT = 2;
+    private static final int RED_LEFT   = 3;
+    private static final int RED_RIGHT  = 4;
+    private static final String[] QUADRANT_NAME = {"UNKNOWN", "BLUE LEFT", "BLUE RIGHT", "RED LEFT", "RED RIGHT"};
 
     private static final Object[][][] quad_cmds = {
             null,
@@ -353,18 +356,7 @@ public class LionAutoSensor extends LinearOpMode {
             sleep(Config.MOTOR_LAG);
         } else if (op_code == Command.LIFT) {
             int target = (int) cmd[TARGET];
-
-            lift.setPower(0);
-            lift.setTargetPosition(target);
-            lift.setPower(Config.LIFT_POWER);
-
-            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
-                ;
-            }
-
-            sleep(Config.MOTOR_LAG);
-
-            lift.setPower(0);
+            run_to_position(lift, target, Config.LIFT_POWER, Config.MOTOR_TARGET_TOLERANCE);
         }
     }
 
@@ -427,38 +419,17 @@ public class LionAutoSensor extends LinearOpMode {
 
 
 
-    // Modern Robotics ultrasonic range sensors
-    private DistanceSensor port_mr_range = null;
-    private DistanceSensor stbd_mr_range = null;
-
     // REV Robotics distance/color sensor
     private ColorSensor color_sensor = null;
     private DistanceSensor distance_sensor = null;
-
-    // Pololu IR range sensors
-    private AnalogInput port_aft_ir = null;
-    private AnalogInput stbd_aft_ir = null;
-    private AnalogInput port_bow_ir = null;
-    private AnalogInput stbd_bow_ir = null;
-    private Distance    ir_v2in = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
 
     public void sensor_init()
     {
         telemetry.addData("Status", "Initializing Sensors.");
 
-        // port and starboard ultrasonic sensors
-        port_mr_range = hardwareMap.get(DistanceSensor.class, Config.PORT_MR_RANGE);
-        stbd_mr_range = hardwareMap.get(DistanceSensor.class, Config.STBD_MR_RANGE);
-
         // tail Rev color/distance sensor
         color_sensor = hardwareMap.get(ColorSensor.class, Config.REV_COLOR_RANGE);
         distance_sensor = hardwareMap.get(DistanceSensor.class, Config.REV_COLOR_RANGE);
-
-        // various IR range sensors
-        port_bow_ir = hardwareMap.get(AnalogInput.class, Config.PORT_BOW_IR);
-        stbd_bow_ir = hardwareMap.get(AnalogInput.class, Config.STBD_BOW_IR);
-        port_aft_ir = hardwareMap.get(AnalogInput.class, Config.PORT_AFT_IR);
-        stbd_aft_ir = hardwareMap.get(AnalogInput.class, Config.STBD_AFT_IR);
     }
 
 
@@ -535,10 +506,10 @@ public class LionAutoSensor extends LinearOpMode {
         stbd_aft_motor.setPower(power);
         port_aft_motor.setPower(power);
 
-        while ( tolerance < Math.abs(port_bow_motor.getTargetPosition()  - port_bow_motor.getCurrentPosition())  ||
+        while ( tolerance < Math.abs(port_bow_motor.getTargetPosition() - port_bow_motor.getCurrentPosition()) ||
                 tolerance < Math.abs(stbd_bow_motor.getTargetPosition() - stbd_bow_motor.getCurrentPosition()) ||
-                tolerance < Math.abs(stbd_aft_motor.getTargetPosition()  - stbd_aft_motor.getCurrentPosition())  ||
-                tolerance < Math.abs(port_aft_motor.getTargetPosition()   - port_aft_motor.getCurrentPosition())) {
+                tolerance < Math.abs(stbd_aft_motor.getTargetPosition() - stbd_aft_motor.getCurrentPosition()) ||
+                tolerance < Math.abs(port_aft_motor.getTargetPosition() - port_aft_motor.getCurrentPosition())) {
             ;
         }
 
@@ -548,5 +519,100 @@ public class LionAutoSensor extends LinearOpMode {
         stbd_bow_motor.setPower(0);
         stbd_aft_motor.setPower(0);
         port_aft_motor.setPower(0);
+    }
+
+
+    public static final double POWER_LIMIT = 0.95;
+
+    public static final double stick_dead_zone   = 0.05;
+    public static final double full_speed        = 0.10;
+    public static final double half_speed        = 0.05;
+
+    public static final double trigger_dead_zone = 0.05;
+    public static final double slow_turn         = 0.05;
+
+    public static final int PORT_BOW             = 0;
+    public static final int STBD_BOW             = 1;
+    public static final int STBD_AFT             = 2;
+    public static final int PORT_AFT             = 3;
+    public static final int MOTOR_COUNT          = 4;
+
+    public void get_motor_settings()
+    {
+        // use game pad 1 right stick to determinie speed and bearing UNLESS the left stick is being used
+        // right stick is for speed, left stick is for precision
+        double x = (-stick_dead_zone < gamepad1.left_stick_x && gamepad1.left_stick_x < stick_dead_zone) ? 0 : full_speed * gamepad1.left_stick_x;
+        double y = (-stick_dead_zone < gamepad1.left_stick_y && gamepad1.left_stick_y < stick_dead_zone) ? 0 : full_speed * gamepad1.left_stick_y;
+        if (gamepad1.right_stick_x < -stick_dead_zone || stick_dead_zone < gamepad1.right_stick_x ||
+                gamepad1.right_stick_y < -stick_dead_zone || stick_dead_zone < gamepad1.right_stick_y) {
+
+            x = half_speed * gamepad1.right_stick_x;
+            y = half_speed * gamepad1.right_stick_y;
+        }
+
+        // get the angle of the stick to compute the desired bearing
+        double alpha   = (x == 0 && y == 0) ? 0 : Math.atan2(y, x);
+        double bearing = (x == 0 && y == 0) ? 0 : alpha + Math.PI/2.0;
+
+        // limit the throttle
+        double throttle = Math.sqrt(x*x + y*y);
+        throttle = (POWER_LIMIT < throttle) ? POWER_LIMIT : throttle;
+
+        // add in rotation, if any
+        double rotation = 0;
+        if (gamepad1.left_bumper && gamepad1.right_bumper) {
+            // conflicting inputs, do nothing
+        } else if (gamepad1.left_bumper) {
+            // bumpers take priority, turn left
+            rotation = slow_turn;
+        } else if (gamepad1.right_bumper) {
+            // bumpers take priority, turn right
+            rotation = -slow_turn;
+        } else if (trigger_dead_zone < gamepad1.left_trigger && trigger_dead_zone < gamepad1.right_trigger) {
+            // conflicting inputs, do nothing
+        } else if (trigger_dead_zone < gamepad1.left_trigger) {
+            // turn left using trigger
+            rotation = slow_turn * gamepad1.left_trigger;
+        } else if (trigger_dead_zone < gamepad1.right_trigger) {
+            // turn right using trigger
+            rotation = -slow_turn * gamepad1.right_trigger;
+        }
+
+        double[] motors = new double[MOTOR_COUNT];
+
+        motors[PORT_BOW] = - throttle * Math.sin(bearing + Math.PI/4) + rotation;
+        motors[STBD_BOW] =   throttle * Math.cos(bearing + Math.PI/4) + rotation;
+        motors[STBD_AFT] =   throttle * Math.sin(bearing + Math.PI/4) + rotation;
+        motors[PORT_AFT] = - throttle * Math.cos(bearing + Math.PI/4) + rotation;
+
+        // limit the motors to -1.0 <= motor <= 1.0
+        // scale them evenly if adjustments are made
+        if (motors[PORT_BOW] < -POWER_LIMIT || POWER_LIMIT < motors[PORT_BOW] ||
+                motors[STBD_BOW] < -POWER_LIMIT || POWER_LIMIT < motors[STBD_BOW] ||
+                motors[PORT_AFT] < -POWER_LIMIT || POWER_LIMIT < motors[PORT_AFT] ||
+                motors[STBD_AFT] < -POWER_LIMIT || POWER_LIMIT < motors[STBD_AFT]) {
+
+            // find the scale factor
+            double max = 0;
+            for (int i=0; i < motors.length; i++) {
+                double abs = Math.abs(motors[i]);
+                max = (max < abs) ? abs : max;
+            }
+
+            // scale back the motors evenly
+            for (int i=0; i < motors.length; i++) {
+                motors[i] = POWER_LIMIT * motors[i] / max;
+            }
+        }
+
+        port_bow_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        stbd_bow_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        stbd_aft_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        port_aft_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        port_bow_motor.setPower(motors[PORT_BOW]);
+        stbd_bow_motor.setPower(motors[STBD_BOW]);
+        stbd_aft_motor.setPower(motors[STBD_AFT]);
+        port_aft_motor.setPower(motors[PORT_AFT]);
     }
 }
