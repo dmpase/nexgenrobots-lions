@@ -452,13 +452,8 @@ public class GriffinAutoInput extends LinearOpMode {
     private void run_to_position(DcMotor motor, int tgt, double power, int tolerance)
     {
         motor.setPower(0);
-
-        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
         motor.setTargetPosition(tgt);
-
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
         motor.setPower(power);
 
         while ( tolerance < Math.abs(motor.getTargetPosition()  - motor.getCurrentPosition()) ) {
