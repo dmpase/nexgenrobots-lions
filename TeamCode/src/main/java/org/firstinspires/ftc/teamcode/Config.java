@@ -93,7 +93,7 @@ public class Config {
 
     // Misc. motor parameters
     public static final int    MOTOR_TARGET_TOLERANCE =   5;    // encoder clicks
-    public static final double MOTOR_LAG_SEC          =   0.50; // seconds
+    public static final double MOTOR_LAG_SEC          =   0.25; // seconds
     public static final long   MOTOR_LAG_MILLI        = 250;    // milliseconds
 
 
