@@ -151,7 +151,7 @@ public class GriffinDiagnostics extends OpMode {
 
     private static final String[] state_names = {
             "START",
-            "GAMEPAD", "ROTATE", "MOTION", "CLAW", "TAIL", "BEAM_DRIVE", "ULTRASONIC", "COLOR", "IR", "VUFORIA", "IMU",
+            "GAMEPAD", "ROTATE", "MOTION", "CLAW", "TAIL", "BEAM", "ULTRASONIC", "COLOR", "IR", "VUFORIA", "IMU",
             "DONE"
     };
 
@@ -383,11 +383,16 @@ public class GriffinDiagnostics extends OpMode {
                 }
 
                 lift.setPower(0);
+                double start = runtime.seconds();
                 lift.setTargetPosition(Config.LIFT_TARGET_HI);
                 lift.setPower(Config.LIFT_POWER);
 
                 while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
-                    ;
+                    if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
+                }
+
+                if ((runtime.seconds() - start) < Config.MOTOR_LAG_SEC) {
+                    sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
                 }
 
                 lift.setPower(0);
@@ -401,17 +406,22 @@ public class GriffinDiagnostics extends OpMode {
                 }
 
                 lift.setPower(0);
+                double start = runtime.seconds();
                 lift.setTargetPosition(Config.LIFT_TARGET_LO);
                 lift.setPower(Config.LIFT_POWER);
 
                 while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
-                    ;
+                    if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
+                }
+
+                if ((runtime.seconds() - start) < Config.MOTOR_LAG_SEC) {
+                    sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
                 }
 
                 lift.setPower(0);
             }
 
-            if (gamepad1.a || gamepad1.y|| gamepad1.right_bumper || gamepad1.left_bumper) {
+            if (gamepad1.a || gamepad1.y) {
                 telemetry.addData("Lift", "%4d", lift.getCurrentPosition());
             }
         } else if (state == TAIL) {
@@ -477,28 +487,28 @@ public class GriffinDiagnostics extends OpMode {
                 }
 
                 beam_drive.setPower(0);
-            } else if (gamepad1.dpad_left && ! gamepad1.dpad_right)     {   //swivel beam claw up
+            } else if (gamepad1.dpad_left && ! gamepad1.dpad_right)     {   // swivel beam claw up
                 if (beam_swivel == null) {
                     beam_swivel = hardwareMap.get(Servo.class, Config.BEAM_SWIVEL);
                     beam_swivel.setDirection(Servo.Direction.FORWARD);
                 }
 
                 beam_swivel.setPosition(Config.BEAM_SWIVEL_UP);
-            } else if ( ! gamepad1.dpad_left && gamepad1.dpad_right)     {   //swivel beam claw down
+            } else if ( ! gamepad1.dpad_left && gamepad1.dpad_right)     {   // swivel beam claw down
                 if (beam_swivel == null) {
                     beam_swivel = hardwareMap.get(Servo.class, Config.BEAM_SWIVEL);
                     beam_swivel.setDirection(Servo.Direction.FORWARD);
                 }
 
                 beam_swivel.setPosition(Config.BEAM_SWIVEL_DOWN);
-            } else if (gamepad1.left_bumper && ! gamepad1.right_bumper)  {    //open beam claw
+            } else if (gamepad1.left_bumper && ! gamepad1.right_bumper)  {    // open beam claw
                 if (beam_claw == null) {
                     beam_claw = hardwareMap.get(Servo.class, Config.BEAM_CLAW);
                     beam_claw.setDirection(Servo.Direction.FORWARD);
                 }
 
                 beam_claw.setPosition(Config.BEAM_CLAW_OPENED);
-            } else if ( ! gamepad1.left_bumper && gamepad1.right_bumper) {   //close beam claw
+            } else if ( ! gamepad1.left_bumper && gamepad1.right_bumper) {   // close beam claw
                 if (beam_claw == null) {
                     beam_claw = hardwareMap.get(Servo.class, Config.BEAM_CLAW);
                     beam_claw.setDirection(Servo.Direction.FORWARD);
@@ -516,7 +526,7 @@ public class GriffinDiagnostics extends OpMode {
                     stbd_mr_range = hardwareMap.get(DistanceSensor.class, Config.STBD_MR_RANGE);
                 }
 
-                telemetry.addData("MR Range", "[%6.2f\", %6.2f\"]",
+                telemetry.addData("MR Range", "[Port:%7.2f\", Stbd:%7.2f\"]",
                         port_mr_range.getDistance(DistanceUnit.INCH),
                         stbd_mr_range.getDistance(DistanceUnit.INCH));
             }
@@ -553,13 +563,13 @@ public class GriffinDiagnostics extends OpMode {
                     stbd_ir_bow = hardwareMap.get(AnalogInput.class, Config.STBD_BOW_IR);
                 }
 
-                telemetry.addData("Port",
-                        "[%6.4f:%6.2f, %6.4f:%6.2f]",
+                telemetry.addData("Port............",
+                        "[Aft:%6.4f:%7.2f, Bow:%6.4f:%7.2f]",
                         port_ir_aft.getVoltage(), ir_v2in.distance(port_ir_aft.getVoltage()),
                         port_ir_bow.getVoltage(), ir_v2in.distance(port_ir_bow.getVoltage()));
 
                 telemetry.addData("Starboard",
-                        "[%6.4f:%6.2f, %6.4f:%6.2f]",
+                        "[Aft:%6.4f:%7.2f, Bow:%6.4f:%7.2f]",
                         stbd_ir_aft.getVoltage(), ir_v2in.distance(stbd_ir_aft.getVoltage()),
                         stbd_ir_bow.getVoltage(), ir_v2in.distance(stbd_ir_bow.getVoltage()));
             }

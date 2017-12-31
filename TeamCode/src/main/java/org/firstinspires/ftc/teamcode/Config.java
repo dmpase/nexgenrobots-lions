@@ -43,7 +43,7 @@ public class Config {
     //     Expansion Hub 3
     //         Motors
     public static final String BEAM_DRIVE       = "beam";                   // Hub 3.Motors[2].Rev Robotics HD Hex
-    public static final String LIFT_DRIVE       = "lift";                   // Hub 3.Motors[3].Rev Robotics HD Hex
+    public static final String LIFT_DRIVE       = "claw lift";              // Hub 3.Motors[3].Rev Robotics HD Hex
 
     //         Servos
     public static final String PORT_CLAW        = "port claw";              // Hub 3.Servos[0].Servo
@@ -92,8 +92,8 @@ public class Config {
     public static final double BEAM_SWIVEL_DOWN = 0.65;
 
     // Misc. motor parameters
-    public static final int    MOTOR_TARGET_TOLERANCE = 5;      // encoder clicks
-    public static final double MOTOR_LAG_SEC          = 0.25;   // seconds
+    public static final int    MOTOR_TARGET_TOLERANCE =   5;    // encoder clicks
+    public static final double MOTOR_LAG_SEC          =   0.50; // seconds
     public static final long   MOTOR_LAG_MILLI        = 250;    // milliseconds
 
 
