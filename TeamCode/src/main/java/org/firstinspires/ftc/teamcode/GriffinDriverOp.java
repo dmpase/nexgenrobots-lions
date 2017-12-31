@@ -48,9 +48,9 @@ import static com.sun.tools.javac.util.Constants.format;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Lion Driver OpMode", group="Iterative OpMode")
+@TeleOp(name="Griffin Driver OpMode", group="Iterative OpMode")
 // @Disabled
-public class LionDriver extends OpMode
+public class GriffinDriverOp extends OpMode
 {
     // Declare OpMode members.
     // REV Robotics drive motors
@@ -123,48 +123,45 @@ public class LionDriver extends OpMode
     }
 
 
+    final boolean beam_enabled = false;
+
     public void get_beam_settings()
     {
-        if (gamepad1.dpad_left && ! gamepad1.dpad_right) {           // extend the beam
+        if (beam_enabled && gamepad1.dpad_left && ! gamepad1.dpad_right) {           // extend the beam
             beam.setPower(0);
+            double start = runtime.seconds();
             beam.setTargetPosition(Config.BEAM_TARGET_OUT);
             beam.setPower(Config.BEAM_POWER);
 
-            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(beam.getTargetPosition() - beam.getCurrentPosition()) ) {
-                ;
+            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
             }
 
-            sleep(Config.MOTOR_LAG);
+            if ((runtime.seconds() - start) < Config.MOTOR_LAG_SEC) {
+                sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
+            }
 
             beam.setPower(0);
-        } else if (! gamepad1.dpad_left && gamepad1.dpad_right) {    // retract the beam
+        } else if (beam_enabled && ! gamepad1.dpad_left && gamepad1.dpad_right) {    // retract the beam
             beam.setPower(0);
+            double start = runtime.seconds();
             beam.setTargetPosition(Config.BEAM_TARGET_IN);
             beam.setPower(Config.BEAM_POWER);
 
-            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(beam.getTargetPosition() - beam.getCurrentPosition()) ) {
-                ;
+            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
             }
 
-            sleep(Config.MOTOR_LAG);
+            if ((runtime.seconds() - start) < Config.MOTOR_LAG_SEC) {
+                sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
+            }
 
             beam.setPower(0);
         }
     }
 
 
-    public static final int TAIL        = 0;
-    public static final int LIFT        = 1;
-    public static final int PORT_CLAW   = 2;
-    public static final int STBD_CLAW   = 3;
-    public static final int SERVO_COUNT = 4;
-
-    public static final int    lift_max_pos =  5500;
-    public static final int    lift_mid_pos =     0;
-    public static final int    lift_min_pos =  -100;
     public static final double lift_max_pwr =  0.40;
-    public static final double lift_mid_pwr =  0.00;
-    public static final double lift_min_pwr = -lift_max_pwr;
 
     public void get_claw_settings()
     {
@@ -178,26 +175,34 @@ public class LionDriver extends OpMode
 
         if (gamepad1.y && ! gamepad1.a) {           // raise the claw
             lift.setPower(0);
-            lift.setTargetPosition(Config.LIFT_TARGET_HI);
+            double start = runtime.seconds();
+            int target = Config.LIFT_TARGET_HI;
+            lift.setTargetPosition(target);
             lift.setPower(Config.LIFT_POWER);
 
             while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
-                ;
+                if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
             }
 
-            sleep(Config.MOTOR_LAG);
+            if ((runtime.seconds() - start) < Config.MOTOR_LAG_SEC) {
+                sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
+            }
 
             lift.setPower(0);
         } else if (! gamepad1.y && gamepad1.a) {    // lower the claw
             lift.setPower(0);
-            lift.setTargetPosition(Config.LIFT_TARGET_LO);
+            double start = runtime.seconds();
+            int target = Config.LIFT_TARGET_LO;
+            lift.setTargetPosition(target);
             lift.setPower(Config.LIFT_POWER);
 
             while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
-                ;
+                if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
             }
 
-            sleep(Config.MOTOR_LAG);
+            if ((runtime.seconds() - start) < Config.MOTOR_LAG_SEC) {
+                sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
+            }
 
             lift.setPower(0);
         }

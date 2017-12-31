@@ -59,11 +59,11 @@ public class Config {
 
 
     // Lift parameters
-    public static final double LIFT_POWER       = 0.50;
+    public static final double LIFT_POWER       = 0.75;
     public static final int    LIFT_TARGET_HI   = 4800;
     public static final int    LIFT_TARGET_INCH =  400;
     public static final int    LIFT_TARGET_LO   =    0;
-    public static final int    LIFT_TARGET_SET  = -400;
+    public static final int    LIFT_TARGET_SET  =  400;
     public static final DcMotor.Direction LIFT_DIRECTION = DcMotor.Direction.FORWARD;
 
 
@@ -87,8 +87,9 @@ public class Config {
 
 
     // Misc. motor parameters
-    public static final int  MOTOR_TARGET_TOLERANCE =   5;
-    public static final long MOTOR_LAG              = 250;
+    public static final int    MOTOR_TARGET_TOLERANCE = 5;      // encoder clicks
+    public static final double MOTOR_LAG_SEC          = 0.25;   // seconds
+    public static final long   MOTOR_LAG_MILLI        = 250;    // milliseconds
 
 
     // Misc. playing field parameters

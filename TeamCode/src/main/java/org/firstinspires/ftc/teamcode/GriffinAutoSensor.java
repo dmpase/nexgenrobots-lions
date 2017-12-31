@@ -30,7 +30,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -51,9 +50,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Lion Auto Input", group="Autonomous")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Griffin Auto Sensor", group="Autonomous")
 // @Disabled
-public class LionAutoInput extends LinearOpMode {
+public class GriffinAutoSensor extends LinearOpMode {
     // Declare OpMode members.
 
     public static enum Command {ROTATE, FORWARD, BACKWARD, LEFT, RIGHT, ADJUST, OPEN_CLAW, CLOSE_CLAW, LIFT}
@@ -113,31 +112,41 @@ public class LionAutoInput extends LinearOpMode {
         }
 
 
+        tail.setPosition(Config.TAIL_POS_UP);
+        execute(raise_claw);
+
         Color team_color = Color.UNKNOWN;
         int quadrant = UNKNOWN;
 
+        // Modern Robotics ultrasonic range sensors
+        DistanceSensor port_mr_range = hardwareMap.get(DistanceSensor.class, Config.PORT_MR_RANGE);
+        DistanceSensor stbd_mr_range = hardwareMap.get(DistanceSensor.class, Config.STBD_MR_RANGE);
         while (! gamepad1.start) {
-            if (gamepad1.x) {
-                quadrant = BLUE_LEFT;
-                team_color = Color.BLUE;
-            } else if (gamepad1.a) {
+            // ^^^ read port and starboard sensor to find quadrant (e.g., 3rd quadrant; blue)
+            double port_dist = port_mr_range.getDistance(DistanceUnit.INCH);
+            double stbd_dist = stbd_mr_range.getDistance(DistanceUnit.INCH);
+
+            if (stbd_dist < Config.SHORT) {
                 quadrant = BLUE_RIGHT;
                 team_color = Color.BLUE;
-            } else if (gamepad1.y) {
-                quadrant = RED_LEFT;
-                team_color = Color.RED;
-            } else if (gamepad1.b) {
+            } else if (stbd_dist < Config.MEDIUM) {
                 quadrant = RED_RIGHT;
                 team_color = Color.RED;
+            } else if (port_dist < Config.SHORT) {
+                quadrant = RED_LEFT;
+                team_color = Color.RED;
+            } else if (port_dist < Config.MEDIUM) {
+                quadrant = BLUE_LEFT;
+                team_color = Color.BLUE;
             }
-            telemetry.addData("Blue", "'X' for left, 'A' for right.");
-            telemetry.addData("Red", "'Y' for left, 'B' for right.");
+            telemetry.addData("Data", "Port:%6.2f, Stbd:%6.2f", port_dist, stbd_dist);
             telemetry.addData("Selection", "Quadrant:%s, Team:%s",
                     QUADRANT_NAME[quadrant], team_color.toString());
             telemetry.addData("Start", "Press 'Start' to wait for start.");
             telemetry.update();
         }
 
+        execute(raise_claw);
 
         telemetry.addData("Selection", "Quadrant:%s, Team:%s",
                 QUADRANT_NAME[quadrant], team_color.toString());
@@ -343,11 +352,11 @@ public class LionAutoInput extends LinearOpMode {
         } else if (op_code == Command.OPEN_CLAW) {
             port_claw.setPosition(Config.PORT_CLAW_OPENED);
             stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
-            sleep(Config.MOTOR_LAG);
+            sleep(Config.MOTOR_LAG_MILLI);
         } else if (op_code == Command.CLOSE_CLAW) {
             port_claw.setPosition(Config.PORT_CLAW_CLOSED);
             stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
-            sleep(Config.MOTOR_LAG);
+            sleep(Config.MOTOR_LAG_MILLI);
         } else if (op_code == Command.LIFT) {
             int target = (int) cmd[TARGET];
             run_to_position(lift, target, Config.LIFT_POWER, Config.MOTOR_TARGET_TOLERANCE);
@@ -468,7 +477,7 @@ public class LionAutoInput extends LinearOpMode {
             ;
         }
 
-        sleep(Config.MOTOR_LAG);
+        sleep(Config.MOTOR_LAG_MILLI);
 
         motor.setPower(0);
     }
@@ -507,7 +516,7 @@ public class LionAutoInput extends LinearOpMode {
             ;
         }
 
-        sleep(Config.MOTOR_LAG);
+        sleep(Config.MOTOR_LAG_MILLI);
 
         port_bow_motor.setPower(0);
         stbd_bow_motor.setPower(0);
