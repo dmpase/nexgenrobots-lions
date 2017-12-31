@@ -31,19 +31,19 @@ public class Config {
     public static final String IMU0             = "imu 0";                  // Hub 2.I2C Bus 0[0].Rev Expansion Hub IMU
 
     //         I2C Bus 1
-    public static final String STBD_MR_RANGE    = "starboard mr range";     // Hub 2.I2C Bus 0[0].MR Range Sensor
+    public static final String STBD_MR_RANGE    = "starboard mr range";     // Hub 2.I2C Bus 1[0].MR Range Sensor
 
     //         I2C Bus 2
-    public static final String PORT_MR_RANGE    = "port mr range";          // Hub 2.I2C Bus 0[0].MR Range Sensor
+    public static final String PORT_MR_RANGE    = "port mr range";          // Hub 2.I2C Bus 2[0].MR Range Sensor
 
     //         I2C Bus 3
-    public static final String REV_COLOR_RANGE  = "rev color range";        // Hub 2.I2C Bus 0[0].Rev Color/Range Sensor
+    public static final String REV_COLOR_RANGE  = "rev color range";        // Hub 2.I2C Bus 3[0].Rev Color/Range Sensor
 
 
     //     Expansion Hub 3
     //         Motors
-    public static final String BEAM_DRIVE       = "beam";                   // Hub 3.Motors[2].Rev Robotics HD Hex
-    public static final String LIFT_DRIVE       = "lift";                   // Hub 3.Motors[3].Rev Robotics HD Hex
+    public static final String BEAM_DRIVE       = "beam drive";                   // Hub 3.Motors[2].Rev Robotics HD Hex
+    public static final String LIFT_DRIVE       = "claw lift";                   // Hub 3.Motors[3].Rev Robotics HD Hex
 
     //         Servos
     public static final String PORT_CLAW        = "port claw";              // Hub 3.Servos[0].Servo
