@@ -127,7 +127,7 @@ public class GriffinDriverOp extends OpMode
     }
 
 
-    final boolean beam_enabled = false;
+    private boolean beam_enabled = false;
 
     public void get_beam_settings()
     {
@@ -368,17 +368,17 @@ public class GriffinDriverOp extends OpMode
 
     public void init_beam()
     {
-        if (beam_claw == null) {
+        if (beam_enabled && beam_claw == null) {
             beam_claw = hardwareMap.get(Servo.class, Config.BEAM_CLAW);
             beam_claw.setDirection(Servo.Direction.FORWARD);
         }
 
-        if (beam_swivel == null) {
+        if (beam_enabled && beam_swivel == null) {
             beam_swivel = hardwareMap.get(Servo.class, Config.BEAM_SWIVEL);
             beam_swivel.setDirection(Servo.Direction.FORWARD);
         }
 
-        if (beam_drive == null) {
+        if (beam_enabled && beam_drive == null) {
             beam_drive = hardwareMap.get(DcMotor.class, Config.BEAM_DRIVE);
             beam_drive.setDirection(DcMotor.Direction.FORWARD);
             beam_drive.setPower(0);
