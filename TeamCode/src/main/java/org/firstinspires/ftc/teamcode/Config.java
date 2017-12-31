@@ -42,8 +42,8 @@ public class Config {
 
     //     Expansion Hub 3
     //         Motors
-    public static final String BEAM_DRIVE       = "beam drive";                   // Hub 3.Motors[2].Rev Robotics HD Hex
-    public static final String LIFT_DRIVE       = "claw lift";                   // Hub 3.Motors[3].Rev Robotics HD Hex
+    public static final String BEAM_DRIVE       = "beam drive";             // Hub 3.Motors[2].Rev Robotics HD Hex
+    public static final String LIFT_DRIVE       = "claw lift";              // Hub 3.Motors[3].Rev Robotics HD Hex
 
     //         Servos
     public static final String PORT_CLAW        = "port claw";              // Hub 3.Servos[0].Servo
