@@ -83,7 +83,7 @@ public class GriffinDriverOp extends OpMode
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
         telemetry.addData("Status", "Initializing Motors.");
-        init_motors();
+        init_drive();
 
         telemetry.addData("Status", "Initializing Servos.");
         init_claw();
@@ -303,7 +303,7 @@ public class GriffinDriverOp extends OpMode
         port_aft_drive.setPower(motors[PORT_AFT]);
     }
 
-    private void init_motors() {
+    private void init_drive() {
         if (port_bow_drive == null) {
             port_bow_drive = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
             port_bow_drive.setDirection(DcMotor.Direction.FORWARD);
