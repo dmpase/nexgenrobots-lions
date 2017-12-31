@@ -74,6 +74,10 @@ public class GriffinDiagnostics extends OpMode {
     private DcMotor lift        = null;
     private DcMotor beam_drive  = null;
 
+    // beam servos
+    private Servo beam_claw         = null;
+    private Servo beam_swivel       = null;
+
     // Modern Robotics ultrasonic range sensors
     private DistanceSensor port_mr_range = null;
     private DistanceSensor stbd_mr_range = null;
@@ -427,7 +431,7 @@ public class GriffinDiagnostics extends OpMode {
                 tail.setPosition(Config.TAIL_POS_DN);
             }
         } else if (state == BEAM) {
-            if (gamepad1.x && ! gamepad1.b) {           // extend the beam_drive
+            if (gamepad1.dpad_up && ! gamepad1.dpad_down) {           // extend the beam
                 if (beam_drive == null) {
                     beam_drive = hardwareMap.get(DcMotor.class, Config.BEAM_DRIVE);
                     beam_drive.setDirection(DcMotor.Direction.FORWARD);
@@ -450,7 +454,7 @@ public class GriffinDiagnostics extends OpMode {
                 }
 
                 beam_drive.setPower(0);
-            } else if (! gamepad1.x && gamepad1.b) {    // retract the beam_drive
+            } else if (! gamepad1.dpad_up && gamepad1.dpad_down) {    // retract the beam
                 if (beam_drive == null) {
                     beam_drive = hardwareMap.get(DcMotor.class, Config.BEAM_DRIVE);
                     beam_drive.setDirection(Config.BEAM_DIRECTION);
@@ -473,6 +477,34 @@ public class GriffinDiagnostics extends OpMode {
                 }
 
                 beam_drive.setPower(0);
+            } else if (gamepad1.dpad_left && ! gamepad1.dpad_right)     {   //swivel beam claw up
+                if (beam_swivel == null) {
+                    beam_swivel = hardwareMap.get(Servo.class, Config.BEAM_SWIVEL);
+                    beam_swivel.setDirection(Servo.Direction.FORWARD);
+                }
+
+                beam_swivel.setPosition(Config.BEAM_SWIVEL_UP);
+            } else if ( ! gamepad1.dpad_left && gamepad1.dpad_right)     {   //swivel beam claw down
+                if (beam_swivel == null) {
+                    beam_swivel = hardwareMap.get(Servo.class, Config.BEAM_SWIVEL);
+                    beam_swivel.setDirection(Servo.Direction.FORWARD);
+                }
+
+                beam_swivel.setPosition(Config.BEAM_SWIVEL_DOWN);
+            } else if (gamepad1.left_bumper && ! gamepad1.right_bumper)  {    //open beam claw
+                if (beam_claw == null) {
+                    beam_claw = hardwareMap.get(Servo.class, Config.BEAM_CLAW);
+                    beam_claw.setDirection(Servo.Direction.FORWARD);
+                }
+
+                beam_claw.setPosition(Config.BEAM_CLAW_OPENED);
+            } else if ( ! gamepad1.left_bumper && gamepad1.right_bumper) {   //close beam claw
+                if (beam_claw == null) {
+                    beam_claw = hardwareMap.get(Servo.class, Config.BEAM_CLAW);
+                    beam_claw.setDirection(Servo.Direction.FORWARD);
+                }
+
+                beam_claw.setPosition(Config.BEAM_CLAW_CLOSED);
             }
         } else if (state == ULTRASONIC) {
             if (gamepad1.a || gamepad1.b || gamepad1.x || gamepad1.y) {
