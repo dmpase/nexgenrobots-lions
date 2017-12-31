@@ -56,14 +56,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Diagnostics", group="Iterative Opmode")
+@TeleOp(name="Griffin Diagnostics", group="Iterative Opmode")
 // @Disabled
-public class Diagnostics extends OpMode {
+public class GriffinDiagnostics extends OpMode {
     // locomotion motors
-    private DcMotor port_bow_motor = null;
-    private DcMotor stbd_bow_motor = null;
-    private DcMotor stbd_aft_motor = null;
-    private DcMotor port_aft_motor = null;
+    private DcMotor port_bow_drive = null;
+    private DcMotor stbd_bow_drive = null;
+    private DcMotor stbd_aft_drive = null;
+    private DcMotor port_aft_drive = null;
 
     // claw and tail servos
     private Servo port_claw = null;
@@ -72,7 +72,7 @@ public class Diagnostics extends OpMode {
 
     // claw lift and beam motors
     private DcMotor lift        = null;
-    private DcMotor beam        = null;
+    private DcMotor beam_drive  = null;
 
     // Modern Robotics ultrasonic range sensors
     private DistanceSensor port_mr_range = null;
@@ -147,7 +147,7 @@ public class Diagnostics extends OpMode {
 
     private static final String[] state_names = {
             "START",
-            "GAMEPAD", "ROTATE", "MOTION", "CLAW", "TAIL", "BEAM", "ULTRASONIC", "COLOR", "IR", "VUFORIA", "IMU",
+            "GAMEPAD", "ROTATE", "MOTION", "CLAW", "TAIL", "BEAM_DRIVE", "ULTRASONIC", "COLOR", "IR", "VUFORIA", "IMU",
             "DONE"
     };
 
@@ -160,7 +160,7 @@ public class Diagnostics extends OpMode {
             {ROTATE,        CLAW},          // MOTION
             {MOTION,        TAIL},          // CLAW
             {CLAW,          BEAM},          // TAIL
-            {TAIL,          ULTRASONIC},    // BEAM
+            {TAIL,          ULTRASONIC},    // BEAM_DRIVE
             {BEAM,          COLOR},         // ULTRASONIC
             {ULTRASONIC,    IR},            // COLOR
             {COLOR,         VUFORIA},       // IR
@@ -260,84 +260,84 @@ public class Diagnostics extends OpMode {
                     gamepad2.left_trigger,  gamepad2.right_trigger);
         } else if (state == ROTATE) {
             if ((gamepad1.x || gamepad1.left_bumper) && !(gamepad1.b || gamepad1.right_bumper)) {
-                init_motors();
+                init_drive();
 
-                port_bow_motor.setPower(0.1);
-                stbd_bow_motor.setPower(0.1);
-                stbd_aft_motor.setPower(0.1);
-                port_aft_motor.setPower(0.1);
+                port_bow_drive.setPower(0.1);
+                stbd_bow_drive.setPower(0.1);
+                stbd_aft_drive.setPower(0.1);
+                port_aft_drive.setPower(0.1);
             } else if (!(gamepad1.x || gamepad1.left_bumper) && (gamepad1.b || gamepad1.right_bumper)) {
-                init_motors();
+                init_drive();
 
-                port_bow_motor.setPower(-0.1);
-                stbd_bow_motor.setPower(-0.1);
-                stbd_aft_motor.setPower(-0.1);
-                port_aft_motor.setPower(-0.1);
+                port_bow_drive.setPower(-0.1);
+                stbd_bow_drive.setPower(-0.1);
+                stbd_aft_drive.setPower(-0.1);
+                port_aft_drive.setPower(-0.1);
             } else {
-                if (port_bow_motor != null) {
-                    port_bow_motor.setPower(0);
+                if (port_bow_drive != null) {
+                    port_bow_drive.setPower(0);
                 }
 
-                if (stbd_bow_motor != null) {
-                    stbd_bow_motor.setPower(0);
+                if (stbd_bow_drive != null) {
+                    stbd_bow_drive.setPower(0);
                 }
 
-                if (stbd_aft_motor != null) {
-                    stbd_aft_motor.setPower(0);
+                if (stbd_aft_drive != null) {
+                    stbd_aft_drive.setPower(0);
                 }
 
-                if (port_aft_motor != null) {
-                    port_aft_motor.setPower(0);
+                if (port_aft_drive != null) {
+                    port_aft_drive.setPower(0);
                 }
             }
         } else if (state == MOTION) {
             if (!gamepad1.a && !gamepad1.b && !gamepad1.x && gamepad1.y) {
                 // FORWARD
-                init_motors();
+                init_drive();
 
-                port_bow_motor.setPower(-0.1);
-                stbd_bow_motor.setPower(0.1);
-                stbd_aft_motor.setPower(0.1);
-                port_aft_motor.setPower(-0.1);
+                port_bow_drive.setPower(-0.1);
+                stbd_bow_drive.setPower(0.1);
+                stbd_aft_drive.setPower(0.1);
+                port_aft_drive.setPower(-0.1);
             } else if (!gamepad1.a && gamepad1.b && !gamepad1.x && !gamepad1.y) {
                 // RIGHT
-                init_motors();
+                init_drive();
 
-                port_bow_motor.setPower(-0.1);
-                stbd_bow_motor.setPower(-0.1);
-                stbd_aft_motor.setPower(0.1);
-                port_aft_motor.setPower(0.1);
+                port_bow_drive.setPower(-0.1);
+                stbd_bow_drive.setPower(-0.1);
+                stbd_aft_drive.setPower(0.1);
+                port_aft_drive.setPower(0.1);
             } else if (gamepad1.a && !gamepad1.b && !gamepad1.x && !gamepad1.y) {
                 // BACKWARD
-                init_motors();
+                init_drive();
 
-                port_bow_motor.setPower(0.1);
-                stbd_bow_motor.setPower(-0.1);
-                stbd_aft_motor.setPower(-0.1);
-                port_aft_motor.setPower(0.1);
+                port_bow_drive.setPower(0.1);
+                stbd_bow_drive.setPower(-0.1);
+                stbd_aft_drive.setPower(-0.1);
+                port_aft_drive.setPower(0.1);
             } else if (!gamepad1.a && !gamepad1.b && gamepad1.x && !gamepad1.y) {
                 // LEFT
-                init_motors();
+                init_drive();
 
-                port_bow_motor.setPower(0.1);
-                stbd_bow_motor.setPower(0.1);
-                stbd_aft_motor.setPower(-0.1);
-                port_aft_motor.setPower(-0.1);
+                port_bow_drive.setPower(0.1);
+                stbd_bow_drive.setPower(0.1);
+                stbd_aft_drive.setPower(-0.1);
+                port_aft_drive.setPower(-0.1);
             } else {
-                if (port_bow_motor != null) {
-                    port_bow_motor.setPower(0);
+                if (port_bow_drive != null) {
+                    port_bow_drive.setPower(0);
                 }
 
-                if (stbd_bow_motor != null) {
-                    stbd_bow_motor.setPower(0);
+                if (stbd_bow_drive != null) {
+                    stbd_bow_drive.setPower(0);
                 }
 
-                if (stbd_aft_motor != null) {
-                    stbd_aft_motor.setPower(0);
+                if (stbd_aft_drive != null) {
+                    stbd_aft_drive.setPower(0);
                 }
 
-                if (port_aft_motor != null) {
-                    port_aft_motor.setPower(0);
+                if (port_aft_drive != null) {
+                    port_aft_drive.setPower(0);
                 }
             }
         } else if (state == CLAW) {
@@ -371,7 +371,7 @@ public class Diagnostics extends OpMode {
 
             if (gamepad1.y && ! gamepad1.a) {           // raise the claw
                 if (lift == null) {
-                    lift = hardwareMap.get(DcMotor.class, Config.LIFT);
+                    lift = hardwareMap.get(DcMotor.class, Config.LIFT_DRIVE);
                     lift.setDirection(Config.LIFT_DIRECTION);
                     lift.setPower(0);
                     lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -389,7 +389,7 @@ public class Diagnostics extends OpMode {
                 lift.setPower(0);
             } else if (! gamepad1.y && gamepad1.a) {    // lower the claw
                 if (lift == null) {
-                    lift = hardwareMap.get(DcMotor.class, Config.LIFT);
+                    lift = hardwareMap.get(DcMotor.class, Config.LIFT_DRIVE);
                     lift.setDirection(Config.LIFT_DIRECTION);
                     lift.setPower(0);
                     lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -427,42 +427,52 @@ public class Diagnostics extends OpMode {
                 tail.setPosition(Config.TAIL_POS_DN);
             }
         } else if (state == BEAM) {
-            if (gamepad1.x && ! gamepad1.b) {           // extend the beam
-                if (beam == null) {
-                    beam = hardwareMap.get(DcMotor.class, Config.BEAM);
-                    beam.setDirection(DcMotor.Direction.FORWARD);
-                    beam.setPower(0);
-                    beam.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    beam.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            if (gamepad1.x && ! gamepad1.b) {           // extend the beam_drive
+                if (beam_drive == null) {
+                    beam_drive = hardwareMap.get(DcMotor.class, Config.BEAM_DRIVE);
+                    beam_drive.setDirection(DcMotor.Direction.FORWARD);
+                    beam_drive.setPower(0);
+                    beam_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    beam_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 }
 
-                beam.setPower(0);
-                beam.setTargetPosition(Config.BEAM_TARGET_OUT);
-                beam.setPower(Config.BEAM_POWER);
+                beam_drive.setPower(0);
+                double start = runtime.seconds();
+                beam_drive.setTargetPosition(Config.BEAM_TARGET_OUT);
+                beam_drive.setPower(Config.BEAM_POWER);
 
-                while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(beam.getTargetPosition() - beam.getCurrentPosition()) ) {
-                    ;
+                while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                    if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
                 }
 
-                beam.setPower(0);
-            } else if (! gamepad1.x && gamepad1.b) {    // retract the beam
-                if (beam == null) {
-                    beam = hardwareMap.get(DcMotor.class, Config.BEAM);
-                    beam.setDirection(Config.BEAM_DIRECTION);
-                    beam.setPower(0);
-                    beam.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    beam.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                if ((runtime.seconds() - start) < Config.MOTOR_LAG_SEC) {
+                    sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
                 }
 
-                beam.setPower(0);
-                beam.setTargetPosition(Config.BEAM_TARGET_IN);
-                beam.setPower(Config.BEAM_POWER);
-
-                while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(beam.getTargetPosition() - beam.getCurrentPosition()) ) {
-                    ;
+                beam_drive.setPower(0);
+            } else if (! gamepad1.x && gamepad1.b) {    // retract the beam_drive
+                if (beam_drive == null) {
+                    beam_drive = hardwareMap.get(DcMotor.class, Config.BEAM_DRIVE);
+                    beam_drive.setDirection(Config.BEAM_DIRECTION);
+                    beam_drive.setPower(0);
+                    beam_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    beam_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 }
 
-                beam.setPower(0);
+                beam_drive.setPower(0);
+                double start = runtime.seconds();
+                beam_drive.setTargetPosition(Config.BEAM_TARGET_IN);
+                beam_drive.setPower(Config.BEAM_POWER);
+
+                while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                    if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
+                }
+
+                if ((runtime.seconds() - start) < Config.MOTOR_LAG_SEC) {
+                    sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
+                }
+
+                beam_drive.setPower(0);
             }
         } else if (state == ULTRASONIC) {
             if (gamepad1.a || gamepad1.b || gamepad1.x || gamepad1.y) {
@@ -560,37 +570,47 @@ public class Diagnostics extends OpMode {
         telemetry.addData("State", "%10s %8.0f", state_names[state], runtime.seconds());
     }
 
-    private void init_motors() {
-        if (port_bow_motor == null) {
-            port_bow_motor = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
-            port_bow_motor.setDirection(DcMotor.Direction.FORWARD);
-            port_bow_motor.setPower(0);
-            port_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            port_bow_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    private void init_drive() {
+        if (port_bow_drive == null) {
+            port_bow_drive = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
+            port_bow_drive.setDirection(DcMotor.Direction.FORWARD);
+            port_bow_drive.setPower(0);
+            port_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            port_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        if (stbd_bow_motor == null) {
-            stbd_bow_motor = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
-            stbd_bow_motor.setDirection(DcMotor.Direction.FORWARD);
-            stbd_bow_motor.setPower(0);
-            stbd_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            stbd_bow_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (stbd_bow_drive == null) {
+            stbd_bow_drive = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
+            stbd_bow_drive.setDirection(DcMotor.Direction.FORWARD);
+            stbd_bow_drive.setPower(0);
+            stbd_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            stbd_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        if (stbd_aft_motor == null) {
-            stbd_aft_motor = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
-            stbd_aft_motor.setDirection(DcMotor.Direction.FORWARD);
-            stbd_aft_motor.setPower(0);
-            stbd_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            stbd_aft_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (stbd_aft_drive == null) {
+            stbd_aft_drive = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
+            stbd_aft_drive.setDirection(DcMotor.Direction.FORWARD);
+            stbd_aft_drive.setPower(0);
+            stbd_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            stbd_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        if (port_aft_motor == null) {
-            port_aft_motor = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
-            port_aft_motor.setDirection(DcMotor.Direction.FORWARD);
-            port_aft_motor.setPower(0);
-            port_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            port_aft_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (port_aft_drive == null) {
+            port_aft_drive = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
+            port_aft_drive.setDirection(DcMotor.Direction.FORWARD);
+            port_aft_drive.setPower(0);
+            port_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            port_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+    }
+
+    public static void sleep(double sec)
+    {
+        long ms = (long)(sec * 1000);
+        try {
+            Thread.sleep(ms);
+        } catch (Exception e) {
+            ;
         }
     }
 

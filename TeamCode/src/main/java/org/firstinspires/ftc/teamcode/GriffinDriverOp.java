@@ -54,20 +54,24 @@ public class GriffinDriverOp extends OpMode
 {
     // Declare OpMode members.
     // REV Robotics drive motors
-    private DcMotor port_bow_motor = null;
-    private DcMotor stbd_bow_motor = null;
-    private DcMotor stbd_aft_motor = null;
-    private DcMotor port_aft_motor = null;
+    private DcMotor port_bow_drive = null;
+    private DcMotor stbd_bow_drive = null;
+    private DcMotor stbd_aft_drive = null;
+    private DcMotor port_aft_drive = null;
 
     // claw and tail servos
-    private Servo port_claw = null;
-    private Servo stbd_claw = null;
+    private Servo port_claw         = null;
+    private Servo stbd_claw         = null;
 
-    // claw lift and beam motors
-    private DcMotor lift = null;
-    private DcMotor beam = null;
+    // claw lift and beam drive motors
+    private DcMotor lift            = null;
+    private DcMotor beam_drive = null;
 
-    private ElapsedTime runtime = new ElapsedTime();
+    // beam_drive servos
+    private Servo beam_claw         = null;
+    private Servo beam_swivel       = null;
+
+    private ElapsedTime runtime     = new ElapsedTime();
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -127,11 +131,11 @@ public class GriffinDriverOp extends OpMode
 
     public void get_beam_settings()
     {
-        if (beam_enabled && gamepad1.dpad_left && ! gamepad1.dpad_right) {           // extend the beam
-            beam.setPower(0);
+        if (beam_enabled && gamepad1.dpad_left && ! gamepad1.dpad_right) {           // extend the beam_drive
+            beam_drive.setPower(0);
             double start = runtime.seconds();
-            beam.setTargetPosition(Config.BEAM_TARGET_OUT);
-            beam.setPower(Config.BEAM_POWER);
+            beam_drive.setTargetPosition(Config.BEAM_TARGET_OUT);
+            beam_drive.setPower(Config.BEAM_POWER);
 
             while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
                 if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
@@ -141,12 +145,12 @@ public class GriffinDriverOp extends OpMode
                 sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
             }
 
-            beam.setPower(0);
-        } else if (beam_enabled && ! gamepad1.dpad_left && gamepad1.dpad_right) {    // retract the beam
-            beam.setPower(0);
+            beam_drive.setPower(0);
+        } else if (beam_enabled && ! gamepad1.dpad_left && gamepad1.dpad_right) {    // retract the beam_drive
+            beam_drive.setPower(0);
             double start = runtime.seconds();
-            beam.setTargetPosition(Config.BEAM_TARGET_IN);
-            beam.setPower(Config.BEAM_POWER);
+            beam_drive.setTargetPosition(Config.BEAM_TARGET_IN);
+            beam_drive.setPower(Config.BEAM_POWER);
 
             while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
                 if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
@@ -156,7 +160,7 @@ public class GriffinDriverOp extends OpMode
                 sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
             }
 
-            beam.setPower(0);
+            beam_drive.setPower(0);
         }
     }
 
@@ -293,43 +297,43 @@ public class GriffinDriverOp extends OpMode
             }
         }
 
-        port_bow_motor.setPower(motors[PORT_BOW]);
-        stbd_bow_motor.setPower(motors[STBD_BOW]);
-        stbd_aft_motor.setPower(motors[STBD_AFT]);
-        port_aft_motor.setPower(motors[PORT_AFT]);
+        port_bow_drive.setPower(motors[PORT_BOW]);
+        stbd_bow_drive.setPower(motors[STBD_BOW]);
+        stbd_aft_drive.setPower(motors[STBD_AFT]);
+        port_aft_drive.setPower(motors[PORT_AFT]);
     }
 
     private void init_motors() {
-        if (port_bow_motor == null) {
-            port_bow_motor = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
-            port_bow_motor.setDirection(DcMotor.Direction.FORWARD);
-            port_bow_motor.setPower(0);
-            port_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            port_bow_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (port_bow_drive == null) {
+            port_bow_drive = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
+            port_bow_drive.setDirection(DcMotor.Direction.FORWARD);
+            port_bow_drive.setPower(0);
+            port_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            port_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        if (stbd_bow_motor == null) {
-            stbd_bow_motor = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
-            stbd_bow_motor.setDirection(DcMotor.Direction.FORWARD);
-            stbd_bow_motor.setPower(0);
-            stbd_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            stbd_bow_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (stbd_bow_drive == null) {
+            stbd_bow_drive = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
+            stbd_bow_drive.setDirection(DcMotor.Direction.FORWARD);
+            stbd_bow_drive.setPower(0);
+            stbd_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            stbd_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        if (stbd_aft_motor == null) {
-            stbd_aft_motor = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
-            stbd_aft_motor.setDirection(DcMotor.Direction.FORWARD);
-            stbd_aft_motor.setPower(0);
-            stbd_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            stbd_aft_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (stbd_aft_drive == null) {
+            stbd_aft_drive = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
+            stbd_aft_drive.setDirection(DcMotor.Direction.FORWARD);
+            stbd_aft_drive.setPower(0);
+            stbd_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            stbd_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        if (port_aft_motor == null) {
-            port_aft_motor = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
-            port_aft_motor.setDirection(DcMotor.Direction.FORWARD);
-            port_aft_motor.setPower(0);
-            port_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            port_aft_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (port_aft_drive == null) {
+            port_aft_drive = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
+            port_aft_drive.setDirection(DcMotor.Direction.FORWARD);
+            port_aft_drive.setPower(0);
+            port_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            port_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 
@@ -346,7 +350,7 @@ public class GriffinDriverOp extends OpMode
         }
 
         if (lift == null) {
-            lift = hardwareMap.get(DcMotor.class, Config.LIFT);
+            lift = hardwareMap.get(DcMotor.class, Config.LIFT_DRIVE);
             lift.setDirection(Config.LIFT_DIRECTION);
             lift.setPower(0);
             lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -356,16 +360,26 @@ public class GriffinDriverOp extends OpMode
 
     public void init_beam()
     {
-        if (beam == null) {
-            beam = hardwareMap.get(DcMotor.class, Config.BEAM);
-            beam.setDirection(DcMotor.Direction.FORWARD);
-            beam.setPower(0);
-            beam.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            beam.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        if (beam_claw == null) {
+            beam_claw = hardwareMap.get(Servo.class, Config.BEAM_CLAW);
+            beam_claw.setDirection(Servo.Direction.FORWARD);
+        }
+
+        if (beam_swivel == null) {
+            beam_swivel = hardwareMap.get(Servo.class, Config.BEAM_SWIVEL);
+            beam_swivel.setDirection(Servo.Direction.FORWARD);
+        }
+
+        if (beam_drive == null) {
+            beam_drive = hardwareMap.get(DcMotor.class, Config.BEAM_DRIVE);
+            beam_drive.setDirection(DcMotor.Direction.FORWARD);
+            beam_drive.setPower(0);
+            beam_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            beam_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
     }
 
-    public void sleep(double sec)
+    public static void sleep(double sec)
     {
         long ms = (long)(sec * 1000);
         try {

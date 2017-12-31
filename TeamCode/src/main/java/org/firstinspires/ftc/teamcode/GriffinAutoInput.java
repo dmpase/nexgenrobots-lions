@@ -68,7 +68,7 @@ public class GriffinAutoInput extends LinearOpMode {
          */
         telemetry.addData("Status", "Starting Initialization.");
 
-        motor_init();
+        drive_init();
 
         servo_init();
 
@@ -351,34 +351,34 @@ public class GriffinAutoInput extends LinearOpMode {
         }
     }
 
-    private DcMotor port_bow_motor = null;
-    private DcMotor stbd_bow_motor = null;
-    private DcMotor stbd_aft_motor = null;
-    private DcMotor port_aft_motor = null;
+    private DcMotor port_bow_drive = null;
+    private DcMotor stbd_bow_drive = null;
+    private DcMotor stbd_aft_drive = null;
+    private DcMotor port_aft_drive = null;
 
-    public void motor_init()
+    public void drive_init()
     {
         telemetry.addData("Status", "Initializing Motors.");
 
-        port_bow_motor = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
-        stbd_bow_motor = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
-        stbd_aft_motor = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
-        port_aft_motor = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
+        port_bow_drive = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
+        stbd_bow_drive = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
+        stbd_aft_drive = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
+        port_aft_drive = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
 
-        port_bow_motor.setPower(0);
-        stbd_bow_motor.setPower(0);
-        stbd_aft_motor.setPower(0);
-        port_aft_motor.setPower(0);
+        port_bow_drive.setPower(0);
+        stbd_bow_drive.setPower(0);
+        stbd_aft_drive.setPower(0);
+        port_aft_drive.setPower(0);
 
-        port_bow_motor.setDirection(DcMotor.Direction.FORWARD);
-        stbd_bow_motor.setDirection(DcMotor.Direction.FORWARD);
-        stbd_aft_motor.setDirection(DcMotor.Direction.FORWARD);
-        port_aft_motor.setDirection(DcMotor.Direction.FORWARD);
+        port_bow_drive.setDirection(DcMotor.Direction.FORWARD);
+        stbd_bow_drive.setDirection(DcMotor.Direction.FORWARD);
+        stbd_aft_drive.setDirection(DcMotor.Direction.FORWARD);
+        port_aft_drive.setDirection(DcMotor.Direction.FORWARD);
 
-        port_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        stbd_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        stbd_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        port_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        port_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        stbd_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        stbd_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        port_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
 
@@ -401,7 +401,7 @@ public class GriffinAutoInput extends LinearOpMode {
         tail  = hardwareMap.get(Servo.class, Config.TAIL);
         tail.setDirection(Servo.Direction.FORWARD);
 
-        lift = hardwareMap.get(DcMotor.class, Config.LIFT);
+        lift = hardwareMap.get(DcMotor.class, Config.LIFT_DRIVE);
         lift.setDirection(Config.LIFT_DIRECTION);
         lift.setPower(0);
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -472,44 +472,44 @@ public class GriffinAutoInput extends LinearOpMode {
 
     private void run_to_position(int fl_tgt, int fr_tgt, int br_tgt, int bl_tgt, double power, int tolerance)
     {
-        port_bow_motor.setPower(0);
-        stbd_bow_motor.setPower(0);
-        stbd_aft_motor.setPower(0);
-        port_aft_motor.setPower(0);
+        port_bow_drive.setPower(0);
+        stbd_bow_drive.setPower(0);
+        stbd_aft_drive.setPower(0);
+        port_aft_drive.setPower(0);
 
-        port_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        stbd_bow_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        port_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        stbd_aft_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        port_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        stbd_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        port_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        stbd_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        port_bow_motor.setTargetPosition(fl_tgt);
-        stbd_bow_motor.setTargetPosition(fr_tgt);
-        port_aft_motor.setTargetPosition(bl_tgt);
-        stbd_aft_motor.setTargetPosition(br_tgt);
+        port_bow_drive.setTargetPosition(fl_tgt);
+        stbd_bow_drive.setTargetPosition(fr_tgt);
+        port_aft_drive.setTargetPosition(bl_tgt);
+        stbd_aft_drive.setTargetPosition(br_tgt);
 
-        port_bow_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        stbd_bow_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        port_aft_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        stbd_aft_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        port_bow_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        stbd_bow_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        port_aft_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        stbd_aft_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        port_bow_motor.setPower(power);
-        stbd_bow_motor.setPower(power);
-        stbd_aft_motor.setPower(power);
-        port_aft_motor.setPower(power);
+        port_bow_drive.setPower(power);
+        stbd_bow_drive.setPower(power);
+        stbd_aft_drive.setPower(power);
+        port_aft_drive.setPower(power);
 
-        while ( tolerance < Math.abs(port_bow_motor.getTargetPosition() - port_bow_motor.getCurrentPosition()) ||
-                tolerance < Math.abs(stbd_bow_motor.getTargetPosition() - stbd_bow_motor.getCurrentPosition()) ||
-                tolerance < Math.abs(stbd_aft_motor.getTargetPosition() - stbd_aft_motor.getCurrentPosition()) ||
-                tolerance < Math.abs(port_aft_motor.getTargetPosition() - port_aft_motor.getCurrentPosition())) {
+        while ( tolerance < Math.abs(port_bow_drive.getTargetPosition() - port_bow_drive.getCurrentPosition()) ||
+                tolerance < Math.abs(stbd_bow_drive.getTargetPosition() - stbd_bow_drive.getCurrentPosition()) ||
+                tolerance < Math.abs(stbd_aft_drive.getTargetPosition() - stbd_aft_drive.getCurrentPosition()) ||
+                tolerance < Math.abs(port_aft_drive.getTargetPosition() - port_aft_drive.getCurrentPosition())) {
             ;
         }
 
         sleep(Config.MOTOR_LAG_MILLI);
 
-        port_bow_motor.setPower(0);
-        stbd_bow_motor.setPower(0);
-        stbd_aft_motor.setPower(0);
-        port_aft_motor.setPower(0);
+        port_bow_drive.setPower(0);
+        stbd_bow_drive.setPower(0);
+        stbd_aft_drive.setPower(0);
+        port_aft_drive.setPower(0);
     }
 
 
@@ -596,14 +596,14 @@ public class GriffinAutoInput extends LinearOpMode {
             }
         }
 
-        port_bow_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        stbd_bow_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        stbd_aft_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        port_aft_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        port_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        stbd_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        stbd_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        port_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        port_bow_motor.setPower(motors[PORT_BOW]);
-        stbd_bow_motor.setPower(motors[STBD_BOW]);
-        stbd_aft_motor.setPower(motors[STBD_AFT]);
-        port_aft_motor.setPower(motors[PORT_AFT]);
+        port_bow_drive.setPower(motors[PORT_BOW]);
+        stbd_bow_drive.setPower(motors[STBD_BOW]);
+        stbd_aft_drive.setPower(motors[STBD_AFT]);
+        port_aft_drive.setPower(motors[PORT_AFT]);
     }
 }

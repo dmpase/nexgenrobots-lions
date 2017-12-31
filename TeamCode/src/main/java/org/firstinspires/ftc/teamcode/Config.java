@@ -22,10 +22,10 @@ public class Config {
     public static final String TAIL             = "tail";                   // Hub 2.Servos[0].Servo
 
     //         Analog Input Devices
-    public static final String STBD_BOW_IR = "starboard ir range hi";  // Hub 2.Analog Input Devices[0].Analog Input
-    public static final String STBD_AFT_IR = "starboard ir range lo";  // Hub 2.Analog Input Devices[1].Analog Input
-    public static final String PORT_BOW_IR = "port ir range hi";       // Hub 2.Analog Input Devices[2].Analog Input
-    public static final String PORT_AFT_IR = "port ir range lo";       // Hub 2.Analog Input Devices[3].Analog Input
+    public static final String STBD_BOW_IR      = "starboard bow ir range"; // Hub 2.Analog Input Devices[0].Analog Input
+    public static final String STBD_AFT_IR      = "starboard aft ir range"; // Hub 2.Analog Input Devices[1].Analog Input
+    public static final String PORT_BOW_IR      = "port bow ir range";      // Hub 2.Analog Input Devices[2].Analog Input
+    public static final String PORT_AFT_IR      = "port aft ir range";      // Hub 2.Analog Input Devices[3].Analog Input
 
     //         I2C Bus 0
     public static final String IMU0             = "imu 0";                  // Hub 2.I2C Bus 0[0].Rev Expansion Hub IMU
@@ -42,11 +42,13 @@ public class Config {
 
     //     Expansion Hub 3
     //         Motors
-    public static final String BEAM             = "beam";                   // Hub 3.Motors[2].Rev Robotics HD Hex
-    public static final String LIFT             = "lift";                   // Hub 3.Motors[3].Rev Robotics HD Hex
+    public static final String BEAM_DRIVE       = "beam";                   // Hub 3.Motors[2].Rev Robotics HD Hex
+    public static final String LIFT_DRIVE       = "lift";                   // Hub 3.Motors[3].Rev Robotics HD Hex
 
     //         Servos
     public static final String PORT_CLAW        = "port claw";              // Hub 3.Servos[0].Servo
+    public static final String BEAM_CLAW        = "beam claw";              // Hub 3.Servos[2].Servo
+    public static final String BEAM_SWIVEL      = "beam swivel";            // Hub 3.Servos[3].Servo
     public static final String STBD_CLAW        = "starboard claw";         // Hub 3.Servos[5].Servo
 
     //         I2C Bus 0
