@@ -54,7 +54,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 public class GriffinAutoInput extends LinearOpMode {
     // Declare OpMode members.
 
-    public static enum Command {ROTATE, FORWARD, BACKWARD, LEFT, RIGHT, ADJUST, OPEN_CLAW, CLOSE_CLAW, LIFT}
     public static enum Color {BLUE, RED, UNKNOWN}
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -154,11 +153,11 @@ public class GriffinAutoInput extends LinearOpMode {
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
         String vumark_position = vuMark.name();
         if (vumark_position.equalsIgnoreCase("LEFT")) {
-            vuforiaresult = VUFORIA_LEFT;
+            vuforia_result = VUFORIA_LEFT;
         } else if (vumark_position.equalsIgnoreCase("CENTER")) {
-            vuforiaresult = VUFORIA_CENTER;
+            vuforia_result = VUFORIA_CENTER;
         } else if (vumark_position.equalsIgnoreCase("RIGHT")) {
-            vuforiaresult = VUFORIA_RIGHT;
+            vuforia_result = VUFORIA_RIGHT;
         }
 
         telemetry.addData("VuMark", "%s", vuMark.name());
@@ -220,6 +219,18 @@ public class GriffinAutoInput extends LinearOpMode {
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
             {Command.LIFT,        Config.LIFT_TARGET_LO },
+
+            {Command.SLEEP,      2.0,                   },
+            {Command.OPEN_CLAW,                         },
+            {Command.CLOSE_CLAW,                        },
+            {Command.OPEN_CLAW,                         },
+            {Command.ROTATE,   -10.0, AUTO_PWR, AUTO_TOL},
+            {Command.SLEEP,      0.2,                   },
+            {Command.ROTATE, 370.0, 4*AUTO_PWR, AUTO_TOL},
+            {Command.CLOSE_CLAW,                        },
+            {Command.SLEEP,      1.0,                   },
+            {Command.OPEN_CLAW,                         },
+            {Command.CLOSE_CLAW,                        },
     };
 
     private static final Object[][] blue_right_cmd = {
@@ -232,6 +243,18 @@ public class GriffinAutoInput extends LinearOpMode {
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
             {Command.LIFT,        Config.LIFT_TARGET_LO },
+
+            {Command.SLEEP,      2.0,                   },
+            {Command.OPEN_CLAW,                         },
+            {Command.CLOSE_CLAW,                        },
+            {Command.OPEN_CLAW,                         },
+            {Command.ROTATE,   -10.0, AUTO_PWR, AUTO_TOL},
+            {Command.SLEEP,      0.2,                   },
+            {Command.ROTATE, 370.0, 4*AUTO_PWR, AUTO_TOL},
+            {Command.CLOSE_CLAW,                        },
+            {Command.SLEEP,      1.0,                   },
+            {Command.OPEN_CLAW,                         },
+            {Command.CLOSE_CLAW,                        },
     };
 
     private static final Object[][] red_left_cmd = {
@@ -244,6 +267,18 @@ public class GriffinAutoInput extends LinearOpMode {
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
             {Command.LIFT,        Config.LIFT_TARGET_LO },
+
+            {Command.SLEEP,      2.0,                   },
+            {Command.OPEN_CLAW,                         },
+            {Command.CLOSE_CLAW,                        },
+            {Command.OPEN_CLAW,                         },
+            {Command.ROTATE,   -10.0, AUTO_PWR, AUTO_TOL},
+            {Command.SLEEP,      0.2,                   },
+            {Command.ROTATE, 370.0, 4*AUTO_PWR, AUTO_TOL},
+            {Command.CLOSE_CLAW,                        },
+            {Command.SLEEP,      1.0,                   },
+            {Command.OPEN_CLAW,                         },
+            {Command.CLOSE_CLAW,                        },
     };
 
     private static final Object[][] red_right_cmd = {
@@ -256,6 +291,18 @@ public class GriffinAutoInput extends LinearOpMode {
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
             {Command.LIFT,        Config.LIFT_TARGET_LO },
+
+            {Command.SLEEP,      2.0,                   },
+            {Command.OPEN_CLAW,                         },
+            {Command.CLOSE_CLAW,                        },
+            {Command.OPEN_CLAW,                         },
+            {Command.ROTATE,   -10.0, AUTO_PWR, AUTO_TOL},
+            {Command.SLEEP,      0.2,                   },
+            {Command.ROTATE, 370.0, 4*AUTO_PWR, AUTO_TOL},
+            {Command.CLOSE_CLAW,                        },
+            {Command.SLEEP,      1.0,                   },
+            {Command.OPEN_CLAW,                         },
+            {Command.CLOSE_CLAW,                        },
     };
 
     private static final int UNKNOWN    = 0;
@@ -273,17 +320,21 @@ public class GriffinAutoInput extends LinearOpMode {
             red_right_cmd,
     };
 
+
+    public static enum Command {ROTATE, FORWARD, BACKWARD, LEFT, RIGHT, ADJUST, OPEN_CLAW, CLOSE_CLAW, LIFT, SLEEP}
+
     private static final int OPCODE     = 0;
     private static final int ANGLE      = 1;
     private static final int INCHES     = 1;
     private static final int TARGET     = 1;
+    private static final int SECONDS    = 1;
     private static final int POWER      = 2;
     private static final int TOLERANCE  = 3;
 
     private static final int VUFORIA_LEFT   = -1;
     private static final int VUFORIA_CENTER = 0;
     private static final int VUFORIA_RIGHT  = 1;
-    private int vuforiaresult = VUFORIA_CENTER;
+    private int vuforia_result = VUFORIA_CENTER;
 
     private void execute(Object[][] cmd)
     {
@@ -291,6 +342,7 @@ public class GriffinAutoInput extends LinearOpMode {
             execute(cmd[i]);
         }
     }
+
 
     private void execute(Object[] cmd)
     {
@@ -331,7 +383,7 @@ public class GriffinAutoInput extends LinearOpMode {
             int clicks = (int) (50 * distance);
             run_to_position(-clicks, -clicks, clicks, clicks, power, tolerance);
         } else if (op_code == Command.ADJUST) {
-            double distance  = vuforiaresult * (double) cmd[INCHES];
+            double distance  = vuforia_result * (double) cmd[INCHES];
             double power     = (double) cmd[POWER];
             int    tolerance = (int)    cmd[TOLERANCE];
             // 15 inches == 750 clicks, or clicks = 50 * distance in inches
@@ -348,6 +400,9 @@ public class GriffinAutoInput extends LinearOpMode {
         } else if (op_code == Command.LIFT) {
             int target = (int) cmd[TARGET];
             run_to_position(lift, target, Config.LIFT_POWER, Config.MOTOR_TARGET_TOLERANCE);
+        } else if (op_code == Command.SLEEP) {
+            double seconds = (double) cmd[SECONDS];
+            sleep(seconds);
         }
     }
 
@@ -600,5 +655,15 @@ public class GriffinAutoInput extends LinearOpMode {
         stbd_bow_drive.setPower(motors[STBD_BOW]);
         stbd_aft_drive.setPower(motors[STBD_AFT]);
         port_aft_drive.setPower(motors[PORT_AFT]);
+    }
+
+    public static void sleep(double sec)
+    {
+        long ms = (long)(sec * 1000);
+        try {
+            Thread.sleep(ms);
+        } catch (Exception e) {
+            ;
+        }
     }
 }

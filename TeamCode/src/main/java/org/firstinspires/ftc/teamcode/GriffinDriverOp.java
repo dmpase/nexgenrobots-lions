@@ -177,15 +177,15 @@ public class GriffinDriverOp extends OpMode
 
     public void get_claw_settings()
     {
-        if (! gamepad2.x && gamepad2.b) {           // open the claw
+        if (! gamepad2.x && gamepad2.b && ! gamepad1.start && ! gamepad2.start) {           // open the claw
             port_claw.setPosition(Config.PORT_CLAW_OPENED);
             stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
-        } else if (gamepad2.x && ! gamepad2.b) {    // close the claw
+        } else if (gamepad2.x && ! gamepad2.b && ! gamepad1.start && ! gamepad2.start) {    // close the claw
             port_claw.setPosition(Config.PORT_CLAW_CLOSED);
             stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
         }
 
-        if (gamepad2.y && ! gamepad2.a) {           // raise the claw
+        if (gamepad2.y && ! gamepad2.a && ! gamepad1.start && ! gamepad2.start) {           // raise the claw
             lift.setPower(0);
             double start = runtime.seconds();
             int target = Config.LIFT_TARGET_HI;
@@ -201,7 +201,7 @@ public class GriffinDriverOp extends OpMode
             }
 
             lift.setPower(0);
-        } else if (! gamepad2.y && gamepad2.a) {    // lower the claw
+        } else if (! gamepad2.y && gamepad2.a && ! gamepad1.start && ! gamepad2.start) {    // lower the claw
             lift.setPower(0);
             double start = runtime.seconds();
             int target = Config.LIFT_TARGET_LO;
