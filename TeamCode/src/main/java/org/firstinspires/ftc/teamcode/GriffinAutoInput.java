@@ -42,6 +42,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
+import java.util.Random;
+
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  *
@@ -86,7 +88,7 @@ public class GriffinAutoInput extends LinearOpMode {
         Object[] raise_claw = {Command.LIFT,        Config.LIFT_TARGET_INCH };
         Object[] lower_claw = {Command.LIFT,        Config.LIFT_TARGET_LO   };
         Object[] reset_claw = {Command.LIFT,        Config.LIFT_TARGET_SET  };
-        final double motor_power = 0.05;
+
         while (! gamepad1.guide) {
             get_motor_settings();
 
@@ -200,6 +202,17 @@ public class GriffinAutoInput extends LinearOpMode {
         // ^^^ deliver the block to the crypto box
         execute(quad_cmds[quadrant]);
 
+
+        // start dancing!
+        Random rand = new Random();
+        int idx = (int) (rand.nextDouble()*dance_cmds.length);
+        if (dance_cmds != null && 0 <= idx && idx < dance_cmds.length && dance_cmds[idx] != null) {
+            telemetry.addData("", "Let's dance!");
+            telemetry.update();
+            execute(dance_cmds[idx]);
+        }
+        // dance is over.
+
         telemetry.addData("Path", "Complete");
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();
@@ -219,18 +232,6 @@ public class GriffinAutoInput extends LinearOpMode {
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
             {Command.LIFT,        Config.LIFT_TARGET_LO },
-
-            {Command.SLEEP,      2.0,                   },
-            {Command.OPEN_CLAW,                         },
-            {Command.CLOSE_CLAW,                        },
-            {Command.OPEN_CLAW,                         },
-            {Command.ROTATE,   -10.0, AUTO_PWR, AUTO_TOL},
-            {Command.SLEEP,      0.2,                   },
-            {Command.ROTATE, 370.0, 4*AUTO_PWR, AUTO_TOL},
-            {Command.CLOSE_CLAW,                        },
-            {Command.SLEEP,      1.0,                   },
-            {Command.OPEN_CLAW,                         },
-            {Command.CLOSE_CLAW,                        },
     };
 
     private static final Object[][] blue_right_cmd = {
@@ -243,18 +244,6 @@ public class GriffinAutoInput extends LinearOpMode {
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
             {Command.LIFT,        Config.LIFT_TARGET_LO },
-
-            {Command.SLEEP,      2.0,                   },
-            {Command.OPEN_CLAW,                         },
-            {Command.CLOSE_CLAW,                        },
-            {Command.OPEN_CLAW,                         },
-            {Command.ROTATE,   -10.0, AUTO_PWR, AUTO_TOL},
-            {Command.SLEEP,      0.2,                   },
-            {Command.ROTATE, 370.0, 4*AUTO_PWR, AUTO_TOL},
-            {Command.CLOSE_CLAW,                        },
-            {Command.SLEEP,      1.0,                   },
-            {Command.OPEN_CLAW,                         },
-            {Command.CLOSE_CLAW,                        },
     };
 
     private static final Object[][] red_left_cmd = {
@@ -267,7 +256,22 @@ public class GriffinAutoInput extends LinearOpMode {
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
             {Command.LIFT,        Config.LIFT_TARGET_LO },
+    };
 
+    private static final Object[][] red_right_cmd = {
+            {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   36.0, AUTO_PWR, AUTO_TOL},
+            {Command.LEFT,      12.0, AUTO_PWR, AUTO_TOL},
+            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   12.0, AUTO_PWR, AUTO_TOL},
+            {Command.OPEN_CLAW,                         },
+            {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
+            {Command.CLOSE_CLAW,                        },
+            {Command.LIFT,        Config.LIFT_TARGET_LO },
+    };
+
+
+    private static final Object[][] dance_0_cmd = {
             {Command.SLEEP,      2.0,                   },
             {Command.OPEN_CLAW,                         },
             {Command.CLOSE_CLAW,                        },
@@ -281,28 +285,25 @@ public class GriffinAutoInput extends LinearOpMode {
             {Command.CLOSE_CLAW,                        },
     };
 
-    private static final Object[][] red_right_cmd = {
-            {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   36.0, AUTO_PWR, AUTO_TOL},
-            {Command.LEFT,      12.0, AUTO_PWR, AUTO_TOL},
-            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   12.0, AUTO_PWR, AUTO_TOL},
+    private static final Object[][] dance_1_cmd = {
+            {Command.SLEEP,      0.5,                   },
+            {Command.ROTATE,   -15.0, AUTO_PWR, AUTO_TOL},
+            {Command.SLEEP,      0.5,                   },
+            {Command.ROTATE,   -15.0, AUTO_PWR, AUTO_TOL},
+            {Command.SLEEP,      0.5,                   },
+            {Command.ROTATE,   -15.0, AUTO_PWR, AUTO_TOL},
+            {Command.SLEEP,      0.5,                   },
+            {Command.ROTATE,   405.0, 4*AUTO_PWR, AUTO_TOL},
             {Command.OPEN_CLAW,                         },
-            {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
-            {Command.LIFT,        Config.LIFT_TARGET_LO },
+    };
 
-            {Command.SLEEP,      2.0,                   },
-            {Command.OPEN_CLAW,                         },
-            {Command.CLOSE_CLAW,                        },
-            {Command.OPEN_CLAW,                         },
-            {Command.ROTATE,   -10.0, AUTO_PWR, AUTO_TOL},
-            {Command.SLEEP,      0.2,                   },
-            {Command.ROTATE, 370.0, 4*AUTO_PWR, AUTO_TOL},
-            {Command.CLOSE_CLAW,                        },
-            {Command.SLEEP,      1.0,                   },
-            {Command.OPEN_CLAW,                         },
-            {Command.CLOSE_CLAW,                        },
+    private static final Object[][][] dance_cmds = {
+            null,
+            dance_0_cmd,
+            null,
+            dance_1_cmd,
+            null,
     };
 
     private static final int UNKNOWN    = 0;
@@ -346,6 +347,8 @@ public class GriffinAutoInput extends LinearOpMode {
 
     private void execute(Object[] cmd)
     {
+        if (cmd == null) return;
+
         Command op_code = (Command) cmd[OPCODE];
         if (op_code == Command.ROTATE) {
             double angle     = (double) cmd[ANGLE];
