@@ -236,12 +236,12 @@ public class GriffinAutoInput extends LinearOpMode {
 
     private static final Object[][] blue_right_cmd = {
             {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   36.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   47.0, AUTO_PWR, AUTO_TOL},
             {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL},
             {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL},
+            {Command.FORWARD,   12.0, AUTO_PWR, AUTO_TOL},
             {Command.OPEN_CLAW,                         },
-            {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
+            {Command.BACKWARD,   6.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
             {Command.LIFT,        Config.LIFT_TARGET_LO },
     };
