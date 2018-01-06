@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -44,14 +45,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 import java.util.Random;
 
+import static org.firstinspires.ftc.teamcode.Config.BALANCING_STONE;
+import static org.firstinspires.ftc.teamcode.Config.PLAYING_FIELD;
+import static org.firstinspires.ftc.teamcode.Config.ROTATION_RATE;
+
 /**
- * This file illustrates the concept of driving a path based on encoder counts.
+ * This file contains the Griffin Lions and Griffin Eagles team Autonomous Op Mode.
  *
- * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+ * See the Griffin Auto Input User Guide for details on Op Mode controls.
  */
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Griffin Auto Input", group="Autonomous")
+@Autonomous(name="Griffin Auto Input", group="Autonomous")
 // @Disabled
 public class GriffinAutoInput extends LinearOpMode {
     // Declare OpMode members.
@@ -69,18 +73,22 @@ public class GriffinAutoInput extends LinearOpMode {
          */
         telemetry.addData("Status", "Starting Initialization.");
 
-        drive_init();
+        drive_init();           // initialize the drive motors
 
-        servo_init();
+        servo_init();           // initialize the claw servos (and lift motor)
 
-        sensor_init();
+        sensor_init();          // initialize the sensors (rev color/distance)
 
-        vuforia_init();
+        vuforia_init();         // initialize the vuforia subsystem
 
-        // Send telemetry message to indicate successful Encoder reset
+        // Send telemetry message to indicate successful encoder, servo and sensor reset
         telemetry.addData("Status", "Initialization Complete.");
         telemetry.update();
 
+        // make minor adjustments to position, as needed, and prompt the user for input
+        telemetry.addData("Move", "Stick/bumper/trigger to move.");
+        telemetry.addData("Claw", "X/B/Y/A to open/close/raise/lower.");
+        telemetry.addData("Tail", "DPAD up/down to raise/lower.");
         telemetry.addData("Start", "Press 'Guide' to select quadrant.");
         telemetry.update();
         Object[] open_claw  = {Command.OPEN_CLAW,                           };
@@ -92,25 +100,27 @@ public class GriffinAutoInput extends LinearOpMode {
         while (! gamepad1.guide) {
             get_motor_settings();
 
-            if (gamepad1.x) {
+            if (gamepad1.x || gamepad2.x) {
                 execute(open_claw);
-            } else if (gamepad1.b) {
+            } else if (gamepad1.b || gamepad2.b) {
                 execute(close_claw);
-            } else if (gamepad1.y) {
+            } else if (gamepad1.y || gamepad2.y) {
                 execute(raise_claw);
-            } else if (gamepad1.a) {
+            } else if (gamepad1.a || gamepad2.a) {
                 execute(lower_claw);
-            } else if (gamepad1.dpad_up) {
+            } else if (gamepad1.dpad_up || gamepad2.dpad_up) {
                 tail.setPosition(Config.TAIL_POS_UP);
-            } else if (gamepad1.dpad_down) {
+            } else if (gamepad1.dpad_down || gamepad2.dpad_down) {
                 tail.setPosition(Config.TAIL_POS_DN);
             }
         }
 
-
+        // make sure the tail is in the up position
         tail.setPosition(Config.TAIL_POS_UP);
         execute(raise_claw);
 
+
+        // select the team color and playing field quadrant
         Color team_color = Color.UNKNOWN;
         int quadrant = UNKNOWN;
 
@@ -137,6 +147,7 @@ public class GriffinAutoInput extends LinearOpMode {
         }
 
 
+        // team color and quadrant have been selected, waiting for start of the game
         telemetry.addData("Selection", "Quadrant:%s, Team:%s",
                 QUADRANT_NAME[quadrant], team_color.toString());
         telemetry.addData("Status", "Ready to play, waiting for start.");
@@ -166,10 +177,10 @@ public class GriffinAutoInput extends LinearOpMode {
         telemetry.update();
 
 
-        // ^^^ dislodge the jewell_color (or not...)
-        // lower tail
+        // ^^^ dislodge the jewell (or not...)
+        // lower tail and pause to get a good read on the jewell color
         tail.setPosition(Config.TAIL_POS_DN);
-        sleep(2000);
+        sleep(1000);
 
         // read the jewell color
         Color jewell_color = Color.UNKNOWN;
@@ -182,9 +193,10 @@ public class GriffinAutoInput extends LinearOpMode {
         telemetry.addData("Jewell", "Team: %s, Jewell:%s", team_color.name(), jewell_color.name());
         telemetry.update();
 
+        // dislodge the opposing alliance jewell from its stand
         // if jewell color == team color, clockwise then counter clockwise, else opposite
-        Object[] clockwise = {Command.ROTATE, -30.0, AUTO_PWR, AUTO_TOL};
-        Object[] counterclockwise = {Command.ROTATE, +30.0, AUTO_PWR, AUTO_TOL};
+        Object[] clockwise        = {Command.ROTATE, -30.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE};
+        Object[] counterclockwise = {Command.ROTATE, +30.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE};
         if (team_color == Color.UNKNOWN || jewell_color == Color.UNKNOWN) {
             ;
         } else if (team_color == jewell_color) {
@@ -220,82 +232,99 @@ public class GriffinAutoInput extends LinearOpMode {
 
 
     private static final double AUTO_PWR = 0.1;
+    private static final double FAST_PWR = 0.5;
     private static final int    AUTO_TOL = 10;
 
+    // blue-left quadrant command sequence
     private static final Object[][] blue_left_cmd = {
-            {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   36.0, AUTO_PWR, AUTO_TOL},
-            {Command.RIGHT,     12.0, AUTO_PWR, AUTO_TOL},
-            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   12.0, AUTO_PWR, AUTO_TOL},
-            {Command.OPEN_CLAW,                         },
-            {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
-            {Command.CLOSE_CLAW,                        },
-            {Command.LIFT,        Config.LIFT_TARGET_LO },
+            {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
+            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
+            {Command.FORWARD,    2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
+            {Command.BACKWARD,   2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
+            {Command.FORWARD,    6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // align with top of triangle
+            {Command.STBD,      12.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
+            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+            {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
+            {Command.OPEN_CLAW,                                             },  // release glyph
+            {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
+            {Command.CLOSE_CLAW,                                            },
+            {Command.LIFT,        Config.LIFT_TARGET_LO                     },  // lower the claw
     };
 
+    // blue-right quadrant command sequence
     private static final Object[][] blue_right_cmd = {
-            {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   47.0, AUTO_PWR, AUTO_TOL},
-            {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL},
-            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   12.0, AUTO_PWR, AUTO_TOL},
-            {Command.OPEN_CLAW,                         },
-            {Command.BACKWARD,   6.0, AUTO_PWR, AUTO_TOL},
-            {Command.CLOSE_CLAW,                        },
-            {Command.LIFT,        Config.LIFT_TARGET_LO },
+            {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
+            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
+            {Command.FORWARD,    2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
+            {Command.BACKWARD,   2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
+            {Command.FORWARD,   15.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0" (22.0)
+            {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn to face crypto box
+            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+            {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
+            {Command.OPEN_CLAW,                                             },  // release glyph
+            {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
+            {Command.CLOSE_CLAW,                                            },
+            {Command.LIFT,        Config.LIFT_TARGET_LO                     },  // lower the claw
     };
 
+    // red-left quadrant command sequence
     private static final Object[][] red_left_cmd = {
-            {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   36.0, AUTO_PWR, AUTO_TOL},
-            {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL},
-            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL},
-            {Command.OPEN_CLAW,                         },
-            {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
-            {Command.CLOSE_CLAW,                        },
-            {Command.LIFT,        Config.LIFT_TARGET_LO },
+            {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
+            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
+            {Command.FORWARD,    2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
+            {Command.BACKWARD,   2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
+            {Command.FORWARD,   15.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0 (22.0)
+            {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn to face crypto box
+            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+            {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0 (8.0)
+            {Command.OPEN_CLAW,                                             },  // release glyph
+            {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0
+            {Command.CLOSE_CLAW,                                            },
+            {Command.LIFT,        Config.LIFT_TARGET_LO                     },  // lower the claw
     };
 
+    // red-right quadrant command sequence
     private static final Object[][] red_right_cmd = {
-            {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   36.0, AUTO_PWR, AUTO_TOL},
-            {Command.LEFT,      12.0, AUTO_PWR, AUTO_TOL},
-            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL},
-            {Command.FORWARD,   12.0, AUTO_PWR, AUTO_TOL},
-            {Command.OPEN_CLAW,                         },
-            {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
-            {Command.CLOSE_CLAW,                        },
-            {Command.LIFT,        Config.LIFT_TARGET_LO },
+            {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
+            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
+            {Command.FORWARD,    2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
+            {Command.BACKWARD,   2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
+            {Command.FORWARD,    6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // align with top of triangle
+            {Command.PORT,      12.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
+            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+            {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
+            {Command.OPEN_CLAW,                                             },  // release glyph
+            {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
+            {Command.CLOSE_CLAW,                                            },
+            {Command.LIFT,        Config.LIFT_TARGET_LO                     },  // lower the claw
     };
 
 
     private static final Object[][] dance_0_cmd = {
-            {Command.SLEEP,      2.0,                   },
-            {Command.OPEN_CLAW,                         },
-            {Command.CLOSE_CLAW,                        },
-            {Command.OPEN_CLAW,                         },
-            {Command.ROTATE,   -10.0, AUTO_PWR, AUTO_TOL},
-            {Command.SLEEP,      0.2,                   },
-            {Command.ROTATE, 370.0, 4*AUTO_PWR, AUTO_TOL},
-            {Command.CLOSE_CLAW,                        },
-            {Command.SLEEP,      1.0,                   },
-            {Command.OPEN_CLAW,                         },
-            {Command.CLOSE_CLAW,                        },
+            {Command.SLEEP,      1.0,                                       },
+            {Command.OPEN_CLAW,                                             },
+            {Command.CLOSE_CLAW,  Command.PORT,                             },
+            {Command.OPEN_CLAW,                                             },
+            {Command.ROTATE,   -10.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },
+            {Command.SLEEP,      0.2,                                       },
+            {Command.ROTATE,   370.0, FAST_PWR, AUTO_TOL, ROTATION_RATE     },
+            {Command.CLOSE_CLAW,  Command.STBD,                             },
+            {Command.SLEEP,      1.0,                                       },
+            {Command.OPEN_CLAW,                                             },
+            {Command.CLOSE_CLAW,                                            },
     };
 
     private static final Object[][] dance_1_cmd = {
-            {Command.SLEEP,      0.5,                   },
-            {Command.ROTATE,   -15.0, AUTO_PWR, AUTO_TOL},
-            {Command.SLEEP,      0.5,                   },
-            {Command.ROTATE,   -15.0, AUTO_PWR, AUTO_TOL},
-            {Command.SLEEP,      0.5,                   },
-            {Command.ROTATE,   -15.0, AUTO_PWR, AUTO_TOL},
-            {Command.SLEEP,      0.5,                   },
-            {Command.ROTATE,   405.0, 4*AUTO_PWR, AUTO_TOL},
-            {Command.OPEN_CLAW,                         },
-            {Command.CLOSE_CLAW,                        },
+            {Command.SLEEP,      0.5,                                       },
+            {Command.ROTATE,   -15.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },
+            {Command.SLEEP,      0.5,                                       },
+            {Command.ROTATE,   -15.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },
+            {Command.SLEEP,      0.5,                                       },
+            {Command.ROTATE,   -15.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },
+            {Command.SLEEP,      0.5,                                       },
+            {Command.ROTATE,   405.0, FAST_PWR, AUTO_TOL, ROTATION_RATE     },
+            {Command.OPEN_CLAW,                                             },
+            {Command.CLOSE_CLAW,                                            },
     };
 
     private static final Object[][][] dance_cmds = {
@@ -322,8 +351,10 @@ public class GriffinAutoInput extends LinearOpMode {
     };
 
 
-    public static enum Command {ROTATE, FORWARD, BACKWARD, LEFT, RIGHT, ADJUST, OPEN_CLAW, CLOSE_CLAW, LIFT, SLEEP}
+    // command operation codes (i.e., op codes)
+    public static enum Command {ROTATE, FORWARD, BACKWARD, PORT, STBD, ADJUST, OPEN_CLAW, CLOSE_CLAW, LIFT, SLEEP}
 
+    // array indexes into a command array
     private static final int OPCODE     = 0;
     private static final int ANGLE      = 1;
     private static final int INCHES     = 1;
@@ -331,12 +362,15 @@ public class GriffinAutoInput extends LinearOpMode {
     private static final int SECONDS    = 1;
     private static final int POWER      = 2;
     private static final int TOLERANCE  = 3;
+    private static final int SURFACE    = 4;
 
+    // position indicators for LEFT, CENTER and RIGHT vumark images
     private static final int VUFORIA_LEFT   = -1;
     private static final int VUFORIA_CENTER = 0;
     private static final int VUFORIA_RIGHT  = 1;
     private int vuforia_result = VUFORIA_CENTER;
 
+    // execute a sequence of robot commands
     private void execute(Object[][] cmd)
     {
         for (int i=0; cmd != null && i < cmd.length; i++) {
@@ -344,95 +378,129 @@ public class GriffinAutoInput extends LinearOpMode {
         }
     }
 
-
+    // execute a single robot command
     private void execute(Object[] cmd)
     {
+        // if cmd == null, do nothing because there is no command to execute
         if (cmd == null) return;
 
         Command op_code = (Command) cmd[OPCODE];
         if (op_code == Command.ROTATE) {
-            double angle     = (double) cmd[ANGLE];
-            double power     = (double) cmd[POWER];
-            int    tolerance = (int)    cmd[TOLERANCE];
-            // 90 degrees == 900 clicks, or clicks = 10 * angle in degrees
-            int clicks = (int) (10 * angle);
+            // rotate the robot, angle is in degrees, positive angle is counterclockwise
+            double angle                = (double) cmd[ANGLE];
+            double power                = (double) cmd[POWER];
+            int    tolerance            = (int)    cmd[TOLERANCE];
+            int    degrees_to_clicks    = (int)    cmd[SURFACE];
+            int    clicks               = (int)    (degrees_to_clicks * angle);
             run_to_position(clicks, clicks, clicks, clicks, power, tolerance);
         } else if (op_code == Command.FORWARD) {
-            double distance  = (double) cmd[INCHES];
-            double power     = (double) cmd[POWER];
-            int    tolerance = (int)    cmd[TOLERANCE];
-            // 15 inches == 750 clicks, or clicks = 50 * distance in inches
-            int clicks = (int) (50 * distance);
+            // move the robot forward, distance is in inches
+            double distance             = (double) cmd[INCHES];
+            double power                = (double) cmd[POWER];
+            int    tolerance            = (int)    cmd[TOLERANCE];
+            int    distance_to_clicks   = (int)    cmd[SURFACE];
+            int    clicks               = (int)    (distance_to_clicks * distance);
             run_to_position(-clicks, clicks, clicks, -clicks, power, tolerance);
         } else if (op_code == Command.BACKWARD) {
-            double distance  = (double) cmd[INCHES];
-            double power     = (double) cmd[POWER];
-            int    tolerance = (int)    cmd[TOLERANCE];
-            // 15 inches == 750 clicks, or clicks = 50 * distance in inches
-            int clicks = (int) (50 * distance);
+            // move the robot backward, distance is in inches
+            double distance             = (double) cmd[INCHES];
+            double power                = (double) cmd[POWER];
+            int    tolerance            = (int)    cmd[TOLERANCE];
+            int    distance_to_clicks   = (int)    cmd[SURFACE];
+            int    clicks               = (int)    (distance_to_clicks * distance);
             run_to_position(clicks, -clicks, -clicks, clicks, power, tolerance);
-        } else if (op_code == Command.LEFT) {
-            double distance  = (double) cmd[INCHES];
-            double power     = (double) cmd[POWER];
-            int    tolerance = (int)    cmd[TOLERANCE];
-            // 15 inches == 750 clicks, or clicks = 50 * distance in inches
-            int clicks = (int) (50 * distance);
+        } else if (op_code == Command.PORT) {
+            // move the robot laterally to port, distance is in inches
+            double distance             = (double) cmd[INCHES];
+            double power                = (double) cmd[POWER];
+            int    tolerance            = (int)    cmd[TOLERANCE];
+            int    distance_to_clicks   = (int)    cmd[SURFACE];
+            int    clicks               = (int)    (distance_to_clicks * distance);
             run_to_position(clicks, clicks, -clicks, -clicks, power, tolerance);
-        } else if (op_code == Command.RIGHT) {
-            double distance  = (double) cmd[INCHES];
-            double power     = (double) cmd[POWER];
-            int    tolerance = (int)    cmd[TOLERANCE];
-            // 15 inches == 750 clicks, or clicks = 50 * distance in inches
-            int clicks = (int) (50 * distance);
+        } else if (op_code == Command.STBD) {
+            // move the robot laterally to starboard, distance is in inches
+            double distance             = (double) cmd[INCHES];
+            double power                = (double) cmd[POWER];
+            int    tolerance            = (int)    cmd[TOLERANCE];
+            int    distance_to_clicks   = (int)    cmd[SURFACE];
+            int    clicks               = (int)    (distance_to_clicks * distance);
             run_to_position(-clicks, -clicks, clicks, clicks, power, tolerance);
         } else if (op_code == Command.ADJUST) {
-            double distance  = vuforia_result * (double) cmd[INCHES];
-            double power     = (double) cmd[POWER];
-            int    tolerance = (int)    cmd[TOLERANCE];
-            // 15 inches == 750 clicks, or clicks = 50 * distance in inches
-            int clicks = (int) (50 * distance);
-            run_to_position(-clicks, clicks, clicks, -clicks, power, tolerance);
+            // adjust the robot position (laterally, to port or starboard) based on the VuForia VuMark
+            // distance is in inches, viewforia_result contains -1 (left), 0 (center), or 1 (right)
+            double distance             = vuforia_result * (double) cmd[INCHES];
+            double power                = (double) cmd[POWER];
+            int    tolerance            = (int)    cmd[TOLERANCE];
+            int    distance_to_clicks   = (int)    cmd[SURFACE];
+            int    clicks               = (int)    (distance_to_clicks * distance);
+            run_to_position(-clicks, -clicks, clicks, clicks, power, tolerance);
         } else if (op_code == Command.OPEN_CLAW) {
-            port_claw.setPosition(Config.PORT_CLAW_OPENED);
-            stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
+            // open the claw, both sides if there is no qualifier, or just port or starboard if qualifier is included
+            if (cmd.length == 1) {
+                port_claw.setPosition(Config.PORT_CLAW_OPENED);
+                stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
+            } else if (cmd.length == 2 && (Command) cmd[TARGET] == Command.PORT) {
+                port_claw.setPosition(Config.PORT_CLAW_OPENED);
+            } else if (cmd.length == 2 && (Command) cmd[TARGET] == Command.STBD) {
+                stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
+            }
             sleep(Config.MOTOR_LAG_MILLI);
         } else if (op_code == Command.CLOSE_CLAW) {
-            port_claw.setPosition(Config.PORT_CLAW_CLOSED);
-            stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
+            // close the claw, both sides if there is no qualifier, or just port or starboard if qualifier is included
+            if (cmd.length == 1) {
+                port_claw.setPosition(Config.PORT_CLAW_CLOSED);
+                stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
+            } else if (cmd.length == 2 && (Command) cmd[TARGET] == Command.PORT) {
+                port_claw.setPosition(Config.PORT_CLAW_CLOSED);
+            } else if (cmd.length == 2 && (Command) cmd[TARGET] == Command.STBD) {
+                stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
+            }
             sleep(Config.MOTOR_LAG_MILLI);
         } else if (op_code == Command.LIFT) {
+            // raise or lower the claw lift
             int target = (int) cmd[TARGET];
             run_to_position(lift, target, Config.LIFT_POWER, Config.MOTOR_TARGET_TOLERANCE);
         } else if (op_code == Command.SLEEP) {
+            // take a rest to wait for motors and servos to catch up
             double seconds = (double) cmd[SECONDS];
             sleep(seconds);
         }
     }
 
+    // robot drive motors. mapping follows, relative to a person at the center facing forward
+    // port bow      == front left
+    // starboard bow == front right
+    // starboard aft == back right
+    // port aft      == back left
     private DcMotor port_bow_drive = null;
     private DcMotor stbd_bow_drive = null;
     private DcMotor stbd_aft_drive = null;
     private DcMotor port_aft_drive = null;
 
+    // initialize the drive motors
     public void drive_init()
     {
         telemetry.addData("Status", "Initializing Motors.");
 
+        // drive motors are of type DcMotor
         port_bow_drive = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
         stbd_bow_drive = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
         stbd_aft_drive = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
         port_aft_drive = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
 
+        // make sure all motors are stopped
         port_bow_drive.setPower(0);
         stbd_bow_drive.setPower(0);
         stbd_aft_drive.setPower(0);
         port_aft_drive.setPower(0);
 
+        // drive direction is FORWARD, adjustments for direction are made when used
         port_bow_drive.setDirection(DcMotor.Direction.FORWARD);
         stbd_bow_drive.setDirection(DcMotor.Direction.FORWARD);
         stbd_aft_drive.setDirection(DcMotor.Direction.FORWARD);
         port_aft_drive.setDirection(DcMotor.Direction.FORWARD);
 
+        // reset the encoders to zero
         port_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         stbd_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         stbd_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -448,6 +516,8 @@ public class GriffinAutoInput extends LinearOpMode {
     // claw lift motor
     private DcMotor lift    = null;
 
+    // initialize the tail and claw servos plus the claw lift motor
+    // do not initialize the beam motor or servos because the beam is not used in autonomous mode
     public void servo_init()
     {
         port_claw = hardwareMap.get(Servo.class, Config.PORT_CLAW);
@@ -467,11 +537,11 @@ public class GriffinAutoInput extends LinearOpMode {
     }
 
 
-
     // REV Robotics distance/color sensor
     private ColorSensor color_sensor = null;
     private DistanceSensor distance_sensor = null;
 
+    // initialize the tail color sensor
     public void sensor_init()
     {
         telemetry.addData("Status", "Initializing Sensors.");
@@ -489,6 +559,7 @@ public class GriffinAutoInput extends LinearOpMode {
     private VuforiaTrackables relicTrackables = null;
     private VuforiaTrackable relicTemplate = null;
 
+    // initialize the vuforia mechanism
     public void vuforia_init()
     {
         telemetry.addData("Status", "Initializing VuForia.");
@@ -507,49 +578,65 @@ public class GriffinAutoInput extends LinearOpMode {
     }
 
 
+    // run a single motor (e.g., claw lift) to a given position,
+    // do not reset the encoder before starting or when done
     private void run_to_position(DcMotor motor, int tgt, double power, int tolerance)
     {
+        // set the target position
         motor.setPower(0);
         motor.setTargetPosition(tgt);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // tell the motor to begin moving
         motor.setPower(power);
 
+        // wait for the motor to reach its target
         while ( tolerance < Math.abs(motor.getTargetPosition()  - motor.getCurrentPosition()) ) {
             ;
         }
 
+        // wait for the motor to settle in to its position
         sleep(Config.MOTOR_LAG_MILLI);
 
+        // cut the power
         motor.setPower(0);
     }
 
+    // run the drive motors to a given position,
+    // DO reset the encoder before starting (i.e., always start from zero)
     private void run_to_position(int fl_tgt, int fr_tgt, int br_tgt, int bl_tgt, double power, int tolerance)
     {
+        // cut all power to the motors
         port_bow_drive.setPower(0);
         stbd_bow_drive.setPower(0);
         stbd_aft_drive.setPower(0);
         port_aft_drive.setPower(0);
 
+        // reset the encoders to zero
         port_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         stbd_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         port_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         stbd_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        // set the new target position
         port_bow_drive.setTargetPosition(fl_tgt);
         stbd_bow_drive.setTargetPosition(fr_tgt);
         port_aft_drive.setTargetPosition(bl_tgt);
         stbd_aft_drive.setTargetPosition(br_tgt);
 
+        // tell the motors we want them to run to the target position
         port_bow_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         stbd_bow_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         port_aft_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         stbd_aft_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+        // apply power to the motors
         port_bow_drive.setPower(power);
         stbd_bow_drive.setPower(power);
         stbd_aft_drive.setPower(power);
         port_aft_drive.setPower(power);
 
+        // wait for all motors to reach their position
         while ( tolerance < Math.abs(port_bow_drive.getTargetPosition() - port_bow_drive.getCurrentPosition()) ||
                 tolerance < Math.abs(stbd_bow_drive.getTargetPosition() - stbd_bow_drive.getCurrentPosition()) ||
                 tolerance < Math.abs(stbd_aft_drive.getTargetPosition() - stbd_aft_drive.getCurrentPosition()) ||
@@ -557,8 +644,10 @@ public class GriffinAutoInput extends LinearOpMode {
             ;
         }
 
+        // sleep while the motors settle into their new position
         sleep(Config.MOTOR_LAG_MILLI);
 
+        // kill all power to the motors
         port_bow_drive.setPower(0);
         stbd_bow_drive.setPower(0);
         stbd_aft_drive.setPower(0);
@@ -581,6 +670,8 @@ public class GriffinAutoInput extends LinearOpMode {
     public static final int PORT_AFT             = 3;
     public static final int MOTOR_COUNT          = 4;
 
+    // read input from the game pad and use it to adjust the position of the robot
+    // this is used for fine adjustments to placement on the balancing stone before starting the game
     public void get_motor_settings()
     {
         // use game pad 1 right stick to determinie speed and bearing UNLESS the left stick is being used
@@ -624,6 +715,7 @@ public class GriffinAutoInput extends LinearOpMode {
 
         double[] motors = new double[MOTOR_COUNT];
 
+        // use the holonomic drive equations to determine power to the motors
         motors[PORT_BOW] = - throttle * Math.sin(bearing + Math.PI/4) + rotation;
         motors[STBD_BOW] =   throttle * Math.cos(bearing + Math.PI/4) + rotation;
         motors[STBD_AFT] =   throttle * Math.sin(bearing + Math.PI/4) + rotation;
@@ -649,17 +741,20 @@ public class GriffinAutoInput extends LinearOpMode {
             }
         }
 
+        // explicitly set the motor run mode to analog
         port_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         stbd_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         stbd_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         port_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        // apply power to the drive motors
         port_bow_drive.setPower(motors[PORT_BOW]);
         stbd_bow_drive.setPower(motors[STBD_BOW]);
         stbd_aft_drive.setPower(motors[STBD_AFT]);
         port_aft_drive.setPower(motors[PORT_AFT]);
     }
 
+    // take a quick snooze, catch 40 winks, etc...
     public static void sleep(double sec)
     {
         long ms = (long)(sec * 1000);
