@@ -98,9 +98,9 @@ public class Config {
 
 
     // Playing field surface constants
-    public static final double BALANCING_STONE  = 50.0 * 22.0/18.0;     // encoder clicks per linear inch
-    public static final double PLAYING_FIELD    = 50.0 * 22.0/15.0;     // encoder clicks per linear inch
-    public static final double ROTATION_RATE    = 10.0;                 // encoder clicks per degree of rotation
+    public static final double BALANCING_STONE  = 65;           // encoder clicks per linear inch
+    public static final double PLAYING_FIELD    = 75;           // encoder clicks per linear inch
+    public static final double ROTATION_RATE    = 10.0;         // encoder clicks per degree of rotation
 
 
     // Misc. playing field parameters

@@ -231,8 +231,8 @@ public class GriffinAutoInput extends LinearOpMode {
     }
 
 
-    private static final double AUTO_PWR = 0.1;
-    private static final double FAST_PWR = 0.5;
+    private static final double AUTO_PWR = 0.08;
+    private static final double FAST_PWR = 0.25;
     private static final int    AUTO_TOL = 10;
 
     // blue-left quadrant command sequence
@@ -240,10 +240,10 @@ public class GriffinAutoInput extends LinearOpMode {
             {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
             {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
             {Command.FORWARD,    2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
-            {Command.BACKWARD,   2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
+            {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
             {Command.FORWARD,    6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // align with top of triangle
-            {Command.STBD,      12.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
-            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+            {Command.STBD,      15.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
+            {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
@@ -255,11 +255,11 @@ public class GriffinAutoInput extends LinearOpMode {
     private static final Object[][] blue_right_cmd = {
             {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
             {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
-            {Command.FORWARD,    2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
-            {Command.BACKWARD,   2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
+            {Command.FORWARD,    4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
+            {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
             {Command.FORWARD,   15.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0" (22.0)
             {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn to face crypto box
-            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+            {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
@@ -270,12 +270,12 @@ public class GriffinAutoInput extends LinearOpMode {
     // red-left quadrant command sequence
     private static final Object[][] red_left_cmd = {
             {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
-            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
-            {Command.FORWARD,    2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
-            {Command.BACKWARD,   2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
-            {Command.FORWARD,   15.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0 (22.0)
+            {Command.FORWARD,   15.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
+            {Command.FORWARD,    4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
+            {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
+            {Command.FORWARD,   24.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0 (22.0)
             {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn to face crypto box
-            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+            {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0 (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0
@@ -287,11 +287,11 @@ public class GriffinAutoInput extends LinearOpMode {
     private static final Object[][] red_right_cmd = {
             {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
             {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
-            {Command.FORWARD,    2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
-            {Command.BACKWARD,   2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
+            {Command.FORWARD,    4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
+            {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
             {Command.FORWARD,    6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // align with top of triangle
             {Command.PORT,      12.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
-            {Command.ADJUST,     8.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+            {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
@@ -329,9 +329,9 @@ public class GriffinAutoInput extends LinearOpMode {
 
     private static final Object[][][] dance_cmds = {
             null,
-            dance_0_cmd,
+//            dance_0_cmd,
             null,
-            dance_1_cmd,
+//            dance_1_cmd,
             null,
     };
 
@@ -390,7 +390,7 @@ public class GriffinAutoInput extends LinearOpMode {
             double angle                = (double) cmd[ANGLE];
             double power                = (double) cmd[POWER];
             int    tolerance            = (int)    cmd[TOLERANCE];
-            int    degrees_to_clicks    = (int)    cmd[SURFACE];
+            double degrees_to_clicks    = (double) cmd[SURFACE];
             int    clicks               = (int)    (degrees_to_clicks * angle);
             run_to_position(clicks, clicks, clicks, clicks, power, tolerance);
         } else if (op_code == Command.FORWARD) {
@@ -398,7 +398,7 @@ public class GriffinAutoInput extends LinearOpMode {
             double distance             = (double) cmd[INCHES];
             double power                = (double) cmd[POWER];
             int    tolerance            = (int)    cmd[TOLERANCE];
-            int    distance_to_clicks   = (int)    cmd[SURFACE];
+            double distance_to_clicks   = (double) cmd[SURFACE];
             int    clicks               = (int)    (distance_to_clicks * distance);
             run_to_position(-clicks, clicks, clicks, -clicks, power, tolerance);
         } else if (op_code == Command.BACKWARD) {
@@ -406,7 +406,7 @@ public class GriffinAutoInput extends LinearOpMode {
             double distance             = (double) cmd[INCHES];
             double power                = (double) cmd[POWER];
             int    tolerance            = (int)    cmd[TOLERANCE];
-            int    distance_to_clicks   = (int)    cmd[SURFACE];
+            double distance_to_clicks   = (double) cmd[SURFACE];
             int    clicks               = (int)    (distance_to_clicks * distance);
             run_to_position(clicks, -clicks, -clicks, clicks, power, tolerance);
         } else if (op_code == Command.PORT) {
@@ -414,7 +414,7 @@ public class GriffinAutoInput extends LinearOpMode {
             double distance             = (double) cmd[INCHES];
             double power                = (double) cmd[POWER];
             int    tolerance            = (int)    cmd[TOLERANCE];
-            int    distance_to_clicks   = (int)    cmd[SURFACE];
+            double distance_to_clicks   = (double) cmd[SURFACE];
             int    clicks               = (int)    (distance_to_clicks * distance);
             run_to_position(clicks, clicks, -clicks, -clicks, power, tolerance);
         } else if (op_code == Command.STBD) {
@@ -422,7 +422,7 @@ public class GriffinAutoInput extends LinearOpMode {
             double distance             = (double) cmd[INCHES];
             double power                = (double) cmd[POWER];
             int    tolerance            = (int)    cmd[TOLERANCE];
-            int    distance_to_clicks   = (int)    cmd[SURFACE];
+            double distance_to_clicks   = (double) cmd[SURFACE];
             int    clicks               = (int)    (distance_to_clicks * distance);
             run_to_position(-clicks, -clicks, clicks, clicks, power, tolerance);
         } else if (op_code == Command.ADJUST) {
@@ -431,7 +431,7 @@ public class GriffinAutoInput extends LinearOpMode {
             double distance             = vuforia_result * (double) cmd[INCHES];
             double power                = (double) cmd[POWER];
             int    tolerance            = (int)    cmd[TOLERANCE];
-            int    distance_to_clicks   = (int)    cmd[SURFACE];
+            double distance_to_clicks   = (double) cmd[SURFACE];
             int    clicks               = (int)    (distance_to_clicks * distance);
             run_to_position(-clicks, -clicks, clicks, clicks, power, tolerance);
         } else if (op_code == Command.OPEN_CLAW) {
