@@ -45,9 +45,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 import java.util.Random;
 
-import static org.firstinspires.ftc.teamcode.Config.BALANCING_STONE;
-import static org.firstinspires.ftc.teamcode.Config.PLAYING_FIELD;
-import static org.firstinspires.ftc.teamcode.Config.ROTATION_RATE;
+import static org.firstinspires.ftc.teamcode.LionConfig.BALANCING_STONE;
+import static org.firstinspires.ftc.teamcode.LionConfig.PLAYING_FIELD;
+import static org.firstinspires.ftc.teamcode.LionConfig.ROTATION_RATE;
 
 /**
  * This file contains the Griffin Lions and Griffin Eagles team Autonomous Op Mode.
@@ -93,9 +93,9 @@ public class EagleAuto extends LinearOpMode {
         telemetry.update();
         Object[] open_claw  = {Command.OPEN_CLAW,                           };
         Object[] close_claw = {Command.CLOSE_CLAW,                          };
-        Object[] raise_claw = {Command.LIFT,        Config.LIFT_TARGET_INCH };
-        Object[] lower_claw = {Command.LIFT,        Config.LIFT_TARGET_LO   };
-        Object[] reset_claw = {Command.LIFT,        Config.LIFT_TARGET_SET  };
+        Object[] raise_claw = {Command.LIFT,        LionConfig.LIFT_TARGET_INCH };
+        Object[] lower_claw = {Command.LIFT,        LionConfig.LIFT_TARGET_LO   };
+        Object[] reset_claw = {Command.LIFT,        LionConfig.LIFT_TARGET_SET  };
 
         while (! gamepad1.guide) {
             get_motor_settings();
@@ -109,14 +109,14 @@ public class EagleAuto extends LinearOpMode {
             } else if (gamepad1.a || gamepad2.a) {
                 execute(lower_claw);
             } else if (gamepad1.dpad_up || gamepad2.dpad_up) {
-                tail.setPosition(Config.TAIL_POS_UP);
+                tail.setPosition(LionConfig.TAIL_POS_UP);
             } else if (gamepad1.dpad_down || gamepad2.dpad_down) {
-                tail.setPosition(Config.TAIL_POS_DN);
+                tail.setPosition(LionConfig.TAIL_POS_DN);
             }
         }
 
         // make sure the tail is in the up position
-        tail.setPosition(Config.TAIL_POS_UP);
+        tail.setPosition(LionConfig.TAIL_POS_UP);
         execute(raise_claw);
 
 
@@ -179,7 +179,7 @@ public class EagleAuto extends LinearOpMode {
 
         // ^^^ dislodge the jewell (or not...)
         // lower tail and pause to get a good read on the jewell color
-        tail.setPosition(Config.TAIL_POS_DN);
+        tail.setPosition(LionConfig.TAIL_POS_DN);
         sleep(1000);
 
         // read the jewell color
@@ -201,11 +201,11 @@ public class EagleAuto extends LinearOpMode {
             ;
         } else if (team_color == jewell_color) {
             execute(counterclockwise);
-            tail.setPosition(Config.TAIL_POS_UP);
+            tail.setPosition(LionConfig.TAIL_POS_UP);
             execute(clockwise);
         } else {
             execute(clockwise);
-            tail.setPosition(Config.TAIL_POS_UP);
+            tail.setPosition(LionConfig.TAIL_POS_UP);
             execute(counterclockwise);
         }
         sleep(500);
@@ -248,7 +248,7 @@ public class EagleAuto extends LinearOpMode {
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
             {Command.CLOSE_CLAW,                                            },
-            {Command.LIFT,        Config.LIFT_TARGET_LO                     },  // lower the claw
+            {Command.LIFT,        LionConfig.LIFT_TARGET_LO                     },  // lower the claw
     };
 
     // blue-right quadrant command sequence
@@ -264,7 +264,7 @@ public class EagleAuto extends LinearOpMode {
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
             {Command.CLOSE_CLAW,                                            },
-            {Command.LIFT,        Config.LIFT_TARGET_LO                     },  // lower the claw
+            {Command.LIFT,        LionConfig.LIFT_TARGET_LO                     },  // lower the claw
     };
 
     // red-left quadrant command sequence
@@ -280,7 +280,7 @@ public class EagleAuto extends LinearOpMode {
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0
             {Command.CLOSE_CLAW,                                            },
-            {Command.LIFT,        Config.LIFT_TARGET_LO                     },  // lower the claw
+            {Command.LIFT,        LionConfig.LIFT_TARGET_LO                     },  // lower the claw
     };
 
     // red-right quadrant command sequence
@@ -296,7 +296,7 @@ public class EagleAuto extends LinearOpMode {
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
             {Command.CLOSE_CLAW,                                            },
-            {Command.LIFT,        Config.LIFT_TARGET_LO                     },  // lower the claw
+            {Command.LIFT,        LionConfig.LIFT_TARGET_LO                     },  // lower the claw
     };
 
 
@@ -437,29 +437,29 @@ public class EagleAuto extends LinearOpMode {
         } else if (op_code == Command.OPEN_CLAW) {
             // open the claw, both sides if there is no qualifier, or just port or starboard if qualifier is included
             if (cmd.length == 1) {
-                port_claw.setPosition(Config.PORT_CLAW_OPENED);
-                stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
+                port_claw.setPosition(LionConfig.PORT_CLAW_OPENED);
+                stbd_claw.setPosition(LionConfig.STBD_CLAW_OPENED);
             } else if (cmd.length == 2 && (Command) cmd[TARGET] == Command.PORT) {
-                port_claw.setPosition(Config.PORT_CLAW_OPENED);
+                port_claw.setPosition(LionConfig.PORT_CLAW_OPENED);
             } else if (cmd.length == 2 && (Command) cmd[TARGET] == Command.STBD) {
-                stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
+                stbd_claw.setPosition(LionConfig.STBD_CLAW_OPENED);
             }
-            sleep(Config.MOTOR_LAG_MILLI);
+            sleep(LionConfig.MOTOR_LAG_MILLI);
         } else if (op_code == Command.CLOSE_CLAW) {
             // close the claw, both sides if there is no qualifier, or just port or starboard if qualifier is included
             if (cmd.length == 1) {
-                port_claw.setPosition(Config.PORT_CLAW_CLOSED);
-                stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
+                port_claw.setPosition(LionConfig.PORT_CLAW_CLOSED);
+                stbd_claw.setPosition(LionConfig.STBD_CLAW_CLOSED);
             } else if (cmd.length == 2 && (Command) cmd[TARGET] == Command.PORT) {
-                port_claw.setPosition(Config.PORT_CLAW_CLOSED);
+                port_claw.setPosition(LionConfig.PORT_CLAW_CLOSED);
             } else if (cmd.length == 2 && (Command) cmd[TARGET] == Command.STBD) {
-                stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
+                stbd_claw.setPosition(LionConfig.STBD_CLAW_CLOSED);
             }
-            sleep(Config.MOTOR_LAG_MILLI);
+            sleep(LionConfig.MOTOR_LAG_MILLI);
         } else if (op_code == Command.LIFT) {
             // raise or lower the claw lift
             int target = (int) cmd[TARGET];
-            run_to_position(lift, target, Config.LIFT_POWER, Config.MOTOR_TARGET_TOLERANCE);
+            run_to_position(lift, target, LionConfig.LIFT_POWER, LionConfig.MOTOR_TARGET_TOLERANCE);
         } else if (op_code == Command.SLEEP) {
             // take a rest to wait for motors and servos to catch up
             double seconds = (double) cmd[SECONDS];
@@ -483,10 +483,10 @@ public class EagleAuto extends LinearOpMode {
         telemetry.addData("Status", "Initializing Motors.");
 
         // drive motors are of type DcMotor
-        port_bow_drive = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
-        stbd_bow_drive = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
-        stbd_aft_drive = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
-        port_aft_drive = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
+        port_bow_drive = hardwareMap.get(DcMotor.class, LionConfig.PORT_BOW);
+        stbd_bow_drive = hardwareMap.get(DcMotor.class, LionConfig.STBD_BOW);
+        stbd_aft_drive = hardwareMap.get(DcMotor.class, LionConfig.STBD_AFT);
+        port_aft_drive = hardwareMap.get(DcMotor.class, LionConfig.PORT_AFT);
 
         // make sure all motors are stopped
         port_bow_drive.setPower(0);
@@ -520,17 +520,17 @@ public class EagleAuto extends LinearOpMode {
     // do not initialize the beam motor or servos because the beam is not used in autonomous mode
     public void servo_init()
     {
-        port_claw = hardwareMap.get(Servo.class, Config.PORT_CLAW);
+        port_claw = hardwareMap.get(Servo.class, LionConfig.PORT_CLAW);
         port_claw.setDirection(Servo.Direction.FORWARD);
 
-        stbd_claw = hardwareMap.get(Servo.class, Config.STBD_CLAW);
+        stbd_claw = hardwareMap.get(Servo.class, LionConfig.STBD_CLAW);
         stbd_claw.setDirection(Servo.Direction.FORWARD);
 
-        tail  = hardwareMap.get(Servo.class, Config.TAIL);
+        tail  = hardwareMap.get(Servo.class, LionConfig.TAIL);
         tail.setDirection(Servo.Direction.FORWARD);
 
-        lift = hardwareMap.get(DcMotor.class, Config.LIFT_DRIVE);
-        lift.setDirection(Config.LIFT_DIRECTION);
+        lift = hardwareMap.get(DcMotor.class, LionConfig.LIFT_DRIVE);
+        lift.setDirection(LionConfig.LIFT_DIRECTION);
         lift.setPower(0);
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -547,8 +547,8 @@ public class EagleAuto extends LinearOpMode {
         telemetry.addData("Status", "Initializing Sensors.");
 
         // tail Rev color/distance sensor
-        color_sensor = hardwareMap.get(ColorSensor.class, Config.REV_COLOR_RANGE);
-        distance_sensor = hardwareMap.get(DistanceSensor.class, Config.REV_COLOR_RANGE);
+        color_sensor = hardwareMap.get(ColorSensor.class, LionConfig.REV_COLOR_RANGE);
+        distance_sensor = hardwareMap.get(DistanceSensor.class, LionConfig.REV_COLOR_RANGE);
     }
 
 
@@ -567,8 +567,8 @@ public class EagleAuto extends LinearOpMode {
         cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 
         vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        vuforia_parameters.vuforiaLicenseKey = Config.VUFORIA_LICENSE_KEY;
-        vuforia_parameters.cameraDirection = Config.CAMERA_DIRECTION;
+        vuforia_parameters.vuforiaLicenseKey = LionConfig.VUFORIA_LICENSE_KEY;
+        vuforia_parameters.cameraDirection = LionConfig.CAMERA_DIRECTION;
         vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
         relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
         relicTemplate = relicTrackables.get(0);
@@ -596,7 +596,7 @@ public class EagleAuto extends LinearOpMode {
         }
 
         // wait for the motor to settle in to its position
-        sleep(Config.MOTOR_LAG_MILLI);
+        sleep(LionConfig.MOTOR_LAG_MILLI);
 
         // cut the power
         motor.setPower(0);
@@ -645,7 +645,7 @@ public class EagleAuto extends LinearOpMode {
         }
 
         // sleep while the motors settle into their new position
-        sleep(Config.MOTOR_LAG_MILLI);
+        sleep(LionConfig.MOTOR_LAG_MILLI);
 
         // kill all power to the motors
         port_bow_drive.setPower(0);

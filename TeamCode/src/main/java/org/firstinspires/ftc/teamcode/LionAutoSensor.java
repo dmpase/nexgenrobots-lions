@@ -52,7 +52,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Griffin Auto Sensor", group="Autonomous")
 // @Disabled
-public class GriffinAutoSensor extends LinearOpMode {
+public class LionAutoSensor extends LinearOpMode {
     // Declare OpMode members.
 
     public static enum Command {ROTATE, FORWARD, BACKWARD, LEFT, RIGHT, ADJUST, OPEN_CLAW, CLOSE_CLAW, LIFT}
@@ -85,9 +85,9 @@ public class GriffinAutoSensor extends LinearOpMode {
         telemetry.update();
         Object[] open_claw  = {Command.OPEN_CLAW,                           };
         Object[] close_claw = {Command.CLOSE_CLAW,                          };
-        Object[] raise_claw = {Command.LIFT,        Config.LIFT_TARGET_INCH };
-        Object[] lower_claw = {Command.LIFT,        Config.LIFT_TARGET_LO   };
-        Object[] reset_claw = {Command.LIFT,        Config.LIFT_TARGET_SET  };
+        Object[] raise_claw = {Command.LIFT,        LionConfig.LIFT_TARGET_INCH };
+        Object[] lower_claw = {Command.LIFT,        LionConfig.LIFT_TARGET_LO   };
+        Object[] reset_claw = {Command.LIFT,        LionConfig.LIFT_TARGET_SET  };
         final double motor_power = 0.05;
         while (! gamepad1.guide) {
             get_motor_settings();
@@ -105,37 +105,37 @@ public class GriffinAutoSensor extends LinearOpMode {
             } else if (gamepad1.a) {
                 execute(lower_claw);
             } else if (gamepad1.dpad_up) {
-                tail.setPosition(Config.TAIL_POS_UP);
+                tail.setPosition(LionConfig.TAIL_POS_UP);
             } else if (gamepad1.dpad_down) {
-                tail.setPosition(Config.TAIL_POS_DN);
+                tail.setPosition(LionConfig.TAIL_POS_DN);
             }
         }
 
 
-        tail.setPosition(Config.TAIL_POS_UP);
+        tail.setPosition(LionConfig.TAIL_POS_UP);
         execute(raise_claw);
 
         Color team_color = Color.UNKNOWN;
         int quadrant = UNKNOWN;
 
         // Modern Robotics ultrasonic range sensors
-        DistanceSensor port_mr_range = hardwareMap.get(DistanceSensor.class, Config.PORT_MR_RANGE);
-        DistanceSensor stbd_mr_range = hardwareMap.get(DistanceSensor.class, Config.STBD_MR_RANGE);
+        DistanceSensor port_mr_range = hardwareMap.get(DistanceSensor.class, LionConfig.PORT_MR_RANGE);
+        DistanceSensor stbd_mr_range = hardwareMap.get(DistanceSensor.class, LionConfig.STBD_MR_RANGE);
         while (! gamepad1.start) {
             // ^^^ read port and starboard sensor to find quadrant (e.g., 3rd quadrant; blue)
             double port_dist = port_mr_range.getDistance(DistanceUnit.INCH);
             double stbd_dist = stbd_mr_range.getDistance(DistanceUnit.INCH);
 
-            if (stbd_dist < Config.SHORT) {
+            if (stbd_dist < LionConfig.SHORT) {
                 quadrant = BLUE_RIGHT;
                 team_color = Color.BLUE;
-            } else if (stbd_dist < Config.MEDIUM) {
+            } else if (stbd_dist < LionConfig.MEDIUM) {
                 quadrant = RED_RIGHT;
                 team_color = Color.RED;
-            } else if (port_dist < Config.SHORT) {
+            } else if (port_dist < LionConfig.SHORT) {
                 quadrant = RED_LEFT;
                 team_color = Color.RED;
-            } else if (port_dist < Config.MEDIUM) {
+            } else if (port_dist < LionConfig.MEDIUM) {
                 quadrant = BLUE_LEFT;
                 team_color = Color.BLUE;
             }
@@ -179,7 +179,7 @@ public class GriffinAutoSensor extends LinearOpMode {
 
         // ^^^ dislodge the jewell_color (or not...)
         // lower tail
-        tail.setPosition(Config.TAIL_POS_DN);
+        tail.setPosition(LionConfig.TAIL_POS_DN);
         sleep(2000);
 
         // read the jewell color
@@ -200,11 +200,11 @@ public class GriffinAutoSensor extends LinearOpMode {
             ;
         } else if (team_color == jewell_color) {
             execute(counterclockwise);
-            tail.setPosition(Config.TAIL_POS_UP);
+            tail.setPosition(LionConfig.TAIL_POS_UP);
             execute(clockwise);
         } else {
             execute(clockwise);
-            tail.setPosition(Config.TAIL_POS_UP);
+            tail.setPosition(LionConfig.TAIL_POS_UP);
             execute(counterclockwise);
         }
         sleep(500);
@@ -231,7 +231,7 @@ public class GriffinAutoSensor extends LinearOpMode {
             {Command.OPEN_CLAW,                         },
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
-            {Command.LIFT,        Config.LIFT_TARGET_LO },
+            {Command.LIFT,        LionConfig.LIFT_TARGET_LO },
     };
 
     private static final Object[][] blue_right_cmd = {
@@ -243,7 +243,7 @@ public class GriffinAutoSensor extends LinearOpMode {
             {Command.OPEN_CLAW,                         },
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
-            {Command.LIFT,        Config.LIFT_TARGET_LO },
+            {Command.LIFT,        LionConfig.LIFT_TARGET_LO },
     };
 
     private static final Object[][] red_left_cmd = {
@@ -255,7 +255,7 @@ public class GriffinAutoSensor extends LinearOpMode {
             {Command.OPEN_CLAW,                         },
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
-            {Command.LIFT,        Config.LIFT_TARGET_LO },
+            {Command.LIFT,        LionConfig.LIFT_TARGET_LO },
     };
 
     private static final Object[][] red_right_cmd = {
@@ -267,7 +267,7 @@ public class GriffinAutoSensor extends LinearOpMode {
             {Command.OPEN_CLAW,                         },
             {Command.BACKWARD,   8.0, AUTO_PWR, AUTO_TOL},
             {Command.CLOSE_CLAW,                        },
-            {Command.LIFT,        Config.LIFT_TARGET_LO },
+            {Command.LIFT,        LionConfig.LIFT_TARGET_LO },
     };
 
     private static final int UNKNOWN    = 0;
@@ -350,16 +350,16 @@ public class GriffinAutoSensor extends LinearOpMode {
             int clicks = (int) (50 * distance);
             run_to_position(-clicks, clicks, clicks, -clicks, power, tolerance);
         } else if (op_code == Command.OPEN_CLAW) {
-            port_claw.setPosition(Config.PORT_CLAW_OPENED);
-            stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
-            sleep(Config.MOTOR_LAG_MILLI);
+            port_claw.setPosition(LionConfig.PORT_CLAW_OPENED);
+            stbd_claw.setPosition(LionConfig.STBD_CLAW_OPENED);
+            sleep(LionConfig.MOTOR_LAG_MILLI);
         } else if (op_code == Command.CLOSE_CLAW) {
-            port_claw.setPosition(Config.PORT_CLAW_CLOSED);
-            stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
-            sleep(Config.MOTOR_LAG_MILLI);
+            port_claw.setPosition(LionConfig.PORT_CLAW_CLOSED);
+            stbd_claw.setPosition(LionConfig.STBD_CLAW_CLOSED);
+            sleep(LionConfig.MOTOR_LAG_MILLI);
         } else if (op_code == Command.LIFT) {
             int target = (int) cmd[TARGET];
-            run_to_position(lift, target, Config.LIFT_POWER, Config.MOTOR_TARGET_TOLERANCE);
+            run_to_position(lift, target, LionConfig.LIFT_POWER, LionConfig.MOTOR_TARGET_TOLERANCE);
         }
     }
 
@@ -372,10 +372,10 @@ public class GriffinAutoSensor extends LinearOpMode {
     {
         telemetry.addData("Status", "Initializing Motors.");
 
-        port_bow_drive = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
-        stbd_bow_drive = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
-        stbd_aft_drive = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
-        port_aft_drive = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
+        port_bow_drive = hardwareMap.get(DcMotor.class, LionConfig.PORT_BOW);
+        stbd_bow_drive = hardwareMap.get(DcMotor.class, LionConfig.STBD_BOW);
+        stbd_aft_drive = hardwareMap.get(DcMotor.class, LionConfig.STBD_AFT);
+        port_aft_drive = hardwareMap.get(DcMotor.class, LionConfig.PORT_AFT);
 
         port_bow_drive.setPower(0);
         stbd_bow_drive.setPower(0);
@@ -404,17 +404,17 @@ public class GriffinAutoSensor extends LinearOpMode {
 
     public void servo_init()
     {
-        port_claw = hardwareMap.get(Servo.class, Config.PORT_CLAW);
+        port_claw = hardwareMap.get(Servo.class, LionConfig.PORT_CLAW);
         port_claw.setDirection(Servo.Direction.FORWARD);
 
-        stbd_claw = hardwareMap.get(Servo.class, Config.STBD_CLAW);
+        stbd_claw = hardwareMap.get(Servo.class, LionConfig.STBD_CLAW);
         stbd_claw.setDirection(Servo.Direction.FORWARD);
 
-        tail  = hardwareMap.get(Servo.class, Config.TAIL);
+        tail  = hardwareMap.get(Servo.class, LionConfig.TAIL);
         tail.setDirection(Servo.Direction.FORWARD);
 
-        lift = hardwareMap.get(DcMotor.class, Config.LIFT_DRIVE);
-        lift.setDirection(Config.LIFT_DIRECTION);
+        lift = hardwareMap.get(DcMotor.class, LionConfig.LIFT_DRIVE);
+        lift.setDirection(LionConfig.LIFT_DIRECTION);
         lift.setPower(0);
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -431,8 +431,8 @@ public class GriffinAutoSensor extends LinearOpMode {
         telemetry.addData("Status", "Initializing Sensors.");
 
         // tail Rev color/distance sensor
-        color_sensor = hardwareMap.get(ColorSensor.class, Config.REV_COLOR_RANGE);
-        distance_sensor = hardwareMap.get(DistanceSensor.class, Config.REV_COLOR_RANGE);
+        color_sensor = hardwareMap.get(ColorSensor.class, LionConfig.REV_COLOR_RANGE);
+        distance_sensor = hardwareMap.get(DistanceSensor.class, LionConfig.REV_COLOR_RANGE);
     }
 
 
@@ -450,8 +450,8 @@ public class GriffinAutoSensor extends LinearOpMode {
         cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 
         vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        vuforia_parameters.vuforiaLicenseKey = Config.VUFORIA_LICENSE_KEY;
-        vuforia_parameters.cameraDirection = Config.CAMERA_DIRECTION;
+        vuforia_parameters.vuforiaLicenseKey = LionConfig.VUFORIA_LICENSE_KEY;
+        vuforia_parameters.cameraDirection = LionConfig.CAMERA_DIRECTION;
         vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
         relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
         relicTemplate = relicTrackables.get(0);
@@ -472,7 +472,7 @@ public class GriffinAutoSensor extends LinearOpMode {
             ;
         }
 
-        sleep(Config.MOTOR_LAG_MILLI);
+        sleep(LionConfig.MOTOR_LAG_MILLI);
 
         motor.setPower(0);
     }
@@ -511,7 +511,7 @@ public class GriffinAutoSensor extends LinearOpMode {
             ;
         }
 
-        sleep(Config.MOTOR_LAG_MILLI);
+        sleep(LionConfig.MOTOR_LAG_MILLI);
 
         port_bow_drive.setPower(0);
         stbd_bow_drive.setPower(0);

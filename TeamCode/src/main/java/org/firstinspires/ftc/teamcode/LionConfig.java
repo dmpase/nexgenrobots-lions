@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
  * Created by Doug on 12/24/2017.
  */
 
-public class Config {
+public class LionConfig {
     // Expansion Hub Portal 1
     //     Expansion Hub 2
     //         Motors

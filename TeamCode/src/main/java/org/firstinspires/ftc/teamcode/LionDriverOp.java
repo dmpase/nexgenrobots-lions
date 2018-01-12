@@ -50,7 +50,7 @@ import static com.sun.tools.javac.util.Constants.format;
 
 @TeleOp(name="Griffin Driver OpMode", group="Iterative OpMode")
 // @Disabled
-public class GriffinDriverOp extends OpMode
+public class LionDriverOp extends OpMode
 {
     // Declare OpMode members.
     // REV Robotics drive motors
@@ -134,41 +134,41 @@ public class GriffinDriverOp extends OpMode
         if (/*beam_enabled &&8*/ gamepad2.dpad_up && ! gamepad2.dpad_down) {           // extend the beam
             beam_drive.setPower(0);
             double start = runtime.seconds();
-            beam_drive.setTargetPosition(Config.BEAM_TARGET_OUT);
-            beam_drive.setPower(Config.BEAM_POWER);
+            beam_drive.setTargetPosition(LionConfig.BEAM_TARGET_OUT);
+            beam_drive.setPower(LionConfig.BEAM_POWER);
 
-            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
-                if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
+            while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                if (LionConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
             }
 
-            if ((runtime.seconds() - start) < Config.MOTOR_LAG_SEC) {
-                sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
+            if ((runtime.seconds() - start) < LionConfig.MOTOR_LAG_SEC) {
+                sleep(LionConfig.MOTOR_LAG_SEC - (start - runtime.seconds()));
             }
 
             beam_drive.setPower(0);
         } else if (/*beam_enabled &&*/ ! gamepad2.dpad_up && gamepad2.dpad_down) {    // retract the beam
             beam_drive.setPower(0);
             double start = runtime.seconds();
-            beam_drive.setTargetPosition(Config.BEAM_TARGET_IN);
-            beam_drive.setPower(Config.BEAM_POWER);
+            beam_drive.setTargetPosition(LionConfig.BEAM_TARGET_IN);
+            beam_drive.setPower(LionConfig.BEAM_POWER);
 
-            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
-                if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
+            while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                if (LionConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
             }
 
-            if ((runtime.seconds() - start) < Config.MOTOR_LAG_SEC) {
-                sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
+            if ((runtime.seconds() - start) < LionConfig.MOTOR_LAG_SEC) {
+                sleep(LionConfig.MOTOR_LAG_SEC - (start - runtime.seconds()));
             }
 
             beam_drive.setPower(0);
         } else if (/*beam_enabled &&*/ gamepad2.dpad_left && ! gamepad2.dpad_right)     {   //swivel beam claw up
-            beam_swivel.setPosition(Config.BEAM_SWIVEL_UP);
+            beam_swivel.setPosition(LionConfig.BEAM_SWIVEL_UP);
         } else if (/*beam_enabled &&*/ ! gamepad2.dpad_left && gamepad2.dpad_right)     {   //swivel beam claw down
-            beam_swivel.setPosition(Config.BEAM_SWIVEL_DOWN);
+            beam_swivel.setPosition(LionConfig.BEAM_SWIVEL_DOWN);
         } else if (/*beam_enabled &&*/ gamepad2.left_bumper && ! gamepad2.right_bumper) {   //open beam claw
-            beam_claw.setPosition(Config.BEAM_CLAW_OPENED);
+            beam_claw.setPosition(LionConfig.BEAM_CLAW_OPENED);
         } else if (/*beam_enabled &&*/ ! gamepad2.left_bumper && gamepad2.right_bumper) {   //close beam claw
-            beam_claw.setPosition(Config.BEAM_CLAW_CLOSED);
+            beam_claw.setPosition(LionConfig.BEAM_CLAW_CLOSED);
         }
     }
 
@@ -178,42 +178,42 @@ public class GriffinDriverOp extends OpMode
     public void get_claw_settings()
     {
         if (! gamepad2.x && gamepad2.b && ! gamepad1.start && ! gamepad2.start) {           // open the claw
-            port_claw.setPosition(Config.PORT_CLAW_OPENED);
-            stbd_claw.setPosition(Config.STBD_CLAW_OPENED);
+            port_claw.setPosition(LionConfig.PORT_CLAW_OPENED);
+            stbd_claw.setPosition(LionConfig.STBD_CLAW_OPENED);
         } else if (gamepad2.x && ! gamepad2.b && ! gamepad1.start && ! gamepad2.start) {    // close the claw
-            port_claw.setPosition(Config.PORT_CLAW_CLOSED);
-            stbd_claw.setPosition(Config.STBD_CLAW_CLOSED);
+            port_claw.setPosition(LionConfig.PORT_CLAW_CLOSED);
+            stbd_claw.setPosition(LionConfig.STBD_CLAW_CLOSED);
         }
 
         if (gamepad2.y && ! gamepad2.a && ! gamepad1.start && ! gamepad2.start) {           // raise the claw
             lift.setPower(0);
             double start = runtime.seconds();
-            int target = Config.LIFT_TARGET_HI;
+            int target = LionConfig.LIFT_TARGET_HI;
             lift.setTargetPosition(target);
-            lift.setPower(Config.LIFT_POWER);
+            lift.setPower(LionConfig.LIFT_POWER);
 
-            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
-                if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
+            while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                if (LionConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
             }
 
-            if ((runtime.seconds() - start) < Config.MOTOR_LAG_SEC) {
-                sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
+            if ((runtime.seconds() - start) < LionConfig.MOTOR_LAG_SEC) {
+                sleep(LionConfig.MOTOR_LAG_SEC - (start - runtime.seconds()));
             }
 
             lift.setPower(0);
         } else if (! gamepad2.y && gamepad2.a && ! gamepad1.start && ! gamepad2.start) {    // lower the claw
             lift.setPower(0);
             double start = runtime.seconds();
-            int target = Config.LIFT_TARGET_LO;
+            int target = LionConfig.LIFT_TARGET_LO;
             lift.setTargetPosition(target);
-            lift.setPower(Config.LIFT_POWER);
+            lift.setPower(LionConfig.LIFT_POWER);
 
-            while ( Config.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
-                if (Config.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
+            while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                if (LionConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
             }
 
-            if ((runtime.seconds() - start) < Config.MOTOR_LAG_SEC) {
-                sleep(Config.MOTOR_LAG_SEC - (start - runtime.seconds()));
+            if ((runtime.seconds() - start) < LionConfig.MOTOR_LAG_SEC) {
+                sleep(LionConfig.MOTOR_LAG_SEC - (start - runtime.seconds()));
             }
 
             lift.setPower(0);
@@ -313,7 +313,7 @@ public class GriffinDriverOp extends OpMode
 
     private void init_drive() {
         if (port_bow_drive == null) {
-            port_bow_drive = hardwareMap.get(DcMotor.class, Config.PORT_BOW);
+            port_bow_drive = hardwareMap.get(DcMotor.class, LionConfig.PORT_BOW);
             port_bow_drive.setDirection(DcMotor.Direction.FORWARD);
             port_bow_drive.setPower(0);
             port_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -321,7 +321,7 @@ public class GriffinDriverOp extends OpMode
         }
 
         if (stbd_bow_drive == null) {
-            stbd_bow_drive = hardwareMap.get(DcMotor.class, Config.STBD_BOW);
+            stbd_bow_drive = hardwareMap.get(DcMotor.class, LionConfig.STBD_BOW);
             stbd_bow_drive.setDirection(DcMotor.Direction.FORWARD);
             stbd_bow_drive.setPower(0);
             stbd_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -329,7 +329,7 @@ public class GriffinDriverOp extends OpMode
         }
 
         if (stbd_aft_drive == null) {
-            stbd_aft_drive = hardwareMap.get(DcMotor.class, Config.STBD_AFT);
+            stbd_aft_drive = hardwareMap.get(DcMotor.class, LionConfig.STBD_AFT);
             stbd_aft_drive.setDirection(DcMotor.Direction.FORWARD);
             stbd_aft_drive.setPower(0);
             stbd_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -337,7 +337,7 @@ public class GriffinDriverOp extends OpMode
         }
 
         if (port_aft_drive == null) {
-            port_aft_drive = hardwareMap.get(DcMotor.class, Config.PORT_AFT);
+            port_aft_drive = hardwareMap.get(DcMotor.class, LionConfig.PORT_AFT);
             port_aft_drive.setDirection(DcMotor.Direction.FORWARD);
             port_aft_drive.setPower(0);
             port_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -348,18 +348,18 @@ public class GriffinDriverOp extends OpMode
     public void init_claw()
     {
         if (port_claw == null) {
-            port_claw = hardwareMap.get(Servo.class, Config.PORT_CLAW);
+            port_claw = hardwareMap.get(Servo.class, LionConfig.PORT_CLAW);
             port_claw.setDirection(Servo.Direction.FORWARD);
         }
 
         if (stbd_claw == null) {
-            stbd_claw = hardwareMap.get(Servo.class, Config.STBD_CLAW);
+            stbd_claw = hardwareMap.get(Servo.class, LionConfig.STBD_CLAW);
             stbd_claw.setDirection(Servo.Direction.FORWARD);
         }
 
         if (lift == null) {
-            lift = hardwareMap.get(DcMotor.class, Config.LIFT_DRIVE);
-            lift.setDirection(Config.LIFT_DIRECTION);
+            lift = hardwareMap.get(DcMotor.class, LionConfig.LIFT_DRIVE);
+            lift.setDirection(LionConfig.LIFT_DIRECTION);
             lift.setPower(0);
             lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -369,17 +369,17 @@ public class GriffinDriverOp extends OpMode
     public void init_beam()
     {
         if (/*beam_enabled &&*/ beam_claw == null) {
-            beam_claw = hardwareMap.get(Servo.class, Config.BEAM_CLAW);
+            beam_claw = hardwareMap.get(Servo.class, LionConfig.BEAM_CLAW);
             beam_claw.setDirection(Servo.Direction.FORWARD);
         }
 
         if (/*beam_enabled &&*/ beam_swivel == null) {
-            beam_swivel = hardwareMap.get(Servo.class, Config.BEAM_SWIVEL);
+            beam_swivel = hardwareMap.get(Servo.class, LionConfig.BEAM_SWIVEL);
             beam_swivel.setDirection(Servo.Direction.FORWARD);
         }
 
         if (/*beam_enabled &&*/ beam_drive == null) {
-            beam_drive = hardwareMap.get(DcMotor.class, Config.BEAM_DRIVE);
+            beam_drive = hardwareMap.get(DcMotor.class, LionConfig.BEAM_DRIVE);
             beam_drive.setDirection(DcMotor.Direction.FORWARD);
             beam_drive.setPower(0);
             beam_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
