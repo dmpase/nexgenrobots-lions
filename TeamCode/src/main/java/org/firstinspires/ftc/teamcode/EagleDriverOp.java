@@ -124,48 +124,46 @@ public class EagleDriverOp extends OpMode
     }
 
 
-    //private boolean beam_enabled = false;
-
     public void get_beam_settings()
     {
-        if (/*beam_enabled &&8*/ gamepad2.dpad_up && ! gamepad2.dpad_down) {           // extend the beam
+        if ( gamepad2.dpad_left && ! gamepad2.dpad_right ) {            // extend the beam
             beam_drive.setPower(0);
             double start = runtime.seconds();
-            beam_drive.setTargetPosition(EagleConfig.BEAM_TARGET_OUT);
-            beam_drive.setPower(EagleConfig.BEAM_POWER);
+            beam_drive.setTargetPosition(LionConfig.BEAM_TARGET_OUT);
+            beam_drive.setPower(LionConfig.BEAM_POWER);
 
-            while ( EagleConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
-                if (EagleConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
+            while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                if (LionConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
             }
 
-            if ((runtime.seconds() - start) < EagleConfig.MOTOR_LAG_SEC) {
-                sleep(EagleConfig.MOTOR_LAG_SEC - (start - runtime.seconds()));
+            if ((runtime.seconds() - start) < LionConfig.MOTOR_LAG_SEC) {
+                sleep(LionConfig.MOTOR_LAG_SEC - (start - runtime.seconds()));
             }
 
             beam_drive.setPower(0);
-        } else if (/*beam_enabled &&*/ ! gamepad2.dpad_up && gamepad2.dpad_down) {    // retract the beam
+        } else if ( ! gamepad2.dpad_left && gamepad2.dpad_right ) {     // retract the beam
             beam_drive.setPower(0);
             double start = runtime.seconds();
-            beam_drive.setTargetPosition(EagleConfig.BEAM_TARGET_IN);
-            beam_drive.setPower(EagleConfig.BEAM_POWER);
+            beam_drive.setTargetPosition(LionConfig.BEAM_TARGET_IN);
+            beam_drive.setPower(LionConfig.BEAM_POWER);
 
-            while ( EagleConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
-                if (EagleConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
+            while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                if (LionConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
             }
 
-            if ((runtime.seconds() - start) < EagleConfig.MOTOR_LAG_SEC) {
-                sleep(EagleConfig.MOTOR_LAG_SEC - (start - runtime.seconds()));
+            if ((runtime.seconds() - start) < LionConfig.MOTOR_LAG_SEC) {
+                sleep(LionConfig.MOTOR_LAG_SEC - (start - runtime.seconds()));
             }
 
             beam_drive.setPower(0);
-        } else if (/*beam_enabled &&*/ gamepad2.dpad_left && ! gamepad2.dpad_right)     {   //swivel beam claw up
-            beam_swivel.setPosition(EagleConfig.BEAM_SWIVEL_UP);
-        } else if (/*beam_enabled &&*/ ! gamepad2.dpad_left && gamepad2.dpad_right)     {   //swivel beam claw down
-            beam_swivel.setPosition(EagleConfig.BEAM_SWIVEL_DOWN);
-        } else if (/*beam_enabled &&*/ gamepad2.left_bumper && ! gamepad2.right_bumper) {   //open beam claw
-            beam_claw.setPosition(EagleConfig.BEAM_CLAW_OPENED);
-        } else if (/*beam_enabled &&*/ ! gamepad2.left_bumper && gamepad2.right_bumper) {   //close beam claw
-            beam_claw.setPosition(EagleConfig.BEAM_CLAW_CLOSED);
+        } else if ( gamepad2.dpad_up && ! gamepad2.dpad_down )     {    // swivel beam claw up
+            beam_swivel.setPosition(LionConfig.BEAM_SWIVEL_UP);
+        } else if ( ! gamepad2.dpad_up && gamepad2.dpad_down )     {    // swivel beam claw down
+            beam_swivel.setPosition(LionConfig.BEAM_SWIVEL_DOWN);
+        } else if ( ! gamepad2.left_bumper && gamepad2.right_bumper ) { // open beam claw
+            beam_claw.setPosition(LionConfig.BEAM_CLAW_OPENED);
+        } else if ( gamepad2.left_bumper && ! gamepad2.right_bumper ) { // close beam claw
+            beam_claw.setPosition(LionConfig.BEAM_CLAW_CLOSED);
         }
     }
 
