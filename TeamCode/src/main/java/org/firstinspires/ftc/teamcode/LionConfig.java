@@ -20,6 +20,8 @@ public class LionConfig {
 
     //         Servos
     public static final String TAIL             = "tail";                   // Hub 2.Servos[0].Servo
+    public static final String BEAM_SWIVEL      = "beam swivel";            // Hub 2.Servos[3].Servo
+    public static final String BEAM_CLAW        = "beam claw";              // Hub 2.Servos[5].Servo
 
     //         Analog Input Devices
     public static final String STBD_BOW_IR      = "starboard bow ir range"; // Hub 2.Analog Input Devices[0].Analog Input
@@ -47,8 +49,6 @@ public class LionConfig {
 
     //         Servos
     public static final String PORT_CLAW        = "port claw";              // Hub 3.Servos[0].Servo
-    public static final String BEAM_CLAW        = "beam claw";              // Hub 3.Servos[2].Servo
-    public static final String BEAM_SWIVEL      = "beam swivel";            // Hub 3.Servos[3].Servo
     public static final String STBD_CLAW        = "starboard claw";         // Hub 3.Servos[5].Servo
 
     //         I2C Bus 0
@@ -84,12 +84,12 @@ public class LionConfig {
     // Beam parameters
     public static final double BEAM_POWER       = 0.70;
     public static final int    BEAM_TARGET_IN   =    0;         // encoder clicks for full retraction
-    public static final int    BEAM_TARGET_OUT  = -9500;        // encoder clicks for full extension
+    public static final int    BEAM_TARGET_OUT  = -9000;        // encoder clicks for full extension
     public static final DcMotor.Direction BEAM_DIRECTION = DcMotor.Direction.FORWARD;
-    public static final double BEAM_CLAW_OPENED = 0.90;
-    public static final double BEAM_CLAW_CLOSED = 0.25;
-    public static final double BEAM_SWIVEL_UP   = 0.00;
-    public static final double BEAM_SWIVEL_DOWN = 0.50;
+    public static final double BEAM_CLAW_OPENED = 0.00;
+    public static final double BEAM_CLAW_CLOSED = 0.90;
+    public static final double BEAM_SWIVEL_UP   = 0.50;
+    public static final double BEAM_SWIVEL_DOWN = 0.00;
 
     // Misc. motor parameters
     public static final int    MOTOR_TARGET_TOLERANCE =   5;    // encoder clicks

@@ -451,7 +451,7 @@ public class LionDiagnostics extends OpMode {
             telemetry.addData(state_names[state], "DPAD L/R to extend/retract beam.");
             telemetry.addData(state_names[state], "DPAD U/D to raise/lower swivel.");
             telemetry.addData(state_names[state], "Bumper L/R to close/open claw.");
-            if (gamepad1.dpad_up && ! gamepad1.dpad_down) {           // extend the beam
+            if (gamepad1.dpad_left && ! gamepad1.dpad_right) {           // extend the beam
                 if (beam_drive == null) {
                     beam_drive = hardwareMap.get(DcMotor.class, LionConfig.BEAM_DRIVE);
                     beam_drive.setDirection(DcMotor.Direction.FORWARD);
@@ -465,7 +465,7 @@ public class LionDiagnostics extends OpMode {
                 beam_drive.setTargetPosition(LionConfig.BEAM_TARGET_OUT);
                 beam_drive.setPower(LionConfig.BEAM_POWER);
 
-                while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(beam_drive.getTargetPosition() - beam_drive.getCurrentPosition()) ) {
                     if (LionConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
                 }
 
@@ -474,7 +474,7 @@ public class LionDiagnostics extends OpMode {
                 }
 
                 beam_drive.setPower(0);
-            } else if (! gamepad1.dpad_up && gamepad1.dpad_down) {    // retract the beam
+            } else if (! gamepad1.dpad_left && gamepad1.dpad_right) {    // retract the beam
                 if (beam_drive == null) {
                     beam_drive = hardwareMap.get(DcMotor.class, LionConfig.BEAM_DRIVE);
                     beam_drive.setDirection(LionConfig.BEAM_DIRECTION);
@@ -488,7 +488,7 @@ public class LionDiagnostics extends OpMode {
                 beam_drive.setTargetPosition(LionConfig.BEAM_TARGET_IN);
                 beam_drive.setPower(LionConfig.BEAM_POWER);
 
-                while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - beam_drive.getCurrentPosition()) ) {
                     if (LionConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
                 }
 
@@ -497,14 +497,14 @@ public class LionDiagnostics extends OpMode {
                 }
 
                 beam_drive.setPower(0);
-            } else if (gamepad1.dpad_left && ! gamepad1.dpad_right)     {   // swivel beam claw up
+            } else if (gamepad1.dpad_up && ! gamepad1.dpad_down)     {   // swivel beam claw up
                 if (beam_swivel == null) {
                     beam_swivel = hardwareMap.get(Servo.class, LionConfig.BEAM_SWIVEL);
                     beam_swivel.setDirection(Servo.Direction.FORWARD);
                 }
 
                 beam_swivel.setPosition(LionConfig.BEAM_SWIVEL_UP);
-            } else if ( ! gamepad1.dpad_left && gamepad1.dpad_right)     {   // swivel beam claw down
+            } else if ( ! gamepad1.dpad_up && gamepad1.dpad_down)     {   // swivel beam claw down
                 if (beam_swivel == null) {
                     beam_swivel = hardwareMap.get(Servo.class, LionConfig.BEAM_SWIVEL);
                     beam_swivel.setDirection(Servo.Direction.FORWARD);
@@ -622,9 +622,6 @@ public class LionDiagnostics extends OpMode {
         } else if (state == DONE) {
             telemetry.addData(state_names[state], "%8.0fs", runtime.seconds());
         }
-
-        // Show the elapsed game time.
-        telemetry.addData("State", "%10s %8.0f", state_names[state], runtime.seconds());
     }
 
     private void init_drive() {
