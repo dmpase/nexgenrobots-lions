@@ -248,6 +248,20 @@ public class LionDriverOp extends OpMode
             y = half_speed * gamepad1.right_stick_y;
         }
 
+        if (gamepad1.dpad_up) {
+            x = 0;
+            y = -half_speed / 4.0;
+        } else if (gamepad1.dpad_down) {
+            x = 0;
+            y =  half_speed / 4.0;
+        } else if (gamepad1.dpad_left) {
+            x = -half_speed / 4.0;
+            y = 0;
+        } else if (gamepad1.dpad_right) {
+            x =  half_speed / 4.0;
+            y = 0;
+        }
+
         // get the angle of the stick to compute the desired bearing
         double alpha   = (x == 0 && y == 0) ? 0 : Math.atan2(y, x);
         double bearing = (x == 0 && y == 0) ? 0 : alpha + Math.PI/2.0;
