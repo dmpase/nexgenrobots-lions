@@ -186,8 +186,9 @@ public class EagleDiagnostics extends OpMode {
         }
 
         if (state == START) {
-            ;
+            telemetry.addData(state_names[state], "%8.0fs", runtime.seconds());
         } else if (state == GAMEPAD) {
+            telemetry.addData(state_names[state], "%8.0fs", runtime.seconds());
             if (gamepad1.a) {
                 telemetry.addData("Gamepad 1", "A");
             } else if (gamepad1.b) {
@@ -262,14 +263,15 @@ public class EagleDiagnostics extends OpMode {
                     gamepad2.right_stick_x, gamepad2.right_stick_y,
                     gamepad2.left_trigger,  gamepad2.right_trigger);
         } else if (state == ROTATE) {
-            if ((gamepad1.x || gamepad1.left_bumper) && !(gamepad1.b || gamepad1.right_bumper)) {
+            telemetry.addData(state_names[state], "X/B to turn left/right.");
+            if ((gamepad1.x) && !(gamepad1.b)) {
                 init_drive();
 
                 port_bow_drive.setPower(0.1);
                 stbd_bow_drive.setPower(0.1);
                 stbd_aft_drive.setPower(0.1);
                 port_aft_drive.setPower(0.1);
-            } else if (!(gamepad1.x || gamepad1.left_bumper) && (gamepad1.b || gamepad1.right_bumper)) {
+            } else if (!(gamepad1.x) && (gamepad1.b)) {
                 init_drive();
 
                 port_bow_drive.setPower(-0.1);
@@ -294,6 +296,8 @@ public class EagleDiagnostics extends OpMode {
                 }
             }
         } else if (state == MOTION) {
+            telemetry.addData(state_names[state], "Y/B to go forward/backward.");
+            telemetry.addData(state_names[state], "X/B to go left/right.");
             if (!gamepad1.a && !gamepad1.b && !gamepad1.x && gamepad1.y) {
                 // FORWARD
                 init_drive();
@@ -344,7 +348,9 @@ public class EagleDiagnostics extends OpMode {
                 }
             }
         } else if (state == CLAW) {
-            if (gamepad1.x && ! gamepad1.b) {           // open the claw
+            telemetry.addData(state_names[state], "B/X to open/close claw.");
+            telemetry.addData(state_names[state], "Y/A to raise/lower claw.");
+            if ( ! gamepad1.x && gamepad1.b) {           // open the claw
                 if (claw == null) {
                     claw = hardwareMap.get(Servo.class, EagleConfig.CLAW);
                     claw.setDirection(Servo.Direction.FORWARD);
@@ -397,6 +403,7 @@ public class EagleDiagnostics extends OpMode {
                 telemetry.addData("Lift", "%4d", lift.getCurrentPosition());
             }
         } else if (state == TAIL) {
+            telemetry.addData(state_names[state], "Y/A to raise/lower tail.");
             if (gamepad1.y && ! gamepad1.a) {           // raise the tail
                 if (tail == null) {
                     tail  = hardwareMap.get(Servo.class, EagleConfig.TAIL);
@@ -413,7 +420,10 @@ public class EagleDiagnostics extends OpMode {
                 tail.setPosition(EagleConfig.TAIL_POS_DN);
             }
         } else if (state == BEAM) {
-            if (gamepad1.dpad_up && ! gamepad1.dpad_down) {           // extend the beam
+            telemetry.addData(state_names[state], "DPAD L/R to extend/retract beam.");
+            telemetry.addData(state_names[state], "DPAD U/D to raise/lower swivel.");
+            telemetry.addData(state_names[state], "Bumper L/R to close/open claw.");
+            if (gamepad1.dpad_left && ! gamepad1.dpad_right) {                  // extend the beam
                 if (beam_drive == null) {
                     beam_drive = hardwareMap.get(DcMotor.class, EagleConfig.BEAM_DRIVE);
                     beam_drive.setDirection(DcMotor.Direction.FORWARD);
@@ -436,7 +446,7 @@ public class EagleDiagnostics extends OpMode {
                 }
 
                 beam_drive.setPower(0);
-            } else if (! gamepad1.dpad_up && gamepad1.dpad_down) {    // retract the beam
+            } else if (! gamepad1.dpad_left && gamepad1.dpad_right) {           // retract the beam
                 if (beam_drive == null) {
                     beam_drive = hardwareMap.get(DcMotor.class, EagleConfig.BEAM_DRIVE);
                     beam_drive.setDirection(EagleConfig.BEAM_DIRECTION);
@@ -459,28 +469,28 @@ public class EagleDiagnostics extends OpMode {
                 }
 
                 beam_drive.setPower(0);
-            } else if (gamepad1.dpad_left && ! gamepad1.dpad_right)     {   // swivel beam claw up
+            } else if (gamepad1.dpad_up && ! gamepad1.dpad_down)     {          // swivel beam claw up
                 if (beam_swivel == null) {
                     beam_swivel = hardwareMap.get(Servo.class, EagleConfig.BEAM_SWIVEL);
                     beam_swivel.setDirection(Servo.Direction.FORWARD);
                 }
 
                 beam_swivel.setPosition(EagleConfig.BEAM_SWIVEL_UP);
-            } else if ( ! gamepad1.dpad_left && gamepad1.dpad_right)     {   // swivel beam claw down
+            } else if ( ! gamepad1.dpad_up && gamepad1.dpad_down ) {            // swivel beam claw down
                 if (beam_swivel == null) {
                     beam_swivel = hardwareMap.get(Servo.class, EagleConfig.BEAM_SWIVEL);
                     beam_swivel.setDirection(Servo.Direction.FORWARD);
                 }
 
                 beam_swivel.setPosition(EagleConfig.BEAM_SWIVEL_DOWN);
-            } else if (gamepad1.left_bumper && ! gamepad1.right_bumper)  {    // open beam claw
+            } else if ( ! gamepad1.left_bumper && gamepad1.right_bumper )  {    // open beam claw
                 if (beam_claw == null) {
                     beam_claw = hardwareMap.get(Servo.class, EagleConfig.BEAM_CLAW);
                     beam_claw.setDirection(Servo.Direction.FORWARD);
                 }
 
                 beam_claw.setPosition(EagleConfig.BEAM_CLAW_OPENED);
-            } else if ( ! gamepad1.left_bumper && gamepad1.right_bumper) {   // close beam claw
+            } else if ( gamepad1.left_bumper && ! gamepad1.right_bumper ) {     // close beam claw
                 if (beam_claw == null) {
                     beam_claw = hardwareMap.get(Servo.class, EagleConfig.BEAM_CLAW);
                     beam_claw.setDirection(Servo.Direction.FORWARD);
@@ -489,6 +499,7 @@ public class EagleDiagnostics extends OpMode {
                 beam_claw.setPosition(EagleConfig.BEAM_CLAW_CLOSED);
             }
         } else if (state == COLOR) {
+            telemetry.addData(state_names[state], "A/B/X/Y to show.");
             if (gamepad1.a || gamepad1.b || gamepad1.x || gamepad1.y) {
                 if (color_sensor == null) {
                     color_sensor = hardwareMap.get(ColorSensor.class, EagleConfig.REV_COLOR_RANGE);
@@ -504,7 +515,9 @@ public class EagleDiagnostics extends OpMode {
                         (color_sensor.red() < color_sensor.blue())?"BLUE":"RED");
             }
         } else if (state == IR) {
+            telemetry.addData(state_names[state], "%8.0fs", runtime.seconds());
         } else if (state == VUFORIA) {
+            telemetry.addData(state_names[state], "A to show.");
             if (gamepad1.a || gamepad1.b) {
                 if (cameraMonitorViewId < 0) {
                     cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
@@ -535,12 +548,13 @@ public class EagleDiagnostics extends OpMode {
                 telemetry.addData("VuForia", "vuMark='%s'", vuMark.name());
             }
         } else if (state == IMU) {
+            telemetry.addData(state_names[state], "%8.0fs", runtime.seconds());
         } else if (state == DONE) {
-            ;
+            telemetry.addData(state_names[state], "%8.0fs", runtime.seconds());
         }
 
         // Show the elapsed game time.
-        telemetry.addData("State", "%10s %8.0f", state_names[state], runtime.seconds());
+//        telemetry.addData("State", "%10s %8.0f", state_names[state], runtime.seconds());
     }
 
     private void init_drive() {

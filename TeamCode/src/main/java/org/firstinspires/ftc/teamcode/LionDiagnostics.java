@@ -56,7 +56,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Griffin Diagnostics", group="Iterative Opmode")
+@TeleOp(name="Lion Diagnostics", group="Iterative Opmode")
 // @Disabled
 public class LionDiagnostics extends OpMode {
     // locomotion motors
@@ -187,8 +187,9 @@ public class LionDiagnostics extends OpMode {
         }
 
         if (state == START) {
-            ;
+            telemetry.addData(state_names[state], "%8.0fs", runtime.seconds());
         } else if (state == GAMEPAD) {
+            telemetry.addData(state_names[state], "%8.0fs", runtime.seconds());
             if (gamepad1.a) {
                 telemetry.addData("Gamepad 1", "A");
             } else if (gamepad1.b) {
@@ -263,7 +264,8 @@ public class LionDiagnostics extends OpMode {
                     gamepad2.right_stick_x, gamepad2.right_stick_y,
                     gamepad2.left_trigger,  gamepad2.right_trigger);
         } else if (state == ROTATE) {
-            if ((gamepad1.x || gamepad1.left_bumper) && !(gamepad1.b || gamepad1.right_bumper)) {
+            telemetry.addData(state_names[state], "X/B to turn left/right.");
+            if ((gamepad1.x) && !(gamepad1.b)) {
                 init_drive();
 
                 port_bow_drive.setPower(0.1);
@@ -295,6 +297,8 @@ public class LionDiagnostics extends OpMode {
                 }
             }
         } else if (state == MOTION) {
+            telemetry.addData(state_names[state], "Y/B to go forward/backward.");
+            telemetry.addData(state_names[state], "X/B to go left/right.");
             if (!gamepad1.a && !gamepad1.b && !gamepad1.x && gamepad1.y) {
                 // FORWARD
                 init_drive();
@@ -345,6 +349,8 @@ public class LionDiagnostics extends OpMode {
                 }
             }
         } else if (state == CLAW) {
+            telemetry.addData(state_names[state], "B/X to open/close claw.");
+            telemetry.addData(state_names[state], "Y/A to raise/lower claw.");
             if (gamepad1.x && ! gamepad1.b) {           // open the claw
                 if (port_claw == null) {
                     port_claw = hardwareMap.get(Servo.class, LionConfig.PORT_CLAW);
@@ -425,6 +431,7 @@ public class LionDiagnostics extends OpMode {
                 telemetry.addData("Lift", "%4d", lift.getCurrentPosition());
             }
         } else if (state == TAIL) {
+            telemetry.addData(state_names[state], "Y/A to raise/lower tail.");
             if (gamepad1.y && ! gamepad1.a) {           // raise the tail
                 if (tail == null) {
                     tail  = hardwareMap.get(Servo.class, LionConfig.TAIL);
@@ -441,6 +448,9 @@ public class LionDiagnostics extends OpMode {
                 tail.setPosition(LionConfig.TAIL_POS_DN);
             }
         } else if (state == BEAM) {
+            telemetry.addData(state_names[state], "DPAD L/R to extend/retract beam.");
+            telemetry.addData(state_names[state], "DPAD U/D to raise/lower swivel.");
+            telemetry.addData(state_names[state], "Bumper L/R to close/open claw.");
             if (gamepad1.dpad_up && ! gamepad1.dpad_down) {           // extend the beam
                 if (beam_drive == null) {
                     beam_drive = hardwareMap.get(DcMotor.class, LionConfig.BEAM_DRIVE);
@@ -517,6 +527,7 @@ public class LionDiagnostics extends OpMode {
                 beam_claw.setPosition(LionConfig.BEAM_CLAW_CLOSED);
             }
         } else if (state == ULTRASONIC) {
+            telemetry.addData(state_names[state], "A/B/X/Y to show.");
             if (gamepad1.a || gamepad1.b || gamepad1.x || gamepad1.y) {
                 if (port_mr_range == null) {
                     port_mr_range = hardwareMap.get(DistanceSensor.class, LionConfig.PORT_MR_RANGE);
@@ -531,6 +542,7 @@ public class LionDiagnostics extends OpMode {
                         stbd_mr_range.getDistance(DistanceUnit.INCH));
             }
         } else if (state == COLOR) {
+            telemetry.addData(state_names[state], "A/B/X/Y to show.");
             if (gamepad1.a || gamepad1.b || gamepad1.x || gamepad1.y) {
                 if (color_sensor == null) {
                     color_sensor = hardwareMap.get(ColorSensor.class, LionConfig.REV_COLOR_RANGE);
@@ -546,6 +558,7 @@ public class LionDiagnostics extends OpMode {
                         (color_sensor.red() < color_sensor.blue())?"BLUE":"RED");
             }
         } else if (state == IR) {
+            telemetry.addData(state_names[state], "A/B/X/Y to show.");
             if (gamepad1.a || gamepad1.b || gamepad1.x || gamepad1.y) {
                 if (port_ir_aft == null) {
                     port_ir_aft = hardwareMap.get(AnalogInput.class, LionConfig.PORT_AFT_IR);
@@ -574,6 +587,7 @@ public class LionDiagnostics extends OpMode {
                         stbd_ir_bow.getVoltage(), ir_v2in.distance(stbd_ir_bow.getVoltage()));
             }
         } else if (state == VUFORIA) {
+            telemetry.addData(state_names[state], "A to show.");
             if (gamepad1.a || gamepad1.b) {
                 if (cameraMonitorViewId < 0) {
                     cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
@@ -604,8 +618,9 @@ public class LionDiagnostics extends OpMode {
                 telemetry.addData("VuForia", "vuMark='%s'", vuMark.name());
             }
         } else if (state == IMU) {
+            telemetry.addData(state_names[state], "%8.0fs", runtime.seconds());
         } else if (state == DONE) {
-            ;
+            telemetry.addData(state_names[state], "%8.0fs", runtime.seconds());
         }
 
         // Show the elapsed game time.

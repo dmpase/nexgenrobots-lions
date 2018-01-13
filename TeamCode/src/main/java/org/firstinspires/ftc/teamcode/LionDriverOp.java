@@ -48,7 +48,7 @@ import static com.sun.tools.javac.util.Constants.format;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Griffin Driver OpMode", group="Iterative OpMode")
+@TeleOp(name="Lion Driver OpMode", group="Iterative OpMode")
 // @Disabled
 public class LionDriverOp extends OpMode
 {

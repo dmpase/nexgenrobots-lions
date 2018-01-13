@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -51,7 +52,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Griffin Auto Sensor", group="Autonomous")
-// @Disabled
+@Disabled
 public class LionAutoSensor extends LinearOpMode {
     // Declare OpMode members.
 

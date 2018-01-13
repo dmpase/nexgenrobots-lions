@@ -55,7 +55,7 @@ import static org.firstinspires.ftc.teamcode.LionConfig.ROTATION_RATE;
  * See the Griffin Auto Input User Guide for details on Op Mode controls.
  */
 
-@Autonomous(name="Griffin Auto Input", group="Autonomous")
+@Autonomous(name="Lion Auto Input", group="Autonomous")
 // @Disabled
 public class LionAutoInput extends LinearOpMode {
     // Declare OpMode members.
