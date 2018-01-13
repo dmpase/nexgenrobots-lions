@@ -86,7 +86,7 @@ public class EagleDriverOp extends OpMode
         init_claw();
 
         telemetry.addData("Status", "Initializing Beam.");
-//        init_beam();
+        init_beam();
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialization Complete.");
@@ -120,6 +120,7 @@ public class EagleDriverOp extends OpMode
         get_beam_settings();
 
         // Show the elapsed game time and other data.
+        telemetry.addData("Beam", "%5d", beam_drive.getCurrentPosition());
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
 
@@ -129,41 +130,27 @@ public class EagleDriverOp extends OpMode
         if ( gamepad2.dpad_left && ! gamepad2.dpad_right ) {            // extend the beam
             beam_drive.setPower(0);
             double start = runtime.seconds();
-            beam_drive.setTargetPosition(LionConfig.BEAM_TARGET_OUT);
-            beam_drive.setPower(LionConfig.BEAM_POWER);
-
-            while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
-                if (LionConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
-            }
-
-            if ((runtime.seconds() - start) < LionConfig.MOTOR_LAG_SEC) {
-                sleep(LionConfig.MOTOR_LAG_SEC - (start - runtime.seconds()));
-            }
-
-            beam_drive.setPower(0);
+            beam_drive.setTargetPosition(EagleConfig.BEAM_TARGET_OUT);
+            beam_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            beam_drive.setPower(EagleConfig.BEAM_POWER);
         } else if ( ! gamepad2.dpad_left && gamepad2.dpad_right ) {     // retract the beam
             beam_drive.setPower(0);
             double start = runtime.seconds();
-            beam_drive.setTargetPosition(LionConfig.BEAM_TARGET_IN);
-            beam_drive.setPower(LionConfig.BEAM_POWER);
-
-            while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
-                if (LionConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
-            }
-
-            if ((runtime.seconds() - start) < LionConfig.MOTOR_LAG_SEC) {
-                sleep(LionConfig.MOTOR_LAG_SEC - (start - runtime.seconds()));
-            }
-
+            beam_drive.setTargetPosition(EagleConfig.BEAM_TARGET_IN);
+            beam_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            beam_drive.setPower(-EagleConfig.BEAM_POWER);
+        } else {
             beam_drive.setPower(0);
-        } else if ( gamepad2.dpad_up && ! gamepad2.dpad_down )     {    // swivel beam claw up
-            beam_swivel.setPosition(LionConfig.BEAM_SWIVEL_UP);
+        }
+
+        if ( gamepad2.dpad_up && ! gamepad2.dpad_down )     {    // swivel beam claw up
+            beam_swivel.setPosition(EagleConfig.BEAM_SWIVEL_UP);
         } else if ( ! gamepad2.dpad_up && gamepad2.dpad_down )     {    // swivel beam claw down
-            beam_swivel.setPosition(LionConfig.BEAM_SWIVEL_DOWN);
+            beam_swivel.setPosition(EagleConfig.BEAM_SWIVEL_DOWN);
         } else if ( ! gamepad2.left_bumper && gamepad2.right_bumper ) { // open beam claw
-            beam_claw.setPosition(LionConfig.BEAM_CLAW_OPENED);
+            beam_claw.setPosition(EagleConfig.BEAM_CLAW_OPENED);
         } else if ( gamepad2.left_bumper && ! gamepad2.right_bumper ) { // close beam claw
-            beam_claw.setPosition(LionConfig.BEAM_CLAW_CLOSED);
+            beam_claw.setPosition(EagleConfig.BEAM_CLAW_CLOSED);
         }
     }
 
@@ -330,22 +317,22 @@ public class EagleDriverOp extends OpMode
 
     public void init_beam()
     {
-        if (/*beam_enabled &&*/ beam_claw == null) {
+        if (beam_claw == null) {
             beam_claw = hardwareMap.get(Servo.class, EagleConfig.BEAM_CLAW);
             beam_claw.setDirection(Servo.Direction.FORWARD);
         }
 
-        if (/*beam_enabled &&*/ beam_swivel == null) {
+        if (beam_swivel == null) {
             beam_swivel = hardwareMap.get(Servo.class, EagleConfig.BEAM_SWIVEL);
             beam_swivel.setDirection(Servo.Direction.FORWARD);
         }
 
-        if (/*beam_enabled &&*/ beam_drive == null) {
+        if (beam_drive == null) {
             beam_drive = hardwareMap.get(DcMotor.class, EagleConfig.BEAM_DRIVE);
             beam_drive.setDirection(DcMotor.Direction.FORWARD);
             beam_drive.setPower(0);
             beam_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            beam_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            beam_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 

@@ -437,7 +437,7 @@ public class EagleDiagnostics extends OpMode {
                 beam_drive.setTargetPosition(EagleConfig.BEAM_TARGET_OUT);
                 beam_drive.setPower(EagleConfig.BEAM_POWER);
 
-                while ( EagleConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                while ( EagleConfig.MOTOR_TARGET_TOLERANCE < Math.abs(beam_drive.getTargetPosition() - beam_drive.getCurrentPosition()) ) {
                     if (EagleConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
                 }
 
@@ -460,7 +460,7 @@ public class EagleDiagnostics extends OpMode {
                 beam_drive.setTargetPosition(EagleConfig.BEAM_TARGET_IN);
                 beam_drive.setPower(EagleConfig.BEAM_POWER);
 
-                while ( EagleConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - lift.getCurrentPosition()) ) {
+                while ( EagleConfig.MOTOR_TARGET_TOLERANCE < Math.abs(beam_drive.getTargetPosition() - beam_drive.getCurrentPosition()) ) {
                     if (EagleConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
                 }
 
@@ -497,6 +497,12 @@ public class EagleDiagnostics extends OpMode {
                 }
 
                 beam_claw.setPosition(EagleConfig.BEAM_CLAW_CLOSED);
+            }
+
+            if (gamepad1.a && beam_drive != null) {
+                telemetry.addData(state_names[state], "encoder=%d", beam_drive.getCurrentPosition());
+            } else {
+                telemetry.addData(state_names[state], "A to show.");
             }
         } else if (state == COLOR) {
             telemetry.addData(state_names[state], "A/B/X/Y to show.");

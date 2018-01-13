@@ -87,7 +87,7 @@ public class EagleAuto extends LinearOpMode {
 
         // make minor adjustments to position, as needed, and prompt the user for input
         telemetry.addData("Move", "Stick/bumper/trigger to move.");
-        telemetry.addData("Claw", "X/B/Y/A to open/close/raise/lower.");
+        telemetry.addData("Claw", "X/B/Y/A to close/open/raise/lower.");
         telemetry.addData("Tail", "DPAD up/down to raise/lower.");
         telemetry.addData("Start", "Press 'Guide' to select quadrant.");
         telemetry.update();
@@ -101,13 +101,13 @@ public class EagleAuto extends LinearOpMode {
             get_motor_settings();
 
             if (gamepad1.x || gamepad2.x) {
-                execute(open_claw);
-            } else if (gamepad1.b || gamepad2.b) {
                 execute(close_claw);
+            } else if (gamepad1.b || gamepad2.b) {
+                execute(open_claw);
             } else if (gamepad1.y || gamepad2.y) {
-                execute(raise_claw);
+//                execute(raise_claw);
             } else if (gamepad1.a || gamepad2.a) {
-                execute(lower_claw);
+//                execute(lower_claw);
             } else if (gamepad1.dpad_up || gamepad2.dpad_up) {
                 tail.setPosition(EagleConfig.TAIL_POS_UP);
             } else if (gamepad1.dpad_down || gamepad2.dpad_down) {
@@ -117,7 +117,7 @@ public class EagleAuto extends LinearOpMode {
 
         // make sure the tail is in the up position
         tail.setPosition(EagleConfig.TAIL_POS_UP);
-        execute(raise_claw);
+//        execute(raise_claw);
 
 
         // select the team color and playing field quadrant

@@ -526,6 +526,12 @@ public class LionDiagnostics extends OpMode {
 
                 beam_claw.setPosition(LionConfig.BEAM_CLAW_CLOSED);
             }
+
+            if (gamepad1.a && beam_drive != null) {
+                telemetry.addData(state_names[state], "encoder=%d", beam_drive.getCurrentPosition());
+            } else {
+                telemetry.addData(state_names[state], "A to show.");
+            }
         } else if (state == ULTRASONIC) {
             telemetry.addData(state_names[state], "A/B/X/Y to show.");
             if (gamepad1.a || gamepad1.b || gamepad1.x || gamepad1.y) {
