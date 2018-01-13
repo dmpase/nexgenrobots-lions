@@ -488,7 +488,7 @@ public class LionDiagnostics extends OpMode {
                 beam_drive.setTargetPosition(LionConfig.BEAM_TARGET_IN);
                 beam_drive.setPower(LionConfig.BEAM_POWER);
 
-                while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(lift.getTargetPosition() - beam_drive.getCurrentPosition()) ) {
+                while ( LionConfig.MOTOR_TARGET_TOLERANCE < Math.abs(beam_drive.getTargetPosition() - beam_drive.getCurrentPosition()) ) {
                     if (LionConfig.MOTOR_LAG_SEC < (runtime.seconds() - start)) break;
                 }
 
