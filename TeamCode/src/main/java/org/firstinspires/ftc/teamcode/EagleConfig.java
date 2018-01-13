@@ -20,6 +20,8 @@ public class EagleConfig {
     //         Servos
     public static final String CLAW             = "claw";                   // Hub 2.Servos[0].Servo
     public static final String TAIL             = "tail";                   // Hub 2.Servos[1].Servo
+    public static final String BEAM_SWIVEL      = "beam swivel";            // Hub 2.Servos[3].Servo
+    public static final String BEAM_CLAW        = "beam claw";              // Hub 2.Servos[5].Servo
 
     //         I2C Bus 3
     public static final String REV_COLOR_RANGE  = "rev color range";        // Hub 2.I2C Bus 3[0].Rev Color/Range Sensor
@@ -29,10 +31,6 @@ public class EagleConfig {
     //         Motors
     public static final String BEAM_DRIVE       = "beam drive";             // Hub 3.Motors[2].Rev Robotics HD Hex
     public static final String LIFT_DRIVE       = "claw lift";              // Hub 3.Motors[3].Rev Robotics HD Hex
-
-    //         Servos
-    public static final String BEAM_CLAW        = "beam claw";              // Hub 3.Servos[2].Servo
-    public static final String BEAM_SWIVEL      = "beam swivel";            // Hub 3.Servos[3].Servo
 
 
     // VuForia License Key
