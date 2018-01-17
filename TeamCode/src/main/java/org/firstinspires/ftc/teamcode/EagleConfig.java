@@ -48,8 +48,8 @@ public class EagleConfig {
 
 
     // Claw parameters
-    public static final double CLAW_OPENED      = 1.00;
-    public static final double CLAW_CLOSED      = 0.00;
+    public static final double CLAW_OPENED      =  1.00;
+    public static final double CLAW_CLOSED      = -0.50;
 
 
     // Tail parameters

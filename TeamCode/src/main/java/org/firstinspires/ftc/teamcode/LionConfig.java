@@ -62,9 +62,9 @@ public class LionConfig {
 
     // Lift parameters
     public static final double LIFT_POWER       = 0.75;
-    public static final int    LIFT_TARGET_HI   = 4800;
+    public static final int    LIFT_TARGET_HI   = 5000;
     public static final int    LIFT_TARGET_INCH =  400;
-    public static final int    LIFT_TARGET_LO   =    0;
+    public static final int    LIFT_TARGET_LO   =  200;
     public static final int    LIFT_TARGET_SET  =  400;
     public static final DcMotor.Direction LIFT_DIRECTION = DcMotor.Direction.FORWARD;
 
