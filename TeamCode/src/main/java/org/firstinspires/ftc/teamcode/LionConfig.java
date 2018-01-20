@@ -82,9 +82,9 @@ public class LionConfig {
 
 
     // Beam parameters
-    public static final double BEAM_POWER       = 0.70;
+    public static final double BEAM_POWER       = 0.40;
     public static final int    BEAM_TARGET_IN   =    0;         // encoder clicks for full retraction
-    public static final int    BEAM_TARGET_OUT  = -15000;       // encoder clicks for full extension
+    public static final int    BEAM_TARGET_OUT  =-15000;       // encoder clicks for full extension
     public static final DcMotor.Direction BEAM_DIRECTION = DcMotor.Direction.FORWARD;
     public static final double BEAM_CLAW_OPENED = 0.00;
     public static final double BEAM_CLAW_CLOSED = 0.90;

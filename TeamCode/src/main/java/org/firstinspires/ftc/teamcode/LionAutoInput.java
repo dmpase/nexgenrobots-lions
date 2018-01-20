@@ -117,7 +117,7 @@ public class LionAutoInput extends LinearOpMode {
 
         // make sure the tail is in the up position
         tail.setPosition(LionConfig.TAIL_POS_UP);
-        execute(raise_claw);
+//        execute(raise_claw);
 
 
         // select the team color and playing field quadrant
@@ -209,6 +209,7 @@ public class LionAutoInput extends LinearOpMode {
             execute(counterclockwise);
         }
         sleep(500);
+        tail.setPosition(LionConfig.TAIL_POS_UP);
 
 
         // ^^^ deliver the block to the crypto box
@@ -242,7 +243,7 @@ public class LionAutoInput extends LinearOpMode {
             {Command.FORWARD,    2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
             {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
             {Command.FORWARD,    6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // align with top of triangle
-            {Command.STBD,      15.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
+            {Command.STBD,      16.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
             {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
@@ -255,9 +256,9 @@ public class LionAutoInput extends LinearOpMode {
     private static final Object[][] blue_right_cmd = {
             {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
             {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
-            {Command.FORWARD,    4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
+            {Command.FORWARD,    2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
             {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
-            {Command.FORWARD,   15.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0" (22.0)
+            {Command.FORWARD,   16.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0" (22.0)
             {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn to face crypto box
             {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
@@ -270,10 +271,10 @@ public class LionAutoInput extends LinearOpMode {
     // red-left quadrant command sequence
     private static final Object[][] red_left_cmd = {
             {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
-            {Command.FORWARD,   15.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
-            {Command.FORWARD,    4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
+            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
+            {Command.FORWARD,    2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
             {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
-            {Command.FORWARD,   24.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0 (22.0)
+            {Command.FORWARD,   15.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0 (22.0)
             {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn to face crypto box
             {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0 (8.0)
@@ -287,14 +288,14 @@ public class LionAutoInput extends LinearOpMode {
     private static final Object[][] red_right_cmd = {
             {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
             {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
-            {Command.FORWARD,    4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
+            {Command.FORWARD,    3.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
             {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
-            {Command.FORWARD,    6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // align with top of triangle
-            {Command.PORT,      12.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
+            {Command.FORWARD,    8.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // align with top of triangle
+            {Command.PORT,      13.5, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
             {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
-            {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
+            {Command.FORWARD,    4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
-            {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
+            {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
             {Command.CLOSE_CLAW,                                            },
             {Command.LIFT,        LionConfig.LIFT_TARGET_LO                     },  // lower the claw
     };

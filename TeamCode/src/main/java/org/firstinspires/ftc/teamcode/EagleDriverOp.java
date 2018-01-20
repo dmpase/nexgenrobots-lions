@@ -158,7 +158,7 @@ public class EagleDriverOp extends OpMode
     public static final double lift_max_pwr =  0.40;
 
     public void get_claw_settings()
-    {23
+    {
         if (! gamepad2.x && gamepad2.b && ! gamepad1.start && ! gamepad2.start) {           // open the claw
             claw.setPosition(EagleConfig.CLAW_OPENED);
         } else if (gamepad2.x && ! gamepad2.b && ! gamepad1.start && ! gamepad2.start) {    // close the claw

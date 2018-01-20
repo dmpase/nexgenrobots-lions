@@ -93,9 +93,7 @@ public class EagleAuto extends LinearOpMode {
         telemetry.update();
         Object[] open_claw  = {Command.OPEN_CLAW,                           };
         Object[] close_claw = {Command.CLOSE_CLAW,                          };
-        Object[] raise_claw = {Command.LIFT,        EagleConfig.LIFT_TARGET_INCH };
-        Object[] lower_claw = {Command.LIFT,        EagleConfig.LIFT_TARGET_LO   };
-        Object[] reset_claw = {Command.LIFT,        EagleConfig.LIFT_TARGET_SET  };
+        Object[] raise_claw = {Command.LIFT,       EagleConfig.LIFT_TARGET_INCH };
 
         while (! gamepad1.guide) {
             get_motor_settings();
@@ -159,6 +157,10 @@ public class EagleAuto extends LinearOpMode {
 
         runtime.reset();
 
+        execute(close_claw);
+        sleep(0.25);
+        execute(raise_claw);
+        sleep(0.25);
 
         // ^^^ vuforia
 
@@ -248,7 +250,7 @@ public class EagleAuto extends LinearOpMode {
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
             {Command.CLOSE_CLAW,                                            },
-            {Command.LIFT,        EagleConfig.LIFT_TARGET_LO                },  // lower the claw
+//          {Command.LIFT,        EagleConfig.LIFT_TARGET_LO                },  // lower the claw
     };
 
     // blue-right quadrant command sequence
@@ -264,7 +266,7 @@ public class EagleAuto extends LinearOpMode {
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
             {Command.CLOSE_CLAW,                                            },
-            {Command.LIFT,        EagleConfig.LIFT_TARGET_LO                },  // lower the claw
+//          {Command.LIFT,        EagleConfig.LIFT_TARGET_LO                },  // lower the claw
     };
 
     // red-left quadrant command sequence
@@ -280,7 +282,7 @@ public class EagleAuto extends LinearOpMode {
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0
             {Command.CLOSE_CLAW,                                            },
-            {Command.LIFT,        EagleConfig.LIFT_TARGET_LO                },  // lower the claw
+//          {Command.LIFT,        EagleConfig.LIFT_TARGET_LO                },  // lower the claw
     };
 
     // red-right quadrant command sequence
@@ -290,48 +292,18 @@ public class EagleAuto extends LinearOpMode {
             {Command.FORWARD,    4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
             {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
             {Command.FORWARD,    6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // align with top of triangle
-            {Command.PORT,      12.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
+            {Command.PORT,      13.5, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
             {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
             {Command.CLOSE_CLAW,                                            },
-            {Command.LIFT,        EagleConfig.LIFT_TARGET_LO                },  // lower the claw
+//          {Command.LIFT,        EagleConfig.LIFT_TARGET_LO                },  // lower the claw
     };
 
-
-    private static final Object[][] dance_0_cmd = {
-            {Command.SLEEP,      1.0,                                       },
-            {Command.OPEN_CLAW,                                             },
-            {Command.CLOSE_CLAW,  Command.PORT,                             },
-            {Command.OPEN_CLAW,                                             },
-            {Command.ROTATE,   -10.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },
-            {Command.SLEEP,      0.2,                                       },
-            {Command.ROTATE,   370.0, FAST_PWR, AUTO_TOL, ROTATION_RATE     },
-            {Command.CLOSE_CLAW,  Command.STBD,                             },
-            {Command.SLEEP,      1.0,                                       },
-            {Command.OPEN_CLAW,                                             },
-            {Command.CLOSE_CLAW,                                            },
-    };
-
-    private static final Object[][] dance_1_cmd = {
-            {Command.SLEEP,      0.5,                                       },
-            {Command.ROTATE,   -15.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },
-            {Command.SLEEP,      0.5,                                       },
-            {Command.ROTATE,   -15.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },
-            {Command.SLEEP,      0.5,                                       },
-            {Command.ROTATE,   -15.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },
-            {Command.SLEEP,      0.5,                                       },
-            {Command.ROTATE,   405.0, FAST_PWR, AUTO_TOL, ROTATION_RATE     },
-            {Command.OPEN_CLAW,                                             },
-            {Command.CLOSE_CLAW,                                            },
-    };
 
     private static final Object[][][] dance_cmds = {
             null,
-//            dance_0_cmd,
-            null,
-//            dance_1_cmd,
             null,
     };
 
@@ -448,8 +420,16 @@ public class EagleAuto extends LinearOpMode {
             sleep(EagleConfig.MOTOR_LAG_MILLI);
         } else if (op_code == Command.LIFT) {
             // raise or lower the claw lift
-            int target = (int) cmd[TARGET];
-            run_to_position(lift, target, EagleConfig.LIFT_POWER, EagleConfig.MOTOR_TARGET_TOLERANCE);
+            double seconds = (double) cmd[SECONDS];
+            double power   = EagleConfig.LIFT_POWER;
+            if (seconds < 0) {
+                seconds = -seconds;
+                power   = -power;
+            }
+            lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            lift.setPower(-power);
+            sleep(seconds);
+            lift.setPower(0);
         } else if (op_code == Command.SLEEP) {
             // take a rest to wait for motors and servos to catch up
             double seconds = (double) cmd[SECONDS];

@@ -375,7 +375,12 @@ public class EagleDiagnostics extends OpMode {
                     lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 }
 
-                lift.setPower(-EagleConfig.LIFT_POWER);
+                double seconds = (double) EagleConfig.LIFT_TARGET_INCH;
+                double power   = EagleConfig.LIFT_POWER;
+                lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                lift.setPower(power);
+                sleep(seconds);
+                lift.setPower(0);
 
             } else if (! gamepad1.y && gamepad1.a) {    // lower the claw
                 if (lift == null) {
@@ -386,8 +391,13 @@ public class EagleDiagnostics extends OpMode {
                     lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 }
 
-                lift.setPower(EagleConfig.LIFT_POWER);
-            } else {
+                double seconds = (double) EagleConfig.LIFT_TARGET_INCH;
+                double power   = EagleConfig.LIFT_POWER;
+                lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                lift.setPower(-power);
+                sleep(seconds);
+                lift.setPower(0);
+            } else if (false) {
                 if (lift == null) {
                     lift = hardwareMap.get(DcMotor.class, EagleConfig.LIFT_DRIVE);
                     lift.setDirection(EagleConfig.LIFT_DIRECTION);
