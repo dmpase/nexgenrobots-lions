@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -56,7 +57,7 @@ import static org.firstinspires.ftc.teamcode.LionConfig.ROTATION_RATE;
  */
 
 @Autonomous(name="Lion Auto Input", group="Autonomous")
-// @Disabled
+@Disabled
 public class LionAutoInput extends LinearOpMode {
     // Declare OpMode members.
 
@@ -159,6 +160,8 @@ public class LionAutoInput extends LinearOpMode {
 
         runtime.reset();
 
+        // ^^^ pick up the block
+
 
         // ^^^ vuforia
 
@@ -248,8 +251,9 @@ public class LionAutoInput extends LinearOpMode {
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
-            {Command.CLOSE_CLAW,                                            },
-            {Command.LIFT,        LionConfig.LIFT_TARGET_LO                     },  // lower the claw
+            {Command.ADJUST,    -6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+//          {Command.CLOSE_CLAW,                                            },
+//          {Command.LIFT,        LionConfig.LIFT_TARGET_LO                 },  // lower the claw
     };
 
     // blue-right quadrant command sequence
@@ -263,25 +267,27 @@ public class LionAutoInput extends LinearOpMode {
             {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
-            {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
-            {Command.CLOSE_CLAW,                                            },
-            {Command.LIFT,        LionConfig.LIFT_TARGET_LO                     },  // lower the claw
+            {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
+            {Command.ADJUST,    -6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+//          {Command.CLOSE_CLAW,                                            },
+//          {Command.LIFT,        LionConfig.LIFT_TARGET_LO                 },  // lower the claw
     };
 
     // red-left quadrant command sequence
     private static final Object[][] red_left_cmd = {
             {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
             {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
-            {Command.FORWARD,    2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
+            {Command.FORWARD,    3.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
             {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
-            {Command.FORWARD,   15.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0 (22.0)
+            {Command.FORWARD,    9.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0 (22.0)
             {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn to face crypto box
             {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0 (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
-            {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0
-            {Command.CLOSE_CLAW,                                            },
-            {Command.LIFT,        LionConfig.LIFT_TARGET_LO                     },  // lower the claw
+            {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0
+            {Command.ADJUST,    -6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+//          {Command.CLOSE_CLAW,                                            },
+//          {Command.LIFT,        LionConfig.LIFT_TARGET_LO                 },  // lower the claw
     };
 
     // red-right quadrant command sequence
@@ -291,13 +297,14 @@ public class LionAutoInput extends LinearOpMode {
             {Command.FORWARD,    3.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
             {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
             {Command.FORWARD,    8.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // align with top of triangle
-            {Command.PORT,      13.5, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
+            {Command.PORT,      10.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
             {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
-            {Command.CLOSE_CLAW,                                            },
-            {Command.LIFT,        LionConfig.LIFT_TARGET_LO                     },  // lower the claw
+            {Command.ADJUST,    -6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+//          {Command.CLOSE_CLAW,                                            },
+//          {Command.LIFT,        LionConfig.LIFT_TARGET_LO                 },  // lower the claw
     };
 
 
