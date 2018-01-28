@@ -139,12 +139,17 @@ public class LionRobot extends GriffinRobot {
     }
 
     @Override
-    public void nav_rotate()
+    public void nav_rotate(double angle, double power, int tolerance, Surface surface)
     {
     }
 
     @Override
-    public void nav_to_pos()
+    public void nav_to_pos(double bearing, double range, double power, int tolerance, Surface surface)
+    {
+    }
+
+    @Override
+    public void set_drive_power(double port_bow, double stbd_bow, double stbd_aft, double port_aft)
     {
     }
 
@@ -168,7 +173,48 @@ public class LionRobot extends GriffinRobot {
     {
     }
 
-    public void init_drive() {
+    @Override
+    public void beam_open()
+    {
+    }
+
+    @Override
+    public void beam_close()
+    {
+    }
+
+    @Override
+    public void beam_raise()
+    {
+    }
+
+    @Override
+    public void beam_lower()
+    {
+    }
+
+    @Override
+    public void beam_extend()
+    {
+    }
+
+    @Override
+    public void beam_retract()
+    {
+    }
+
+    @Override
+    public void vuforia_read()
+    {
+    }
+
+    @Override
+    public void vuforia_adjust(double distance, double power, int tolerance, Surface surface)
+    {
+    }
+
+    private void init_drive()
+    {
         if (port_bow_drive == null) {
             port_bow_drive = hardwareMap.get(DcMotor.class, EagleConfig.PORT_BOW);
             port_bow_drive.setDirection(DcMotor.Direction.FORWARD);

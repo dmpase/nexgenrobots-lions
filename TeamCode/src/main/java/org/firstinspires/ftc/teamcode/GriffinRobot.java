@@ -67,24 +67,41 @@ public abstract class GriffinRobot {
     public abstract void stop();
 
 
-    public static enum Command {ROTATE, FORWARD, BACKWARD, PORT, STBD, ADJUST, OPEN_CLAW, CLOSE_CLAW, LIFT, SLEEP}
+    public static enum Command {DRIVE, CLAW, BEAM, VUFORIA, SLEEP}
+    public static enum SubCmd  {NONE, TURN, LOCATION, POWER, OPEN, CLOSE, RAISE, LOWER, EXTEND, RETRACT, READ, ADJUST}
+    public static enum Surface {FIELD, TABLE}
 
-    public abstract void nav_rotate();
-    public abstract void nav_to_pos();
+    public abstract void nav_rotate(double angle, double power, int tolerance, Surface surface);
+    public abstract void nav_to_pos(double bearing, double range, double power, int tolerance, Surface surface);
+    public abstract void set_drive_power(double port_bow, double stbd_bow, double stbd_aft, double port_aft);
     public abstract void claw_open();
     public abstract void claw_close();
     public abstract void claw_raise();
     public abstract void claw_lower();
+    public abstract void beam_open();
+    public abstract void beam_close();
+    public abstract void beam_raise();
+    public abstract void beam_lower();
+    public abstract void beam_extend();
+    public abstract void beam_retract();
+    public abstract void vuforia_read();
+    public abstract void vuforia_adjust(double distance, double power, int tolerance, Surface surface);
 
     // array indexes into a command array
     public static final int OPCODE     = 0;
-    public static final int ANGLE      = 1;
-    public static final int INCHES     = 1;
-    public static final int TARGET     = 1;
-    public static final int SECONDS    = 1;
-    public static final int POWER      = 2;
-    public static final int TOLERANCE  = 3;
-    public static final int SURFACE    = 4;
+    public static final int SUBCODE    = 1;
+    public static final int ARG0       = 2;
+    public static final int ARG1       = 3;
+    public static final int ARG2       = 4;
+    public static final int ARG3       = 5;
+    public static final int ARG4       = 6;
+
+    public static final double FORWARD   =   0;
+    public static final double STBD      =  90;
+    public static final double STARBOARD =  90;
+    public static final double AFT       = 180;
+    public static final double BACKWARD  = 180;
+    public static final double PORT      = 270;
 
     // execute a sequence of robot commands
     private void execute(Object[][] cmd)
@@ -100,87 +117,77 @@ public abstract class GriffinRobot {
     private void execute(Object[] cmd)
     {
         // if cmd == null, do nothing because there is no command to execute
-        if (cmd == null) return;
+        if (cmd == null || cmd.length < 2) return;
 
         Command op_code = (Command) cmd[OPCODE];
-        if (op_code == Command.ROTATE) {
-            // rotate the robot, angle is in degrees, positive angle is counterclockwise
-            double angle                = (double) cmd[ANGLE];
-            double power                = (double) cmd[POWER];
-            int    tolerance            = (int)    cmd[TOLERANCE];
-            double degrees_to_clicks    = (double) cmd[SURFACE];
-            int    clicks               = (int)    (degrees_to_clicks * angle);
-            nav_rotate();
-        } else if (op_code == Command.FORWARD) {
-            // move the robot forward, distance is in inches
-            double distance             = (double) cmd[INCHES];
-            double power                = (double) cmd[POWER];
-            int    tolerance            = (int)    cmd[TOLERANCE];
-            double distance_to_clicks   = (double) cmd[SURFACE];
-            int    clicks               = (int)    (distance_to_clicks * distance);
-            nav_to_pos();
-        } else if (op_code == Command.BACKWARD) {
-            // move the robot backward, distance is in inches
-            double distance             = (double) cmd[INCHES];
-            double power                = (double) cmd[POWER];
-            int    tolerance            = (int)    cmd[TOLERANCE];
-            double distance_to_clicks   = (double) cmd[SURFACE];
-            int    clicks               = (int)    (distance_to_clicks * distance);
-            nav_to_pos();
-        } else if (op_code == Command.PORT) {
-            // move the robot laterally to port, distance is in inches
-            double distance             = (double) cmd[INCHES];
-            double power                = (double) cmd[POWER];
-            int    tolerance            = (int)    cmd[TOLERANCE];
-            double distance_to_clicks   = (double) cmd[SURFACE];
-            int    clicks               = (int)    (distance_to_clicks * distance);
-            nav_to_pos();
-        } else if (op_code == Command.STBD) {
-            // move the robot laterally to starboard, distance is in inches
-            double distance             = (double) cmd[INCHES];
-            double power                = (double) cmd[POWER];
-            int    tolerance            = (int)    cmd[TOLERANCE];
-            double distance_to_clicks   = (double) cmd[SURFACE];
-            int    clicks               = (int)    (distance_to_clicks * distance);
-            nav_to_pos();
-        } else if (op_code == Command.ADJUST) {
+        SubCmd  sub_cmd = (SubCmd ) cmd[SUBCODE];
+        if (op_code == Command.DRIVE) {
+            if (sub_cmd == SubCmd.TURN) {
+                // rotate the robot, angle is in degrees, positive angle is counterclockwise
+                // +90 degrees is to starboard, 180 degrees is aft, -90 or +270 degrees is to port
+                // DRIVE, TURN, angle, power, tolerance, surface
+                double  angle     = (double)  cmd[ARG0];
+                double  power     = (double)  cmd[ARG1];
+                int     tolerance = (int)     cmd[ARG2];
+                Surface surface   = (Surface) cmd[ARG3];
+                nav_rotate(angle, power, tolerance, surface);
+            } else if (sub_cmd == SubCmd.LOCATION) {
+                // move the robot forward, backward or laterally, distance is in inches
+                // DRIVE, BEARING, bearing, range, power, tolerance, surface
+                double  bearing   = (double)  cmd[ARG0];    // bearing means angle in degrees
+                double  range     = (double)  cmd[ARG1];    // range means distance in inches
+                double  power     = (double)  cmd[ARG2];    // power settings for the drive motors
+                int     tolerance = (int)     cmd[ARG3];    // tolerance in encoder clicks
+                Surface surface   = (Surface) cmd[ARG4];    // type of surface, e.g., playing field
+                nav_to_pos(bearing, range, power, tolerance, surface);
+            } else if (sub_cmd == SubCmd.POWER) {
+                // set the power on the drive motors
+                // +1.0 is full forward (clockwise), -1.0 is full reverse (counterclockwise)
+                double port_bow = (double) cmd[ARG0];
+                double stbd_bow = (double) cmd[ARG1];
+                double stbd_aft = (double) cmd[ARG2];
+                double port_aft = (double) cmd[ARG3];
+                set_drive_power(port_bow, stbd_bow, stbd_aft, port_aft);
+            }
+        } else if (op_code == Command.CLAW) {
+            if (sub_cmd == SubCmd.OPEN) {
+                claw_open();
+            } else if (sub_cmd == SubCmd.CLOSE) {
+                claw_close();
+            } else if (sub_cmd == SubCmd.RAISE) {
+                claw_raise();
+            } else if (sub_cmd == SubCmd.LOWER) {
+                claw_lower();
+            }
+        } else if (op_code == Command.BEAM) {
+            if (sub_cmd == SubCmd.OPEN) {
+                beam_open();
+            } else if (sub_cmd == SubCmd.CLOSE) {
+                beam_close();
+            } else if (sub_cmd == SubCmd.RAISE) {
+                beam_raise();
+            } else if (sub_cmd == SubCmd.LOWER) {
+                beam_lower();
+            } else if (sub_cmd == SubCmd.EXTEND) {
+                beam_extend();
+            } else if (sub_cmd == SubCmd.RETRACT) {
+                beam_retract();
+            }
+        } else if (op_code == Command.VUFORIA) {
             // adjust the robot position (laterally, to port or starboard) based on the VuForia VuMark
             // distance is in inches, viewforia_result contains -1 (left), 0 (center), or 1 (right)
-            int    vuforia_result = 0;
-            double distance             = vuforia_result * (double) cmd[INCHES];
-            double power                = (double) cmd[POWER];
-            int    tolerance            = (int)    cmd[TOLERANCE];
-            double distance_to_clicks   = (double) cmd[SURFACE];
-            int    clicks               = (int)    (distance_to_clicks * distance);
-            nav_to_pos();
-        } else if (op_code == Command.OPEN_CLAW) {
-            // open the claw, both sides if there is no qualifier, or just port or starboard if qualifier is included
-            if (cmd.length == 1) {
-                claw_open();
-                claw_close();
-            } else if (cmd.length == 2 && (LionAutoInput.Command) cmd[TARGET] == LionAutoInput.Command.PORT) {
-                ;
-            } else if (cmd.length == 2 && (LionAutoInput.Command) cmd[TARGET] == LionAutoInput.Command.STBD) {
-                ;
+            if (sub_cmd == SubCmd.READ) {
+                vuforia_read();
+            } else if (sub_cmd == SubCmd.ADJUST) {
+                double  range     = (double)  cmd[ARG1];    // range means distance in inches
+                double  power     = (double)  cmd[ARG2];    // power settings for the drive motors
+                int     tolerance = (int)     cmd[ARG3];    // tolerance in encoder clicks
+                Surface surface   = (Surface) cmd[ARG4];    // type of surface, e.g., playing field
+                vuforia_adjust(range, power, tolerance, surface);
             }
-            sleep(LionConfig.MOTOR_LAG_MILLI);
-        } else if (op_code == Command.CLOSE_CLAW) {
-            // close the claw, both sides if there is no qualifier, or just port or starboard if qualifier is included
-            if (cmd.length == 1) {
-                claw_close();
-            } else if (cmd.length == 2 && (LionAutoInput.Command) cmd[TARGET] == LionAutoInput.Command.PORT) {
-                ;
-            } else if (cmd.length == 2 && (LionAutoInput.Command) cmd[TARGET] == LionAutoInput.Command.STBD) {
-                ;
-            }
-            sleep(LionConfig.MOTOR_LAG_MILLI);
-        } else if (op_code == Command.LIFT) {
-            // raise or lower the claw lift
-            int target = (int) cmd[TARGET];
-            claw_raise();
         } else if (op_code == Command.SLEEP) {
             // take a rest to wait for motors and servos to catch up
-            double seconds = (double) cmd[SECONDS];
+            double seconds = (double) cmd[ARG0];
             sleep(seconds);
         }
     }
