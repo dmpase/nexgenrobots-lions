@@ -45,14 +45,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 /**
- * This file contains an example of an iterative (Non-Linear) "OpMode".
- * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
- * The names of OpModes appear on the menu of the FTC Driver Station.
- * When an selection is made from the menu, the corresponding OpMode
- * class is instantiated on the Robot Controller and executed.
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+ * This file contains ...
  */
 
 public class LionRobot extends GriffinRobot {
@@ -83,8 +76,8 @@ public class LionRobot extends GriffinRobot {
     private DcMotor beam_drive  = null;
 
     // beam servos
-    private Servo beam_claw         = null;
-    private Servo beam_swivel       = null;
+    private Servo beam_claw     = null;
+    private Servo beam_swivel   = null;
 
     // Modern Robotics ultrasonic range sensors
     private DistanceSensor port_mr_range = null;
@@ -99,7 +92,7 @@ public class LionRobot extends GriffinRobot {
     AnalogInput stbd_ir_aft = null;
     AnalogInput port_ir_bow = null;
     AnalogInput stbd_ir_bow = null;
-    Distance    ir_v2in = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
+    Distance    ir_v2in     = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
 
     // VuForia objects
     int cameraMonitorViewId = -1;
@@ -116,7 +109,8 @@ public class LionRobot extends GriffinRobot {
      * Code to run ONCE when the driver hits INIT
      */
     @Override
-    public void init() {
+    public void init()
+    {
         telemetry.addData("Status", "Starting Initialization.");
 
         // Tell the driver that initialization is complete.
@@ -135,7 +129,8 @@ public class LionRobot extends GriffinRobot {
      * Code to run ONCE after the driver hits STOP
      */
     @Override
-    public void stop() {
+    public void stop()
+    {
     }
 
     @Override
