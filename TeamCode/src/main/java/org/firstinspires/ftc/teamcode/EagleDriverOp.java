@@ -160,7 +160,7 @@ public class EagleDriverOp extends OpMode
     public void get_claw_settings()
     {
         if (! gamepad2.x && gamepad2.b && ! gamepad1.start && ! gamepad2.start) {           // open the claw
-            claw.setPosition(EagleConfig.CLAW_OPENED);
+            claw.setPosition(EagleConfig.TELE_CLAW_OPENED);
         } else if (gamepad2.x && ! gamepad2.b && ! gamepad1.start && ! gamepad2.start) {    // close the claw
             claw.setPosition(EagleConfig.CLAW_CLOSED);
         }

@@ -356,8 +356,8 @@ public class EagleDiagnostics extends OpMode {
                     claw.setDirection(Servo.Direction.FORWARD);
                 }
 
-                claw.setPosition(EagleConfig.CLAW_OPENED);
-            } else if (! gamepad1.x && gamepad1.b) {    // close the claw
+                claw.setPosition(EagleConfig.TELE_CLAW_OPENED);
+            } else if ( gamepad1.x && ! gamepad1.b) {    // close the claw
                 if (claw == null) {
                     claw = hardwareMap.get(Servo.class, EagleConfig.CLAW);
                     claw.setDirection(Servo.Direction.FORWARD);
@@ -377,8 +377,9 @@ public class EagleDiagnostics extends OpMode {
 
                 double seconds = (double) EagleConfig.LIFT_TARGET_INCH;
                 double power   = EagleConfig.LIFT_POWER;
+                lift.setDirection(EagleConfig.LIFT_DIRECTION);
                 lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                lift.setPower(power);
+                lift.setPower(-power);
                 sleep(seconds);
                 lift.setPower(0);
 
@@ -393,8 +394,9 @@ public class EagleDiagnostics extends OpMode {
 
                 double seconds = (double) EagleConfig.LIFT_TARGET_INCH;
                 double power   = EagleConfig.LIFT_POWER;
+                lift.setDirection(EagleConfig.LIFT_DIRECTION);
                 lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                lift.setPower(-power);
+                lift.setPower(power);
                 sleep(seconds);
                 lift.setPower(0);
             } else if (false) {

@@ -133,19 +133,58 @@ public class LionRobot extends GriffinRobot {
     {
     }
 
+
+    private static double FIELD_DEGREES_TO_CLICKS = 10.0;
+    private static double STONE_DEGREES_TO_CLICKS = 10.0;
+
     @Override
     public void nav_rotate(double angle, double power, int tolerance, Surface surface)
     {
+        int clicks= 0;
+        if (surface == Surface.FIELD) {
+            clicks = (int) (FIELD_DEGREES_TO_CLICKS * angle);
+        } else if (surface == Surface.TABLE) {
+            clicks = (int) (STONE_DEGREES_TO_CLICKS * angle);
+        }
+
+        run_to_position(clicks, clicks, clicks, clicks, power, tolerance);
     }
 
+
+    private static double FIELD_INCHES_TO_CLICKS = 75.0;
+    private static double STONE_INCHES_TO_CLICKS = 65.0;
+
     @Override
-    public void nav_to_pos(double bearing, double range, double power, int tolerance, Surface surface)
+    public void nav_to_pos(double heading, double range, double power, int tolerance, Surface surface)
     {
+        double angle = heading * Math.PI/180.0 + Math.PI/2.0;
+        double inches_to_clicks = 0;
+        if (surface == Surface.FIELD) {
+            inches_to_clicks = FIELD_INCHES_TO_CLICKS;
+        } else if (surface == Surface.TABLE) {
+            inches_to_clicks = STONE_INCHES_TO_CLICKS;
+        }
+
+        int port_bow_clicks = (int) (- range * Math.sin(angle + Math.PI/4) * inches_to_clicks);
+        int stbd_bow_clicks = (int) (  range * Math.cos(angle + Math.PI/4) * inches_to_clicks);
+        int stbd_aft_clicks = (int) (  range * Math.sin(angle + Math.PI/4) * inches_to_clicks);
+        int port_aft_clicks = (int) (- range * Math.cos(angle + Math.PI/4) * inches_to_clicks);
+
+        run_to_position(port_bow_clicks, stbd_bow_clicks, stbd_aft_clicks, port_aft_clicks, power, tolerance);
     }
 
     @Override
     public void set_drive_power(double port_bow, double stbd_bow, double stbd_aft, double port_aft)
     {
+        port_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        stbd_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        stbd_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        port_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        port_bow_drive.setPower(port_bow);
+        stbd_bow_drive.setPower(stbd_bow);
+        stbd_aft_drive.setPower(stbd_aft);
+        port_aft_drive.setPower(port_aft);
     }
 
     @Override
@@ -208,6 +247,12 @@ public class LionRobot extends GriffinRobot {
     {
     }
 
+
+    /**************************************************************************
+     *               private support functions for this robot                 *
+     **************************************************************************/
+
+
     private void init_drive()
     {
         if (port_bow_drive == null) {
@@ -241,5 +286,69 @@ public class LionRobot extends GriffinRobot {
             port_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             port_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
+    }
+
+
+    /*
+     * run_to_position
+     *
+     * @param fl_tgt
+     * @param fr_tgt
+     * @param br_tgt
+     * @param bl_tgt
+     * @param power
+     * @param tolerance
+     */
+
+    // run the drive motors to a given position,
+    // DO reset the encoder before starting (i.e., always start from zero)
+    private void run_to_position(int fl_tgt, int fr_tgt, int br_tgt, int bl_tgt, double power, int tolerance)
+    {
+        // cut all power to the motors
+        port_bow_drive.setPower(0);
+        stbd_bow_drive.setPower(0);
+        stbd_aft_drive.setPower(0);
+        port_aft_drive.setPower(0);
+
+        // reset the encoders to zero
+        port_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        stbd_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        port_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        stbd_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // set the new target position
+        port_bow_drive.setTargetPosition(fl_tgt);
+        stbd_bow_drive.setTargetPosition(fr_tgt);
+        port_aft_drive.setTargetPosition(bl_tgt);
+        stbd_aft_drive.setTargetPosition(br_tgt);
+
+        // tell the motors we want them to run to the target position
+        port_bow_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        stbd_bow_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        port_aft_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        stbd_aft_drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // apply power to the motors
+        port_bow_drive.setPower(power);
+        stbd_bow_drive.setPower(power);
+        stbd_aft_drive.setPower(power);
+        port_aft_drive.setPower(power);
+
+        // wait for all motors to reach their position
+        while ( tolerance < Math.abs(port_bow_drive.getTargetPosition() - port_bow_drive.getCurrentPosition()) ||
+                tolerance < Math.abs(stbd_bow_drive.getTargetPosition() - stbd_bow_drive.getCurrentPosition()) ||
+                tolerance < Math.abs(stbd_aft_drive.getTargetPosition() - stbd_aft_drive.getCurrentPosition()) ||
+                tolerance < Math.abs(port_aft_drive.getTargetPosition() - port_aft_drive.getCurrentPosition())) {
+            ;
+        }
+
+        // sleep while the motors settle into their new position
+        sleep(LionConfig.MOTOR_LAG_MILLI);
+
+        // kill all power to the motors
+        port_bow_drive.setPower(0);
+        stbd_bow_drive.setPower(0);
+        stbd_aft_drive.setPower(0);
+        port_aft_drive.setPower(0);
     }
 }

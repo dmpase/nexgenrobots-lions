@@ -57,7 +57,7 @@ import static org.firstinspires.ftc.teamcode.LionConfig.ROTATION_RATE;
  */
 
 @Autonomous(name="Lion Auto Input", group="Autonomous")
-@Disabled
+//@Disabled
 public class LionAutoInput extends LinearOpMode {
     // Declare OpMode members.
 
@@ -587,7 +587,7 @@ public class LionAutoInput extends LinearOpMode {
 
 
     // run a single motor (e.g., claw lift) to a given position,
-    // do not reset the encoder before starting or when done
+    // do NOT reset the encoder before starting or when done
     private void run_to_position(DcMotor motor, int tgt, double power, int tolerance)
     {
         // set the target position
@@ -663,7 +663,7 @@ public class LionAutoInput extends LinearOpMode {
     }
 
 
-    public static final double POWER_LIMIT = 0.95;
+    public static final double POWER_LIMIT       = 0.95;
 
     public static final double stick_dead_zone   = 0.05;
     public static final double full_speed        = 0.10;

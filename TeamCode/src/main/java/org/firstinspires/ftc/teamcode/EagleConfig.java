@@ -41,14 +41,15 @@ public class EagleConfig {
     // Lift parameters
     public static final double LIFT_POWER       = 0.5;
 //  public static final int    LIFT_TARGET_HI   = 4800;
-    public static final double LIFT_TARGET_INCH =    0.5;
+    public static final double LIFT_TARGET_INCH =    0.1;
 //  public static final int    LIFT_TARGET_LO   =    0;
 //  public static final int    LIFT_TARGET_SET  =  400;
     public static final DcMotor.Direction LIFT_DIRECTION = DcMotor.Direction.FORWARD;
 
 
     // Claw parameters
-    public static final double CLAW_OPENED      =  1.00;
+    public static final double AUTO_CLAW_OPENED =  1.00;
+    public static final double TELE_CLAW_OPENED =  0.75;
     public static final double CLAW_CLOSED      = -0.50;
 
 

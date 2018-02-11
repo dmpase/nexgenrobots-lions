@@ -409,7 +409,7 @@ public class EagleAuto extends LinearOpMode {
         } else if (op_code == Command.OPEN_CLAW) {
             // open the claw, both sides if there is no qualifier, or just port or starboard if qualifier is included
             if (cmd.length == 1) {
-                claw.setPosition(EagleConfig.CLAW_OPENED);
+                claw.setPosition(EagleConfig.AUTO_CLAW_OPENED);
             }
             sleep(EagleConfig.MOTOR_LAG_MILLI);
         } else if (op_code == Command.CLOSE_CLAW) {
