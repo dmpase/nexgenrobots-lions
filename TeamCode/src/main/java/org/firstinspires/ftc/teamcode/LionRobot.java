@@ -38,6 +38,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -68,7 +69,8 @@ public class LionRobot extends GriffinRobot {
     private DcMotor port_aft_drive = null;
 
     // claw and tail servos
-    private Servo claw = null;
+    private Servo port_claw = null;
+    private Servo stbd_claw = null;
     private Servo tail = null;
 
     // claw lift and beam motors
@@ -93,14 +95,6 @@ public class LionRobot extends GriffinRobot {
     AnalogInput port_ir_bow = null;
     AnalogInput stbd_ir_bow = null;
     Distance    ir_v2in     = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
-
-    // VuForia objects
-    int cameraMonitorViewId = -1;
-    VuforiaLocalizer vuforia = null;
-    VuforiaLocalizer.Parameters vuforia_parameters = null;
-    VuforiaTrackables relicTrackables = null;
-    VuforiaTrackable relicTemplate = null;
-    RelicRecoveryVuMark vuMark = null;
 
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -134,23 +128,57 @@ public class LionRobot extends GriffinRobot {
     }
 
 
+    /*
+     * nav_rotate
+     *
+     * This function turns the robot by the given angle.
+     * 1) the heading is specified in degrees
+     * 2) the heading is relative to a forward direction (toward the bow)
+     * 3) a negative heading turns the robot to port
+     * 4) a positive heading turns the robot to starboard
+     * 5) power must be between -1 and +1
+     * 6) negative power reverses the direction of the turn
+     * 7) tolerance specifies +/- the number of encoder clicks
+     * 8) this function is suitable for a linear op mode but
+     *    may time-out in an iterative op mode
+     */
+
     private static double FIELD_DEGREES_TO_CLICKS = 10.0;
     private static double STONE_DEGREES_TO_CLICKS = 10.0;
 
     @Override
     public void nav_rotate(double angle, double power, int tolerance, Surface surface)
     {
-        int clicks= 0;
-        if (surface == Surface.FIELD) {
-            clicks = (int) (FIELD_DEGREES_TO_CLICKS * angle);
-        } else if (surface == Surface.TABLE) {
-            clicks = (int) (STONE_DEGREES_TO_CLICKS * angle);
+        double degrees_to_clicks = 0;
+        switch (surface) {
+        case FIELD:
+            degrees_to_clicks = FIELD_DEGREES_TO_CLICKS;
+            break;
+        case TABLE:
+            degrees_to_clicks = STONE_DEGREES_TO_CLICKS;
+            break;
         }
+
+        int clicks = (int) (-degrees_to_clicks * angle);
 
         run_to_position(clicks, clicks, clicks, clicks, power, tolerance);
     }
 
 
+    /*
+     * nav_to_pos
+     *
+     * This function moves the robot to a given distance along a given heading.
+     * 1) the heading is specified in degrees
+     * 2) the heading is relative to a forward direction (toward the bow)
+     * 3) a negative heading turns the robot to port
+     * 4) a positive heading turns the robot to starboard
+     * 5) power must be between -1 and +1
+     * 6) negative power reverses the direction of the turn
+     * 7) tolerance specifies +/- the number of encoder clicks
+     * 8) this function is suitable for a linear op mode but
+     *    may time-out in an iterative op mode
+     */
     private static double FIELD_INCHES_TO_CLICKS = 75.0;
     private static double STONE_INCHES_TO_CLICKS = 65.0;
 
@@ -159,10 +187,13 @@ public class LionRobot extends GriffinRobot {
     {
         double angle = heading * Math.PI/180.0 + Math.PI/2.0;
         double inches_to_clicks = 0;
-        if (surface == Surface.FIELD) {
-            inches_to_clicks = FIELD_INCHES_TO_CLICKS;
-        } else if (surface == Surface.TABLE) {
-            inches_to_clicks = STONE_INCHES_TO_CLICKS;
+        switch (surface) {
+            case FIELD:
+                inches_to_clicks = FIELD_INCHES_TO_CLICKS;
+                break;
+            case TABLE:
+                inches_to_clicks = STONE_INCHES_TO_CLICKS;
+                break;
         }
 
         int port_bow_clicks = (int) (- range * Math.sin(angle + Math.PI/4) * inches_to_clicks);
@@ -190,11 +221,15 @@ public class LionRobot extends GriffinRobot {
     @Override
     public void claw_open()
     {
+        port_claw.setPosition(LionConfig.PORT_CLAW_OPENED);
+        stbd_claw.setPosition(LionConfig.STBD_CLAW_OPENED);
     }
 
     @Override
     public void claw_close()
     {
+        port_claw.setPosition(LionConfig.PORT_CLAW_CLOSED);
+        stbd_claw.setPosition(LionConfig.STBD_CLAW_CLOSED);
     }
 
     @Override
@@ -238,18 +273,31 @@ public class LionRobot extends GriffinRobot {
     }
 
     @Override
-    public void vuforia_read()
+    public int vuforia_read()
     {
-    }
+        int vuforia_result = VUFORIA_CENTER;
 
-    @Override
-    public void vuforia_adjust(double distance, double power, int tolerance, Surface surface)
-    {
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+        String vumark_position = vuMark.name();
+        if (vumark_position.equalsIgnoreCase("LEFT")) {
+            vuforia_result = VUFORIA_LEFT;
+        } else if (vumark_position.equalsIgnoreCase("CENTER")) {
+            vuforia_result = VUFORIA_CENTER;
+        } else if (vumark_position.equalsIgnoreCase("RIGHT")) {
+            vuforia_result = VUFORIA_RIGHT;
+        }
+
+        return vuforia_result;
     }
 
 
     /**************************************************************************
      *               private support functions for this robot                 *
+     **************************************************************************/
+
+
+    /**************************************************************************
+     *                    drive functions for this robot                      *
      **************************************************************************/
 
 
@@ -350,5 +398,83 @@ public class LionRobot extends GriffinRobot {
         stbd_bow_drive.setPower(0);
         stbd_aft_drive.setPower(0);
         port_aft_drive.setPower(0);
+    }
+
+
+    /**************************************************************************
+     *                     claw functions for this robot                      *
+     **************************************************************************/
+
+
+    // initialize the claw
+    private void init_claw()
+    {
+        port_claw = hardwareMap.get(Servo.class, LionConfig.PORT_CLAW);
+        port_claw.setDirection(Servo.Direction.FORWARD);
+
+        stbd_claw = hardwareMap.get(Servo.class, LionConfig.STBD_CLAW);
+        stbd_claw.setDirection(Servo.Direction.FORWARD);
+
+        lift = hardwareMap.get(DcMotor.class, LionConfig.LIFT_DRIVE);
+        lift.setDirection(LionConfig.LIFT_DIRECTION);
+        lift.setPower(0);
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+
+    /**************************************************************************
+     *                     tail functions for this robot                      *
+     **************************************************************************/
+
+
+    // initialize the tail
+    private void init_tail()
+    {
+        tail  = hardwareMap.get(Servo.class, LionConfig.TAIL);
+        tail.setDirection(Servo.Direction.FORWARD);
+    }
+
+
+    /**************************************************************************
+     *                     beam functions for this robot                      *
+     **************************************************************************/
+
+
+    // initialize the beam
+    private void init_beam()
+    {
+    }
+
+
+    /**************************************************************************
+     *                   vuforia functions for this robot                     *
+     **************************************************************************/
+
+
+    // VuForia objects
+    int cameraMonitorViewId = -1;
+    VuforiaLocalizer vuforia = null;
+    VuforiaLocalizer.Parameters vuforia_parameters = null;
+    VuforiaTrackables relicTrackables = null;
+    VuforiaTrackable relicTemplate = null;
+    RelicRecoveryVuMark vuMark = null;
+
+    // initialize the vuforia mechanism
+    private void init_vuforia()
+    {
+        telemetry.addData("Status", "Initializing VuForia.");
+
+        cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+
+        vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        vuforia_parameters.vuforiaLicenseKey = LionConfig.VUFORIA_LICENSE_KEY;
+        vuforia_parameters.cameraDirection = LionConfig.CAMERA_DIRECTION;
+        vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
+        relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
+        relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate");
+
+        relicTrackables.activate();
     }
 }

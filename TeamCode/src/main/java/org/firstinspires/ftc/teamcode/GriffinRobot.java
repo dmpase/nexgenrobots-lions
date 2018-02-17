@@ -84,8 +84,7 @@ public abstract class GriffinRobot {
     public abstract void beam_lower();
     public abstract void beam_extend();
     public abstract void beam_retract();
-    public abstract void vuforia_read();
-    public abstract void vuforia_adjust(double distance, double power, int tolerance, Surface surface);
+    public abstract int  vuforia_read();
 
     // array indexes into a command array
     public static final int OPCODE     = 0;
@@ -102,6 +101,12 @@ public abstract class GriffinRobot {
     public static final double AFT       = 180;
     public static final double BACKWARD  = 180;
     public static final double PORT      = 270;
+
+    // position indicators for LEFT, CENTER and RIGHT vumark images
+    public static final int VUFORIA_LEFT   = -1;
+    public static final int VUFORIA_CENTER =  0;
+    public static final int VUFORIA_RIGHT  =  1;
+    public int vuforia_result = VUFORIA_CENTER;
 
     // execute a sequence of robot commands
     private void execute(Object[][] cmd)
@@ -177,13 +182,14 @@ public abstract class GriffinRobot {
             // adjust the robot position (laterally, to port or starboard) based on the VuForia VuMark
             // distance is in inches, viewforia_result contains -1 (left), 0 (center), or 1 (right)
             if (sub_cmd == SubCmd.READ) {
-                vuforia_read();
+                vuforia_result = vuforia_read();
             } else if (sub_cmd == SubCmd.ADJUST) {
+                double  bearing   = vuforia_result * STARBOARD;
                 double  range     = (double)  cmd[ARG1];    // range means distance in inches
                 double  power     = (double)  cmd[ARG2];    // power settings for the drive motors
                 int     tolerance = (int)     cmd[ARG3];    // tolerance in encoder clicks
                 Surface surface   = (Surface) cmd[ARG4];    // type of surface, e.g., playing field
-                vuforia_adjust(range, power, tolerance, surface);
+                nav_to_pos(bearing, range, power, tolerance, surface);
             }
         } else if (op_code == Command.SLEEP) {
             // take a rest to wait for motors and servos to catch up
