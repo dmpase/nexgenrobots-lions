@@ -265,7 +265,7 @@ public class EagleAuto extends LinearOpMode {
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
-            {Command.CLOSE_CLAW,                                            },
+//          {Command.CLOSE_CLAW,                                            },
 //          {Command.LIFT,        EagleConfig.LIFT_TARGET_LO                },  // lower the claw
     };
 
@@ -331,7 +331,6 @@ public class EagleAuto extends LinearOpMode {
     private static final int OPCODE     = 0;
     private static final int ANGLE      = 1;
     private static final int INCHES     = 1;
-    private static final int TARGET     = 1;
     private static final int SECONDS    = 1;
     private static final int POWER      = 2;
     private static final int TOLERANCE  = 3;
