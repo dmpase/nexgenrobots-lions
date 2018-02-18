@@ -91,9 +91,9 @@ public class EagleAuto extends LinearOpMode {
         telemetry.addData("Tail", "DPAD up/down to raise/lower.");
         telemetry.addData("Start", "Press 'Guide' to select quadrant.");
         telemetry.update();
-        Object[] open_claw  = {Command.OPEN_CLAW,                           };
-        Object[] close_claw = {Command.CLOSE_CLAW,                          };
-        Object[] raise_claw = {Command.LIFT,       EagleConfig.LIFT_TARGET_INCH };
+        Object[] open_claw  = {Command.OPEN_CLAW,       };
+        Object[] close_claw = {Command.CLOSE_CLAW,      };
+        Object[] raise_claw = {Command.LIFT,       0.50 };
 
         while (! gamepad1.guide) {
             get_motor_settings();
@@ -200,7 +200,7 @@ public class EagleAuto extends LinearOpMode {
         Object[] clockwise        = {Command.ROTATE, -30.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE};
         Object[] counterclockwise = {Command.ROTATE, +30.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE};
         if (team_color == Color.UNKNOWN || jewell_color == Color.UNKNOWN) {
-            ;
+            tail.setPosition(EagleConfig.TAIL_POS_UP);
         } else if (team_color == jewell_color) {
             execute(counterclockwise);
             tail.setPosition(EagleConfig.TAIL_POS_UP);
@@ -240,16 +240,16 @@ public class EagleAuto extends LinearOpMode {
     // blue-left quadrant command sequence
     private static final Object[][] blue_left_cmd = {
             {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
-            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
-            {Command.FORWARD,    2.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
+            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0"
+            {Command.FORWARD,    3.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
             {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
             {Command.FORWARD,    6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // align with top of triangle
-            {Command.STBD,      15.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
-            {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+            {Command.STBD,      13.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
+            {Command.ADJUST,     7.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
-            {Command.CLOSE_CLAW,                                            },
+//          {Command.CLOSE_CLAW,                                            },
 //          {Command.LIFT,        EagleConfig.LIFT_TARGET_LO                },  // lower the claw
     };
 
@@ -260,8 +260,8 @@ public class EagleAuto extends LinearOpMode {
             {Command.FORWARD,    4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
             {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
             {Command.FORWARD,   15.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0" (22.0)
-            {Command.ROTATE,    90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn to face crypto box
-            {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+            {Command.ROTATE,    95.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn to face crypto box
+            {Command.ADJUST,     7.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
@@ -272,16 +272,16 @@ public class EagleAuto extends LinearOpMode {
     // red-left quadrant command sequence
     private static final Object[][] red_left_cmd = {
             {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
-            {Command.FORWARD,   15.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
+            {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
             {Command.FORWARD,    4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
             {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
-            {Command.FORWARD,   24.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0 (22.0)
-            {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn to face crypto box
-            {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+            {Command.FORWARD,   15.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center - 15.0 (22.0)
+            {Command.ROTATE,  -105.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn to face crypto box
+            {Command.ADJUST,     7.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0 (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0
-            {Command.CLOSE_CLAW,                                            },
+//          {Command.CLOSE_CLAW,                                            },
 //          {Command.LIFT,        EagleConfig.LIFT_TARGET_LO                },  // lower the claw
     };
 
@@ -289,15 +289,16 @@ public class EagleAuto extends LinearOpMode {
     private static final Object[][] red_right_cmd = {
             {Command.ROTATE,   -90.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
             {Command.FORWARD,   18.0, AUTO_PWR, AUTO_TOL, BALANCING_STONE   },  // move off the stone - 18.0" (22.0)
-            {Command.FORWARD,    4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
+            {Command.FORWARD,    3.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // calibrate position
             {Command.BACKWARD,   4.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },
             {Command.FORWARD,    6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // align with top of triangle
-            {Command.PORT,      13.5, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
-            {Command.ADJUST,     6.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+            {Command.PORT,      12.5, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move to crypto box center
+            {Command.ADJUST,     7.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // adjust for VuForia VuMark
+            {Command.ROTATE,    -5.0, AUTO_PWR, AUTO_TOL, ROTATION_RATE     },  // turn towards crypto box
             {Command.FORWARD,    5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // place glyph in crypto box - 5.0" (8.0)
             {Command.OPEN_CLAW,                                             },  // release glyph
             {Command.BACKWARD,   5.0, AUTO_PWR, AUTO_TOL, PLAYING_FIELD     },  // move away from crypto box - 5.0"
-            {Command.CLOSE_CLAW,                                            },
+//          {Command.CLOSE_CLAW,                                            },
 //          {Command.LIFT,        EagleConfig.LIFT_TARGET_LO                },  // lower the claw
     };
 
@@ -337,9 +338,9 @@ public class EagleAuto extends LinearOpMode {
     private static final int SURFACE    = 4;
 
     // position indicators for LEFT, CENTER and RIGHT vumark images
-    private static final int VUFORIA_LEFT   = -1;
-    private static final int VUFORIA_CENTER = 0;
-    private static final int VUFORIA_RIGHT  = 1;
+    private static final int VUFORIA_LEFT   =  1;
+    private static final int VUFORIA_CENTER =  0;
+    private static final int VUFORIA_RIGHT  = -1;
     private int vuforia_result = VUFORIA_CENTER;
 
     // execute a sequence of robot commands
