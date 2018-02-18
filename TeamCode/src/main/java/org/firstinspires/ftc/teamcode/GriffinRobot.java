@@ -53,11 +53,11 @@ public abstract class GriffinRobot {
         hardwareMap = op_mode.hardwareMap;
         telemetry   = op_mode.telemetry;
 
-        for (Object next = op_mode; 0 == next.getClass().getName().compareToIgnoreCase("Object"); next = next.getClass().getSuperclass()) {
-            if (0 == next.getClass().getName().compareToIgnoreCase("LinearOpMode")) {
+        for (Object next = op_mode; 0 != next.getClass().getSimpleName().compareToIgnoreCase("Object"); next = next.getClass().getSuperclass()) {
+            if (0 == next.getClass().getSimpleName().compareToIgnoreCase("LinearOpMode")) {
                 op_mode_type = OpModeType.Linear;
                 break;
-            } else if (0 == next.getClass().getName().compareToIgnoreCase("OpMode")) {
+            } else if (0 == next.getClass().getSimpleName().compareToIgnoreCase("OpMode")) {
                 op_mode_type = OpModeType.Iterative;
                 break;
             }
