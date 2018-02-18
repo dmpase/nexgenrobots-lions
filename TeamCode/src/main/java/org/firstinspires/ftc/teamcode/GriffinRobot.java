@@ -43,12 +43,25 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public abstract class GriffinRobot {
     // hardware map and telemetry from the OpMode class
     public HardwareMap hardwareMap = null;
-    public Telemetry telemetry = null;
+    public Telemetry   telemetry   = null;
+
+    public enum OpModeType { Unknown, Linear, Iterative }
+    public OpModeType op_mode_type = OpModeType.Unknown;
 
     public GriffinRobot(OpMode op_mode)
     {
         hardwareMap = op_mode.hardwareMap;
         telemetry   = op_mode.telemetry;
+
+        for (Object next = op_mode; 0 == next.getClass().getName().compareToIgnoreCase("Object"); next = next.getClass().getSuperclass()) {
+            if (0 == next.getClass().getName().compareToIgnoreCase("LinearOpMode")) {
+                op_mode_type = OpModeType.Linear;
+                break;
+            } else if (0 == next.getClass().getName().compareToIgnoreCase("OpMode")) {
+                op_mode_type = OpModeType.Iterative;
+                break;
+            }
+        }
     }
 
     /*

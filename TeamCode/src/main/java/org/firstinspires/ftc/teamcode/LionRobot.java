@@ -62,40 +62,6 @@ public class LionRobot extends GriffinRobot {
         telemetry = op_mode.telemetry;
     }
 
-    // locomotion motors
-    private DcMotor port_bow_drive = null;
-    private DcMotor stbd_bow_drive = null;
-    private DcMotor stbd_aft_drive = null;
-    private DcMotor port_aft_drive = null;
-
-    // claw and tail servos
-    private Servo port_claw = null;
-    private Servo stbd_claw = null;
-    private Servo tail = null;
-
-    // claw lift and beam motors
-    private DcMotor lift        = null;
-    private DcMotor beam_drive  = null;
-
-    // beam servos
-    private Servo beam_claw     = null;
-    private Servo beam_swivel   = null;
-
-    // Modern Robotics ultrasonic range sensors
-    private DistanceSensor port_mr_range = null;
-    private DistanceSensor stbd_mr_range = null;
-
-    // REV Robotics distance/color sensor
-    private ColorSensor color_sensor = null;
-    private DistanceSensor distance_sensor = null;
-
-    // Pololu IR range sensors
-    AnalogInput port_ir_aft = null;
-    AnalogInput stbd_ir_aft = null;
-    AnalogInput port_ir_bow = null;
-    AnalogInput stbd_ir_bow = null;
-    Distance    ir_v2in     = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
-
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -301,6 +267,12 @@ public class LionRobot extends GriffinRobot {
      **************************************************************************/
 
 
+    // locomotion motors
+    private DcMotor port_bow_drive = null;
+    private DcMotor stbd_bow_drive = null;
+    private DcMotor stbd_aft_drive = null;
+    private DcMotor port_aft_drive = null;
+
     private void init_drive()
     {
         if (port_bow_drive == null) {
@@ -406,6 +378,13 @@ public class LionRobot extends GriffinRobot {
      **************************************************************************/
 
 
+    // claw and tail servos
+    private Servo port_claw = null;
+    private Servo stbd_claw = null;
+
+    // claw lift motor
+    private DcMotor lift    = null;
+
     // initialize the claw
     private void init_claw()
     {
@@ -428,6 +407,9 @@ public class LionRobot extends GriffinRobot {
      **************************************************************************/
 
 
+    // claw and tail servos
+    private Servo tail = null;
+
     // initialize the tail
     private void init_tail()
     {
@@ -441,10 +423,38 @@ public class LionRobot extends GriffinRobot {
      **************************************************************************/
 
 
+    // beam motor
+    private DcMotor beam_drive  = null;
+
+    // beam servos
+    private Servo beam_claw     = null;
+    private Servo beam_swivel   = null;
+
     // initialize the beam
     private void init_beam()
     {
     }
+
+
+    /**************************************************************************
+     *                    sensor functions for this robot                     *
+     **************************************************************************/
+
+
+    // Modern Robotics ultrasonic range sensors
+    private DistanceSensor port_mr_range = null;
+    private DistanceSensor stbd_mr_range = null;
+
+    // REV Robotics distance/color sensor
+    private ColorSensor color_sensor = null;
+    private DistanceSensor distance_sensor = null;
+
+    // Pololu IR range sensors
+    AnalogInput port_ir_aft = null;
+    AnalogInput stbd_ir_aft = null;
+    AnalogInput port_ir_bow = null;
+    AnalogInput stbd_ir_bow = null;
+    Distance    ir_v2in     = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
 
 
     /**************************************************************************
