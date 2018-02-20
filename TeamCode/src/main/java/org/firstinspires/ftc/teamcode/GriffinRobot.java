@@ -84,19 +84,50 @@ public abstract class GriffinRobot {
     public static enum SubCmd  {NONE, TURN, LOCATION, POWER, OPEN, CLOSE, RAISE, LOWER, EXTEND, RETRACT, READ, ADJUST}
     public static enum Surface {FIELD, TABLE}
 
-    public abstract void nav_rotate(double angle, double power, int tolerance, Surface surface);
-    public abstract void nav_to_pos(double bearing, double range, double power, int tolerance, Surface surface);
+
+    // linear (blocking) op mode functions - autonomous op mode
+    //    blocking heading change
+    public abstract void set_new_heading(double angle, double power, int tolerance, Surface surface);
+
+    //    blocking position change
+    public abstract void set_new_position(double bearing, double range, double power, int tolerance, Surface surface);
+
+
+    // iterative (non-blocking) op mode functions - driver op mode
+    //    non-blocking heading change
+    public abstract void turn(double power);
+
+    //    non-blocking position change
+    public abstract void move(double bearing, double power);
+
+    //    set drive motor powers independently
     public abstract void set_drive_power(double port_bow, double stbd_bow, double stbd_aft, double port_aft);
+
+    //    get current drive motor encoder values
+    public static final int PORT_BOW = 0;
+    public static final int STBD_BOW = 1;
+    public static final int STBD_AFT = 2;
+    public static final int PORT_AFT = 3;
+    public abstract int[] get_drive_encoders();
+
+    public static final double CLAW_MIN_HEIGHT = 0.0;
+    public static final double CLAW_MAX_HEIGHT = 1.0;
     public abstract void claw_open();
     public abstract void claw_close();
-    public abstract void claw_raise();
-    public abstract void claw_lower();
+    public abstract void claw_raise(double height);
+    public abstract void claw_stop();
+    public abstract void claw_wait();
+
+    public static final double BEAM_MIN_LENGTH = 0.0;
+    public static final double BEAM_MAX_LENGTH = 1.0;
     public abstract void beam_open();
     public abstract void beam_close();
     public abstract void beam_raise();
     public abstract void beam_lower();
-    public abstract void beam_extend();
-    public abstract void beam_retract();
+    public abstract void beam_extend(double length);
+    public abstract void beam_stop();
+    public abstract void beam_wait();
+
     public abstract int  vuforia_read();
 
     // array indexes into a command array
@@ -148,16 +179,16 @@ public abstract class GriffinRobot {
                 double  power     = (double)  cmd[ARG1];
                 int     tolerance = (int)     cmd[ARG2];
                 Surface surface   = (Surface) cmd[ARG3];
-                nav_rotate(angle, power, tolerance, surface);
+                set_new_heading(angle, power, tolerance, surface);
             } else if (sub_cmd == SubCmd.LOCATION) {
                 // move the robot forward, backward or laterally, distance is in inches
-                // DRIVE, BEARING, bearing, range, power, tolerance, surface
-                double  bearing   = (double)  cmd[ARG0];    // bearing means angle in degrees
+                // DRIVE, LOCATION, heading, range, power, tolerance, surface
+                double  heading   = (double)  cmd[ARG0];    // bearing means angle in degrees
                 double  range     = (double)  cmd[ARG1];    // range means distance in inches
                 double  power     = (double)  cmd[ARG2];    // power settings for the drive motors
                 int     tolerance = (int)     cmd[ARG3];    // tolerance in encoder clicks
                 Surface surface   = (Surface) cmd[ARG4];    // type of surface, e.g., playing field
-                nav_to_pos(bearing, range, power, tolerance, surface);
+                set_new_position(heading, range, power, tolerance, surface);
             } else if (sub_cmd == SubCmd.POWER) {
                 // set the power on the drive motors
                 // +1.0 is full forward (clockwise), -1.0 is full reverse (counterclockwise)
@@ -173,9 +204,9 @@ public abstract class GriffinRobot {
             } else if (sub_cmd == SubCmd.CLOSE) {
                 claw_close();
             } else if (sub_cmd == SubCmd.RAISE) {
-                claw_raise();
+                claw_raise(CLAW_MAX_HEIGHT);
             } else if (sub_cmd == SubCmd.LOWER) {
-                claw_lower();
+                claw_raise(CLAW_MIN_HEIGHT);
             }
         } else if (op_code == Command.BEAM) {
             if (sub_cmd == SubCmd.OPEN) {
@@ -187,9 +218,9 @@ public abstract class GriffinRobot {
             } else if (sub_cmd == SubCmd.LOWER) {
                 beam_lower();
             } else if (sub_cmd == SubCmd.EXTEND) {
-                beam_extend();
+                beam_extend(BEAM_MAX_LENGTH);
             } else if (sub_cmd == SubCmd.RETRACT) {
-                beam_retract();
+                beam_extend(BEAM_MIN_LENGTH);
             }
         } else if (op_code == Command.VUFORIA) {
             // adjust the robot position (laterally, to port or starboard) based on the VuForia VuMark
@@ -202,7 +233,7 @@ public abstract class GriffinRobot {
                 double  power     = (double)  cmd[ARG2];    // power settings for the drive motors
                 int     tolerance = (int)     cmd[ARG3];    // tolerance in encoder clicks
                 Surface surface   = (Surface) cmd[ARG4];    // type of surface, e.g., playing field
-                nav_to_pos(bearing, range, power, tolerance, surface);
+                set_new_position(bearing, range, power, tolerance, surface);
             }
         } else if (op_code == Command.SLEEP) {
             // take a rest to wait for motors and servos to catch up

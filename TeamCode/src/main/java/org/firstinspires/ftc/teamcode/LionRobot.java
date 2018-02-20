@@ -94,8 +94,18 @@ public class LionRobot extends GriffinRobot {
     }
 
 
+    // linear op mode functions
+    //    blocking heading change
+    //    blocking position change
+
+    // iterative op mode functions
+    //    non-blocking heading change
+    //    non-blocking position change
+    //    wait until change is done
+
+
     /*
-     * nav_rotate
+     * set_new_heading
      *
      * This function turns the robot by the given angle.
      * 1) the heading is specified in degrees
@@ -113,7 +123,7 @@ public class LionRobot extends GriffinRobot {
     private static double STONE_DEGREES_TO_CLICKS = 10.0;
 
     @Override
-    public void nav_rotate(double angle, double power, int tolerance, Surface surface)
+    public void set_new_heading(double angle, double power, int tolerance, Surface surface)
     {
         double degrees_to_clicks = 0;
         switch (surface) {
@@ -132,7 +142,7 @@ public class LionRobot extends GriffinRobot {
 
 
     /*
-     * nav_to_pos
+     * set_new_position
      *
      * This function moves the robot to a given distance along a given heading.
      * 1) the heading is specified in degrees
@@ -149,7 +159,7 @@ public class LionRobot extends GriffinRobot {
     private static double STONE_INCHES_TO_CLICKS = 65.0;
 
     @Override
-    public void nav_to_pos(double heading, double range, double power, int tolerance, Surface surface)
+    public void set_new_position(double heading, double range, double power, int tolerance, Surface surface)
     {
         double angle = heading * Math.PI/180.0 + Math.PI/2.0;
         double inches_to_clicks = 0;
@@ -170,6 +180,19 @@ public class LionRobot extends GriffinRobot {
         run_to_position(port_bow_clicks, stbd_bow_clicks, stbd_aft_clicks, port_aft_clicks, power, tolerance);
     }
 
+    //    non-blocking heading change
+    @Override
+    public void turn(double power)
+    {
+    }
+
+    //    non-blocking position change
+    @Override
+    public void move(double bearing, double power)
+    {
+    }
+
+    //    set drive motor powers independently
     @Override
     public void set_drive_power(double port_bow, double stbd_bow, double stbd_aft, double port_aft)
     {
@@ -182,6 +205,19 @@ public class LionRobot extends GriffinRobot {
         stbd_bow_drive.setPower(stbd_bow);
         stbd_aft_drive.setPower(stbd_aft);
         port_aft_drive.setPower(port_aft);
+    }
+
+    @Override
+    public int[] get_drive_encoders()
+    {
+        int[] cp = new int[4];
+
+        cp[PORT_BOW] = port_bow_drive.getCurrentPosition();
+        cp[STBD_BOW] = stbd_bow_drive.getCurrentPosition();
+        cp[STBD_AFT] = stbd_aft_drive.getCurrentPosition();
+        cp[PORT_AFT] = port_aft_drive.getCurrentPosition();
+
+        return cp;
     }
 
     @Override
@@ -199,12 +235,17 @@ public class LionRobot extends GriffinRobot {
     }
 
     @Override
-    public void claw_raise()
+    public void claw_raise(double height)
     {
     }
 
     @Override
-    public void claw_lower()
+    public void claw_stop()
+    {
+    }
+
+    @Override
+    public void claw_wait()
     {
     }
 
@@ -229,12 +270,17 @@ public class LionRobot extends GriffinRobot {
     }
 
     @Override
-    public void beam_extend()
+    public void beam_extend(double length)
     {
     }
 
     @Override
-    public void beam_retract()
+    public void beam_stop()
+    {
+    }
+
+    @Override
+    public void beam_wait()
     {
     }
 
