@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.media.MediaPlayer;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -93,6 +95,54 @@ public class LionRobot extends GriffinRobot {
     {
     }
 
+
+
+
+    /**************************************************************************
+     *                    drive functions for this robot                      *
+     **************************************************************************/
+
+    // locomotion motors
+    private DcMotor port_bow_drive = null;
+    private DcMotor stbd_bow_drive = null;
+    private DcMotor stbd_aft_drive = null;
+    private DcMotor port_aft_drive = null;
+
+    @Override
+    public void drive_init()
+    {
+        if (port_bow_drive == null) {
+            port_bow_drive = hardwareMap.get(DcMotor.class, EagleConfig.PORT_BOW);
+            port_bow_drive.setDirection(DcMotor.Direction.FORWARD);
+            port_bow_drive.setPower(0);
+            port_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            port_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+        if (stbd_bow_drive == null) {
+            stbd_bow_drive = hardwareMap.get(DcMotor.class, EagleConfig.STBD_BOW);
+            stbd_bow_drive.setDirection(DcMotor.Direction.FORWARD);
+            stbd_bow_drive.setPower(0);
+            stbd_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            stbd_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+        if (stbd_aft_drive == null) {
+            stbd_aft_drive = hardwareMap.get(DcMotor.class, EagleConfig.STBD_AFT);
+            stbd_aft_drive.setDirection(DcMotor.Direction.FORWARD);
+            stbd_aft_drive.setPower(0);
+            stbd_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            stbd_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+        if (port_aft_drive == null) {
+            port_aft_drive = hardwareMap.get(DcMotor.class, EagleConfig.PORT_AFT);
+            port_aft_drive.setDirection(DcMotor.Direction.FORWARD);
+            port_aft_drive.setPower(0);
+            port_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            port_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+    }
 
     // linear op mode functions
     //    blocking heading change
@@ -184,12 +234,44 @@ public class LionRobot extends GriffinRobot {
     @Override
     public void turn(double power)
     {
+        set_drive_power(power, power, power, power);
     }
 
     //    non-blocking position change
+    public static final double POWER_LIMIT = 0.95;
     @Override
-    public void move(double bearing, double power)
+    public void move(double bearing, double rotation, double power)
     {
+        double port_bow = - power * Math.sin(bearing + Math.PI/4) + rotation;
+        double stbd_bow =   power * Math.cos(bearing + Math.PI/4) + rotation;
+        double stbd_aft =   power * Math.sin(bearing + Math.PI/4) + rotation;
+        double port_aft = - power * Math.cos(bearing + Math.PI/4) + rotation;
+
+        // limit the motors to -1.0 <= motor <= 1.0
+        // scale them evenly if adjustments are made
+        if (    port_bow < -POWER_LIMIT || POWER_LIMIT < port_bow ||
+                stbd_bow < -POWER_LIMIT || POWER_LIMIT < stbd_bow ||
+                port_aft < -POWER_LIMIT || POWER_LIMIT < port_aft ||
+                stbd_aft < -POWER_LIMIT || POWER_LIMIT < stbd_aft) {
+
+            // find the scale factor
+            double max = 0;
+            max = (max < Math.abs(port_bow)) ? Math.abs(port_bow) : max;
+            max = (max < Math.abs(stbd_bow)) ? Math.abs(stbd_bow) : max;
+            max = (max < Math.abs(stbd_aft)) ? Math.abs(stbd_aft) : max;
+            max = (max < Math.abs(port_aft)) ? Math.abs(port_aft) : max;
+
+            // scale back the motors evenly
+            port_bow = POWER_LIMIT * port_bow / max;
+            stbd_bow = POWER_LIMIT * stbd_bow / max;
+            stbd_aft = POWER_LIMIT * stbd_aft / max;
+            port_aft = POWER_LIMIT * port_aft / max;
+        }
+
+        port_bow_drive.setPower(port_bow);
+        stbd_bow_drive.setPower(stbd_bow);
+        stbd_aft_drive.setPower(stbd_aft);
+        port_aft_drive.setPower(port_aft);
     }
 
     //    set drive motor powers independently
@@ -218,140 +300,6 @@ public class LionRobot extends GriffinRobot {
         cp[PORT_AFT] = port_aft_drive.getCurrentPosition();
 
         return cp;
-    }
-
-    @Override
-    public void claw_open()
-    {
-        port_claw.setPosition(LionConfig.PORT_CLAW_OPENED);
-        stbd_claw.setPosition(LionConfig.STBD_CLAW_OPENED);
-    }
-
-    @Override
-    public void claw_close()
-    {
-        port_claw.setPosition(LionConfig.PORT_CLAW_CLOSED);
-        stbd_claw.setPosition(LionConfig.STBD_CLAW_CLOSED);
-    }
-
-    @Override
-    public void claw_raise(double height)
-    {
-    }
-
-    @Override
-    public void claw_stop()
-    {
-    }
-
-    @Override
-    public void claw_wait()
-    {
-    }
-
-    @Override
-    public void beam_open()
-    {
-    }
-
-    @Override
-    public void beam_close()
-    {
-    }
-
-    @Override
-    public void beam_raise()
-    {
-    }
-
-    @Override
-    public void beam_lower()
-    {
-    }
-
-    @Override
-    public void beam_extend(double length)
-    {
-    }
-
-    @Override
-    public void beam_stop()
-    {
-    }
-
-    @Override
-    public void beam_wait()
-    {
-    }
-
-    @Override
-    public int vuforia_read()
-    {
-        int vuforia_result = VUFORIA_CENTER;
-
-        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-        String vumark_position = vuMark.name();
-        if (vumark_position.equalsIgnoreCase("LEFT")) {
-            vuforia_result = VUFORIA_LEFT;
-        } else if (vumark_position.equalsIgnoreCase("CENTER")) {
-            vuforia_result = VUFORIA_CENTER;
-        } else if (vumark_position.equalsIgnoreCase("RIGHT")) {
-            vuforia_result = VUFORIA_RIGHT;
-        }
-
-        return vuforia_result;
-    }
-
-
-    /**************************************************************************
-     *               private support functions for this robot                 *
-     **************************************************************************/
-
-
-    /**************************************************************************
-     *                    drive functions for this robot                      *
-     **************************************************************************/
-
-
-    // locomotion motors
-    private DcMotor port_bow_drive = null;
-    private DcMotor stbd_bow_drive = null;
-    private DcMotor stbd_aft_drive = null;
-    private DcMotor port_aft_drive = null;
-
-    private void init_drive()
-    {
-        if (port_bow_drive == null) {
-            port_bow_drive = hardwareMap.get(DcMotor.class, EagleConfig.PORT_BOW);
-            port_bow_drive.setDirection(DcMotor.Direction.FORWARD);
-            port_bow_drive.setPower(0);
-            port_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            port_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
-
-        if (stbd_bow_drive == null) {
-            stbd_bow_drive = hardwareMap.get(DcMotor.class, EagleConfig.STBD_BOW);
-            stbd_bow_drive.setDirection(DcMotor.Direction.FORWARD);
-            stbd_bow_drive.setPower(0);
-            stbd_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            stbd_bow_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
-
-        if (stbd_aft_drive == null) {
-            stbd_aft_drive = hardwareMap.get(DcMotor.class, EagleConfig.STBD_AFT);
-            stbd_aft_drive.setDirection(DcMotor.Direction.FORWARD);
-            stbd_aft_drive.setPower(0);
-            stbd_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            stbd_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
-
-        if (port_aft_drive == null) {
-            port_aft_drive = hardwareMap.get(DcMotor.class, EagleConfig.PORT_AFT);
-            port_aft_drive.setDirection(DcMotor.Direction.FORWARD);
-            port_aft_drive.setPower(0);
-            port_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            port_aft_drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
     }
 
 
@@ -423,7 +371,6 @@ public class LionRobot extends GriffinRobot {
      *                     claw functions for this robot                      *
      **************************************************************************/
 
-
     // claw and tail servos
     private Servo port_claw = null;
     private Servo stbd_claw = null;
@@ -432,7 +379,8 @@ public class LionRobot extends GriffinRobot {
     private DcMotor lift    = null;
 
     // initialize the claw
-    private void init_claw()
+    @Override
+    public void claw_init()
     {
         port_claw = hardwareMap.get(Servo.class, LionConfig.PORT_CLAW);
         port_claw.setDirection(Servo.Direction.FORWARD);
@@ -447,6 +395,35 @@ public class LionRobot extends GriffinRobot {
         lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
+    @Override
+    public void claw_open()
+    {
+        port_claw.setPosition(LionConfig.PORT_CLAW_OPENED);
+        stbd_claw.setPosition(LionConfig.STBD_CLAW_OPENED);
+    }
+
+    @Override
+    public void claw_close()
+    {
+        port_claw.setPosition(LionConfig.PORT_CLAW_CLOSED);
+        stbd_claw.setPosition(LionConfig.STBD_CLAW_CLOSED);
+    }
+
+    @Override
+    public void claw_raise(double height)
+    {
+    }
+
+    @Override
+    public void claw_stop()
+    {
+    }
+
+    @Override
+    public void claw_wait()
+    {
+    }
+
 
     /**************************************************************************
      *                     tail functions for this robot                      *
@@ -457,11 +434,18 @@ public class LionRobot extends GriffinRobot {
     private Servo tail = null;
 
     // initialize the tail
-    private void init_tail()
+    @Override
+    public void tail_init()
     {
         tail  = hardwareMap.get(Servo.class, LionConfig.TAIL);
         tail.setDirection(Servo.Direction.FORWARD);
     }
+
+    @Override
+    public void tail_raise(double height)
+    {
+    }
+
 
 
     /**************************************************************************
@@ -477,8 +461,95 @@ public class LionRobot extends GriffinRobot {
     private Servo beam_swivel   = null;
 
     // initialize the beam
-    private void init_beam()
+    @Override
+    public void beam_init()
     {
+    }
+
+    @Override
+    public void beam_open()
+    {
+    }
+
+    @Override
+    public void beam_close()
+    {
+    }
+
+    @Override
+    public void beam_raise()
+    {
+    }
+
+    @Override
+    public void beam_lower()
+    {
+    }
+
+    @Override
+    public void beam_extend(double length)
+    {
+    }
+
+    @Override
+    public void beam_stop()
+    {
+    }
+
+    @Override
+    public void beam_wait()
+    {
+    }
+
+
+    /**************************************************************************
+     *                   vuforia functions for this robot                     *
+     **************************************************************************/
+
+
+    // VuForia objects
+    int cameraMonitorViewId = -1;
+    VuforiaLocalizer vuforia = null;
+    VuforiaLocalizer.Parameters vuforia_parameters = null;
+    VuforiaTrackables relicTrackables = null;
+    VuforiaTrackable relicTemplate = null;
+    RelicRecoveryVuMark vuMark = null;
+
+    // initialize the vuforia mechanism
+    @Override
+    public void vuforia_init()
+    {
+        telemetry.addData("Status", "Initializing VuForia.");
+
+        cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+
+        vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        vuforia_parameters.vuforiaLicenseKey = LionConfig.VUFORIA_LICENSE_KEY;
+        vuforia_parameters.cameraDirection = LionConfig.CAMERA_DIRECTION;
+        vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
+        relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
+        relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate");
+
+        relicTrackables.activate();
+    }
+
+    @Override
+    public int vuforia_read()
+    {
+        int vuforia_result = VUFORIA_CENTER;
+
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+        String vumark_position = vuMark.name();
+        if (vumark_position.equalsIgnoreCase("LEFT")) {
+            vuforia_result = VUFORIA_LEFT;
+        } else if (vumark_position.equalsIgnoreCase("CENTER")) {
+            vuforia_result = VUFORIA_CENTER;
+        } else if (vumark_position.equalsIgnoreCase("RIGHT")) {
+            vuforia_result = VUFORIA_RIGHT;
+        }
+
+        return vuforia_result;
     }
 
 
@@ -502,35 +573,7 @@ public class LionRobot extends GriffinRobot {
     AnalogInput stbd_ir_bow = null;
     Distance    ir_v2in     = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
 
-
-    /**************************************************************************
-     *                   vuforia functions for this robot                     *
-     **************************************************************************/
-
-
-    // VuForia objects
-    int cameraMonitorViewId = -1;
-    VuforiaLocalizer vuforia = null;
-    VuforiaLocalizer.Parameters vuforia_parameters = null;
-    VuforiaTrackables relicTrackables = null;
-    VuforiaTrackable relicTemplate = null;
-    RelicRecoveryVuMark vuMark = null;
-
-    // initialize the vuforia mechanism
-    private void init_vuforia()
+    private void init_sensors()
     {
-        telemetry.addData("Status", "Initializing VuForia.");
-
-        cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-
-        vuforia_parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        vuforia_parameters.vuforiaLicenseKey = LionConfig.VUFORIA_LICENSE_KEY;
-        vuforia_parameters.cameraDirection = LionConfig.CAMERA_DIRECTION;
-        vuforia = ClassFactory.createVuforiaLocalizer(vuforia_parameters);
-        relicTrackables = vuforia.loadTrackablesFromAsset("RelicVuMark");
-        relicTemplate = relicTrackables.get(0);
-        relicTemplate.setName("relicVuMarkTemplate");
-
-        relicTrackables.activate();
     }
 }

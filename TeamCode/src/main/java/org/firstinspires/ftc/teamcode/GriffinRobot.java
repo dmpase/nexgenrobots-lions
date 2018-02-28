@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -85,6 +86,9 @@ public abstract class GriffinRobot {
     public static enum Surface {FIELD, TABLE}
 
 
+    // initialize drive motors
+    public abstract void drive_init();
+
     // linear (blocking) op mode functions - autonomous op mode
     //    blocking heading change
     public abstract void set_new_heading(double angle, double power, int tolerance, Surface surface);
@@ -98,7 +102,7 @@ public abstract class GriffinRobot {
     public abstract void turn(double power);
 
     //    non-blocking position change
-    public abstract void move(double bearing, double power);
+    public abstract void move(double bearing, double rotation, double power);
 
     //    set drive motor powers independently
     public abstract void set_drive_power(double port_bow, double stbd_bow, double stbd_aft, double port_aft);
@@ -110,16 +114,25 @@ public abstract class GriffinRobot {
     public static final int PORT_AFT = 3;
     public abstract int[] get_drive_encoders();
 
+
+    // initialize claw motors
     public static final double CLAW_MIN_HEIGHT = 0.0;
     public static final double CLAW_MAX_HEIGHT = 1.0;
+    public abstract void claw_init();
     public abstract void claw_open();
     public abstract void claw_close();
     public abstract void claw_raise(double height);
     public abstract void claw_stop();
     public abstract void claw_wait();
 
+    // initialize tail motors
+    public abstract void tail_init();
+    public abstract void tail_raise(double height);
+
+    // initialize beam motors
     public static final double BEAM_MIN_LENGTH = 0.0;
     public static final double BEAM_MAX_LENGTH = 1.0;
+    public abstract void beam_init();
     public abstract void beam_open();
     public abstract void beam_close();
     public abstract void beam_raise();
@@ -128,6 +141,7 @@ public abstract class GriffinRobot {
     public abstract void beam_stop();
     public abstract void beam_wait();
 
+    public abstract void vuforia_init();
     public abstract int  vuforia_read();
 
     // array indexes into a command array
