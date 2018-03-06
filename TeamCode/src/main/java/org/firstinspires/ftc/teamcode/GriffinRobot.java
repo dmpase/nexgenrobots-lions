@@ -144,6 +144,8 @@ public abstract class GriffinRobot {
     public abstract void vuforia_init();
     public abstract int  vuforia_read();
 
+    public abstract void sensor_init();
+
     // array indexes into a command array
     public static final int OPCODE     = 0;
     public static final int SUBCODE    = 1;

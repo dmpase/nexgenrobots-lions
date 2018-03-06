@@ -749,7 +749,8 @@ public class LionRobot extends GriffinRobot {
     AnalogInput stbd_ir_bow = null;
     Distance    ir_v2in     = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
 
-    private void init_sensors()
+    @Override
+    public void sensor_init()
     {
     }
 }
