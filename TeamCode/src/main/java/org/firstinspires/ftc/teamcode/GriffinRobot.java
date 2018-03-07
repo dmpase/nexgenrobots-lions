@@ -144,7 +144,16 @@ public abstract class GriffinRobot {
     public abstract void vuforia_init();
     public abstract int  vuforia_read();
 
+    //    get color sensor values
+    public static final int ALPHA = 0;
+    public static final int RED   = 1;
+    public static final int GREEN = 2;
+    public static final int BLUE  = 3;
+
     public abstract void sensor_init();
+    public abstract double[] sensor_color();
+    public abstract double[] sensor_down();
+    public abstract double[] sensor_out();
 
     // array indexes into a command array
     public static final int OPCODE     = 0;

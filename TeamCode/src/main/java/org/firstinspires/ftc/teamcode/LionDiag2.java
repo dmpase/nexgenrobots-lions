@@ -68,7 +68,7 @@ public class LionDiag2 extends OpMode {
     }
 
 
-    
+
     private ElapsedTime runtime = new ElapsedTime();
 
     /*

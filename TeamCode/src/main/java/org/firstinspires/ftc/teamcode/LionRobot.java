@@ -29,8 +29,6 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import android.media.MediaPlayer;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -42,6 +40,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
@@ -80,10 +79,12 @@ public class LionRobot extends GriffinRobot {
     public static final String IMU0_NAME            = "imu 0";                  // Hub 2.I2C Bus 0[0].Rev Expansion Hub IMU
 
     //         I2C Bus 1
-    public static final String STBD_MR_RANGE_NAME   = "starboard mr range";     // Hub 2.I2C Bus 1[0].MR Range Sensor
+    public static final String STBD_BOW_MR_RANGE_NAME = "stbd bow mr range";     // Hub 2.I2C Bus 1[0].MR Range Sensor
+    public static final String STBD_AFT_MR_RANGE_NAME = "stbd aft mr range";     // Hub 2.I2C Bus 1[0].MR Range Sensor
 
     //         I2C Bus 2
-    public static final String PORT_MR_RANGE_NAME   = "port mr range";          // Hub 2.I2C Bus 2[0].MR Range Sensor
+    public static final String PORT_BOW_MR_RANGE_NAME = "port bow mr range";     // Hub 2.I2C Bus 2[0].MR Range Sensor
+    public static final String PORT_AFT_MR_RANGE_NAME = "port bow mr range";     // Hub 2.I2C Bus 2[0].MR Range Sensor
 
     //         I2C Bus 3
     public static final String REV_COLOR_RANGE_NAME = "rev color range";        // Hub 2.I2C Bus 3[0].Rev Color/Range Sensor
@@ -735,22 +736,75 @@ public class LionRobot extends GriffinRobot {
 
 
     // Modern Robotics ultrasonic range sensors
-    private DistanceSensor port_mr_range = null;
-    private DistanceSensor stbd_mr_range = null;
+    private DistanceSensor port_bow_mr_range = null;
+    private DistanceSensor stbd_bow_mr_range = null;
+    private DistanceSensor stbd_aft_mr_range = null;
+    private DistanceSensor port_aft_mr_range = null;
 
     // REV Robotics distance/color sensor
     private ColorSensor color_sensor = null;
     private DistanceSensor distance_sensor = null;
 
     // Pololu IR range sensors
-    AnalogInput port_ir_aft = null;
-    AnalogInput stbd_ir_aft = null;
-    AnalogInput port_ir_bow = null;
-    AnalogInput stbd_ir_bow = null;
+    AnalogInput port_aft_ir = null;
+    AnalogInput stbd_aft_ir = null;
+    AnalogInput port_bow_ir = null;
+    AnalogInput stbd_bow_ir = null;
     Distance    ir_v2in     = new Distance(10.616758844230123, -2.625694922444332, 5.292315651154265);
 
     @Override
     public void sensor_init()
     {
+        port_bow_mr_range = hardwareMap.get(DistanceSensor.class, PORT_BOW_MR_RANGE_NAME);
+        stbd_bow_mr_range = hardwareMap.get(DistanceSensor.class, STBD_BOW_MR_RANGE_NAME);
+        stbd_aft_mr_range = hardwareMap.get(DistanceSensor.class, STBD_AFT_MR_RANGE_NAME);
+        port_aft_mr_range = hardwareMap.get(DistanceSensor.class, PORT_AFT_MR_RANGE_NAME);
+
+        color_sensor    = hardwareMap.get(ColorSensor.class,    REV_COLOR_RANGE_NAME);
+        distance_sensor = hardwareMap.get(DistanceSensor.class, REV_COLOR_RANGE_NAME);
+
+        port_bow_ir = hardwareMap.get(AnalogInput.class, PORT_BOW_IR_NAME);
+        stbd_bow_ir = hardwareMap.get(AnalogInput.class, STBD_BOW_IR_NAME);
+        stbd_aft_ir = hardwareMap.get(AnalogInput.class, STBD_AFT_IR_NAME);
+        port_aft_ir = hardwareMap.get(AnalogInput.class, PORT_AFT_IR_NAME);
+    }
+
+    @Override
+    public double[] sensor_color()
+    {
+        double[] rv = new double[4];
+
+        rv[ALPHA] = color_sensor.alpha();
+        rv[RED  ] = color_sensor.red();
+        rv[GREEN] = color_sensor.green();
+        rv[BLUE ] = color_sensor.blue();
+
+        return rv;
+    }
+
+    @Override
+    public double[] sensor_down()
+    {
+        double[] rv = new double[4];
+
+        rv[PORT_BOW] = ir_v2in.distance(port_bow_ir.getVoltage());
+        rv[STBD_BOW] = ir_v2in.distance(stbd_bow_ir.getVoltage());
+        rv[STBD_AFT] = ir_v2in.distance(stbd_aft_ir.getVoltage());
+        rv[PORT_AFT] = ir_v2in.distance(port_aft_ir.getVoltage());
+
+        return rv;
+    }
+
+    @Override
+    public double[] sensor_out()
+    {
+        double[] rv = new double[4];
+
+        rv[PORT_BOW] = port_bow_mr_range.getDistance(DistanceUnit.INCH);
+        rv[STBD_BOW] = stbd_bow_mr_range.getDistance(DistanceUnit.INCH);
+        rv[STBD_AFT] = stbd_aft_mr_range.getDistance(DistanceUnit.INCH);
+        rv[PORT_AFT] = port_aft_mr_range.getDistance(DistanceUnit.INCH);
+
+        return rv;
     }
 }
