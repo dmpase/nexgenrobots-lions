@@ -223,7 +223,7 @@ public class LionRobot extends GriffinRobot {
     public void drive_init()
     {
         if (port_bow_drive == null) {
-            port_bow_drive = hardwareMap.get(DcMotor.class, EagleConfig.PORT_BOW);
+            port_bow_drive = hardwareMap.get(DcMotor.class, PORT_BOW_NAME);
             port_bow_drive.setDirection(DcMotor.Direction.FORWARD);
             port_bow_drive.setPower(0);
             port_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -231,7 +231,7 @@ public class LionRobot extends GriffinRobot {
         }
 
         if (stbd_bow_drive == null) {
-            stbd_bow_drive = hardwareMap.get(DcMotor.class, EagleConfig.STBD_BOW);
+            stbd_bow_drive = hardwareMap.get(DcMotor.class, STBD_BOW_NAME);
             stbd_bow_drive.setDirection(DcMotor.Direction.FORWARD);
             stbd_bow_drive.setPower(0);
             stbd_bow_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -239,7 +239,7 @@ public class LionRobot extends GriffinRobot {
         }
 
         if (stbd_aft_drive == null) {
-            stbd_aft_drive = hardwareMap.get(DcMotor.class, EagleConfig.STBD_AFT);
+            stbd_aft_drive = hardwareMap.get(DcMotor.class, STBD_AFT_NAME);
             stbd_aft_drive.setDirection(DcMotor.Direction.FORWARD);
             stbd_aft_drive.setPower(0);
             stbd_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -247,7 +247,7 @@ public class LionRobot extends GriffinRobot {
         }
 
         if (port_aft_drive == null) {
-            port_aft_drive = hardwareMap.get(DcMotor.class, EagleConfig.PORT_AFT);
+            port_aft_drive = hardwareMap.get(DcMotor.class, PORT_AFT_NAME);
             port_aft_drive.setDirection(DcMotor.Direction.FORWARD);
             port_aft_drive.setPower(0);
             port_aft_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
