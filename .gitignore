@@ -8,7 +8,7 @@ build.common.gradle
 build.gradle
 build/
 doc/
-ftc_app-master.iml
+*.iml
 gradle/
 gradlew
 gradlew.bat
@@ -16,11 +16,9 @@ libs/
 local.properties
 build.gradle
 settings.gradle
-nexgenrobots-lions.iml
 TeamCode.iml
 build.release.gradle
 src/
-TeamCode/TeamCode.iml
 TeamCode/build
 TeamCode/build.gradle
 TeamCode/build.release.gradle
